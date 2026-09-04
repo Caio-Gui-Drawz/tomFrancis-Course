@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb455e79a78b39b41b280acb1d8c6c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playerBehavior
+  speed: 10
+  bulletPrefab: {fileID: 2130231710345715018, guid: efc210fa7c338d9499ce52a64084b478, type: 3}
 --- !u!65 &426483719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -341,7 +343,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426483717}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &426483722
 Transform:
   m_ObjectHideFlags: 0
@@ -570,8 +572,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145292224}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.28387004, y: 0.63781655, z: -0.2736656, w: -0.6616004}
-  m_LocalPosition: {x: 15.657027, y: 14.271903, z: 0.69907314}
+  m_LocalRotation: {x: -0.51439846, y: -0.0033474565, z: 0.0020071901, w: -0.85754246}
+  m_LocalPosition: {x: 2.2640784, y: 31.71236, z: -18.835125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
