@@ -19,19 +19,23 @@ public class playerBehavior : MonoBehaviour
 
 
     //WASD to move
-      float maxDistanceToMove = Time.deltaTime * speed;
+
+    //Find the new position we'll move to 
+    float maxDistanceToMove = Time.deltaTime * speed;
     Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));    //vetor que usa os inputs aplicados no axis 
-    Vector3 movementVector = new inputVector * maxDistanceToMove;    // valor do axis (quanto e em qual direção o player aponta) e a distancia máxima que ele pode se mover no jogo.
+    Vector3 movementVector = inputVector * maxDistanceToMove;    // valor do axis (quanto e em qual direção o player aponta) e a distancia máxima que ele pode se mover no jogo.
     Vector3 newPosition = transform.position + movementVector;
-       Debug.Log(Input.GetAxis("Vertical"));
-
-       transform.position += Vector3.forward *  maxDistanceToMove;
-       transform.position += Vector3.right *  maxDistanceToMove;
-
+       
+        transform.LookAt(newPosition);           //face our new position  
+        transform.position = newPosition;   //actually move there
+          
     //Click to fire
     if (Input.GetButton("Fire1"))
         {
-         Instantiate(bulletPrefab, transform.position, transform.rotation);
+
+            //cria a bala na posição do player mas com um offset para frente, para não colidir com o player
+            //pega o "forward" do transform do player e soma isso com a posicao do player adcionando 1 unidade na frente
+         Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
         }
     
     }
