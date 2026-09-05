@@ -20,14 +20,17 @@ public class playerBehavior : MonoBehaviour
 
     //WASD to move
 
+     Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));    //vetor que usa os inputs aplicados no axis 
+    Rigidbody ourRigidbody = GetComponent<Rigidbody>();
+    ourRigidbody.linearVelocity = inputVector * speed;
+
     //Find the new position we'll move to 
-    float maxDistanceToMove = Time.deltaTime * speed;
-    Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));    //vetor que usa os inputs aplicados no axis 
-    Vector3 movementVector = inputVector * maxDistanceToMove;    // valor do axis (quanto e em qual direção o player aponta) e a distancia máxima que ele pode se mover no jogo.
-    Vector3 newPosition = transform.position + movementVector;
+
+     Vector3 lookAtPosition = transform.position + inputVector;
        
-        transform.LookAt(newPosition);           //face our new position  
-        transform.position = newPosition;   //actually move there
+        transform.LookAt(lookAtPosition);           //face our new position  
+
+    //  transform.position = newPosition;   //actually move there //registro para mostrar em RM
           
     //Click to fire
     if (Input.GetButton("Fire1"))
