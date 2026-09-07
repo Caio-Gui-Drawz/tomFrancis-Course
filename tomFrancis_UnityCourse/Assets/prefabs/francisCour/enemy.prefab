@@ -170,4 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::healthSystem
-  health: 1
+  maxHealth: 2
+  healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
+  healthBarOffset: 1.5

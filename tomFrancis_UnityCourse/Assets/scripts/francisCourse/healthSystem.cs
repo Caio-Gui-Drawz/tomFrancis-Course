@@ -7,7 +7,7 @@ public class healthSystem : MonoBehaviour
 
      [FormerlySerializedAs("health")] // we write this to tell unity not to lose our data when we rename a variable. This was its old name.
     public float maxHealth;
-    public float currentHealth;
+    float currentHealth;
     public GameObject healthBarPrefab;
     public float healthBarOffset = 1.5f;
 
@@ -16,6 +16,7 @@ public class healthSystem : MonoBehaviour
      // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentHealth = maxHealth;
         //Create our health panel ON the canvas
         GameObject healthBarObject = Instantiate(healthBarPrefab, references.Canvas.transform);
         myHealthBar = healthBarObject.GetComponent<healthBarBehavior>();
@@ -23,11 +24,20 @@ public class healthSystem : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
-        maxHealth -= damageAmount;
-        if (maxHealth <= 0)
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (myHealthBar != null)
+        {
+           Destroy(myHealthBar.gameObject); 
+        }
+        
     }
    
 
@@ -35,7 +45,7 @@ public class healthSystem : MonoBehaviour
     void Update()
     {
         //Make our healthbar reflect our health - myHealthBar.ShowHealth();
-        myHealthBar.ShowHealthFraction(maxHealth);
+        myHealthBar.ShowHealthFraction(currentHealth / maxHealth);
 
         
         //Make our healthbar follow us - move ir to our current position
