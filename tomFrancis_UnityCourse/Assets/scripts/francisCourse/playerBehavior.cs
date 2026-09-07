@@ -23,8 +23,15 @@ public class playerBehavior : MonoBehaviour
     Rigidbody ourRigidbody = GetComponent<Rigidbody>();
     ourRigidbody.linearVelocity = inputVector * speed;
 
+
+    // Fazer os tiros irem na direção do mouse
+    Ray rayFromCameraToCursor = Camera.main.ScreenPointToRay(Input.mousePosition); //cria um raio que vai da camera até o cursor do mouse
+    Plane playerPlane = new Plane(Vector3.up, transform.position);
+    playerPlane.Raycast (rayFromCameraToCursor, out float distanceFromCamera);
+    Vector3 cursorPosition = rayFromCameraToCursor.GetPoint(distanceFromCamera); //pega a posição do cursor no plano do player
+
     //face our new position  
-    Vector3 lookAtPosition = transform.position + inputVector;
+    Vector3 lookAtPosition = cursorPosition;
        
     transform.LookAt(lookAtPosition);        
 
