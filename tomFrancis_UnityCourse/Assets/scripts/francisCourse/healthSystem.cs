@@ -11,6 +11,9 @@ public class healthSystem : MonoBehaviour
     public GameObject healthBarPrefab;
     public float healthBarOffset = 1.5f;
 
+    public GameObject deathEffectPrefab;
+
+
     healthBarBehavior myHealthBar;
 
      // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,11 +30,16 @@ public class healthSystem : MonoBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
+            if (deathEffectPrefab != null)
+            {
+                Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+            }
             Destroy(gameObject); 
         }
     }
 
     private void OnDestroy()
+    // Dont create anything in the OnDestroy event - its only for cleaning up after yourself. 
     {
         if (myHealthBar != null)
         {
