@@ -17,6 +17,7 @@ public class playerBehavior : MonoBehaviour
 
 
         secondsSinceLastShot = fireRate; //inicia podendo atirar
+        references.thePlayer = gameObject; //guarda a referencia do player na classe references, para que outros scripts possam acessar o player
 
     }
 

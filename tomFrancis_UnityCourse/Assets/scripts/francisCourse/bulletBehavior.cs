@@ -22,7 +22,7 @@ public class bulletBehavior : MonoBehaviour
 
         if (secondsUntilDestroy <1)
         {
-            transform.localScale *= secondsUntilDestroy; //como o tempo está diminuindo, se multiplicar esse valor pela escala do objeto, ele vai diminuir.
+            transform.localScale *= secondsUntilDestroy; //como o tempo está diminuindo, se multiplicar esse valor pela escala do objeto, ele vai diminuir
         }
 
 
