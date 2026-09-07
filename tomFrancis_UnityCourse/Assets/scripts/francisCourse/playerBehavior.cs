@@ -25,7 +25,8 @@ public class playerBehavior : MonoBehaviour
     void Update()
     {
 
-
+    Debug.Log("player health: " + GetComponent<healthSystem>().health);
+    
     //WASD to move
     Vector3 inputVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));    //vetor que usa os inputs aplicados no axis 
     Rigidbody ourRigidbody = GetComponent<Rigidbody>();

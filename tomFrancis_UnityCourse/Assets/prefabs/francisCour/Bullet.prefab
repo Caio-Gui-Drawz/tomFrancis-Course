@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::bulletBehavior
   bulletSpeed: 40
   secondsUntilDestroy: 4
+  damage: 1
 --- !u!54 &8635372139475681395
 Rigidbody:
   m_ObjectHideFlags: 0

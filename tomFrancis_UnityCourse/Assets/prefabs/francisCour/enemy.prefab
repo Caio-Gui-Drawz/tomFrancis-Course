@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 458029779880860158}
   - component: {fileID: 3159801103903697705}
   - component: {fileID: 642018154742203990}
+  - component: {fileID: 1432311644537994271}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -128,8 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa382f0283e8e042a876fd5cd2424fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyBehavior
-  player: {fileID: 0}
   speed: 5
+  damage: 1
 --- !u!54 &642018154742203990
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -157,3 +158,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1432311644537994271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444962412639321667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
+  health: 1
