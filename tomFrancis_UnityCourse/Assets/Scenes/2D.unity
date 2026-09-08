@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &854414914
 Transform:
   m_ObjectHideFlags: 0
@@ -735,7 +735,7 @@ MonoBehaviour:
   UnloadEvent: 2
   Banks: []
   CollisionTag: 
-  PreloadSamples: 0
+  PreloadSamples: 1
 --- !u!4 &1825888473
 Transform:
   m_ObjectHideFlags: 0
