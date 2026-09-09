@@ -16,6 +16,8 @@ public class Player2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Firing
         secondsSinceLastShot += Time.deltaTime; //vai aumentar esse valor todo segundo ate chegar no fireRate, ai o player vai poder atirar de novo
         
     if (secondsSinceLastShot >= fireRate && Input.GetButton("Fire1"))
@@ -27,8 +29,20 @@ public class Player2D : MonoBehaviour
 
          secondsSinceLastShot = 0; //reseta o contador de tempo para o próximo tiro
         }
+
+        //Face mouse
+   Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = 0;
+
+    Vector2 direction = mousePosition - transform.position;
+
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+    transform.rotation = Quaternion.Euler(0, 0, angle);
     
     }
+
+
 }
 
 
