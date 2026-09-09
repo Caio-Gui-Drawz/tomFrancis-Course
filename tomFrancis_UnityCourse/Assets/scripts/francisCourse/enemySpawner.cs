@@ -4,9 +4,12 @@ public class enemySpawner : MonoBehaviour
 {
 public GameObject enemyPrefab;
 public GameObject spawnPoint;
-
 public float secondsBetweenSpawns;
 float secondsSinceLastSpawn;
+
+
+
+
 
 
     
@@ -23,6 +26,9 @@ float secondsSinceLastSpawn;
         secondsSinceLastSpawn += Time.fixedDeltaTime;
         if (secondsSinceLastSpawn >= secondsBetweenSpawns)
         {
+        
+
+            //cria o inimigo usando essa rotação
             Instantiate(enemyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
             secondsSinceLastSpawn = 0;
         }
