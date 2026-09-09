@@ -572,7 +572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 662270709}
+  - {fileID: 1440122832}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &426483723
@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::healthSystem
   maxHealth: 10
+  currentHealth: 0
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 1.5
   deathEffectPrefab: {fileID: 0}
@@ -791,8 +792,9 @@ GameObject:
   - component: {fileID: 662270708}
   - component: {fileID: 662270707}
   - component: {fileID: 662270706}
+  - component: {fileID: 662270710}
   m_Layer: 0
-  m_Name: playerFace
+  m_Name: weaponVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,12 +887,26 @@ Transform:
   m_GameObject: {fileID: 662270705}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.034, y: 0.19599998, z: 0.515}
-  m_LocalScale: {x: 0.6623931, y: 0.5290579, z: 0.51840544}
+  m_LocalPosition: {x: 0.034, y: 0.19599998, z: 0.714}
+  m_LocalScale: {x: 0.6623931, y: 0.28066522, z: 1.3224523}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 426483722}
+  m_Father: {fileID: 1440122832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &662270710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662270705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1365d8b24eed167458cbca64cd8910cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::weaponBehavior
+  bulletPrefab: {fileID: 0}
+  fireRate: 0
 --- !u!1 &957786351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,6 +1388,53 @@ Transform:
   - {fileID: 957786352}
   m_Father: {fileID: 341057469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1440122831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1440122832}
+  - component: {fileID: 1440122833}
+  m_Layer: 0
+  m_Name: weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1440122832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440122831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 662270709}
+  m_Father: {fileID: 426483722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1440122833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440122831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1365d8b24eed167458cbca64cd8910cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::weaponBehavior
+  bulletPrefab: {fileID: 2130231710345715018, guid: efc210fa7c338d9499ce52a64084b478, type: 3}
+  fireRate: 0.2
 --- !u!1 &1446751143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,6 +1732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::healthSystem
   maxHealth: 5
+  currentHealth: 0
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 1.5
   deathEffectPrefab: {fileID: 0}
