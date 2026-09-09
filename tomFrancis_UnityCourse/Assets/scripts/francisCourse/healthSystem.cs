@@ -27,7 +27,7 @@ public class healthSystem : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
-        Debug.Log("taking damage: " + damageAmount);
+       
         if (currentHealth > 0)
         { 
             currentHealth -= damageAmount;
