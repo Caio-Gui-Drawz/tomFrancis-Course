@@ -7,7 +7,7 @@ public class healthSystem : MonoBehaviour
 
      [FormerlySerializedAs("health")] // we write this to tell unity not to lose our data when we rename a variable. This was its old name.
     public float maxHealth;
-    float currentHealth;
+    public float currentHealth;
     public GameObject healthBarPrefab;
     public float healthBarOffset = 1.5f;
 
