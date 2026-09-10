@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa382f0283e8e042a876fd5cd2424fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyBehavior
-  speed: 5
+  speed: 10
   damage: 1
 --- !u!114 &1432311644537994271
 MonoBehaviour:
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::healthSystem
   maxHealth: 2
+  currentHealth: 0
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 1.5
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}

@@ -45,7 +45,7 @@ public class playerBehavior : MonoBehaviour
     if (Input.GetButton("Fire1"))
         {
             //Tell our weapon to fire
-            myWeapon.Fire();
+            myWeapon.Fire(cursorPosition); 
 
         }
     

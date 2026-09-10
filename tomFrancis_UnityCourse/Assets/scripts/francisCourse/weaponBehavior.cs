@@ -4,8 +4,11 @@ public class weaponBehavior : MonoBehaviour
 {
 
      public GameObject bulletPrefab;
+     public float accuracy;
 
       public float fireRate; //how many seconds between shots 
+      public float numberOfProjectiles;
+      public GameObject bulletSpawnPoint;
 
       float secondsSinceLastShot;
 
@@ -26,16 +29,31 @@ public class weaponBehavior : MonoBehaviour
 
     }
 
-    public void Fire()
+    public void Fire(Vector3 targetPosition)
     {
           if (secondsSinceLastShot >= fireRate)
+       {
+          //ready to fire
+        for (
+        int iterationCount = 0;  //Declare a variable to keep track of how many iterations we've done
+        iterationCount < numberOfProjectiles; // set a limit for how high this variable can go
+        iterationCount++ //run this after each time we iterate - increase the iteration count.
+        )
         {
 
-            //cria a bala na posição do player mas com um offset para frente, para não colidir com o player
-            //pega o "forward" do transform do player e soma isso com a posicao do player adcionando 1 unidade na frente
-         Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation);
+          
+        GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
+        //Offset that target position by a random amount, according to our inaccuracy.
+        float inaccuracy = Vector3.Distance(transform.position, targetPosition) / accuracy; 
+        targetPosition.x += Random.Range(-inaccuracy, inaccuracy);
+        targetPosition.z += Random.Range(-inaccuracy, inaccuracy);
+        newBullet.transform.LookAt(targetPosition);
+        
+      
+        secondsSinceLastShot = 0; //reseta o contador de tempo para o próximo tiro
+        newBullet.name = iterationCount.ToString();
 
-         secondsSinceLastShot = 0; //reseta o contador de tempo para o próximo tiro
+         }
         }
-    }
+  }
 }
