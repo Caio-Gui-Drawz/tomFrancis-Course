@@ -907,6 +907,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   accuracy: 0
   fireRate: 0
+  numberOfProjectiles: 0
   bulletSpawnPoint: {fileID: 0}
 --- !u!1 &957786351
 GameObject:
@@ -1469,6 +1470,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2130231710345715018, guid: efc210fa7c338d9499ce52a64084b478, type: 3}
   accuracy: 10
   fireRate: 0.05
+  numberOfProjectiles: 3
   bulletSpawnPoint: {fileID: 1180202748}
 --- !u!1 &1446751143
 GameObject:
