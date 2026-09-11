@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerBehavior : MonoBehaviour
@@ -6,12 +6,15 @@ public class playerBehavior : MonoBehaviour
  
       //Never set the value of a public variable here - the inspector will override it without telling you 
       public float speed;
-      public weaponBehavior myWeapon; 
+      public List<weaponBehavior> weapons = new List<weaponBehavior>();
+      public int selectedWeaponIndex;
+
 
     void Start()
     {
-
+        
         references.thePlayer = gameObject; //guarda a referencia do player na classe references, para que outros scripts possam acessar o player
+        selectedWeaponIndex = 0;
 
     }
 
@@ -42,12 +45,67 @@ public class playerBehavior : MonoBehaviour
           
     //Firing
     
-    if (Input.GetButton("Fire1"))
+    if (weapons.Count > 0 && Input.GetButton("Fire1"))
         {
             //Tell our weapon to fire
-            myWeapon.Fire(cursorPosition); 
+            weapons[selectedWeaponIndex].Fire(cursorPosition); 
 
         }
     
+
+    //change weapon
+    
+    if (Input.GetButtonDown("Fire2"))
+        {
+            ChangeWeaponIndex(selectedWeaponIndex +1 );
+
+        }
     }
+
+
+    private void ChangeWeaponIndex(int index)
+    {
+        //change our index
+         selectedWeaponIndex = index;
+        //fi its gone to far, loop back around
+        if (selectedWeaponIndex >= weapons.Count)
+        {
+            selectedWeaponIndex = 0;
+        }
+
+        //For each weapon in our list, 
+         for (
+        int i = 0;  //Declare a variable to keep track of how many iterations we've done
+        i < weapons.Count; // set a limit for how high this variable can go
+        i++ //run this after each time we iterate - increase the iteration count.
+        )
+        {
+            if (i == selectedWeaponIndex) 
+            {
+                //if its the one we just selected, enable it, else disable it
+                weapons[i].gameObject.SetActive(true);
+            } else
+            {
+                weapons[i].gameObject.SetActive(false);
+            }
+        }
+
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        weaponBehavior theirWeapon = other.GetComponentInParent<weaponBehavior>();
+        if (theirWeapon != null)
+        {
+            weapons.Add(theirWeapon);
+            theirWeapon.transform.SetParent(transform);
+            theirWeapon.transform.position = transform.position;
+            theirWeapon.transform.rotation = transform.rotation;
+            ChangeWeaponIndex(weapons.Count - 1);
+            
+        }
+    }  
+    
 }

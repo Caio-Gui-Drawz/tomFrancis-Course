@@ -45,9 +45,10 @@ public class weaponBehavior : MonoBehaviour
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
         //Offset that target position by a random amount, according to our inaccuracy.
         float inaccuracy = Vector3.Distance(transform.position, targetPosition) / accuracy; 
-        targetPosition.x += Random.Range(-inaccuracy, inaccuracy);
-        targetPosition.z += Random.Range(-inaccuracy, inaccuracy);
-        newBullet.transform.LookAt(targetPosition);
+        Vector3 inaccuratePosition = targetPosition;
+        inaccuratePosition.x += Random.Range(-inaccuracy, inaccuracy);
+        inaccuratePosition.z += Random.Range(-inaccuracy, inaccuracy);
+        newBullet.transform.LookAt(inaccuratePosition);
         
       
         secondsSinceLastShot = 0; //reseta o contador de tempo para o próximo tiro
