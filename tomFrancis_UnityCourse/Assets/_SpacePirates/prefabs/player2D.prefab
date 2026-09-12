@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593807810075358431}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8348015622701823067}
   - component: {fileID: 6078121818355005311}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3735024742725915593}
   - component: {fileID: 7378113396573446395}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: playerGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 5599936717018119835}
   - component: {fileID: 1695486249083806387}
   - component: {fileID: 6105068529054785425}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: player2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

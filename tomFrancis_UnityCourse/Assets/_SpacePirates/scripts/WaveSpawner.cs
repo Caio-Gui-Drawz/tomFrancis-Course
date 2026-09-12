@@ -7,9 +7,16 @@ public class SpawnEntry
     public float weight; // chance relativa de aparecer (não precisa somar 100)
 }
 
+[System.Serializable]
+public class SpawnPointConfig
+{
+    public Transform point;
+    public SpawnEntry[] spawnables; // o que PODE nascer especificamente neste ponto
+}
+
 public class WaveSpawner : MonoBehaviour
 {
-    public SpawnEntry[] spawnables;
+    public SpawnPointConfig[] spawnPointConfigs;
     public float secondsBetweenSpawns;
     public float minAngle, maxAngle;
     float secondsSinceLastSpawn;
@@ -34,34 +41,37 @@ public class WaveSpawner : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canSpawn) return;
+        if (spawnPointConfigs == null || spawnPointConfigs.Length == 0) return;
 
         secondsSinceLastSpawn += Time.fixedDeltaTime;
         if (secondsSinceLastSpawn < secondsBetweenSpawns) return;
 
-        GameObject chosen = PickWeighted();
+        SpawnPointConfig chosenConfig = spawnPointConfigs[Random.Range(0, spawnPointConfigs.Length)];
+        GameObject chosen = PickWeighted(chosenConfig.spawnables);
         if (chosen == null) return;
 
+        Transform spawnPoint = chosenConfig.point != null ? chosenConfig.point : transform;
         float randomAngle = Random.Range(minAngle, maxAngle);
-        Quaternion finalRotation = transform.rotation * Quaternion.Euler(0, 0, randomAngle);
-        Instantiate(chosen, transform.position, finalRotation);
+        Quaternion finalRotation = spawnPoint.rotation * Quaternion.Euler(0, 0, randomAngle);
+        Instantiate(chosen, spawnPoint.position, finalRotation);
 
         secondsSinceLastSpawn = 0;
     }
 
-    GameObject PickWeighted()
+    GameObject PickWeighted(SpawnEntry[] entries)
     {
-        if (spawnables == null || spawnables.Length == 0) return null;
+        if (entries == null || entries.Length == 0) return null;
 
         float totalWeight = 0;
-        foreach (var entry in spawnables) totalWeight += entry.weight;
+        foreach (var entry in entries) totalWeight += entry.weight;
 
         float roll = Random.Range(0, totalWeight);
         float cumulative = 0;
-        foreach (var entry in spawnables)
+        foreach (var entry in entries)
         {
             cumulative += entry.weight;
             if (roll <= cumulative) return entry.prefab;
         }
-        return spawnables[spawnables.Length - 1].prefab; // fallback de segurança
+        return entries[entries.Length - 1].prefab;
     }
 }

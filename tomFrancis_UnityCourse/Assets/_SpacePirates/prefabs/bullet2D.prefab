@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4733478445832377175}
   - component: {fileID: 3640802471804579802}
   - component: {fileID: -2766745714244001305}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bullet2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.9128059, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.97205925, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e6d00bc4f34264b81458ae83f30c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::bullet2D
-  bulletSpeed: 20
+  bulletSpeed: 30
   damage: 1
   secondsUntilDestroy: 5
 --- !u!58 &-2766745714244001305

@@ -2,47 +2,49 @@ using UnityEngine;
 
 public class Player2D : MonoBehaviour
 {
-
     public GameObject bulletPrefab;
-    public float fireRate; //how many seconds between shots 
+    public float fireRate; // segundos entre tiros
     float secondsSinceLastShot;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    bool canAct;
+
+    void OnEnable()
+    {
+        GameManager.Instance.OnStateChanged += HandleStateChanged;
+    }
+
+    void OnDisable()
+    {
+        GameManager.Instance.OnStateChanged -= HandleStateChanged;
+    }
+
+    void HandleStateChanged(GameState newState)
+    {
+        canAct = (newState == GameState.Playing);
+    }
+
     void Start()
     {
-        
+        references.thePlayer = gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!canAct) return;
 
-        //Firing
-        secondsSinceLastShot += Time.deltaTime; //vai aumentar esse valor todo segundo ate chegar no fireRate, ai o player vai poder atirar de novo
-        
-    if (secondsSinceLastShot >= fireRate && Input.GetButton("Fire1"))
+        // Atirar
+        secondsSinceLastShot += Time.deltaTime;
+        if (secondsSinceLastShot >= fireRate && Input.GetButton("Fire1"))
         {
-
-            //cria a bala na posição do player mas com um offset para frente, para não colidir com o player
-            //pega o "forward" do transform do player e soma isso com a posicao do player adcionando 1 unidade na frente
-         Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
-
-         secondsSinceLastShot = 0; //reseta o contador de tempo para o próximo tiro
+            Instantiate(bulletPrefab, transform.position + transform.right, transform.rotation);
+            secondsSinceLastShot = 0;
         }
 
-        //Face mouse
-   Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    mousePosition.z = 0;
-
-    Vector2 direction = mousePosition - transform.position;
-
-    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-    transform.rotation = Quaternion.Euler(0, 0, angle);
-    
+        // Virar de frente pro mouse
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        Vector2 direction = mousePosition - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-
-
 }
-
-

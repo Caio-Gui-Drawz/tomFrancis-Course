@@ -29,12 +29,5 @@ public class explosionBehavior : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        healthSystem theirHealthSystem = other.gameObject.GetComponent<healthSystem>();
-        if (theirHealthSystem != null)
-        {
-            theirHealthSystem.TakeDamage(10);
-        }
-    }
+   
 }
