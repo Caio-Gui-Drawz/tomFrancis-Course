@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3459606683554986946}
   - component: {fileID: 229285117314006186}
-  - component: {fileID: 706158519920592932}
-  - component: {fileID: 1274833584900650299}
   - component: {fileID: 8081135676893293213}
   - component: {fileID: 1153122307112349473}
-  - component: {fileID: 9144426190866745933}
-  - component: {fileID: 1519799786556314537}
+  - component: {fileID: 706158519920592932}
+  - component: {fileID: 1274833584900650299}
+  - component: {fileID: 5424197058285939121}
+  - component: {fileID: 4573166898147798780}
   m_Layer: 0
   m_Name: treasure
   m_TagString: Untagged
@@ -97,36 +97,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &706158519920592932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2839716671122140853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
-  maxHealth: 1
-  currentHealth: 0
-  healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
-  healthBarOffset: 1.5
-  deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
---- !u!114 &1274833584900650299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2839716671122140853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04c22d4a2461a3468f2b60400651a1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TreasureReward
-  scoreValue: 10
 --- !u!50 &8081135676893293213
 Rigidbody2D:
   serializedVersion: 5
@@ -184,13 +154,56 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.1
---- !u!114 &9144426190866745933
+--- !u!114 &706158519920592932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839716671122140853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
+  maxHealth: 1
+  currentHealth: 0
+  healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
+  healthBarOffset: 1.5
+  deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
+--- !u!114 &1274833584900650299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839716671122140853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04c22d4a2461a3468f2b60400651a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreasureReward
+  scoreValue: 10
+--- !u!114 &5424197058285939121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839716671122140853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4692482a4bdad46934496af5bac690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledObject
+  sourcePrefab: {fileID: 0}
+--- !u!114 &4573166898147798780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,16 +215,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa51a2cf6ae5646b0cc8761cc5cfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
---- !u!114 &1519799786556314537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2839716671122140853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269c4d49af1334f4c8008bee07fe7f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StraightMovement
-  speed: 5

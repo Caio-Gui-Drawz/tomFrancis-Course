@@ -53,7 +53,7 @@ public class WaveSpawner : MonoBehaviour
         Transform spawnPoint = chosenConfig.point != null ? chosenConfig.point : transform;
         float randomAngle = Random.Range(minAngle, maxAngle);
         Quaternion finalRotation = spawnPoint.rotation * Quaternion.Euler(0, 0, randomAngle);
-        Instantiate(chosen, spawnPoint.position, finalRotation);
+        PoolManager.Instance.Get(chosen, spawnPoint.position, finalRotation);
 
         secondsSinceLastSpawn = 0;
     }

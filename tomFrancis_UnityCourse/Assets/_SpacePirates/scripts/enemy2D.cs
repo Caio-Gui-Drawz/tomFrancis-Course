@@ -2,40 +2,18 @@ using UnityEngine;
 
 public class enemy2D : MonoBehaviour
 {
-
     public float damage;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    
-    }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-     private void OnCollisionEnter2D(Collision2D thisCollision)
-    {
-        
-        GameObject theirGameObject = thisCollision.gameObject; //objeto que bateu no collider da bala.
-        if (theirGameObject.GetComponent<Player2D>() != null)
-        
+        if (other.GetComponent<Player2D>() != null)
         {
-        
-        
-        healthSystem theirHealthSystem = theirGameObject.GetComponent<healthSystem>();
-
-        if (theirHealthSystem != null)
-
-        {
-           
-        theirHealthSystem.TakeDamage(damage); 
-        }
-        
-
+            healthSystem theirHealthSystem = other.GetComponent<healthSystem>();
+            if (theirHealthSystem != null)
+            {
+                theirHealthSystem.TakeDamage(damage);
+            }
         }
     }
+    
 }

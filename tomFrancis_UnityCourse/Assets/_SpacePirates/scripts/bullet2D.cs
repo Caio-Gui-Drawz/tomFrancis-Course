@@ -4,30 +4,40 @@ public class bullet2D : MonoBehaviour
 {
     public float bulletSpeed;
     public float damage;
-    public float secondsUntilDestroy;
+    public float secondsUntilDestroy; // tempo de vida configurado no Inspector
 
-    void Start()
+    float secondsRemaining;
+    Vector3 initialScale;
+
+    void Awake()
     {
+        initialScale = transform.localScale;
+    }
+
+    void OnEnable()
+    {
+        secondsRemaining = secondsUntilDestroy;
+        transform.localScale = initialScale;
+
         Rigidbody2D ourRigidbody = GetComponent<Rigidbody2D>();
         ourRigidbody.linearVelocity = transform.right * bulletSpeed;
     }
 
     void Update()
     {
-        secondsUntilDestroy -= Time.deltaTime;
+        secondsRemaining -= Time.deltaTime;
 
-        if (secondsUntilDestroy < 1)
+        if (secondsRemaining < 1)
         {
-            transform.localScale *= secondsUntilDestroy;
+            transform.localScale = initialScale * Mathf.Max(secondsRemaining, 0);
         }
 
-        if (secondsUntilDestroy <= 0)
+        if (secondsRemaining <= 0)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.Return(gameObject);
         }
     }
 
-    // Cobre os dois casos: collider do alvo configurado como Trigger, ou como colisor solido normal.
     void OnTriggerEnter2D(Collider2D other) => HandleHit(other.gameObject);
     void OnCollisionEnter2D(Collision2D collision) => HandleHit(collision.gameObject);
 
@@ -37,7 +47,7 @@ public class bullet2D : MonoBehaviour
         if (theirHealthSystem != null)
         {
             theirHealthSystem.TakeDamage(damage);
-            Destroy(gameObject);
+            PoolManager.Instance.Return(gameObject);
         }
     }
 }

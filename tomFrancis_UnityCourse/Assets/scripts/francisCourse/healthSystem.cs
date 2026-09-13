@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class healthSystem : MonoBehaviour
 {
-    [FormerlySerializedAs("health")]
     public float maxHealth;
     public float currentHealth;
 
@@ -12,20 +10,24 @@ public class healthSystem : MonoBehaviour
 
     public GameObject deathEffectPrefab;
 
-    // Avisa quem estiver inscrito que esta entidade morreu, sem decidir sozinho o que isso significa
-    // (pontos, upgrade, ou nada — quem escuta decide).
+    // Avisa quem estiver inscrito que esta entidade morreu, sem decidir sozinho o que isso significa.
     public event System.Action OnDeath;
 
     healthBarBehavior myHealthBar;
 
-    void Start()
+    void OnEnable()
     {
         currentHealth = maxHealth;
 
-        if (healthBarPrefab != null && references.Canvas != null)
+        if (healthBarPrefab != null && references.Canvas != null && myHealthBar == null)
         {
             GameObject healthBarObject = Instantiate(healthBarPrefab, references.Canvas.transform);
             myHealthBar = healthBarObject.GetComponent<healthBarBehavior>();
+        }
+
+        if (myHealthBar != null)
+        {
+            myHealthBar.gameObject.SetActive(true);
         }
     }
 
@@ -43,22 +45,22 @@ public class healthSystem : MonoBehaviour
             }
 
             OnDeath?.Invoke();
-            Destroy(gameObject);
+            PoolManager.Instance.Return(gameObject);
         }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
-        // Nunca criar nada aqui, é só limpeza.
+        // Esconde a barra em vez de destruir — evita instanciar/destruir de novo a cada reuso do pool.
         if (myHealthBar != null)
         {
-            Destroy(myHealthBar.gameObject);
+            myHealthBar.gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        if (myHealthBar == null) return; // sem barra atribuída, não faz nada
+        if (myHealthBar == null) return;
 
         myHealthBar.ShowHealthFraction(currentHealth / maxHealth);
         myHealthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * healthBarOffset);
