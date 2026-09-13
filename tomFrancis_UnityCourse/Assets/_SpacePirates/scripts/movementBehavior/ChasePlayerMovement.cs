@@ -6,13 +6,19 @@ using UnityEngine;
 public class ChasePlayerMovement : MonoBehaviour
 {
     public float speed;
+    private Vector3 offset;
+    public Vector2 offsetRange;
 
+    void OnEnable()
+    {
+        offset = new Vector3(Random.Range(offsetRange.x, offsetRange.y), 0, Random.Range(offsetRange.x, offsetRange.y));
+    }
     void Update()
     {
         if (references.thePlayer == null) return;
 
         Rigidbody2D ourRigidbody = GetComponent<Rigidbody2D>();
-        Vector2 vectorToPlayer = references.thePlayer.transform.position - transform.position;
+        Vector2 vectorToPlayer = references.thePlayer.transform.position + offset - transform.position;
         ourRigidbody.linearVelocity = vectorToPlayer.normalized * speed;
     }
 }

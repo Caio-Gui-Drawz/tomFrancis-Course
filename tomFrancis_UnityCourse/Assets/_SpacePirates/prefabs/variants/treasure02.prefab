@@ -106,3 +106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StraightMovement
   speed: 8
+  offsetRange: {x: -1, y: 1}
+  direction: {x: -1, y: 1}
