@@ -12,6 +12,7 @@ public class enemy2D : MonoBehaviour
             if (theirHealthSystem != null)
             {
                 theirHealthSystem.TakeDamage(damage);
+                gameObject.SetActive(false);
             }
         }
     }
