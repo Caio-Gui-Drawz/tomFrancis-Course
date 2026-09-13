@@ -153,7 +153,8 @@ MonoBehaviour:
   - {fileID: 266124927}
   - {fileID: 1938815160}
   - {fileID: 1554308291}
-  - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!4 &218794652
 Transform:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218794650}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -321,6 +322,8 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 1554308291}
   - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!1 &801789442
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +372,8 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 1554308291}
   - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!1 &854414913
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +902,8 @@ MonoBehaviour:
   prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
   allowedSpawnPoints:
   - {fileID: 1938815160}
-  - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!1 &1265814518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1348,7 @@ Transform:
   m_GameObject: {fileID: 1515917822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.73, y: -7.11, z: 0}
+  m_LocalPosition: {x: 9.8, y: -5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1411,26 +1417,26 @@ MonoBehaviour:
   spawnerRanges:
   - spawner: {fileID: 218794651}
     startWave: 1
-    endWave: 10
+    endWave: 100
   - spawner: {fileID: 801789444}
     startWave: 2
-    endWave: 10
+    endWave: 100
   - spawner: {fileID: 1211525534}
     startWave: 5
-    endWave: 10
+    endWave: 100
   - spawner: {fileID: 288452476}
     startWave: 1
-    endWave: 3
+    endWave: 100
   - spawner: {fileID: 2079592758}
     startWave: 2
-    endWave: 15
+    endWave: 100
   - spawner: {fileID: 2008155447}
     startWave: 3
-    endWave: 5
-  startingBudget: 10
-  budgetIncrementPerWave: 10
-  secondsBetweenSpawnsInWave: 0.5
-  secondsBetweenWaves: 3
+    endWave: 100
+  startingBudget: 5
+  budgetIncrementPerWave: 5
+  secondsBetweenSpawnsInWave: 0.7
+  secondsBetweenWaves: 5
 --- !u!4 &1558080348
 Transform:
   m_ObjectHideFlags: 0
@@ -2155,6 +2161,8 @@ MonoBehaviour:
   - {fileID: 1938815160}
   - {fileID: 1554308291}
   - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!1 &2035216250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2346,8 @@ MonoBehaviour:
   - {fileID: 1938815160}
   - {fileID: 1554308291}
   - {fileID: 1515917823}
+  minAngle: 130
+  maxAngle: 140
 --- !u!1 &2083548550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,6 +2540,10 @@ PrefabInstance:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+    - target: {fileID: 6105068529054785425, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106439627966688733, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Name
       value: player2D
