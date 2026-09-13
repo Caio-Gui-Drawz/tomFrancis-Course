@@ -223,10 +223,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7141547210505645287}
-  - component: {fileID: 4089880361267910319}
-  - component: {fileID: 5599936717018119835}
   - component: {fileID: 1695486249083806387}
   - component: {fileID: 6105068529054785425}
+  - component: {fileID: 4089880361267910319}
+  - component: {fileID: 5599936717018119835}
+  - component: {fileID: 579091249117778445}
   m_Layer: 3
   m_Name: player2D
   m_TagString: Untagged
@@ -251,37 +252,6 @@ Transform:
   - {fileID: 3735024742725915593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4089880361267910319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6106439627966688733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86b195139b09cba4c8d848cabe5dcfb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player2D
-  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-  fireRate: 0.3
---- !u!114 &5599936717018119835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6106439627966688733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
-  maxHealth: 10
-  currentHealth: 0
-  healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
-  healthBarOffset: 1.5
-  deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
 --- !u!50 &1695486249083806387
 Rigidbody2D:
   serializedVersion: 5
@@ -355,3 +325,46 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4089880361267910319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106439627966688733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b195139b09cba4c8d848cabe5dcfb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player2D
+  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+  fireRate: 0.3
+--- !u!114 &5599936717018119835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106439627966688733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
+  maxHealth: 10
+  currentHealth: 0
+  healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
+  healthBarOffset: 1.5
+  deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
+--- !u!114 &579091249117778445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106439627966688733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398ed136a44485d459efee65639d5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath

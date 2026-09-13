@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 
     void OnEnable()
     {
+       
         GameManager.Instance.OnStateChanged += HandleStateChanged;
     }
 
@@ -21,11 +22,28 @@ public class PauseMenu : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
         if (GameManager.Instance.CurrentState == GameState.Playing)
-            GameManager.Instance.SetState(GameState.Paused);
+        {
+            pauseGame();
+        }
+            
         else if (GameManager.Instance.CurrentState == GameState.Paused)
-            GameManager.Instance.SetState(GameState.Playing);
+        {
+            unpauseGame();
+        }
+            
     }
 
+    public void pauseGame()
+    {
+        GameManager.Instance.SetState(GameState.Paused);
+            Time.timeScale = 0f; // Pausa o jogo
+    }
+
+    public void unpauseGame()
+    {
+        GameManager.Instance.SetState(GameState.Playing);
+            Time.timeScale = 1f; // Retoma o jogo
+    }
     void HandleStateChanged(GameState newState)
     {
         pausePanel.SetActive(newState == GameState.Paused);
@@ -36,4 +54,5 @@ public class PauseMenu : MonoBehaviour
     {
         GameManager.Instance.SetState(GameState.Playing);
     }
+
 }

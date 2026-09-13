@@ -80,20 +80,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8081135676893293213, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_Constraints
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4565356433606713756}
+      addedObject: {fileID: 8975394886047227702}
   m_SourcePrefab: {fileID: 100100000, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
 --- !u!1 &283910886752579194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
   m_PrefabInstance: {fileID: 2636879807547015375}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4565356433606713756
+--- !u!114 &8975394886047227702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,9 +106,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 283910886752579194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269c4d49af1334f4c8008bee07fe7f60, type: 3}
+  m_Script: {fileID: 11500000, guid: a6b55d44451b51d42b84ce501385c309, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StraightMovement
-  speed: 8
-  offsetRange: {x: -1, y: 1}
-  direction: {x: -1, y: 1}
+  m_EditorClassIdentifier: Assembly-CSharp::AxisMovement
+  direction: 3
+  speed: 5

@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    // Usado pelo GameOverMenu para avisar, antes de recarregar a cena, se deve
+    // cair direto na gameplay (Jogar de Novo) ou no menu (Voltar ao Menu).
+    public static bool startPlayingOnLoad = false;
+
     public GameState CurrentState { get; private set; }
 
     public event System.Action<GameState> OnStateChanged;
@@ -17,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Dispara o estado inicial para que menus/spawners/player já nasçam configurados certo.
-        SetState(GameState.Menu);
+        SetState(startPlayingOnLoad ? GameState.Playing : GameState.Menu);
+        startPlayingOnLoad = false; // reseta para a próxima vez
     }
 
     public void SetState(GameState newState)

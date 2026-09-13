@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
         public Spawner spawner;
         public int startWave = 1;
         public int endWave = int.MaxValue; // deixe bem alto (ou não mexa) para "nunca remove"
+        public float weight = 1f; // maior = mais frequente, menor = mais raro
     }
 
     public SpawnerRange[] spawnerRanges;
@@ -18,6 +19,10 @@ public class WaveManager : MonoBehaviour
     public float secondsBetweenSpawnsInWave = 0.5f;
     public float secondsBetweenWaves = 3f;
 
+    // Rodada de bônus de tesouros, que acontece durante o intervalo entre uma wave e outra.
+    public Spawner[] treasureBonusSpawners;
+    public float secondsBetweenBonusSpawns = 0.3f;
+
     int currentWave = 1;
     int currentBudget;
     int spawnedThisWave;
@@ -25,7 +30,10 @@ public class WaveManager : MonoBehaviour
     bool waveActive;
     bool canRun;
 
-    List<Spawner> activeSpawners = new List<Spawner>();
+    List<SpawnerRange> activeRanges = new List<SpawnerRange>();
+
+    // Avisa sempre que uma nova wave começa, passando o número dela.
+    public event System.Action<int> OnWaveStarted;
 
     void OnEnable()
     {
@@ -53,16 +61,17 @@ public class WaveManager : MonoBehaviour
         spawnedThisWave = 0;
         waveActive = true;
         RefreshActiveSpawners();
+        OnWaveStarted?.Invoke(currentWave);
     }
 
     void RefreshActiveSpawners()
     {
-        activeSpawners.Clear();
+        activeRanges.Clear();
         foreach (var range in spawnerRanges)
         {
             if (currentWave >= range.startWave && currentWave <= range.endWave)
             {
-                activeSpawners.Add(range.spawner);
+                activeRanges.Add(range);
             }
         }
     }
@@ -75,9 +84,9 @@ public class WaveManager : MonoBehaviour
         if (secondsSinceLastSpawn < secondsBetweenSpawnsInWave) return;
         secondsSinceLastSpawn = 0;
 
-        if (activeSpawners.Count > 0)
+        Spawner chosen = PickWeightedSpawner();
+        if (chosen != null)
         {
-            Spawner chosen = activeSpawners[Random.Range(0, activeSpawners.Count)];
             chosen.SpawnOne();
         }
 
@@ -89,9 +98,38 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    Spawner PickWeightedSpawner()
+    {
+        if (activeRanges.Count == 0) return null;
+
+        float totalWeight = 0;
+        foreach (var range in activeRanges) totalWeight += range.weight;
+
+        float roll = Random.Range(0, totalWeight);
+        float cumulative = 0;
+        foreach (var range in activeRanges)
+        {
+            cumulative += range.weight;
+            if (roll <= cumulative) return range.spawner;
+        }
+        return activeRanges[activeRanges.Count - 1].spawner;
+    }
+
     IEnumerator WaitAndStartNextWave()
     {
-        yield return new WaitForSeconds(secondsBetweenWaves);
+        float elapsed = 0f;
+        while (elapsed < secondsBetweenWaves)
+        {
+            if (treasureBonusSpawners != null && treasureBonusSpawners.Length > 0)
+            {
+                Spawner chosen = treasureBonusSpawners[Random.Range(0, treasureBonusSpawners.Length)];
+                chosen.SpawnOne();
+            }
+
+            yield return new WaitForSeconds(secondsBetweenBonusSpawns);
+            elapsed += secondsBetweenBonusSpawns;
+        }
+
         currentWave++;
         StartWave();
     }
