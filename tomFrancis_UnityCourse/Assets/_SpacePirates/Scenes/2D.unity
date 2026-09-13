@@ -1428,9 +1428,9 @@ MonoBehaviour:
   - spawner: {fileID: 2008155447}
     startWave: 3
     endWave: 100
-  startingBudget: 40
+  startingBudget: 10
   budgetIncrementPerWave: 5
-  secondsBetweenSpawnsInWave: 0.7
+  secondsBetweenSpawnsInWave: 0.07
   secondsBetweenWaves: 5
 --- !u!4 &1558080348
 Transform:
@@ -2527,7 +2527,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: fireRate
-      value: 0.15
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: bulletPrefab
