@@ -2804,6 +2804,12 @@ MonoBehaviour:
     initialSize: 10
   - prefab: {fileID: 7280068176570772008, guid: 43584b53fcdea734f92c1c78df95d48b, type: 3}
     initialSize: 10
+  - prefab: {fileID: 2231184050527505601, guid: bf2433b86fd090f4991fe80909927c8d, type: 3}
+    initialSize: 10
+  - prefab: {fileID: 2231184050527505601, guid: 4bccc5999ed67bc47874ec4cbf4d4667, type: 3}
+    initialSize: 10
+  - prefab: {fileID: 2231184050527505601, guid: 56ade956c71d7eb4daa501ef208cadc2, type: 3}
+    initialSize: 10
 --- !u!1 &1239785224
 GameObject:
   m_ObjectHideFlags: 0
