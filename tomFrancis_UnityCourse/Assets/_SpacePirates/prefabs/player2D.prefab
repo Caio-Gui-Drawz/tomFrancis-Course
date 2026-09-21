@@ -337,8 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b195139b09cba4c8d848cabe5dcfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player2D
-  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-  fireRate: 0.3
+  currentWeapon: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
 --- !u!114 &5599936717018119835
 MonoBehaviour:
   m_ObjectHideFlags: 0
