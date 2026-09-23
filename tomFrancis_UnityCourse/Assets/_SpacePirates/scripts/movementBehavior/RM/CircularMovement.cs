@@ -61,6 +61,7 @@ public class CircularMovement : MonoBehaviour
         float angleRadians = currentAngleDegrees * Mathf.Deg2Rad;
         float offsetX = radius * Mathf.Cos(angleRadians);
         float offsetY = radius * Mathf.Sin(angleRadians);
+        Debug.Log($"angleRadians: {angleRadians}, offsetX: {offsetX}, offsetY: {offsetY}");
 
         transform.position = new Vector3(centerX + offsetX, centerY + offsetY, origin.z);
 

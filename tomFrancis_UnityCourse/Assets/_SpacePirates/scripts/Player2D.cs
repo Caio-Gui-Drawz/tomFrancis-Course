@@ -30,7 +30,7 @@ public class Player2D : MonoBehaviour
 
     void Update()
     {
-        if (!canAct) return;
+         if (!canAct) return;
 
         // Atirar
         secondsSinceLastShot += Time.deltaTime;
@@ -45,6 +45,6 @@ public class Player2D : MonoBehaviour
         mousePosition.z = 0;
         Vector2 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle);  
     }
 }

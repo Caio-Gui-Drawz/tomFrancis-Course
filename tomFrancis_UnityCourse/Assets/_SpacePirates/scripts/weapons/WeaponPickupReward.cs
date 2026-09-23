@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 // Colocar nos prefabs de ARMA voadora (variação do inimigo/tesouro), junto com o healthSystem.
 public class WeaponPickupReward : MonoBehaviour
@@ -21,3 +21,4 @@ public class WeaponPickupReward : MonoBehaviour
         }
     }
 }
+*/
