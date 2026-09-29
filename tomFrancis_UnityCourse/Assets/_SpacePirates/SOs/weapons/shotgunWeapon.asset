@@ -15,3 +15,5 @@ MonoBehaviour:
   weaponName: shotgun
   bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
   fireRate: 0.2
+  numberOfProjectiles: 5
+  spreadAngleDegrees: 15

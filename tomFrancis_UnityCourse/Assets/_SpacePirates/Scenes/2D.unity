@@ -3507,7 +3507,7 @@ MonoBehaviour:
   - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
-    weight: 1.5
+    weight: 1
   - spawner: {fileID: 1805153457}
     startWave: 1
     endWave: 100
@@ -3528,9 +3528,9 @@ MonoBehaviour:
     startWave: 7
     endWave: 100
     weight: 0.1
-  startingBudget: 5
-  budgetIncrementPerWave: 5
-  secondsBetweenSpawnsInWave: 0.5
+  startingBudget: 2
+  budgetIncrementPerWave: 1
+  secondsBetweenSpawnsInWave: 1
   secondsBetweenWaves: 3
   treasureBonusSpawners: []
   secondsBetweenBonusSpawns: 0.3
