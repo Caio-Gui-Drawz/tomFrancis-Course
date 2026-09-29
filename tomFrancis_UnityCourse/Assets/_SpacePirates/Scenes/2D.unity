@@ -1268,6 +1268,54 @@ MonoBehaviour:
   maxY: 3
   minScale: 0.02
   maxScale: 0.3
+--- !u!1 &846956884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846956885}
+  - component: {fileID: 846956886}
+  m_Layer: 0
+  m_Name: shotgunSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &846956885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846956884}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1961664383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846956886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846956884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
+  prefab: {fileID: 7036027618206008343, guid: befb54718073dcf45a846887ec8941a0, type: 3}
+  allowedSpawnPoints:
+  - {fileID: 1554308291}
+  offsetRange: {x: 0, y: 0}
 --- !u!1 &854414913
 GameObject:
   m_ObjectHideFlags: 0
@@ -3456,12 +3504,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 218794651}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1.5
-  - spawner: {fileID: 801789444}
-    startWave: 5
+  - spawner: {fileID: 1805153457}
+    startWave: 1
     endWave: 100
     weight: 1
   - spawner: {fileID: 1211525534}
@@ -3912,6 +3960,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1038259001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1805153455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1805153456}
+  - component: {fileID: 1805153457}
+  m_Layer: 0
+  m_Name: smgSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1805153456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805153455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1961664383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1805153457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805153455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
+  prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+  allowedSpawnPoints:
+  - {fileID: 1554308291}
+  offsetRange: {x: 0, y: 0}
 --- !u!1 &1825863920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4271,6 +4367,8 @@ Transform:
   - {fileID: 288452475}
   - {fileID: 2079592757}
   - {fileID: 2008155446}
+  - {fileID: 846956885}
+  - {fileID: 1805153456}
   m_Father: {fileID: 1558080348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966654566
