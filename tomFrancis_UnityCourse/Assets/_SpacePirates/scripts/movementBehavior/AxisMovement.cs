@@ -1,7 +1,6 @@
 using UnityEngine;
 
-// Move em linha reta apenas no eixo horizontal ou vertical (sem diagonais),
-// independente da rotação do spawn point.
+
 public class AxisMovement : MonoBehaviour
 {
     public enum Direction { Right, Left, Up, Down }

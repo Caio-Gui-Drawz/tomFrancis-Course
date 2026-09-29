@@ -1,7 +1,6 @@
 using UnityEngine;
 
-// Movimento reto na direção em que o objeto foi ativado (mesma lógica que o enemy2D usava antes).
-// Reutilizável em qualquer spawnável: inimigo, tesouro ou upgrade.
+
 public class StraightMovement : MonoBehaviour
 {
     public float speed;
