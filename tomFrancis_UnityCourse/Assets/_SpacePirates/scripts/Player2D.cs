@@ -7,6 +7,11 @@ public class Player2D : MonoBehaviour
 
     bool canAct;
 
+    void Start()
+    {
+        references.thePlayer = gameObject;
+    }
+
     void OnEnable()
     {
         GameManager.Instance.OnStateChanged += HandleStateChanged;
@@ -33,7 +38,6 @@ public class Player2D : MonoBehaviour
             if (secondsSinceLastShot >= currentWeapon.fireRate && Input.GetButton("Fire1"))
             {
                 FireCurrentWeapon();
-                
                 secondsSinceLastShot = 0;
             }
         }
@@ -48,6 +52,8 @@ public class Player2D : MonoBehaviour
 
     void FireCurrentWeapon()
     {
+        Debug.Log("Atirando com '" + currentWeapon.name + "' | Projéteis: " + currentWeapon.numberOfProjectiles + " | Spread: " + currentWeapon.spreadAngleDegrees);
+
         for (int i = 0; i < currentWeapon.numberOfProjectiles; i++)
         {
             // Desvio aleatório em graus, simétrico para os dois lados — 0 = mira perfeita.
