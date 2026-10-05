@@ -709,6 +709,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugReset
   resetKey: 114
+--- !u!1 &332761402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332761404}
+  - component: {fileID: 332761403}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &332761403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332761402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5792dc917addf50419bad9374df95cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ListIkConstraints
+  skeletonAnimation: {fileID: 1172771710}
+--- !u!4 &332761404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332761402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &384842681 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
@@ -2232,6 +2277,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1172771710 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7460847933537858617, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+  m_PrefabInstance: {fileID: 7147339282699107680}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonAnimation
 --- !u!1 &1211525532
 GameObject:
   m_ObjectHideFlags: 0
@@ -10263,29 +10319,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: fireRate
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: bulletPrefab
+    - target: {fileID: 2802742672718126812, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-    - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: healthBarPrefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6105068529054785425, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6106439627966688733, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Name
       value: player2D
-      objectReference: {fileID: 0}
-    - target: {fileID: 6106439627966688733, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10346,3 +10386,4 @@ SceneRoots:
   - {fileID: 1130104355}
   - {fileID: 176224322}
   - {fileID: 2130952412}
+  - {fileID: 332761404}
