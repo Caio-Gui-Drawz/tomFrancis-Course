@@ -754,6 +754,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &377699468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7922504853049469839, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+  m_PrefabInstance: {fileID: 7147339282699107680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &384842681 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
@@ -2282,12 +2287,28 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7460847933537858617, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
   m_PrefabInstance: {fileID: 7147339282699107680}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 377699468}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonAnimation
+--- !u!114 &1172771711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377699468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a55bb0f242177c4c8ec1470cecb49a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponVisual
+  skeletonAnimation: {fileID: 1172771710}
+  muzzleBoneName: 
+  shootAnimationName: ArmOnly_Shot
+  shootAnimationTrack: 1
 --- !u!1 &1211525532
 GameObject:
   m_ObjectHideFlags: 0
@@ -10370,7 +10391,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7922504853049469839, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172771711}
   m_SourcePrefab: {fileID: 100100000, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -3,6 +3,8 @@ using UnityEngine;
 public class Player2D : MonoBehaviour
 {
     public WeaponData currentWeapon;
+    public PlayerWeaponVisual weaponVisual; // opcional — se vazio, usa o spawn antigo
+
     float secondsSinceLastShot;
 
     bool canAct;
@@ -43,16 +45,18 @@ public class Player2D : MonoBehaviour
         }
 
         // Virar de frente pro mouse
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        /*Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         Vector2 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle);*/
     }
 
     void FireCurrentWeapon()
     {
-        Debug.Log("Atirando com '" + currentWeapon.name + "' | Projéteis: " + currentWeapon.numberOfProjectiles + " | Spread: " + currentWeapon.spreadAngleDegrees);
+        Vector3 spawnPosition = weaponVisual != null
+            ? weaponVisual.GetMuzzleWorldPosition()
+            : transform.position + transform.right;
 
         for (int i = 0; i < currentWeapon.numberOfProjectiles; i++)
         {
@@ -60,7 +64,12 @@ public class Player2D : MonoBehaviour
             float spreadOffset = Random.Range(-currentWeapon.spreadAngleDegrees, currentWeapon.spreadAngleDegrees);
             Quaternion bulletRotation = transform.rotation * Quaternion.Euler(0, 0, spreadOffset);
 
-            Instantiate(currentWeapon.bulletPrefab, transform.position + transform.right, bulletRotation);
+            Instantiate(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
+        }
+
+        if (weaponVisual != null)
+        {
+            weaponVisual.PlayShootAnimation();
         }
     }
 
