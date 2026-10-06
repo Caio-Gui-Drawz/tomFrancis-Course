@@ -13,6 +13,10 @@ public class PlayerWeaponVisual : MonoBehaviour
     public string muzzleBoneName;
 
     [SpineAnimation(dataField: "skeletonAnimation")]
+    [Tooltip("Animação de braço em loop (track abaixo), tocada enquanto está em modo de combate mas sem atirar.")]
+    public string aimIdleAnimationName;
+
+    [SpineAnimation(dataField: "skeletonAnimation")]
     [Tooltip("Animação de tiro (tocada na track abaixo).")]
     public string shootAnimationName;
     public int shootAnimationTrack = 1;
@@ -55,9 +59,31 @@ public class PlayerWeaponVisual : MonoBehaviour
         return boneAngleInSkeletonSpace + skeletonAnimation.transform.eulerAngles.z;
     }
 
+    // Liga/desliga o "modo combate" do ponto de vista da animação: com a track 1 tocando o
+    // loop de "pronto pra atirar", ou totalmente vazia (mãos abaixadas, só a animação
+    // full-body da track 0 aparece). Não mexe na IK — isso é papel do AimArmToMouse.
+    public void SetAiming(bool isAiming)
+    {
+        if (isAiming)
+        {
+            if (!string.IsNullOrEmpty(aimIdleAnimationName))
+                skeletonAnimation.AnimationState.SetAnimation(shootAnimationTrack, aimIdleAnimationName, true);
+        }
+        else
+        {
+            skeletonAnimation.AnimationState.ClearTrack(shootAnimationTrack);
+        }
+    }
+
     public void PlayShootAnimation()
     {
         if (string.IsNullOrEmpty(shootAnimationName)) return;
+
         skeletonAnimation.AnimationState.SetAnimation(shootAnimationTrack, shootAnimationName, false);
+
+        // Depois que o tiro terminar, volta a tocar o loop de "pronto pra atirar" (se
+        // configurado) — senão a track 1 fica travada no último frame do tiro pra sempre.
+        if (!string.IsNullOrEmpty(aimIdleAnimationName))
+            skeletonAnimation.AnimationState.AddAnimation(shootAnimationTrack, aimIdleAnimationName, true, 0f);
     }
 }

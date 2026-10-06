@@ -4,6 +4,9 @@ public class Player2D : MonoBehaviour
 {
     public WeaponData currentWeapon;
     public PlayerWeaponVisual weaponVisual; // opcional — se vazio, usa o spawn antigo
+    public WaveManager waveManager; // arraste o GameObject do WaveManager aqui
+
+    AimArmToMouse aimArmToMouse; // pego automaticamente do mesmo objeto do weaponVisual
 
     float secondsSinceLastShot;
 
@@ -17,21 +20,57 @@ public class Player2D : MonoBehaviour
     void Start()
     {
         references.thePlayer = gameObject;
+
+        if (weaponVisual != null)
+        {
+            aimArmToMouse = weaponVisual.GetComponent<AimArmToMouse>();
+        }
+
+        // Garante que começa com as mãos abaixadas (sem mirar), até a wave 1 começar.
+        SetCombatStance(false);
     }
 
     void OnEnable()
     {
         GameManager.Instance.OnStateChanged += HandleStateChanged;
+
+        if (waveManager != null)
+        {
+            waveManager.OnWaveStarted += HandleWaveStarted;
+        }
     }
 
     void OnDisable()
     {
         GameManager.Instance.OnStateChanged -= HandleStateChanged;
+
+        if (waveManager != null)
+        {
+            waveManager.OnWaveStarted -= HandleWaveStarted;
+        }
     }
 
     void HandleStateChanged(GameState newState)
     {
         canAct = (newState == GameState.Playing);
+    }
+
+    void HandleWaveStarted(int waveNumber)
+    {
+        // Só entra em modo de combate quando a primeira wave de verdade começar (depois do
+        // "secondsBeforeFirstWave" do WaveManager). Futuramente dá pra chamar
+        // SetCombatStance(false) de novo pra entrar no modo "desviar" com as 2 mãos na moto.
+        if (waveNumber == 1)
+        {
+            SetCombatStance(true);
+        }
+    }
+
+    // Liga/desliga o braço de combate (IK mirando + animação de "pronto pra atirar").
+    public void SetCombatStance(bool active)
+    {
+        if (weaponVisual != null) weaponVisual.SetAiming(active);
+        if (aimArmToMouse != null) aimArmToMouse.SetAiming(active);
     }
 
     void Update()

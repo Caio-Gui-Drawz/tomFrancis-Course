@@ -19,6 +19,10 @@ public class WaveManager : MonoBehaviour
     public float secondsBetweenSpawnsInWave = 0.5f;
     public float secondsBetweenWaves = 3f;
 
+    [Header("Intro")]
+    [Tooltip("Quanto tempo depois de começar a jogar até a wave 1 realmente começar (janela de só voar, sem combate).")]
+    public float secondsBeforeFirstWave = 3f;
+
     // Rodada de bônus de tesouros, que acontece durante o intervalo entre uma wave e outra.
     public Spawner[] treasureBonusSpawners;
     public float secondsBetweenBonusSpawns = 0.3f;
@@ -29,6 +33,7 @@ public class WaveManager : MonoBehaviour
     float secondsSinceLastSpawn;
     bool waveActive;
     bool canRun;
+    bool hasStartedFirstWave;
 
     List<SpawnerRange> activeRanges = new List<SpawnerRange>();
 
@@ -48,10 +53,19 @@ public class WaveManager : MonoBehaviour
     void HandleStateChanged(GameState newState)
     {
         canRun = (newState == GameState.Playing);
+
+        // Só dispara a sequência da wave 1 na PRIMEIRA vez que o jogo entra em Playing
+        // (evita reiniciar a introdução se o player só pausar e voltar).
+        if (newState == GameState.Playing && !hasStartedFirstWave)
+        {
+            hasStartedFirstWave = true;
+            StartCoroutine(WaitAndStartFirstWave());
+        }
     }
 
-    void Start()
+    IEnumerator WaitAndStartFirstWave()
     {
+        yield return new WaitForSeconds(secondsBeforeFirstWave);
         StartWave();
     }
 
