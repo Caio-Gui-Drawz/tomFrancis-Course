@@ -63,7 +63,10 @@ public class Player2D : MonoBehaviour
             ? weaponVisual.GetMuzzleWorldPosition()
             : transform.position + transform.right;
 
-        Quaternion aimRotation = Quaternion.Euler(0, 0, currentAimAngle);
+        // Prioriza o ângulo real do cano (pós-IK) — só cai pro cálculo cru pela posição do
+        // mouse se não houver weaponVisual configurado (ex.: player sem Spine ainda).
+        float aimAngle = weaponVisual != null ? weaponVisual.GetMuzzleWorldAngle() : currentAimAngle;
+        Quaternion aimRotation = Quaternion.Euler(0, 0, aimAngle);
 
         for (int i = 0; i < currentWeapon.numberOfProjectiles; i++)
         {
@@ -71,7 +74,7 @@ public class Player2D : MonoBehaviour
             float spreadOffset = Random.Range(-currentWeapon.spreadAngleDegrees, currentWeapon.spreadAngleDegrees);
             Quaternion bulletRotation = aimRotation * Quaternion.Euler(0, 0, spreadOffset);
 
-            Instantiate(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
+            PoolManager.Instance.Get(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
         }
 
         if (weaponVisual != null)
