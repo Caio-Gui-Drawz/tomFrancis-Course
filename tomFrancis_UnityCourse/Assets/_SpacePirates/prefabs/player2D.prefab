@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player2D
   currentWeapon: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
+  weaponVisual: {fileID: 0}
 --- !u!114 &5599936717018119835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ GameObject:
   - component: {fileID: 8094760540718478058}
   - component: {fileID: 7460847933537858617}
   - component: {fileID: 6035196309292413793}
+  - component: {fileID: 3957120532492979787}
   m_Layer: 0
   m_Name: Spine GameObject (SpacePirate_Spine)
   m_TagString: Untagged
@@ -512,3 +514,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AimArmToMouse
   skeletonAnimation: {fileID: 7460847933537858617}
   ikTargetBoneName: IK_ARM_L
+--- !u!114 &3957120532492979787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922504853049469839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a55bb0f242177c4c8ec1470cecb49a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponVisual
+  skeletonAnimation: {fileID: 7460847933537858617}
+  muzzleBoneName: Gun_Shoot_Point
+  shootAnimationName: ArmOnly_Shot
+  shootAnimationTrack: 1

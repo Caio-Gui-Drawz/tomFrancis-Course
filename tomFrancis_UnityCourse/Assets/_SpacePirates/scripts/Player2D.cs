@@ -7,6 +7,11 @@ public class Player2D : MonoBehaviour
 
     float secondsSinceLastShot;
 
+    // Ângulo (graus) na direção do mouse, recalculado todo frame — usado só para mirar o
+    // tiro. NÃO aplicamos isso em transform.rotation porque isso girava o player inteiro
+    // e, com ele, todos os filhos do prefab (incluindo o Spine), causando rotação esquisita.
+    float currentAimAngle;
+
     bool canAct;
 
     void Start()
@@ -33,6 +38,13 @@ public class Player2D : MonoBehaviour
     {
         if (!canAct) return;
 
+        // Calcula o ângulo até o mouse (mas não gira o player com isso — ver comentário
+        // em currentAimAngle acima). O braço quem se vira sozinho, via IK (AimArmToMouse).
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        Vector2 direction = mousePosition - transform.position;
+        currentAimAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
         // Atirar (usando a arma atual)
         if (currentWeapon != null)
         {
@@ -43,13 +55,6 @@ public class Player2D : MonoBehaviour
                 secondsSinceLastShot = 0;
             }
         }
-
-        // Virar de frente pro mouse
-        /*Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        Vector2 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);*/
     }
 
     void FireCurrentWeapon()
@@ -58,11 +63,13 @@ public class Player2D : MonoBehaviour
             ? weaponVisual.GetMuzzleWorldPosition()
             : transform.position + transform.right;
 
+        Quaternion aimRotation = Quaternion.Euler(0, 0, currentAimAngle);
+
         for (int i = 0; i < currentWeapon.numberOfProjectiles; i++)
         {
             // Desvio aleatório em graus, simétrico para os dois lados — 0 = mira perfeita.
             float spreadOffset = Random.Range(-currentWeapon.spreadAngleDegrees, currentWeapon.spreadAngleDegrees);
-            Quaternion bulletRotation = transform.rotation * Quaternion.Euler(0, 0, spreadOffset);
+            Quaternion bulletRotation = aimRotation * Quaternion.Euler(0, 0, spreadOffset);
 
             Instantiate(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
         }
