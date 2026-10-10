@@ -3590,6 +3590,7 @@ MonoBehaviour:
   budgetIncrementPerWave: 1
   secondsBetweenSpawnsInWave: 1
   secondsBetweenWaves: 3
+  secondsBeforeFirstWave: 3
   treasureBonusSpawners: []
   secondsBetweenBonusSpawns: 0.3
 --- !u!4 &1558080348
@@ -10324,6 +10325,18 @@ PrefabInstance:
     - target: {fileID: 2802742672718126812, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: aimIdleAnimationName
+      value: ArmOnly_AimPose
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: waveManager
+      value: 
+      objectReference: {fileID: 1558080347}
+    - target: {fileID: 6035196309292413793, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: ikConstraintName
+      value: IK_ARM_L
       objectReference: {fileID: 0}
     - target: {fileID: 6106439627966688733, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Name
