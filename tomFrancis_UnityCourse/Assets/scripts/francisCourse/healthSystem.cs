@@ -10,6 +10,10 @@ public class healthSystem : MonoBehaviour
 
     public GameObject deathEffectPrefab;
 
+    // Se desligado, a entidade NÃO some ao morrer (fica na cena) — usado pelo player pra deixar
+    // a animação de morte tocar. Padrão = true, então inimigos continuam sumindo como antes.
+    public bool removeOnDeath = true;
+
     // Avisa quem estiver inscrito que esta entidade morreu.
     public event System.Action OnDeath;
 
@@ -50,7 +54,11 @@ public class healthSystem : MonoBehaviour
             }
 
             OnDeath?.Invoke();
-            PoolManager.Instance.Return(gameObject);
+
+            if (removeOnDeath)
+            {
+                PoolManager.Instance.Return(gameObject);
+            }
         }
     }
 
