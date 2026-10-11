@@ -67,7 +67,9 @@ public class PlayerWeaponVisual : MonoBehaviour
         if (isAiming)
         {
             if (!string.IsNullOrEmpty(aimIdleAnimationName))
+            {
                 skeletonAnimation.AnimationState.SetAnimation(shootAnimationTrack, aimIdleAnimationName, true);
+            }
         }
         else
         {
@@ -81,9 +83,17 @@ public class PlayerWeaponVisual : MonoBehaviour
 
         skeletonAnimation.AnimationState.SetAnimation(shootAnimationTrack, shootAnimationName, false);
 
-        // Depois que o tiro terminar, volta a tocar o loop de "pronto pra atirar" (se
-        // configurado) — senão a track 1 fica travada no último frame do tiro pra sempre.
         if (!string.IsNullOrEmpty(aimIdleAnimationName))
+        {
+            // Depois que o tiro terminar, volta a tocar o loop de "pronto pra atirar".
             skeletonAnimation.AnimationState.AddAnimation(shootAnimationTrack, aimIdleAnimationName, true, 0f);
+        }
+        else
+        {
+            // Sem animação de idle configurada ainda: solta a track suavemente (mix de 0.2s)
+            // em vez de travar no último frame do tiro pra sempre. AddEmptyAnimation devolve o
+            // controle desses bones pra track 0 (corpo), evitando a "briga" visual entre as duas.
+            skeletonAnimation.AnimationState.AddEmptyAnimation(shootAnimationTrack, 0.2f, 0f);
+        }
     }
 }

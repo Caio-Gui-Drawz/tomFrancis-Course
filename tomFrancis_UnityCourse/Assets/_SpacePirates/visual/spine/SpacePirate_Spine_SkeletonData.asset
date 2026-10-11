@@ -24,8 +24,11 @@ MonoBehaviour:
     multiplyMaterials: []
     screenMaterials: []
   skeletonDataModifiers: []
-  fromAnimation: []
-  toAnimation: []
-  duration: []
+  fromAnimation:
+  - ArmOnly_AimPose
+  toAnimation:
+  - ArmOnly_Shot
+  duration:
+  - 1
   defaultMix: 0.2
   controller: {fileID: 0}
