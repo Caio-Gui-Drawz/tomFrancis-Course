@@ -19,6 +19,11 @@ public class GameOverMenu : MonoBehaviour
     void HandleStateChanged(GameState newState)
     {
         gameOverPanel.SetActive(newState == GameState.GameOver);
+
+        if (newState == GameState.GameOver)
+        {
+            AudioEvents.PlayDeathScreen(); // som só da interface (o som da morte em si é o playerDeath)
+        }
     }
 
     // Ligar no OnClick do botão "Jogar de Novo".

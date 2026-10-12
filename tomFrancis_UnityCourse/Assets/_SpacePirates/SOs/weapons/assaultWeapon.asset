@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f34b8a62451f664c9f9b4bea2f3bbad, type: 3}
+  m_Name: assaultWeapon
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: assault
+  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+  fireRate: 0.5
+  numberOfProjectiles: 1
+  spreadAngleDegrees: 3
+  shootSound:
+    Guid:
+      Data1: -211216087
+      Data2: 1089261823
+      Data3: 863496336
+      Data4: -191639265
+    Path: event:/sfx/player/weapons/weaponShot/assaultShot
+  swapSound:
+    Guid:
+      Data1: 2037077384
+      Data2: 1252751304
+      Data3: -1188058207
+      Data4: -1156460065
+    Path: event:/sfx/player/weapons/weaponSwap/assaultSwap

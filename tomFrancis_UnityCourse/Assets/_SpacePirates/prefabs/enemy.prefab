@@ -191,6 +191,8 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 1.5
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
+  removeOnDeath: 1
+  soundProfile: 2
 --- !u!114 &5383370176089516564
 MonoBehaviour:
   m_ObjectHideFlags: 0

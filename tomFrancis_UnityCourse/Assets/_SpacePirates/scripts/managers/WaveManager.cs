@@ -76,6 +76,7 @@ public class WaveManager : MonoBehaviour
         waveActive = true;
         RefreshActiveSpawners();
         OnWaveStarted?.Invoke(currentWave);
+        AudioEvents.PlayWaveStarted();
     }
 
     void RefreshActiveSpawners()

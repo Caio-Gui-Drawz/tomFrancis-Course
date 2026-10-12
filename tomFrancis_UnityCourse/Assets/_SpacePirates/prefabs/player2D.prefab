@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player2D
   currentWeapon: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
   weaponVisual: {fileID: 3957120532492979787}
+  waveManager: {fileID: 0}
 --- !u!114 &5599936717018119835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,8 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 0}
   healthBarOffset: 1.5
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
+  removeOnDeath: 1
+  soundProfile: 1
 --- !u!114 &579091249117778445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398ed136a44485d459efee65639d5d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
+  holdAfterDeathAnimation: 0.6
 --- !u!60 &1278038448650128406
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -340,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AimArmToMouse
   skeletonAnimation: {fileID: 7460847933537858617}
   ikTargetBoneName: IK_ARM_L
+  ikConstraintName: 
 --- !u!114 &3957120532492979787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,5 +359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponVisual
   skeletonAnimation: {fileID: 7460847933537858617}
   muzzleBoneName: Gun_Shoot_Point
+  aimIdleAnimationName: 
   shootAnimationName: ArmOnly_Shot
   shootAnimationTrack: 1

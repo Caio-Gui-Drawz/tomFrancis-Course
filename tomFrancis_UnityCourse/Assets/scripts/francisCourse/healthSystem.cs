@@ -14,6 +14,9 @@ public class healthSystem : MonoBehaviour
     // a animação de morte tocar. Padrão = true, então inimigos continuam sumindo como antes.
     public bool removeOnDeath = true;
 
+    [Tooltip("Quais sons de dano/morte tocar (player, inimigo ou tesouro). None = sem som. Os eventos ficam no AudioEvents.")]
+    public SoundProfile soundProfile = SoundProfile.None;
+
     // Avisa quem estiver inscrito que esta entidade morreu.
     public event System.Action OnDeath;
 
@@ -45,6 +48,9 @@ public class healthSystem : MonoBehaviour
 
         currentHealth -= damageAmount;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        // Dano ou morte (o golpe que zera a vida toca o som de morte, não o de dano).
+        AudioEvents.PlayDamage(soundProfile, currentHealth <= 0);
 
         if (currentHealth <= 0)
         {
