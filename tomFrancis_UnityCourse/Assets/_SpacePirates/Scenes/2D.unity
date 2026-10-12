@@ -4041,6 +4041,127 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1038259001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1760723309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760723311}
+  - component: {fileID: 1760723310}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1760723310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760723309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1580c9e6c023454eb9e481d33e12236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioEvents
+  playerTakeDamage:
+    Guid:
+      Data1: 2013004995
+      Data2: 1138324384
+      Data3: 797661607
+      Data4: -1597664452
+    Path: event:/sfx/player/playerTakeDamage
+  playerDeath:
+    Guid:
+      Data1: 1939205744
+      Data2: 1322990432
+      Data3: 1642632594
+      Data4: -1191385826
+    Path: event:/sfx/player/playerDeath
+  enemyTakeDamage:
+    Guid:
+      Data1: -539518561
+      Data2: 1130861225
+      Data3: -44631659
+      Data4: -889732269
+    Path: event:/sfx/enemies/enemyTakeDamage
+  enemyDeath:
+    Guid:
+      Data1: -1697858988
+      Data2: 1262201231
+      Data3: 1738639794
+      Data4: -1485409266
+    Path: event:/sfx/enemies/enemyDeath
+  treasureTakeDamage:
+    Guid:
+      Data1: -750143319
+      Data2: 1253343425
+      Data3: 1017314710
+      Data4: 1651600835
+    Path: event:/sfx/treasures/treasureTakeDamage
+  treasureCollected:
+    Guid:
+      Data1: -1703354970
+      Data2: 1124437557
+      Data3: 1945691553
+      Data4: 489768838
+    Path: event:/sfx/treasures/treasureCollected
+  waveStarted:
+    Guid:
+      Data1: -1796656585
+      Data2: 1143861670
+      Data3: 716801978
+      Data4: 1125060237
+    Path: event:/sfx/interfaces/waveStarted
+  ambience:
+    Guid:
+      Data1: -899012672
+      Data2: 1103116256
+      Data3: -1386471514
+      Data4: 1669773140
+    Path: event:/sfx/environment/ambience
+  buttonClick:
+    Guid:
+      Data1: 1377824507
+      Data2: 1188606762
+      Data3: -1253468789
+      Data4: -1656652016
+    Path: event:/sfx/interfaces/buttonClick
+  buttonHover:
+    Guid:
+      Data1: -350814689
+      Data2: 1120038598
+      Data3: -1424942914
+      Data4: 33066457
+    Path: event:/sfx/interfaces/buttonHover
+  deathScreen:
+    Guid:
+      Data1: -271043364
+      Data2: 1270238003
+      Data3: -658578811
+      Data4: 1810370132
+    Path: event:/sfx/interfaces/deathScreen
+--- !u!4 &1760723311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760723309}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805153455
 GameObject:
   m_ObjectHideFlags: 0
@@ -10427,3 +10548,4 @@ SceneRoots:
   - {fileID: 176224322}
   - {fileID: 2130952412}
   - {fileID: 332761404}
+  - {fileID: 1760723311}

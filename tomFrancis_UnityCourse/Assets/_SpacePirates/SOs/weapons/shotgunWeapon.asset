@@ -17,3 +17,17 @@ MonoBehaviour:
   fireRate: 0.2
   numberOfProjectiles: 5
   spreadAngleDegrees: 15
+  shootSound:
+    Guid:
+      Data1: -2056945902
+      Data2: 1098386988
+      Data3: -1018410305
+      Data4: 563510952
+    Path: event:/sfx/player/weapons/weaponShot/shotgunShot
+  swapSound:
+    Guid:
+      Data1: 2037077384
+      Data2: 1252751304
+      Data3: -1188058207
+      Data4: -1156460065
+    Path: event:/sfx/player/weapons/weaponSwap/assaultSwap

@@ -21,6 +21,7 @@ public class PlayerDeath : MonoBehaviour
 
         // O player não pode ser removido/destruído ao morrer, senão a animação nunca aparece.
         health.removeOnDeath = false;
+        health.soundProfile = SoundProfile.Player; // sons de dano/morte do player (via AudioEvents)
         health.OnDeath += HandleDeath;
     }
 

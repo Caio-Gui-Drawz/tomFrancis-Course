@@ -17,3 +17,17 @@ MonoBehaviour:
   fireRate: 0.05
   numberOfProjectiles: 1
   spreadAngleDegrees: 5
+  shootSound:
+    Guid:
+      Data1: -1715676329
+      Data2: 1082710580
+      Data3: -545516107
+      Data4: 1777936358
+    Path: event:/sfx/player/weapons/weaponShot/smgShot
+  swapSound:
+    Guid:
+      Data1: 403724765
+      Data2: 1236709012
+      Data3: -285548610
+      Data4: 1934247911
+    Path: event:/sfx/player/weapons/weaponSwap/smgSwap

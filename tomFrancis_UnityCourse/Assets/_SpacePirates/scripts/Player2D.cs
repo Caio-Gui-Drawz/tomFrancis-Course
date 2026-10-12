@@ -116,6 +116,9 @@ public class Player2D : MonoBehaviour
             PoolManager.Instance.Get(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
         }
 
+        // Som do tiro: um por disparo (não por projétil), definido na própria arma.
+        AudioEvents.Play(currentWeapon.shootSound);
+
         if (weaponVisual != null)
         {
             weaponVisual.PlayShootAnimation();
@@ -126,6 +129,7 @@ public class Player2D : MonoBehaviour
     public void SwapWeapon(WeaponData newWeapon)
     {
         currentWeapon = newWeapon;
+        if (newWeapon != null) AudioEvents.Play(newWeapon.swapSound);
         secondsSinceLastShot = 0f; // evita herdar o timing de cooldown da arma anterior
     }
 }
