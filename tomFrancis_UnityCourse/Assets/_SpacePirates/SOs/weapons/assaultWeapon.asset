@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f34b8a62451f664c9f9b4bea2f3bbad, type: 3}
   m_Name: assaultWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: SMG
+  weaponName: assault
   bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-  fireRate: 0.05
+  fireRate: 0.5
   numberOfProjectiles: 1
-  spreadAngleDegrees: 5
+  spreadAngleDegrees: 3
   shootSound:
     Guid:
       Data1: -211216087

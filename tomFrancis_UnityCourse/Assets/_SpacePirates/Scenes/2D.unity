@@ -3279,6 +3279,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360369842}
   m_CullTransparentMesh: 1
+--- !u!1 &1419008694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1419008695}
+  - component: {fileID: 1419008696}
+  m_Layer: 0
+  m_Name: assaultSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1419008695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419008694}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1961664383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419008696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419008694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
+  prefab: {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
+  allowedSpawnPoints:
+  - {fileID: 1554308291}
+  offsetRange: {x: 0, y: 0}
 --- !u!1 &1490282783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,15 +3632,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 218794651}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 1805153457}
     startWave: 2
     endWave: 100
     weight: 1
-  - spawner: {fileID: 1211525534}
+  - spawner: {fileID: 1419008696}
     startWave: 3
     endWave: 100
     weight: 1
@@ -4571,6 +4619,7 @@ Transform:
   - {fileID: 2008155446}
   - {fileID: 846956885}
   - {fileID: 1805153456}
+  - {fileID: 1419008695}
   m_Father: {fileID: 1558080348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966654566
@@ -10477,6 +10526,10 @@ PrefabInstance:
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1558080347}
+    - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 895ef9f97160a8b4eb493996da5f75fa, type: 2}
     - target: {fileID: 6035196309292413793, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: ikConstraintName
       value: IK_ARM_L
