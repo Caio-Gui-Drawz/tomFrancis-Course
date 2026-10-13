@@ -29,6 +29,6 @@ MonoBehaviour:
   toAnimation:
   - ArmOnly_Shot
   duration:
-  - 1
+  - 0
   defaultMix: 0.2
   controller: {fileID: 0}

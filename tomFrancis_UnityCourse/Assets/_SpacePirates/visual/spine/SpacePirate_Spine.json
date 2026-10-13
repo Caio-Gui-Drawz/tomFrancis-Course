@@ -1,10 +1,10 @@
 {
 "skeleton": {
-	"hash": "uUPNG7JY5RvR1IxZICBYbTQ/2Lw",
+	"hash": "lScL9ZzEXAJ1hVW4lCk3VjX7oFs",
 	"spine": "3.8.0",
 	"x": -1197.3,
 	"y": 26.22,
-	"width": 2458.52,
+	"width": 2459.03,
 	"height": 1316.65,
 	"images": "./images/",
 	"audio": "D:/OneDrive/GAMEDEV/2026/Caio_SpacePirate/SpacePirate_Spine"
@@ -84,11 +84,14 @@
 	{ "name": "IK_TOES_L", "parent": "Bike_CTRL", "rotation": 90.18, "x": 188.93, "y": -138.37, "color": "ff3f00ff" },
 	{ "name": "IK_FOOT_L", "parent": "IK_TOES_L", "x": -127.56, "y": 18.01, "color": "ff3f00ff" },
 	{ "name": "IK_LEG_L", "parent": "IK_FOOT_L", "x": -72.49, "y": 60.28, "color": "ff3f00ff" },
-	{ "name": "Shoulder_Slot_L", "parent": "Chest", "x": 178.43, "y": -35.11 },
+	{ "name": "AimPivot", "parent": "root", "x": -54.65, "y": 1020.53 },
+	{ "name": "AimPivot2", "parent": "HIP_Master", "length": 381.88, "x": 273.94, "y": 174.84 },
+	{ "name": "Shoulder_Slot_L", "parent": "Chest", "rotation": -0.58, "x": 178.4, "y": -34.94 },
 	{ "name": "UpperArm_L", "parent": "Shoulder_Slot_L", "length": 284.73, "rotation": 170.24, "x": -3.27, "y": -1.83 },
 	{ "name": "ForeArm_L", "parent": "UpperArm_L", "length": 257.19, "rotation": 13.13, "x": 285.35, "y": 1.1 },
 	{ "name": "Hand_L", "parent": "ForeArm_L", "length": 118.91, "rotation": 6.94, "x": 257.25, "y": 0.98 },
-	{ "name": "IK_ARM_L", "parent": "Bike_CTRL", "rotation": 90.18, "x": -467.69, "y": 463.01, "color": "ff3f00ff" },
+	{ "name": "IK_AIM_CTRL", "parent": "root", "x": 486.64, "y": 1004.55, "color": "ff3f00ff" },
+	{ "name": "IK_ARM_L", "parent": "IK_AIM_CTRL", "x": -5.68, "y": -38.78, "color": "ff3f00ff" },
 	{
 		"name": "Bike_FX",
 		"parent": "Bike_Motor",
@@ -134,26 +137,32 @@
 ],
 "ik": [
 	{
+		"name": "IK_AIM_CTRL",
+		"order": 9,
+		"bones": [ "AimPivot2" ],
+		"target": "IK_AIM_CTRL"
+	},
+	{
 		"name": "IK_ARM_L",
-		"order": 8,
+		"order": 1,
 		"bones": [ "UpperArm_L", "ForeArm_L" ],
 		"target": "IK_ARM_L"
 	},
 	{
 		"name": "IK_ARM_R",
-		"order": 1,
+		"order": 2,
 		"bones": [ "UpperArm_R", "ForeArm_R" ],
 		"target": "IK_ARM_R"
 	},
 	{
 		"name": "IK_FOOT_L",
-		"order": 6,
+		"order": 4,
 		"bones": [ "Foot_L" ],
 		"target": "IK_FOOT_L"
 	},
 	{
 		"name": "IK_FOOT_R",
-		"order": 4,
+		"order": 6,
 		"bones": [ "Foot_R" ],
 		"target": "IK_FOOT_R"
 	},
@@ -166,7 +175,7 @@
 	},
 	{
 		"name": "IK_LEG_R",
-		"order": 2,
+		"order": 5,
 		"bones": [ "Tight_R", "Shin_R" ],
 		"target": "IK_LEG_R",
 		"bendPositive": false
@@ -179,7 +188,7 @@
 	},
 	{
 		"name": "IK_TOES_R",
-		"order": 5,
+		"order": 8,
 		"bones": [ "Foot_R3" ],
 		"target": "IK_TOES_R"
 	}
@@ -417,13 +426,51 @@
 		"bones": {
 			"IK_ARM_L": {
 				"translate": [
-					{ "x": -29.25, "y": 281.61, "curve": "stepped" },
-					{ "time": 0.1667, "x": -29.25, "y": 281.61 }
+					{ "x": 6.67, "y": 17.28, "curve": "stepped" },
+					{ "time": 0.1667, "x": 6.67, "y": 17.28 }
 				]
 			}
 		}
 	},
-	"ArmOnly_Reload": {},
+	"ArmOnly_Reload": {
+		"slots": {
+			"Bike_FX2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"IK_ARM_L": {
+				"translate": [
+					{ "y": 3.19 },
+					{ "time": 0.5, "x": -269.52, "y": -160.73 },
+					{ "time": 0.8, "x": -264.74, "y": -68.79 },
+					{ "time": 1.1333, "x": -146.67, "y": -37.15 },
+					{ "time": 1.5, "x": -51.7, "y": -56.35 },
+					{ "time": 1.7, "y": 3.19 }
+				]
+			},
+			"Biker_Char/Gun": {
+				"rotate": [
+					{ "angle": -0.71 },
+					{ "time": 0.5333, "angle": 45.85 },
+					{ "time": 0.6333, "angle": 130.3 },
+					{ "time": 0.7, "angle": -136.4 },
+					{ "time": 0.7667, "angle": 9.01 },
+					{ "time": 0.8667, "angle": 45.85 },
+					{ "time": 0.9667, "angle": 130.3 },
+					{ "time": 1.0333, "angle": -136.4 },
+					{ "time": 1.1, "angle": 9.01 },
+					{ "time": 1.2, "angle": 45.85 },
+					{ "time": 1.3, "angle": 130.3 },
+					{ "time": 1.3667, "angle": -136.4 },
+					{ "time": 1.4333, "angle": 9.01 },
+					{ "time": 1.7, "angle": -0.71 }
+				]
+			}
+		}
+	},
 	"ArmOnly_Shot": {
 		"slots": {
 			"Bike_FX2": {
@@ -458,52 +505,14 @@
 			}
 		}
 	},
-	"FullBody_BikePose": {
-		"bones": {
-			"HIP_Master": {
-				"translate": [
-					{ "x": 244.4, "y": 199.67 }
-				]
-			},
-			"IK_ARM_R": {
-				"translate": [
-					{ "x": 333.24, "y": -25.98 }
-				]
-			},
-			"IK_TOES_R": {
-				"rotate": [
-					{ "angle": -6.25 }
-				],
-				"translate": [
-					{ "x": -229.44, "y": 321.49 }
-				]
-			},
-			"IK_TOES_L": {
-				"translate": [
-					{ "x": -314.01, "y": 282.1 }
-				]
-			},
-			"Hip3": {
-				"rotate": [
-					{ "angle": -30.65 }
-				]
-			},
-			"Chest": {
-				"rotate": [
-					{ "angle": -23.89 }
-				]
-			},
-			"Head": {
-				"rotate": [
-					{ "angle": 56.74 }
-				],
-				"translate": [
-					{ "x": -8.56, "y": 0.74 }
+	"FullBody_Hurt": {
+		"slots": {
+			"Bike_FX2": {
+				"color": [
+					{ "color": "ffffff00" }
 				]
 			}
-		}
-	},
-	"FullBody_Hurt": {
+		},
 		"bones": {
 			"HIP_Master": {
 				"rotate": [
@@ -564,11 +573,13 @@
 			},
 			"Bike_CTRL": {
 				"rotate": [
-					{ "curve": "stepped" },
+					{},
+					{ "time": 0.1, "angle": -16.98 },
 					{ "time": 0.2667 }
 				],
 				"translate": [
-					{ "curve": "stepped" },
+					{},
+					{ "time": 0.1667, "y": -68.97 },
 					{ "time": 0.2667 }
 				],
 				"scale": [
@@ -1144,6 +1155,13 @@
 		}
 	},
 	"FullBody_Idle": {
+		"slots": {
+			"Bike_FX2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
 		"bones": {
 			"Bike_FX": {
 				"rotate": [
@@ -1390,17 +1408,6 @@
 					{ "time": 1 }
 				]
 			},
-			"IK_ARM_L": {
-				"rotate": [
-					{ "curve": "stepped" },
-					{ "time": 1 }
-				],
-				"translate": [
-					{ "y": -270.18 },
-					{ "time": 0.5, "x": 30.64, "y": -270.18 },
-					{ "time": 1, "y": -270.18 }
-				]
-			},
 			"Biker_Char/Gun": {
 				"rotate": [
 					{ "curve": "stepped" },
@@ -1412,10 +1419,22 @@
 					{ "curve": "stepped" },
 					{ "time": 1 }
 				]
+			},
+			"IK_ARM_L": {
+				"translate": [
+					{ "x": -266.89 }
+				]
 			}
 		}
 	},
 	"Fullbody_Death": {
+		"slots": {
+			"Bike_FX2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		},
 		"bones": {
 			"root": {
 				"rotate": [
@@ -1965,6 +1984,11 @@
 				],
 				"shear": [
 					{}
+				]
+			},
+			"IK_AIM_CTRL": {
+				"translate": [
+					{ "time": 0.0333, "x": 62.35, "y": 32.04 }
 				]
 			}
 		},

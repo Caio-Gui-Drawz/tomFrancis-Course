@@ -2,25 +2,51 @@ using UnityEngine;
 using Spine;
 using Spine.Unity;
 
+// Mira o braço esquerdo no mouse movendo o bone de CONTROLE de mira (IK_AIM_CTRL), que é o PAI
+// do alvo da IK do braço (IK_ARM_L). Assim as animações de ArmOnly_AimPose / ArmOnly_Shot, que
+// mexem no IK_ARM_L (relativo ao pai), continuam funcionando por cima da mira, sem briga.
 public class AimArmToMouse : MonoBehaviour
 {
     public SkeletonAnimation skeletonAnimation;
 
-    [Tooltip("Nome exato do bone-ALVO da IK (confirme com o ListIkConstraints antes).")]
-    public string ikTargetBoneName;
+    [Tooltip("Bone de controle de mira, pai do alvo da IK do braço. No rig atual: IK_AIM_CTRL.")]
+    public string aimControlBoneName = "IK_AIM_CTRL";
 
-    [Tooltip("Nome exato da IK CONSTRAINT (pode ser igual ou diferente do bone-alvo — confirme com o ListIkConstraints).")]
+    [Tooltip("Nome exato da IK CONSTRAINT do braço (a que liga/desliga a mira). No rig atual: IK_ARM_L.")]
     public string ikConstraintName;
 
-    Bone targetBone;
+    [Tooltip("Distância do alvo da IK até o ombro, como múltiplo do comprimento do braço. Acima de 1 = braço sempre esticado (igual ao rig no Spine), apontando direto pro mouse.")]
+    public float reachMultiplier = 1.05f;
+
+    [Tooltip("Se ligado, o braço dobra quando o mouse está perto do ombro (alvo à distância do mouse, limitada por Min Reach Fraction). Desligado = braço sempre esticado. A direção da bala NÃO depende disso.")]
+    public bool bendWhenMouseIsClose = true;
+
+    [Tooltip("Menor distância do alvo, como fração do comprimento do braço (0.75 = dobra no máximo um pouco). Menor = dobra mais.")]
+    [Range(0.2f, 1f)]
+    public float minReachFraction = 0.75f;
+
+    [Tooltip("Velocidade da suavização ao esticar/dobrar o braço (maior = mais rápido).")]
+    public float reachSmoothing = 18f;
+
+    float currentReach = -1f;
+
+    Bone aimControlBone;
     IkConstraint armIkConstraint;
+    Bone shoulderBone;   // primeiro bone da cadeia da IK do braço: a "origem" da mira
+    float armLength;     // soma dos comprimentos dos bones da cadeia
+    Vector2 lastDirection = Vector2.right;
+
+    // Ângulo (graus, mundo da Unity) do ombro até o mouse — a MESMA direção pra onde o braço
+    // aponta. O Player2D usa isso pra a bala sair na direção em que o braço realmente está.
+    public float AimAngleDegrees { get; private set; }
+    public bool HasAim { get; private set; }
 
     void Start()
     {
-        targetBone = skeletonAnimation.Skeleton.FindBone(ikTargetBoneName);
-        if (targetBone == null)
+        aimControlBone = FindBoneIgnoreCase(aimControlBoneName);
+        if (aimControlBone == null)
         {
-            Debug.LogWarning("Bone '" + ikTargetBoneName + "' não encontrado no esqueleto.");
+            Debug.LogWarning("Bone de controle '" + aimControlBoneName + "' não encontrado no esqueleto.");
         }
 
         armIkConstraint = skeletonAnimation.Skeleton.FindIkConstraint(ikConstraintName);
@@ -33,9 +59,32 @@ public class AimArmToMouse : MonoBehaviour
             // Começa desligada: o braço segue a pose da animação (mãos abaixadas), não o mouse.
             // SetAiming(true) é chamado de fora (Player2D) quando entra em modo de combate.
             armIkConstraint.Mix = 0f;
+
+            var chain = armIkConstraint.Bones;
+            if (chain.Count > 0)
+            {
+                shoulderBone = chain.Items[0];
+                for (int i = 0; i < chain.Count; i++) armLength += chain.Items[i].Data.Length;
+            }
         }
 
         skeletonAnimation.UpdateLocal += UpdateAim;
+    }
+
+    // O Spine diferencia maiúsculas de minúsculas ("IK_Aim_CTRL" != "IK_AIM_CTRL"); aqui tolera.
+    Bone FindBoneIgnoreCase(string boneName)
+    {
+        Bone exact = skeletonAnimation.Skeleton.FindBone(boneName);
+        if (exact != null) return exact;
+
+        foreach (Bone bone in skeletonAnimation.Skeleton.Bones)
+        {
+            if (string.Equals(bone.Data.Name, boneName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return bone;
+            }
+        }
+        return null;
     }
 
     void OnDestroy()
@@ -56,33 +105,76 @@ public class AimArmToMouse : MonoBehaviour
         }
     }
 
+    // Roda depois das animações serem aplicadas e ANTES da IK resolver — ponto certo pra
+    // posicionar o bone de controle sem as animações sobrescreverem (nenhuma anima ele).
     void UpdateAim(ISkeletonAnimation anim)
     {
-        if (targetBone == null) return;
+        if (aimControlBone == null) return;
 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
 
-        // Passo 1: converte de espaço de mundo da Unity para o espaço "de mundo" do esqueleto
-        // (relativo à raiz do SkeletonAnimation).
-        Vector3 skeletonSpacePos = skeletonAnimation.transform.InverseTransformPoint(mouseWorldPos);
+        // Unity (mundo) -> espaço do esqueleto.
+        Vector3 mouseSkeleton = skeletonAnimation.transform.InverseTransformPoint(mouseWorldPos);
 
-        // Passo 2: converte do espaço do esqueleto para o espaço LOCAL do PAI do bone-alvo —
-        // que é o sistema de referência que targetBone.X/Y realmente espera. Isso funciona
-        // corretamente não importa quantos bones existam entre o alvo e a raiz.
-        // (Fazemos isso sempre, mesmo com Mix em 0 — é barato, e evita o bone "pular" pra
-        // uma posição antiga quando a mira é reativada.)
-        if (targetBone.Parent != null)
+        // Origem da mira = o ombro (posição da última atualização do esqueleto).
+        float originX, originY;
+        if (shoulderBone != null)
         {
-            targetBone.Parent.WorldToLocal(skeletonSpacePos.x, skeletonSpacePos.y, out float localX, out float localY);
-            targetBone.X = localX;
-            targetBone.Y = localY;
+            originX = shoulderBone.WorldX;
+            originY = shoulderBone.WorldY;
         }
         else
         {
-            // Bone-alvo é a própria raiz (sem pai) — espaço do esqueleto já é o espaço local.
-            targetBone.X = skeletonSpacePos.x;
-            targetBone.Y = skeletonSpacePos.y;
+            originX = aimControlBone.Parent != null ? aimControlBone.Parent.WorldX : 0f;
+            originY = aimControlBone.Parent != null ? aimControlBone.Parent.WorldY : 0f;
+        }
+
+        Vector2 direction = new Vector2(mouseSkeleton.x - originX, mouseSkeleton.y - originY);
+        if (direction.sqrMagnitude > 0.0001f)
+        {
+            lastDirection = direction.normalized;
+        }
+        // (mouse em cima do ombro: mantém a última direção em vez de dar NaN)
+
+        // Alvo SEMPRE à mesma distância do ombro (braço esticado) e na direção do mouse: o braço
+        // aponta pro mouse mesmo com o mouse colado no boneco, sem dobrar e sem inverter o tiro.
+        float fullReach = armLength > 0.01f ? armLength * reachMultiplier : 500f;
+        float desiredReach = fullReach;
+        if (bendWhenMouseIsClose && armLength > 0.01f)
+        {
+            // Alvo na distância do mouse (assim o braço dobra quando ele está perto), mas nunca
+            // menor que o mínimo (evita dobrar demais / tremer) nem maior que o braço esticado.
+            float mouseDistance = direction.magnitude;
+            desiredReach = Mathf.Clamp(mouseDistance, armLength * minReachFraction, fullReach);
+        }
+
+        // Suaviza pra o braço dobrar/esticar sem "pular" quando o mouse cruza o limite.
+        if (currentReach < 0f) currentReach = desiredReach;
+        currentReach = Mathf.Lerp(currentReach, desiredReach, 1f - Mathf.Exp(-reachSmoothing * Time.deltaTime));
+        float reach = currentReach;
+        float targetX = originX + lastDirection.x * reach;
+        float targetY = originY + lastDirection.y * reach;
+
+        if (aimControlBone.Parent != null)
+        {
+            aimControlBone.Parent.WorldToLocal(targetX, targetY, out float localX, out float localY);
+            aimControlBone.X = localX;
+            aimControlBone.Y = localY;
+        }
+        else
+        {
+            aimControlBone.X = targetX;
+            aimControlBone.Y = targetY;
+        }
+
+        // Ângulo no mundo da Unity: origem do ombro -> mouse.
+        Vector3 originWorld = skeletonAnimation.transform.TransformPoint(new Vector3(originX, originY, 0f));
+        Vector2 worldDir = mouseWorldPos - originWorld;
+        if (worldDir.sqrMagnitude > 0.0001f)
+        {
+            AimAngleDegrees = Mathf.Atan2(worldDir.y, worldDir.x) * Mathf.Rad2Deg;
+            HasAim = true;
         }
     }
 }

@@ -16,6 +16,7 @@ public class Player2D : MonoBehaviour
     float currentAimAngle;
 
     bool canAct;
+    bool inCombatStance; // só pode atirar depois que a wave 1 começa (antes disso: só voando)
 
     void Start()
     {
@@ -69,6 +70,7 @@ public class Player2D : MonoBehaviour
     // Liga/desliga o braço de combate (IK mirando + animação de "pronto pra atirar").
     public void SetCombatStance(bool active)
     {
+        inCombatStance = active;
         if (weaponVisual != null) weaponVisual.SetAiming(active);
         if (aimArmToMouse != null) aimArmToMouse.SetAiming(active);
     }
@@ -85,7 +87,7 @@ public class Player2D : MonoBehaviour
         currentAimAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Atirar (usando a arma atual)
-        if (currentWeapon != null)
+        if (currentWeapon != null && inCombatStance)
         {
             secondsSinceLastShot += Time.deltaTime;
             if (secondsSinceLastShot >= currentWeapon.fireRate && Input.GetButton("Fire1"))
@@ -102,9 +104,19 @@ public class Player2D : MonoBehaviour
             ? weaponVisual.GetMuzzleWorldPosition()
             : transform.position + transform.right;
 
-        // Prioriza o ângulo real do cano (pós-IK) — só cai pro cálculo cru pela posição do
-        // mouse se não houver weaponVisual configurado (ex.: player sem Spine ainda).
-        float aimAngle = weaponVisual != null ? weaponVisual.GetMuzzleWorldAngle() : currentAimAngle;
+        // Direção da bala = a direção pra onde o BRAÇO aponta (ombro -> mouse), a mesma que a
+        // IK usa. Assim o tiro sai sempre no sentido do braço, mesmo com o mouse colado no boneco
+        // (onde "ponta do cano -> mouse" apontaria pro lado oposto). Não depende do balanço
+        // da animação de recuo.
+        float aimAngle;
+        if (aimArmToMouse != null && aimArmToMouse.HasAim)
+        {
+            aimAngle = aimArmToMouse.AimAngleDegrees;
+        }
+        else
+        {
+            aimAngle = currentAimAngle; // sem Spine configurado: ângulo a partir do player
+        }
         Quaternion aimRotation = Quaternion.Euler(0, 0, aimAngle);
 
         for (int i = 0; i < currentWeapon.numberOfProjectiles; i++)
@@ -121,7 +133,7 @@ public class Player2D : MonoBehaviour
 
         if (weaponVisual != null)
         {
-            weaponVisual.PlayShootAnimation();
+            weaponVisual.PlayShootAnimation(currentWeapon.fireRate);
         }
     }
 

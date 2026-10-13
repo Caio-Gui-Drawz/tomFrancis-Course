@@ -21,6 +21,18 @@ public class PlayerWeaponVisual : MonoBehaviour
     public string shootAnimationName;
     public int shootAnimationTrack = 1;
 
+    [Tooltip("Duração (s) da transição PARA a animação de tiro. Curta, senão o tiro (~0,17s) nem aparece.")]
+    public float shootMixDuration = 0.02f;
+
+    [Tooltip("Velocidade da animação de tiro (1 = normal, 0.5 = metade da velocidade). Útil pra dar mais leitura a um tiro muito rápido.")]
+    public float shootAnimationSpeed = 1f;
+
+    [Tooltip("Limite de aceleração da animação de tiro em armas de cadência muito alta.")]
+    public float maxShootAnimationSpeed = 4f;
+
+    [Tooltip("Duração (s) da transição de volta pro idle de mira depois do tiro.")]
+    public float returnMixDuration = 0.05f;
+
     Bone muzzleBone;
 
     void Start()
@@ -77,23 +89,46 @@ public class PlayerWeaponVisual : MonoBehaviour
         }
     }
 
-    public void PlayShootAnimation()
+    // fireInterval = segundos até o próximo tiro dessa arma (WeaponData.fireRate). Se for mais curto
+    // que a animação de tiro, a animação é ACELERADA pra caber inteira (senão cada tiro cortava a
+    // anterior e só o começo dela aparecia, ex.: no SMG).
+    public void PlayShootAnimation(float fireInterval = 0f)
     {
         if (string.IsNullOrEmpty(shootAnimationName)) return;
 
-        skeletonAnimation.AnimationState.SetAnimation(shootAnimationTrack, shootAnimationName, false);
+        Spine.AnimationState state = skeletonAnimation.AnimationState;
+
+        // Força a mistura de entrada no tiro (em vez de usar a tabela de Mix Durations do asset,
+        // onde AimPose -> Shot está em 1 segundo: o tiro dura só ~0,17s, então quase não aparecia).
+        TrackEntry shot = state.SetAnimation(shootAnimationTrack, shootAnimationName, false);
+        shot.MixDuration = shootMixDuration;
+
+        Spine.Animation shotAnimation = skeletonAnimation.Skeleton.Data.FindAnimation(shootAnimationName);
+        float shotDuration = shotAnimation != null ? shotAnimation.Duration : 0.2f;
+
+        float speed = shootAnimationSpeed;
+        if (fireInterval > 0f)
+        {
+            float speedToFit = shotDuration / fireInterval;
+            speed = Mathf.Min(Mathf.Max(speed, speedToFit), maxShootAnimationSpeed);
+        }
+        shot.TimeScale = speed;
+
+        // Delay explícito: a animação seguinte só entra perto do FIM do tiro. Com delay 0 o Spine
+        // calcula "duração - mix" (que dá <= 0 aqui) e começava a sair do tiro imediatamente.
+        float delayBeforeNext = Mathf.Max(0.01f, shotDuration / Mathf.Max(0.01f, speed) - returnMixDuration);
 
         if (!string.IsNullOrEmpty(aimIdleAnimationName))
         {
             // Depois que o tiro terminar, volta a tocar o loop de "pronto pra atirar".
-            skeletonAnimation.AnimationState.AddAnimation(shootAnimationTrack, aimIdleAnimationName, true, 0f);
+            TrackEntry back = state.AddAnimation(shootAnimationTrack, aimIdleAnimationName, true, delayBeforeNext);
+            back.MixDuration = returnMixDuration;
         }
         else
         {
-            // Sem animação de idle configurada ainda: solta a track suavemente (mix de 0.2s)
-            // em vez de travar no último frame do tiro pra sempre. AddEmptyAnimation devolve o
-            // controle desses bones pra track 0 (corpo), evitando a "briga" visual entre as duas.
-            skeletonAnimation.AnimationState.AddEmptyAnimation(shootAnimationTrack, 0.2f, 0f);
+            // Sem animação de idle configurada: solta a track suavemente em vez de travar no
+            // último frame do tiro, devolvendo o controle desses bones pra track 0 (corpo).
+            state.AddEmptyAnimation(shootAnimationTrack, returnMixDuration, delayBeforeNext);
         }
     }
 }
