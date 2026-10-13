@@ -27,6 +27,9 @@ public class PlayerWeaponVisual : MonoBehaviour
     [Tooltip("Velocidade da animação de tiro (1 = normal, 0.5 = metade da velocidade). Útil pra dar mais leitura a um tiro muito rápido.")]
     public float shootAnimationSpeed = 1f;
 
+    [Tooltip("Limite de aceleração da animação de tiro em armas de cadência muito alta.")]
+    public float maxShootAnimationSpeed = 4f;
+
     [Tooltip("Duração (s) da transição de volta pro idle de mira depois do tiro.")]
     public float returnMixDuration = 0.05f;
 
@@ -86,7 +89,10 @@ public class PlayerWeaponVisual : MonoBehaviour
         }
     }
 
-    public void PlayShootAnimation()
+    // fireInterval = segundos até o próximo tiro dessa arma (WeaponData.fireRate). Se for mais curto
+    // que a animação de tiro, a animação é ACELERADA pra caber inteira (senão cada tiro cortava a
+    // anterior e só o começo dela aparecia, ex.: no SMG).
+    public void PlayShootAnimation(float fireInterval = 0f)
     {
         if (string.IsNullOrEmpty(shootAnimationName)) return;
 
@@ -96,14 +102,21 @@ public class PlayerWeaponVisual : MonoBehaviour
         // onde AimPose -> Shot está em 1 segundo: o tiro dura só ~0,17s, então quase não aparecia).
         TrackEntry shot = state.SetAnimation(shootAnimationTrack, shootAnimationName, false);
         shot.MixDuration = shootMixDuration;
-        shot.TimeScale = shootAnimationSpeed;
 
         Spine.Animation shotAnimation = skeletonAnimation.Skeleton.Data.FindAnimation(shootAnimationName);
         float shotDuration = shotAnimation != null ? shotAnimation.Duration : 0.2f;
 
+        float speed = shootAnimationSpeed;
+        if (fireInterval > 0f)
+        {
+            float speedToFit = shotDuration / fireInterval;
+            speed = Mathf.Min(Mathf.Max(speed, speedToFit), maxShootAnimationSpeed);
+        }
+        shot.TimeScale = speed;
+
         // Delay explícito: a animação seguinte só entra perto do FIM do tiro. Com delay 0 o Spine
         // calcula "duração - mix" (que dá <= 0 aqui) e começava a sair do tiro imediatamente.
-        float delayBeforeNext = Mathf.Max(0.01f, shotDuration / Mathf.Max(0.01f, shootAnimationSpeed) - returnMixDuration);
+        float delayBeforeNext = Mathf.Max(0.01f, shotDuration / Mathf.Max(0.01f, speed) - returnMixDuration);
 
         if (!string.IsNullOrEmpty(aimIdleAnimationName))
         {

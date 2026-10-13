@@ -133,7 +133,7 @@ public class Player2D : MonoBehaviour
 
         if (weaponVisual != null)
         {
-            weaponVisual.PlayShootAnimation();
+            weaponVisual.PlayShootAnimation(currentWeapon.fireRate);
         }
     }
 

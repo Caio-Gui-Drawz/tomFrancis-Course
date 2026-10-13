@@ -18,6 +18,18 @@ public class AimArmToMouse : MonoBehaviour
     [Tooltip("Distância do alvo da IK até o ombro, como múltiplo do comprimento do braço. Acima de 1 = braço sempre esticado (igual ao rig no Spine), apontando direto pro mouse.")]
     public float reachMultiplier = 1.05f;
 
+    [Tooltip("Se ligado, o braço dobra quando o mouse está perto do ombro (alvo à distância do mouse, limitada por Min Reach Fraction). Desligado = braço sempre esticado. A direção da bala NÃO depende disso.")]
+    public bool bendWhenMouseIsClose = true;
+
+    [Tooltip("Menor distância do alvo, como fração do comprimento do braço (0.75 = dobra no máximo um pouco). Menor = dobra mais.")]
+    [Range(0.2f, 1f)]
+    public float minReachFraction = 0.75f;
+
+    [Tooltip("Velocidade da suavização ao esticar/dobrar o braço (maior = mais rápido).")]
+    public float reachSmoothing = 18f;
+
+    float currentReach = -1f;
+
     Bone aimControlBone;
     IkConstraint armIkConstraint;
     Bone shoulderBone;   // primeiro bone da cadeia da IK do braço: a "origem" da mira
@@ -127,7 +139,20 @@ public class AimArmToMouse : MonoBehaviour
 
         // Alvo SEMPRE à mesma distância do ombro (braço esticado) e na direção do mouse: o braço
         // aponta pro mouse mesmo com o mouse colado no boneco, sem dobrar e sem inverter o tiro.
-        float reach = armLength > 0.01f ? armLength * reachMultiplier : 500f;
+        float fullReach = armLength > 0.01f ? armLength * reachMultiplier : 500f;
+        float desiredReach = fullReach;
+        if (bendWhenMouseIsClose && armLength > 0.01f)
+        {
+            // Alvo na distância do mouse (assim o braço dobra quando ele está perto), mas nunca
+            // menor que o mínimo (evita dobrar demais / tremer) nem maior que o braço esticado.
+            float mouseDistance = direction.magnitude;
+            desiredReach = Mathf.Clamp(mouseDistance, armLength * minReachFraction, fullReach);
+        }
+
+        // Suaviza pra o braço dobrar/esticar sem "pular" quando o mouse cruza o limite.
+        if (currentReach < 0f) currentReach = desiredReach;
+        currentReach = Mathf.Lerp(currentReach, desiredReach, 1f - Mathf.Exp(-reachSmoothing * Time.deltaTime));
+        float reach = currentReach;
         float targetX = originX + lastDirection.x * reach;
         float targetY = originY + lastDirection.y * reach;
 
