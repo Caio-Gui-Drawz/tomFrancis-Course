@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5600431452132258801
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 10
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MySkybox_THIS
+  m_Shader: {fileID: -6465566751694194690, guid: 3c993da9e03b3e34ebb2e262a92c4e9e,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _EDGE1: 0.5
+    - _EDGE2: 1.5
+    - _HorizonBlend: 2.36
+    - _NadirBlendPower: 2.02
+    - _NoiseSCALE: 10
+    - _Posterize_NormalTime: -0.005
+    - _Posterize_Steps: 9.6
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _SACAAC: 3.94
+    - _SCALE: 35.74
+    - _SINEON_POSTERIZE: 0
+    - _StarOpacity: 0.06
+    - _StarSCALE: 262.34
+    - _Star_Time: 0.001
+    - _ZenithBlendPower_1: 1.48
+    m_Colors:
+    - _HorizonColor: {r: 0.20652369, g: 0.2356488, b: 0.4811321, a: 1}
+    - _NadirColor: {r: 0, g: 0.007843138, b: 0.16078432, a: 1}
+    - _Posterize_SineInterval: {r: -1, g: 1, b: 0, a: 0}
+    - _Remap_Range: {r: 0, g: 1, b: 0, a: 0}
+    - _ZenithColor: {r: 0, g: 0.007843138, b: 0.16078432, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
