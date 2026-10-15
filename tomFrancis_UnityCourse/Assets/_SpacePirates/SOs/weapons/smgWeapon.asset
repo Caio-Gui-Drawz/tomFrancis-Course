@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: SMG
   bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-  fireRate: 0.05
+  fireRate: 0.1
   numberOfProjectiles: 1
   spreadAngleDegrees: 5
   shootSound:

@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
+  prefab: {fileID: 2231184050527505601, guid: bf2433b86fd090f4991fe80909927c8d, type: 3}
   allowedSpawnPoints:
   - {fileID: 266124927}
   - {fileID: 1938815160}
@@ -3587,9 +3587,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 846956886}
+  - spawner: {fileID: 218794651}
     startWave: 1
-    endWave: 100
+    endWave: 5
     weight: 1
   - spawner: {fileID: 1805153457}
     startWave: 2
@@ -10363,6 +10363,14 @@ PrefabInstance:
     - target: {fileID: 2802742672718126812, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: shootMixDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: shootAnimationTrack
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: aimIdleAnimationName
