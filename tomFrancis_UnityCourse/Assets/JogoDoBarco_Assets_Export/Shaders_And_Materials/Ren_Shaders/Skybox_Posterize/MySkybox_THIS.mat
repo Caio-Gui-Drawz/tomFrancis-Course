@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MySkybox_THIS
-  m_Shader: {fileID: -6465566751694194690, guid: 3c993da9e03b3e34ebb2e262a92c4e9e,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3c993da9e03b3e34ebb2e262a92c4e9e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -54,25 +53,25 @@ Material:
     m_Floats:
     - _EDGE1: 0.5
     - _EDGE2: 1.5
-    - _HorizonBlend: 2.36
-    - _NadirBlendPower: 2.02
-    - _NoiseSCALE: 10
-    - _Posterize_NormalTime: -0.005
-    - _Posterize_Steps: 9.6
+    - _HorizonBlend: 149.3
+    - _NadirBlendPower: 2.5
+    - _NoiseSCALE: 32
+    - _Posterize_NormalTime: -0.02
+    - _Posterize_Steps: 8
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SACAAC: 3.94
     - _SCALE: 35.74
     - _SINEON_POSTERIZE: 0
     - _StarOpacity: 0.06
-    - _StarSCALE: 262.34
-    - _Star_Time: 0.001
-    - _ZenithBlendPower_1: 1.48
+    - _StarSCALE: 128
+    - _Star_Time: 0.005
+    - _ZenithBlendPower_1: 2.5
     m_Colors:
-    - _HorizonColor: {r: 0.20652369, g: 0.2356488, b: 0.4811321, a: 1}
-    - _NadirColor: {r: 0, g: 0.007843138, b: 0.16078432, a: 1}
+    - _HorizonColor: {r: 0.27772236, g: 0.085751146, b: 0.4433962, a: 1}
+    - _NadirColor: {r: 0.100516655, g: 0.059766673, b: 0.16299999, a: 1}
     - _Posterize_SineInterval: {r: -1, g: 1, b: 0, a: 0}
     - _Remap_Range: {r: 0, g: 1, b: 0, a: 0}
-    - _ZenithColor: {r: 0, g: 0.007843138, b: 0.16078432, a: 0}
+    - _ZenithColor: {r: 0.09472221, g: 0.05740741, b: 0.155, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
