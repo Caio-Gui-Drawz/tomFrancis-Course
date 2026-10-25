@@ -1,17 +1,17 @@
 {
 "skeleton": {
-	"hash": "WxbclFhZwI430N48hxZ1veN5Zvw",
+	"hash": "Hg3wiFlMSJMVzh7a85AiL79aOnc",
 	"spine": "3.8.0",
-	"x": -1204.26,
-	"y": 211,
+	"x": -1195.51,
+	"y": 189.66,
 	"width": 2435.92,
-	"height": 1181.3,
+	"height": 1220.02,
 	"images": "./images/",
 	"audio": "D:/OneDrive/GAMEDEV/2026/Caio_SpacePirate/SpacePirate_Spine"
 },
 "bones": [
 	{ "name": "root", "shearY": -0.18 },
-	{ "name": "Bike_Root", "parent": "root", "length": 73.73, "x": 14.18, "y": 514.86 },
+	{ "name": "Bike_Root", "parent": "root", "length": 73.73, "x": 22.91, "y": 519.24 },
 	{
 		"name": "Bike_CTRL",
 		"parent": "Bike_Root",
@@ -84,13 +84,13 @@
 	{ "name": "IK_TOES_L", "parent": "Bike_CTRL", "rotation": 73.41, "x": 119.31, "y": -306.97, "color": "ff3f00ff" },
 	{ "name": "IK_FOOT_L", "parent": "IK_TOES_L", "x": -127.56, "y": 18.01, "color": "ff3f00ff" },
 	{ "name": "IK_LEG_L", "parent": "IK_FOOT_L", "x": -72.49, "y": 60.28, "color": "ff3f00ff" },
-	{ "name": "AimPivot", "parent": "root", "x": -54.65, "y": 1020.53 },
+	{ "name": "AimPivot", "parent": "root", "x": -45.92, "y": 1024.9 },
 	{ "name": "AimPivot2", "parent": "HIP_Master", "length": 381.88, "x": 273.94, "y": 174.84 },
 	{ "name": "Shoulder_Slot_L", "parent": "Chest", "rotation": -0.58, "x": 178.4, "y": -34.94 },
 	{ "name": "UpperArm_L", "parent": "Shoulder_Slot_L", "length": 284.73, "rotation": 170.24, "x": -3.27, "y": -1.83 },
 	{ "name": "ForeArm_L", "parent": "UpperArm_L", "length": 257.19, "rotation": 13.13, "x": 285.35, "y": 1.1 },
 	{ "name": "Hand_L", "parent": "ForeArm_L", "length": 118.91, "rotation": 6.94, "x": 257.25, "y": 0.98 },
-	{ "name": "IK_AIM_CTRL", "parent": "root", "x": 486.64, "y": 1004.55, "color": "ff3f00ff" },
+	{ "name": "IK_AIM_CTRL", "parent": "root", "x": 495.37, "y": 1008.92, "color": "ff3f00ff" },
 	{ "name": "IK_ARM_L", "parent": "IK_AIM_CTRL", "x": -5.68, "y": -38.78, "color": "ff3f00ff" },
 	{
 		"name": "Bike_FX",
@@ -105,14 +105,14 @@
 	{ "name": "Gun_Shoot_Point", "parent": "Biker_Char/Gun", "x": 288.75, "y": 18.8, "color": "9b9b9b00" },
 	{ "name": "Jecket_Front", "parent": "Chest", "x": 91.08, "y": -49.27, "skin": true },
 	{ "name": "Jecket_Back", "parent": "Chest", "rotation": -6.09, "x": 33.77, "y": -90.9, "skin": true },
-	{ "name": "MainSkin/BackPack", "parent": "Chest", "length": 95.52, "rotation": 11.98, "x": 77.63, "y": 136.87 },
+	{ "name": "MainSkin/BackPack", "parent": "Chest", "length": 95.52, "rotation": 11.98, "x": 68.91, "y": 116.76 },
 	{
 		"name": "MainSkin/BackFin",
 		"parent": "Bike_Back",
 		"length": 314.03,
-		"rotation": -54.89,
-		"x": 390.34,
-		"y": -152.43,
+		"rotation": -51.77,
+		"x": 410.41,
+		"y": -205.9,
 		"color": "abe323ff"
 	},
 	{
@@ -128,13 +128,42 @@
 		"name": "MainSkin/BackSideFin",
 		"parent": "MainSkin/Bike_Rocket",
 		"length": 288.69,
-		"rotation": 28.21,
-		"x": 179.15,
-		"y": 101.29,
+		"rotation": 26.63,
+		"x": 183.08,
+		"y": 121.08,
+		"color": "abe323ff"
+	},
+	{
+		"name": "MainSkin/BackSideFin2",
+		"parent": "Bike_CTRL",
+		"length": 288.69,
+		"rotation": -61.23,
+		"x": 71.75,
+		"y": 78.09,
+		"color": "abe323ff"
+	},
+	{
+		"name": "MainSkin/BackSideFin3",
+		"parent": "Bike_CTRL",
+		"length": 288.69,
+		"rotation": -61.23,
+		"x": 145.56,
+		"y": 87.95,
+		"color": "abe323ff"
+	},
+	{
+		"name": "MainSkin/BackSideFin4",
+		"parent": "MainSkin/Bike_Rocket",
+		"length": 288.69,
+		"rotation": 26.63,
+		"x": 276.44,
+		"y": 76.34,
 		"color": "abe323ff"
 	}
 ],
 "slots": [
+	{ "name": "MainSkin/BackSideFin2", "bone": "MainSkin/BackSideFin2", "color": "000000ff", "attachment": "MainSkin/BackSideFin" },
+	{ "name": "MainSkin/BackSideFin4", "bone": "MainSkin/BackSideFin4", "color": "000000ff", "attachment": "MainSkin/BackSideFin" },
 	{ "name": "Shoulder_L", "bone": "UpperArm_L", "attachment": "Shoulder_L" },
 	{ "name": "UpperArm_L", "bone": "UpperArm_L", "attachment": "UpperArm_L" },
 	{ "name": "Hand_L", "bone": "Hand_L", "attachment": "Hand_L" },
@@ -152,6 +181,7 @@
 	{ "name": "Bike_Seat", "bone": "Bike_Seat", "attachment": "Bike_Seat" },
 	{ "name": "MainSkin/BackFin", "bone": "MainSkin/BackFin", "attachment": "MainSkin/BackFin" },
 	{ "name": "MainSkin/BackSideFin", "bone": "MainSkin/BackSideFin", "attachment": "MainSkin/BackSideFin" },
+	{ "name": "MainSkin/BackSideFin3", "bone": "MainSkin/BackSideFin3", "attachment": "MainSkin/BackSideFin" },
 	{ "name": "MainSkin/Bike_Fuel", "bone": "Bike_Seat", "attachment": "MainSkin/Bike_Fuel" },
 	{ "name": "MainSkin/Bike_Rocket", "bone": "MainSkin/Bike_Rocket", "attachment": "MainSkin/Bike_Rocket" },
 	{ "name": "MainSkin/Paralama_traseiro", "bone": "Bike_Back", "attachment": "MainSkin/Paralama_traseiro" },
@@ -256,6 +286,15 @@
 			"MainSkin/Bike_Rocket": {
 				"MainSkin/Bike_Rocket": { "x": 98.57, "y": -10.99, "rotation": 178.04, "width": 384, "height": 270 }
 			},
+			"MainSkin/BackSideFin2": {
+				"MainSkin/BackSideFin": { "x": 137.83, "y": 10.67, "rotation": 149.83, "width": 453, "height": 210 }
+			},
+			"MainSkin/BackSideFin3": {
+				"MainSkin/BackSideFin": { "x": 121.95, "y": 16.12, "rotation": 149.83, "width": 453, "height": 210 }
+			},
+			"MainSkin/BackSideFin4": {
+				"MainSkin/BackSideFin": { "x": 137.83, "y": 10.67, "rotation": 149.83, "width": 453, "height": 210 }
+			},
 			"MainSkin/BackFin": {
 				"MainSkin/BackFin": { "x": 125.32, "y": -26.58, "rotation": -125.79, "width": 357, "height": 342 }
 			},
@@ -281,7 +320,7 @@
 		"bones": [ "Jecket_Back", "Jecket_Front" ],
 		"attachments": {
 			"Head": {
-				"Head": { "name": "MainSkin/Head", "x": 58.75, "y": 43.06, "rotation": -15.2, "width": 288, "height": 319 }
+				"Head": { "name": "MainSkin/Head", "x": 58.75, "y": 43.06, "rotation": -15.2, "width": 341, "height": 332 }
 			},
 			"UpperArm_L": {
 				"UpperArm_L": { "name": "MainSkin/UpperArm_L", "x": 152.54, "y": 1.88, "rotation": 100.06, "width": 105, "height": 303 }
@@ -299,7 +338,7 @@
 				"Tight_R": { "name": "MainSkin/Tight_R", "x": 191.96, "y": -19.31, "rotation": 89.01, "width": 145, "height": 347 }
 			},
 			"Bike_Front": {
-				"Bike_Front": { "name": "MainSkin/Bike_Front", "x": 264.14, "y": -167.41, "rotation": 1.16, "width": 915, "height": 737 }
+				"Bike_Front": { "name": "MainSkin/Bike_Front", "x": 264.14, "y": -167.41, "rotation": 1.16, "width": 917, "height": 742 }
 			},
 			"Shoulder_R": {
 				"Shoulder_R": { "name": "MainSkin/Shoulder_R", "x": 54.84, "y": -13.18, "rotation": 81.27, "width": 159, "height": 117 }
@@ -373,7 +412,7 @@
 				"ForeArm_R": { "name": "MainSkin/ForeArm_R", "x": 134.39, "y": -0.74, "rotation": 84.92, "width": 170, "height": 303 }
 			},
 			"Jecket_Back": {
-				"Jecket_Back": { "name": "MainSkin/Jecket_Back", "x": 57.25, "y": 32.01, "rotation": -73.84, "width": 213, "height": 287 }
+				"Jecket_Back": { "name": "MainSkin/Jecket_Back", "x": 57.25, "y": 32.01, "rotation": -73.84, "width": 213, "height": 291 }
 			},
 			"Jecket_Front": {
 				"Jecket_Front": {
@@ -385,7 +424,7 @@
 					"hull": 4,
 					"edges": [ 0, 2, 2, 4, 4, 6, 0, 6 ],
 					"width": 216,
-					"height": 371
+					"height": 373
 				}
 			},
 			"Neck": {
@@ -1234,11 +1273,6 @@
 					{ "color": "565656ff" }
 				]
 			},
-			"ForeArm_L": {
-				"color": [
-					{ "color": "7b7b7bff" }
-				]
-			},
 			"Gun_FX": {
 				"color": [
 					{ "color": "ffffff00" }
@@ -1247,6 +1281,11 @@
 			"Hand_L": {
 				"color": [
 					{ "color": "8e8e8eff" }
+				]
+			},
+			"ForeArm_L": {
+				"color": [
+					{ "color": "7b7b7bff" }
 				]
 			}
 		},
@@ -1520,6 +1559,27 @@
 				]
 			},
 			"MainSkin/BackSideFin": {
+				"rotate": [
+					{ "angle": 7.77 },
+					{ "time": 0.5, "angle": -1.04 },
+					{ "time": 1, "angle": 7.77 }
+				]
+			},
+			"MainSkin/BackSideFin2": {
+				"rotate": [
+					{ "angle": 7.77 },
+					{ "time": 0.5, "angle": -1.04 },
+					{ "time": 1, "angle": 7.77 }
+				]
+			},
+			"MainSkin/BackSideFin3": {
+				"rotate": [
+					{ "angle": 7.77 },
+					{ "time": 0.5, "angle": -1.04 },
+					{ "time": 1, "angle": 7.77 }
+				]
+			},
+			"MainSkin/BackSideFin4": {
 				"rotate": [
 					{ "angle": 7.77 },
 					{ "time": 0.5, "angle": -1.04 },

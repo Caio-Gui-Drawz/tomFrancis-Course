@@ -77,10 +77,10 @@ Material:
     - _StarSCALE: 32
     - _Star_Time: 0.09
     - _Surface: 0
-    - _VrawTime: 0.035
+    - _VrawTime: 0.005
     - _Wave_Intensity: 0.25
     - _Wave_Scale: 1
-    - _Wave_time: 0.5
+    - _Wave_time: 0.14
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 1
