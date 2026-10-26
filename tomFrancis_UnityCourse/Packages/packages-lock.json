@@ -338,7 +338,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.toonshader": {
-      "version": "file:C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/com.unity.toonshader-0.15.1-preview.tgz",
+      "version": "file:com.unity.toonshader-0.15.1-preview.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {

@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 5383370176089516564}
   - component: {fileID: 9125338459263784820}
   - component: {fileID: 3328399361590587261}
+  - component: {fileID: 3673519896331117539}
+  - component: {fileID: 8916735149392862456}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -231,3 +233,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa51a2cf6ae5646b0cc8761cc5cfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
+--- !u!114 &3673519896331117539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803786269997138570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a3df7e1d4fa564aad0d094bba8676d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShakeFeedback
+  target: {fileID: 2104567554939128568}
+  duration: 0.25
+  useUnscaledTime: 0
+  useScaleBounce: 1
+  scaleAmount: 0.2
+  scaleVibrato: 8
+  scaleElasticity: 1
+  useRotationShake: 0
+  rotationStyle: 0
+  rotationAngle: 12
+  rotationVibrato: 10
+  rotationRandomnessOrElasticity: 0.5
+  baseIntensity: 1
+--- !u!114 &8916735149392862456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803786269997138570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5321d743608d1a74bb9a11e677fc3e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthFeedbackEvents
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3673519896331117539}
+        m_TargetAssemblyTypeName: ShakeFeedback, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3673519896331117539}
+        m_TargetAssemblyTypeName: ShakeFeedback, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerDamagedOnLethalHit: 0

@@ -17,6 +17,9 @@ MonoBehaviour:
   fireRate: 0.5
   numberOfProjectiles: 1
   spreadAngleDegrees: 3
+  limitMode: 1
+  durationSeconds: 10
+  ammo: 30
   shootSound:
     Guid:
       Data1: -211216087

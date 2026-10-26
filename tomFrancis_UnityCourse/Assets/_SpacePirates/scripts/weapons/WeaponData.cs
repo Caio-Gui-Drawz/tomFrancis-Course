@@ -6,6 +6,9 @@ using FMODUnity;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Cosmo Treasure/Weapon Data")]
 public class WeaponData : ScriptableObject
 {
+    // Como a arma "acaba" quando é pega de uma caixa. A arma padrão (pistola) usa Unlimited.
+    public enum LimitMode { Unlimited, Time, Ammo }
+
     public string weaponName;
     public GameObject bulletPrefab;
     public float fireRate; // segundos entre tiros
@@ -14,6 +17,16 @@ public class WeaponData : ScriptableObject
     public int numberOfProjectiles = 1;
     [Tooltip("Desvio angular máximo (para cada lado) aplicado a cada bala, em graus. 0 = mira perfeita.")]
     public float spreadAngleDegrees = 0f;
+
+    [Header("Limite de uso (armas de caixa)")]
+    [Tooltip("Unlimited = nunca acaba (pistola padrão). Time = acaba depois de N segundos. Ammo = acaba depois de N tiros.")]
+    public LimitMode limitMode = LimitMode.Unlimited;
+
+    [Tooltip("Segundos que a arma dura na mão (só usado em Time).")]
+    public float durationSeconds = 10f;
+
+    [Tooltip("Quantidade de tiros (disparos, não projéteis) que a arma tem (só usado em Ammo).")]
+    public int ammo = 30;
 
     [Header("Áudio")]
     [Tooltip("Evento do FMOD tocado UMA vez a cada disparo (mesmo que a arma atire vários projéteis).")]

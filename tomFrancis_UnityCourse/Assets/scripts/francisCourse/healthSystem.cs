@@ -20,6 +20,9 @@ public class healthSystem : MonoBehaviour
     // Avisa quem estiver inscrito que esta entidade morreu.
     public event System.Action OnDeath;
 
+    // Avisa a cada golpe recebido, com a quantidade de dano (inclusive o golpe que mata).
+    public event System.Action<float> OnDamaged;
+
     // Avisa toda vez que a vida muda (dano ou reset) — usado por UI fixa, tipo o HUD do player.
     public event System.Action<float, float> OnHealthChanged;
 
@@ -48,6 +51,7 @@ public class healthSystem : MonoBehaviour
 
         currentHealth -= damageAmount;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnDamaged?.Invoke(damageAmount);
 
         // Dano ou morte (o golpe que zera a vida toca o som de morte, não o de dano).
         AudioEvents.PlayDamage(soundProfile, currentHealth <= 0);

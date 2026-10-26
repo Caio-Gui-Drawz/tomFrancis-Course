@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player2D : MonoBehaviour
 {
+    [Tooltip("Arma padrão (pistola). Volta pra ela quando a arma de caixa acaba. Se vazio, usa a arma inicial.")]
+    public WeaponData defaultWeapon;
     public WeaponData currentWeapon;
     public PlayerWeaponVisual weaponVisual; // opcional — se vazio, usa o spawn antigo
     public WaveManager waveManager; // arraste o GameObject do WaveManager aqui
@@ -15,12 +17,39 @@ public class Player2D : MonoBehaviour
     // e, com ele, todos os filhos do prefab (incluindo o Spine), causando rotação esquisita.
     float currentAimAngle;
 
+    float weaponTimeRemaining;
+    int weaponAmmoRemaining;
+
+    // Pra HUD futura: 1 = cheia / sem limite, 0 = acabando.
+    public float WeaponRemainingFraction
+    {
+        get
+        {
+            if (currentWeapon == null) return 1f;
+            switch (currentWeapon.limitMode)
+            {
+                case WeaponData.LimitMode.Time:
+                    return currentWeapon.durationSeconds > 0f ? Mathf.Clamp01(weaponTimeRemaining / currentWeapon.durationSeconds) : 0f;
+                case WeaponData.LimitMode.Ammo:
+                    return currentWeapon.ammo > 0 ? Mathf.Clamp01((float)weaponAmmoRemaining / currentWeapon.ammo) : 0f;
+                default:
+                    return 1f;
+            }
+        }
+    }
+
+    // Avisa quando a arma muda (pegou de caixa ou voltou pra padrão).
+    public event System.Action<WeaponData> OnWeaponChanged;
+
     bool canAct;
     bool inCombatStance; // só pode atirar depois que a wave 1 começa (antes disso: só voando)
 
     void Start()
     {
         references.thePlayer = gameObject;
+
+        if (defaultWeapon == null) defaultWeapon = currentWeapon;
+        ResetWeaponLimit();
 
         if (weaponVisual != null)
         {
@@ -86,6 +115,13 @@ public class Player2D : MonoBehaviour
         Vector2 direction = mousePosition - transform.position;
         currentAimAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+        // Arma de caixa com limite de tempo: o relógio corre enquanto o jogo está rodando.
+        if (currentWeapon != null && currentWeapon.limitMode == WeaponData.LimitMode.Time)
+        {
+            weaponTimeRemaining -= Time.deltaTime;
+            if (weaponTimeRemaining <= 0f) RevertToDefaultWeapon();
+        }
+
         // Atirar (usando a arma atual)
         if (currentWeapon != null && inCombatStance)
         {
@@ -135,6 +171,26 @@ public class Player2D : MonoBehaviour
         {
             weaponVisual.PlayShootAnimation(currentWeapon.fireRate);
         }
+
+        // Arma de caixa com munição: gasta 1 por disparo; ao zerar, volta pra padrão.
+        if (currentWeapon.limitMode == WeaponData.LimitMode.Ammo)
+        {
+            weaponAmmoRemaining--;
+            if (weaponAmmoRemaining <= 0) RevertToDefaultWeapon();
+        }
+    }
+
+    void ResetWeaponLimit()
+    {
+        if (currentWeapon == null) return;
+        weaponTimeRemaining = currentWeapon.durationSeconds;
+        weaponAmmoRemaining = currentWeapon.ammo;
+    }
+
+    void RevertToDefaultWeapon()
+    {
+        if (defaultWeapon == null || currentWeapon == defaultWeapon) return;
+        SwapWeapon(defaultWeapon);
     }
 
     // Chamado de fora (ex: WeaponPickupReward) quando o player atira numa arma voadora.
@@ -143,5 +199,7 @@ public class Player2D : MonoBehaviour
         currentWeapon = newWeapon;
         if (newWeapon != null) AudioEvents.Play(newWeapon.swapSound);
         secondsSinceLastShot = 0f; // evita herdar o timing de cooldown da arma anterior
+        ResetWeaponLimit(); // pegar outra caixa (ou a mesma arma) reinicia o tempo/munição
+        OnWeaponChanged?.Invoke(currentWeapon);
     }
 }
