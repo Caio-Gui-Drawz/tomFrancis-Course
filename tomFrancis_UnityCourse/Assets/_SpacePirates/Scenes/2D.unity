@@ -3765,10 +3765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666f3ccfa24cbf943a528891d1d0969f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
-  spritePrefabs:
-  - {fileID: 5001124398558029869, guid: fe252276339aea544b503a49978447a6, type: 3}
-  - {fileID: 1580078642863164739, guid: daf3d4adb5feafe4bb7c3ad19248a383, type: 3}
-  - {fileID: 7280068176570772008, guid: 43584b53fcdea734f92c1c78df95d48b, type: 3}
+  spritePrefabs: []
   layerSpeed: 1.2
   speedJitter: 0.1
   minSecondsBetweenSpawns: 4
