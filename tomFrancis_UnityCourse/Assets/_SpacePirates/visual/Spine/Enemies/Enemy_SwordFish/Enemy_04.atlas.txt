@@ -1,0 +1,34 @@
+
+Enemy_04.png
+size: 416,568
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Fin
+  rotate: true
+  xy: 214, 185
+  size: 93, 103
+  orig: 95, 105
+  offset: 1, 1
+  index: -1
+Head
+  rotate: true
+  xy: 2, 144
+  size: 422, 210
+  orig: 422, 221
+  offset: 0, 11
+  index: -1
+Tail
+  rotate: false
+  xy: 2, 2
+  size: 351, 140
+  orig: 428, 140
+  offset: 77, 0
+  index: -1
+body_mid
+  rotate: true
+  xy: 214, 280
+  size: 286, 200
+  orig: 286, 200
+  offset: 0, 0
+  index: -1

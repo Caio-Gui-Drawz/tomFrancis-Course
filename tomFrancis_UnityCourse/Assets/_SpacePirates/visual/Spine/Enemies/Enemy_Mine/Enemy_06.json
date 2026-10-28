@@ -1,0 +1,31 @@
+{
+"skeleton": {
+	"hash": "s2xIxtM8K/RB679g9SEhsJUOJuU",
+	"spine": "3.8.0",
+	"x": -187.35,
+	"y": -189.86,
+	"width": 372,
+	"height": 407,
+	"images": "./images/",
+	"audio": "C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/Enemies/Enemy_06"
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "peixe6", "bone": "root", "attachment": "peixe6" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"peixe6": {
+				"peixe6": { "x": -1.35, "y": 13.64, "width": 372, "height": 407 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {}
+}
+}

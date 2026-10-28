@@ -1,0 +1,13 @@
+
+Enemy_06.png
+size: 374,409
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+peixe6
+  rotate: false
+  xy: 2, 2
+  size: 370, 405
+  orig: 372, 407
+  offset: 1, 1
+  index: -1
