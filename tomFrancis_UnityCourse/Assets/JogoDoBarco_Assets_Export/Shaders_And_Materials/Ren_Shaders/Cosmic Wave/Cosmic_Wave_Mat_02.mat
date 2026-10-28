@@ -77,8 +77,8 @@ Material:
     - _StarSCALE: 32
     - _Star_Time: 0.09
     - _Surface: 0
-    - _VrawTime: 0.005
-    - _Wave_Intensity: 0.25
+    - _VrawTime: 0.05
+    - _Wave_Intensity: 1.21
     - _Wave_Scale: 1
     - _Wave_time: 0.1
     - _WorkflowMode: 1
