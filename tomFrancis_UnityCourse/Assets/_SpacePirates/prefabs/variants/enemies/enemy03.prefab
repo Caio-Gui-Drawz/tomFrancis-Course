@@ -152,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.14755917
       objectReference: {fileID: 0}
+    - target: {fileID: 1751946278933903, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 976531521935425341, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: maxHealth
       value: 5
@@ -242,6 +246,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4720790934976166414}
+    - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8033575098911975332}
   m_SourcePrefab: {fileID: 100100000, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
 --- !u!4 &6965491574484338947 stripped
 Transform:
@@ -267,3 +274,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChasePlayerMovement
   speed: 5
   offsetRange: {x: -1, y: 1}
+--- !u!114 &8033575098911975332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248225474357231985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f5d1c37692ff54287a96cc03a75bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceVelocity
+  visual: {fileID: 0}
+  angleOffset: 180
+  turnSpeed: 360
+  minSpeed: 0.1
