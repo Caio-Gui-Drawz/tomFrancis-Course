@@ -3532,7 +3532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 218794651}
     startWave: 1
     endWave: 100
     weight: 1
@@ -3540,11 +3540,11 @@ MonoBehaviour:
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 1211525534}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 288452476}
     startWave: 2
     endWave: 100
     weight: 0.7

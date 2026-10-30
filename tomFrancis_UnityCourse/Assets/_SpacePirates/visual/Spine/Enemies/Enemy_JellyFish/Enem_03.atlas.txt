@@ -1,13 +1,41 @@
 
 Enem_03.png
-size: 569,387
+size: 377,394
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Peixe_03
+Eye_01
+  rotate: true
+  xy: 288, 290
+  size: 102, 71
+  orig: 104, 73
+  offset: 1, 1
+  index: -1
+Eye_02
+  rotate: false
+  xy: 288, 176
+  size: 61, 112
+  orig: 63, 114
+  offset: 1, 1
+  index: -1
+Eye_03
+  rotate: true
+  xy: 288, 121
+  size: 53, 87
+  orig: 55, 89
+  offset: 1, 1
+  index: -1
+Tentacle
   rotate: false
   xy: 2, 2
-  size: 565, 383
-  orig: 567, 385
+  size: 342, 94
+  orig: 342, 94
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 98
+  size: 284, 294
+  orig: 286, 296
   offset: 1, 1
   index: -1
