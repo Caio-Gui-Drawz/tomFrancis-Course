@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
   allowedSpawnPoints:
-  - {fileID: 1554308291}
+  - {fileID: 1715493237}
   offsetRange: {x: 0, y: 0}
 --- !u!1 &854414913
 GameObject:
@@ -3532,15 +3532,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 218794651}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 1211525534}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
@@ -3907,7 +3907,7 @@ Transform:
   m_GameObject: {fileID: 1715493236}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 3.4, z: 0}
+  m_LocalPosition: {x: -46.7, y: 3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
