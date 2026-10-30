@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: assaultWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: assault
-  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
-  fireRate: 0.5
+  bulletPrefab: {fileID: 7806555387631928024, guid: 19cd3566054972840a087068e354b808, type: 3}
+  fireRate: 0.4
   numberOfProjectiles: 1
   spreadAngleDegrees: 3
   limitMode: 1
