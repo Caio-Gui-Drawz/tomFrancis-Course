@@ -1,0 +1,139 @@
+{
+"skeleton": {
+	"hash": "SmsTQZC6INeu7Z5OfbkVuqrn5zg",
+	"spine": "3.8.0",
+	"x": -414.62,
+	"y": -360.76,
+	"width": 789.5,
+	"height": 706,
+	"images": "C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/Gun_Vault/GunVault_Spine/images/",
+	"audio": "C:\\Users\\Renato\\OneDrive - Grupo Marista (1)\\Cerco_Blender\\Renato_Pessoal\\caio\\Caio_SpacePirate\\Gun_Vault\\GunVault_Spine"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Main_Bone", "parent": "root", "length": 167.53, "x": 0.33, "y": -0.37 }
+],
+"slots": [
+	{ "name": "4", "bone": "Main_Bone", "attachment": "4" },
+	{ "name": "3", "bone": "Main_Bone", "attachment": "3" },
+	{ "name": "2", "bone": "Main_Bone", "attachment": "2" },
+	{ "name": "1", "bone": "Main_Bone", "attachment": "1" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"1": {
+				"1": { "x": 0.55, "y": 3.6, "width": 748, "height": 510 }
+			},
+			"2": {
+				"2": { "x": -30.45, "y": -8.4, "width": 769, "height": 565 }
+			},
+			"3": {
+				"3": { "x": -30.95, "y": 4.6, "width": 733, "height": 682 }
+			},
+			"4": {
+				"4": { "x": -40.45, "y": -21.4, "width": 689, "height": 678 }
+			}
+		}
+	}
+],
+"animations": {
+	"Vault_1": {
+		"slots": {
+			"4": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"1": {
+				"color": [
+					{ "color": "ffffffff" }
+				]
+			}
+		}
+	},
+	"Vault_2": {
+		"slots": {
+			"4": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"2": {
+				"color": [
+					{ "color": "ffffffff" }
+				]
+			},
+			"1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"Vault_3": {
+		"slots": {
+			"4": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffffff" }
+				]
+			},
+			"2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"Vault_4": {
+		"slots": {
+			"4": {
+				"color": [
+					{ "color": "ffffffff" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"1": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	}
+}
+}

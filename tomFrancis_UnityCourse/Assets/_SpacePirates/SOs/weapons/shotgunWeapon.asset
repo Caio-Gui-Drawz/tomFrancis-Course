@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: shotgunWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: shotgun
-  bulletPrefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+  bulletPrefab: {fileID: 60644171757082306, guid: 6979f587210345c43ab2c5b529596c7a, type: 3}
   fireRate: 1.5
-  numberOfProjectiles: 5
-  spreadAngleDegrees: 15
+  numberOfProjectiles: 7
+  spreadAngleDegrees: 18
   limitMode: 2
   durationSeconds: 10
   ammo: 5
+  skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
+  weaponAnimationName: WeaponOnly_Shotgun
   shootSound:
     Guid:
       Data1: -2056945902

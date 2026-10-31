@@ -407,7 +407,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint09
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -523,7 +523,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint01
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -843,6 +843,10 @@ PrefabInstance:
     - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: aimIdleAnimationName
       value: ArmOnly_AimPose
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: reloadAnimationSpeed
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: waveManager
@@ -1331,7 +1335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
   allowedSpawnPoints:
-  - {fileID: 1554308291}
+  - {fileID: 1715493237}
   offsetRange: {x: 0, y: 0}
 --- !u!1 &854414913
 GameObject:
@@ -1555,7 +1559,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnpoint07
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2374,7 +2378,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnpoint08
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3032,7 +3036,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint06
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3452,7 +3456,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint04
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3483,7 +3487,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint03
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3496,7 +3500,7 @@ Transform:
   m_GameObject: {fileID: 1554308290}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.19, y: 0, z: 0}
+  m_LocalPosition: {x: 40.3, y: -13.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3532,15 +3536,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 218794651}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 801789444}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 1211525534}
+  - spawner: {fileID: 846956886}
     startWave: 1
     endWave: 100
     weight: 1
@@ -3894,7 +3898,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint05
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3907,7 +3911,7 @@ Transform:
   m_GameObject: {fileID: 1715493236}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 3.4, z: 0}
+  m_LocalPosition: {x: -46.7, y: 3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3925,7 +3929,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint00
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4168,7 +4172,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint02
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10088,7 +10092,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawnPoint10
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

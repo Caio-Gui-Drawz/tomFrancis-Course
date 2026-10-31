@@ -152,9 +152,29 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.07484794
       objectReference: {fileID: 0}
+    - target: {fileID: 1751946278933903, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768834766762188566, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
       value: enemy02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -196,6 +216,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -209,7 +233,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8243284602072225291}
+      addedObject: {fileID: 1539002583414042961}
+    - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6210976155286842535}
   m_SourcePrefab: {fileID: 100100000, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
 --- !u!4 &6965491574484338947 stripped
 Transform:
@@ -221,7 +248,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
   m_PrefabInstance: {fileID: 9051822542421492731}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8243284602072225291
+--- !u!114 &1539002583414042961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,9 +257,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 7248225474357231985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269c4d49af1334f4c8008bee07fe7f60, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fadbdeb53f5bb54083534adcb614d3b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StraightMovement
-  speed: 10
-  offsetRange: {x: -1, y: 1}
-  direction: {x: -1, y: 1}
+  m_EditorClassIdentifier: Assembly-CSharp::LobAtPlayerMovement
+  arcMode: 1
+  flightTime: 1
+  apexHeight: 20
+  aimRadius: 7
+  fallbackDirection: {x: -12.22, y: 10.01}
+  useSpeedCurve: 1
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0008239746
+      value: 0.50177
+      inSlope: 1.7220563
+      outSlope: 1.7220563
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.109145395
+    - serializedVersion: 3
+      time: 0.4033228
+      value: 3.9584107
+      inSlope: 30.549816
+      outSlope: 30.549816
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.028408991
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minSpeedMultiplier: 0.5
+--- !u!114 &6210976155286842535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248225474357231985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f5d1c37692ff54287a96cc03a75bfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FaceVelocity
+  visual: {fileID: 7869716495487731912}
+  angleOffset: 180
+  turnSpeed: 360
+  minSpeed: 0.1

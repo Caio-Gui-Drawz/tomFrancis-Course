@@ -33,6 +33,44 @@ public class PlayerWeaponVisual : MonoBehaviour
     [Tooltip("Duração (s) da transição de volta pro idle de mira depois do tiro.")]
     public float returnMixDuration = 0.05f;
 
+    [Header("Arma na mão")]
+    [Tooltip("Track só da arma (animações WeaponOnly_*). Precisa ser diferente das tracks do corpo (0) e do braço/tiro. Track mais alta sobrescreve as mais baixas.")]
+    public int weaponTrack = 3;
+
+    [Tooltip("Duração (s) da transição entre uma arma e outra. 0 = troca instantânea.")]
+    public float weaponSwapMixDuration = 0f;
+
+    [Header("Recarga (troca de arma)")]
+    [SpineAnimation(dataField: "skeletonAnimation")]
+    [Tooltip("Animação de recarga do braço, tocada ao trocar de arma. É a mesma pra qualquer arma.")]
+    public string reloadAnimationName = "ArmOnly_Reload";
+
+    [Tooltip("Track só da recarga. Precisa ser MAIOR que a do braço/tiro, pra sobrescrever enquanto toca, e diferente da track da arma.")]
+    public int reloadTrack = 4;
+
+    [Tooltip("Duração (s) da transição PARA a recarga.")]
+    public float reloadMixInDuration = 0.05f;
+
+    [Tooltip("Duração (s) da transição de volta pra pose de mira quando a recarga termina.")]
+    public float reloadMixOutDuration = 0.1f;
+
+    [Tooltip("Velocidade da animação de recarga (1 = normal).")]
+    public float reloadAnimationSpeed = 1f;
+
+    [Tooltip("Ligado = durante a recarga o braço NÃO segue o mouse: vai pra pose original do rig, onde a animação foi desenhada. Volta a mirar suavemente no fim.")]
+    public bool lockAimDuringReload = true;
+
+    // Duração (s) da recarga já considerando a velocidade — útil se quiser travar o tiro durante ela.
+    public float ReloadDuration
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(reloadAnimationName)) return 0f;
+            Spine.Animation animation = skeletonAnimation.Skeleton.Data.FindAnimation(reloadAnimationName);
+            return animation != null ? animation.Duration / Mathf.Max(0.01f, reloadAnimationSpeed) : 0f;
+        }
+    }
+
     Bone muzzleBone;
 
     void Start()
@@ -87,6 +125,53 @@ public class PlayerWeaponVisual : MonoBehaviour
         {
             skeletonAnimation.AnimationState.ClearTrack(shootAnimationTrack);
         }
+    }
+
+    // Toca a recarga numa track separada (sobrescreve o braço enquanto roda) e solta a track no fim,
+    // devolvendo o braço pra animação de mira da outra track.
+    public void PlayReload()
+    {
+        if (string.IsNullOrEmpty(reloadAnimationName)) return;
+
+        Spine.Animation animation = skeletonAnimation.Skeleton.Data.FindAnimation(reloadAnimationName);
+        if (animation == null)
+        {
+            Debug.LogWarning("Animação de recarga '" + reloadAnimationName + "' não existe no esqueleto.");
+            return;
+        }
+
+        Spine.AnimationState state = skeletonAnimation.AnimationState;
+        TrackEntry reload = state.SetAnimation(reloadTrack, animation, false);
+        reload.MixDuration = reloadMixInDuration;
+        reload.TimeScale = reloadAnimationSpeed;
+
+        if (lockAimDuringReload)
+        {
+            AimArmToMouse aim = GetComponent<AimArmToMouse>();
+            if (aim != null) aim.LockAimFor(animation.Duration / Mathf.Max(0.01f, reloadAnimationSpeed));
+        }
+
+        // Delay explícito (mesma razão do tiro): a saída começa perto do FIM da recarga.
+        float duration = animation.Duration / Mathf.Max(0.01f, reloadAnimationSpeed);
+        float delayBeforeRelease = Mathf.Max(0.01f, duration - reloadMixOutDuration);
+        state.AddEmptyAnimation(reloadTrack, reloadMixOutDuration, delayBeforeRelease);
+    }
+
+    // Troca o visual da arma na mão tocando a animação WeaponOnly_* (em loop) numa track separada,
+    // que sobrescreve a arma da animação anterior sem mexer no corpo nem no braço.
+    public void SetWeaponAnimation(string animationName)
+    {
+        if (string.IsNullOrEmpty(animationName)) return;
+
+        Spine.Animation animation = skeletonAnimation.Skeleton.Data.FindAnimation(animationName);
+        if (animation == null)
+        {
+            Debug.LogWarning("Animação de arma '" + animationName + "' não existe no esqueleto.");
+            return;
+        }
+
+        TrackEntry entry = skeletonAnimation.AnimationState.SetAnimation(weaponTrack, animation, true);
+        entry.MixDuration = weaponSwapMixDuration;
     }
 
     // fireInterval = segundos até o próximo tiro dessa arma (WeaponData.fireRate). Se for mais curto
