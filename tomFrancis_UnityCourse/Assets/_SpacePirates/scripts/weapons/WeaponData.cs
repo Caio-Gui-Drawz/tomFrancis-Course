@@ -1,5 +1,6 @@
 using UnityEngine;
 using FMODUnity;
+using Spine.Unity;
 
 // Cada arma vira um asset (Assets > Create > Cosmo Treasure > Weapon Data), sem precisar
 // de código novo por arma — só preencher os campos no Inspector.
@@ -27,6 +28,14 @@ public class WeaponData : ScriptableObject
 
     [Tooltip("Quantidade de tiros (disparos, não projéteis) que a arma tem (só usado em Ammo).")]
     public int ammo = 30;
+
+    [Header("Visual (Spine)")]
+    [Tooltip("O esqueleto do player (SpacePirate_Spine_SkeletonData). Só serve pra preencher a lista de animações abaixo.")]
+    public SkeletonDataAsset skeletonData;
+
+    [SpineAnimation(dataField: "skeletonData")]
+    [Tooltip("Animação 'WeaponOnly_...' que mostra esta arma na mão do player. <None> = não troca o visual.")]
+    public string weaponAnimationName;
 
     [Header("Áudio")]
     [Tooltip("Evento do FMOD tocado UMA vez a cada disparo (mesmo que a arma atire vários projéteis).")]

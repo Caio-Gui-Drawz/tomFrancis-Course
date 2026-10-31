@@ -20,6 +20,8 @@ MonoBehaviour:
   limitMode: 2
   durationSeconds: 10
   ammo: 5
+  skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
+  weaponAnimationName: WeaponOnly_Shotgun
   shootSound:
     Guid:
       Data1: -2056945902

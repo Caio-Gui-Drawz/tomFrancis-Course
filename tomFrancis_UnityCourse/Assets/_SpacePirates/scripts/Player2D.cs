@@ -17,6 +17,11 @@ public class Player2D : MonoBehaviour
     // e, com ele, todos os filhos do prefab (incluindo o Spine), causando rotação esquisita.
     float currentAimAngle;
 
+    [Tooltip("Ligado = não dá pra atirar enquanto a animação de recarga (troca de arma) está tocando.")]
+    public bool blockShootingDuringReload = true;
+
+    float reloadUnlockTime; // Time.time em que o tiro volta a ser liberado
+
     float weaponTimeRemaining;
     int weaponAmmoRemaining;
 
@@ -58,6 +63,8 @@ public class Player2D : MonoBehaviour
 
         // Garante que começa com as mãos abaixadas (sem mirar), até a wave 1 começar.
         SetCombatStance(false);
+
+        ShowCurrentWeapon();
     }
 
     void OnEnable()
@@ -126,7 +133,8 @@ public class Player2D : MonoBehaviour
         if (currentWeapon != null && inCombatStance)
         {
             secondsSinceLastShot += Time.deltaTime;
-            if (secondsSinceLastShot >= currentWeapon.fireRate && Input.GetButton("Fire1"))
+            bool reloading = blockShootingDuringReload && Time.time < reloadUnlockTime;
+            if (!reloading && secondsSinceLastShot >= currentWeapon.fireRate && Input.GetButton("Fire1"))
             {
                 FireCurrentWeapon();
                 secondsSinceLastShot = 0;
@@ -180,6 +188,15 @@ public class Player2D : MonoBehaviour
         }
     }
 
+    // Mostra na mão do player a arma atual (animação WeaponOnly_* definida no WeaponData).
+    void ShowCurrentWeapon()
+    {
+        if (weaponVisual != null && currentWeapon != null)
+        {
+            weaponVisual.SetWeaponAnimation(currentWeapon.weaponAnimationName);
+        }
+    }
+
     void ResetWeaponLimit()
     {
         if (currentWeapon == null) return;
@@ -199,6 +216,13 @@ public class Player2D : MonoBehaviour
         currentWeapon = newWeapon;
         if (newWeapon != null) AudioEvents.Play(newWeapon.swapSound);
         secondsSinceLastShot = 0f; // evita herdar o timing de cooldown da arma anterior
+        ShowCurrentWeapon();
+        if (inCombatStance && weaponVisual != null)
+        {
+            // Recarga só com o braço em posição de combate; trava o tiro pelo tempo dela.
+            weaponVisual.PlayReload();
+            reloadUnlockTime = Time.time + weaponVisual.ReloadDuration;
+        }
         ResetWeaponLimit(); // pegar outra caixa (ou a mesma arma) reinicia o tempo/munição
         OnWeaponChanged?.Invoke(currentWeapon);
     }

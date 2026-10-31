@@ -28,7 +28,12 @@ public class AimArmToMouse : MonoBehaviour
     [Tooltip("Velocidade da suavização ao esticar/dobrar o braço (maior = mais rápido).")]
     public float reachSmoothing = 18f;
 
+    [Tooltip("Velocidade com que a mira entra/sai do modo travado (recarga). Maior = mais rápido, menor = mais suave.")]
+    public float aimLockBlendSpeed = 12f;
+
     float currentReach = -1f;
+    float lockedUntilTime;   // Time.time até quando a mira fica travada na pose do rig
+    float lockWeight;        // 0 = segue o mouse, 1 = totalmente na pose do rig
 
     Bone aimControlBone;
     IkConstraint armIkConstraint;
@@ -95,6 +100,13 @@ public class AimArmToMouse : MonoBehaviour
         }
     }
 
+    // Trava a mira por "seconds": o alvo do braço volta pra posição original do rig (a pose que as
+    // animações ArmOnly_* foram desenhadas pra usar), em vez de seguir o mouse. Sai suavemente no fim.
+    public void LockAimFor(float seconds)
+    {
+        lockedUntilTime = Mathf.Max(lockedUntilTime, Time.time + seconds);
+    }
+
     // Liga/desliga a mira. Mix 0 = a IK não tem efeito nenhum (braço 100% controlado pela
     // animação tocando); Mix 1 = a IK controla o braço por completo, perseguindo o mouse.
     public void SetAiming(bool isAiming)
@@ -156,16 +168,20 @@ public class AimArmToMouse : MonoBehaviour
         float targetX = originX + lastDirection.x * reach;
         float targetY = originY + lastDirection.y * reach;
 
+        // Mira travada (ex.: recarga): mistura o alvo do mouse com a posição original do bone no rig.
+        float lockTarget = Time.time < lockedUntilTime ? 1f : 0f;
+        lockWeight = Mathf.MoveTowards(lockWeight, lockTarget, aimLockBlendSpeed * Time.deltaTime);
+
         if (aimControlBone.Parent != null)
         {
             aimControlBone.Parent.WorldToLocal(targetX, targetY, out float localX, out float localY);
-            aimControlBone.X = localX;
-            aimControlBone.Y = localY;
+            aimControlBone.X = Mathf.Lerp(localX, aimControlBone.Data.X, lockWeight);
+            aimControlBone.Y = Mathf.Lerp(localY, aimControlBone.Data.Y, lockWeight);
         }
         else
         {
-            aimControlBone.X = targetX;
-            aimControlBone.Y = targetY;
+            aimControlBone.X = Mathf.Lerp(targetX, aimControlBone.Data.X, lockWeight);
+            aimControlBone.Y = Mathf.Lerp(targetY, aimControlBone.Data.Y, lockWeight);
         }
 
         // Ângulo no mundo da Unity: origem do ombro -> mouse.

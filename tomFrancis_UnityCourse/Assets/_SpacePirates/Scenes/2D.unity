@@ -844,6 +844,10 @@ PrefabInstance:
       propertyPath: aimIdleAnimationName
       value: ArmOnly_AimPose
       objectReference: {fileID: 0}
+    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: reloadAnimationSpeed
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: waveManager
       value: 
