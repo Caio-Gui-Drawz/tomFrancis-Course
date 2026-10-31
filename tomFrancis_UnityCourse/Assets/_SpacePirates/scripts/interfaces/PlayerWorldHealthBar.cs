@@ -48,6 +48,8 @@ public class PlayerWorldHealthBar : MonoBehaviour
     public float fillSpeed = 2f;
 
     Spine.Bone bone;
+    Vector3 baseLocalPosition;
+    bool warnedNoBone;
     float targetFraction = 1f;
     float displayedFraction = 1f;
 
@@ -58,6 +60,7 @@ public class PlayerWorldHealthBar : MonoBehaviour
 
     void Awake()
     {
+        baseLocalPosition = transform.localPosition;
         if (playerHealth == null) playerHealth = GetComponentInParent<healthSystem>();
         if (skeletonAnimation == null) skeletonAnimation = transform.root.GetComponentInChildren<SkeletonAnimation>();
 
@@ -73,12 +76,16 @@ public class PlayerWorldHealthBar : MonoBehaviour
         }
     }
 
-    void Start()
+    void TryFindBone()
     {
-        if (skeletonAnimation != null && !string.IsNullOrEmpty(followBoneName) && skeletonAnimation.Skeleton != null)
+        if (bone != null || skeletonAnimation == null || string.IsNullOrEmpty(followBoneName)) return;
+        if (skeletonAnimation.Skeleton == null) return;
+
+        bone = skeletonAnimation.Skeleton.FindBone(followBoneName);
+        if (bone == null && !warnedNoBone)
         {
-            bone = skeletonAnimation.Skeleton.FindBone(followBoneName);
-            if (bone == null) Debug.LogWarning("PlayerWorldHealthBar: bone '" + followBoneName + "' não encontrado.", this);
+            warnedNoBone = true;
+            Debug.LogWarning("PlayerWorldHealthBar: bone '" + followBoneName + "' não encontrado no esqueleto.", this);
         }
     }
 
@@ -103,7 +110,20 @@ public class PlayerWorldHealthBar : MonoBehaviour
 
     void LateUpdate()
     {
-        if (bone != null && skeletonAnimation != null)
+        TryFindBone();
+
+        if (bone == null)
+        {
+            // Sem bone: o Offset e a rotação continuam funcionando, relativos à posição original deste objeto.
+            transform.localPosition = baseLocalPosition + (Vector3)offset;
+            transform.localRotation = Quaternion.Euler(0f, 0f, extraRotation);
+            if (!warnedNoBone && string.IsNullOrEmpty(followBoneName))
+            {
+                warnedNoBone = true;
+                Debug.LogWarning("PlayerWorldHealthBar: 'Follow Bone Name' está vazio, a barra não segue nenhum bone.", this);
+            }
+        }
+        else if (skeletonAnimation != null)
         {
             transform.position = GetBoneTargetPosition();
             float angle = extraRotation;
