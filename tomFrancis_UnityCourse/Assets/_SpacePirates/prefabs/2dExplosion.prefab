@@ -53,6 +53,10 @@ MonoBehaviour:
   distanceFalloff: 0
   edgeDamageFraction: 0.3
   damageDelay: 0
+  knockbackForce: 100
+  knockbackDuration: 0.4
+  knockbackFalloff: 1
+  edgeKnockbackFraction: 0.3
   visual: {fileID: 646328598614513232}
   visualBaseDiameter: 1
   duration: 0.2

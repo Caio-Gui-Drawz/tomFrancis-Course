@@ -6,6 +6,12 @@ public class bullet2D : MonoBehaviour
     public float damage;
     public float secondsUntilDestroy; // tempo de vida configurado no Inspector
 
+    [Header("Knockback (0 = esta bala não empurra)")]
+    [Tooltip("Velocidade do empurrão no inimigo, na direção em que a bala vai. Só funciona em quem tem KnockbackReceiver.")]
+    public float knockbackForce = 0f;
+    [Tooltip("Quanto tempo o empurrão dura (a velocidade vai caindo até zero).")]
+    public float knockbackDuration = 0.2f;
+
     float secondsRemaining;
     Vector3 initialScale;
 
@@ -46,7 +52,20 @@ public class bullet2D : MonoBehaviour
         healthSystem theirHealthSystem = other.GetComponent<healthSystem>();
         if (theirHealthSystem != null)
         {
+            // Direção do tiro (lida antes de devolver a bala ao pool).
+            Rigidbody2D ourRigidbody = GetComponent<Rigidbody2D>();
+            Vector2 hitDirection = ourRigidbody != null && ourRigidbody.linearVelocity.sqrMagnitude > 0.0001f
+                ? ourRigidbody.linearVelocity.normalized
+                : (Vector2)transform.right;
+
             theirHealthSystem.TakeDamage(damage);
+
+            if (knockbackForce > 0f && theirHealthSystem.currentHealth > 0f)
+            {
+                KnockbackReceiver knockback = other.GetComponent<KnockbackReceiver>();
+                if (knockback != null) knockback.Apply(hitDirection, knockbackForce, knockbackDuration);
+            }
+
             PoolManager.Instance.Return(gameObject);
         }
     }

@@ -3746,24 +3746,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 1811421399}
-    startWave: 1
-    endWave: 100
-    weight: 1
-  - spawner: {fileID: 822003400}
-    startWave: 1
-    endWave: 100
-    weight: 1
   - spawner: {fileID: 218794651}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 288452476}
+  - spawner: {fileID: 801789444}
+    startWave: 1
+    endWave: 100
+    weight: 1
+  - spawner: {fileID: 1211525534}
+    startWave: 1
+    endWave: 100
+    weight: 1
+  - spawner: {fileID: 2117674712}
     startWave: 2
     endWave: 100
     weight: 0.7
-  - spawner: {fileID: 2079592758}
-    startWave: 5
+  - spawner: {fileID: 1811421399}
+    startWave: 1
     endWave: 100
     weight: 0.5
   - spawner: {fileID: 2008155447}

@@ -30,6 +30,19 @@ public class ExplosionDamage2D : MonoBehaviour
     [Tooltip("Atraso antes de causar o dano, em segundos (0 = no primeiro frame). Útil para escalonar reações em cadeia.")]
     public float damageDelay = 0f;
 
+    [Header("Knockback (0 = não empurra)")]
+    [Tooltip("Velocidade do empurrão, para FORA do centro da explosão (então empurra para os lados também). Só afeta quem tem KnockbackReceiver.")]
+    public float knockbackForce = 0f;
+
+    [Tooltip("Quanto tempo o empurrão dura.")]
+    public float knockbackDuration = 0.35f;
+
+    [Tooltip("Ligado = quem está longe do centro é empurrado com menos força.")]
+    public bool knockbackFalloff = true;
+
+    [Tooltip("Com falloff ligado: fração da força na borda do raio.")]
+    [Range(0f, 1f)] public float edgeKnockbackFraction = 0.3f;
+
     [Header("Visual (opcional)")]
     [Tooltip("Objeto que cresce de 0 até o tamanho da explosão. Pode ser este próprio objeto ou um filho.")]
     public Transform visual;
@@ -90,6 +103,26 @@ public class ExplosionDamage2D : MonoBehaviour
             }
 
             target.TakeDamage(amount);
+
+            if (knockbackForce > 0f && target.currentHealth > 0f)
+            {
+                KnockbackReceiver knockback = target.GetComponent<KnockbackReceiver>();
+                if (knockback != null)
+                {
+                    Vector2 away = (Vector2)target.transform.position - center;
+                    if (away.sqrMagnitude < 0.0001f) away = Random.insideUnitCircle;
+                    if (away.sqrMagnitude < 0.0001f) away = Vector2.right;
+
+                    float force = knockbackForce;
+                    if (knockbackFalloff && radius > 0f)
+                    {
+                        float d01 = Mathf.Clamp01(away.magnitude / radius);
+                        force *= Mathf.Lerp(1f, edgeKnockbackFraction, d01);
+                    }
+
+                    knockback.Apply(away.normalized, force, knockbackDuration);
+                }
+            }
         }
 
         onExploded?.Invoke();

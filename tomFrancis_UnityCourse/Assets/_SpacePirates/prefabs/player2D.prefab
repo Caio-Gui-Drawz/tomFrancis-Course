@@ -555,6 +555,7 @@ GameObject:
   - component: {fileID: 7460847933537858617}
   - component: {fileID: 6035196309292413793}
   - component: {fileID: 3957120532492979787}
+  - component: {fileID: 5257061260410028723}
   m_Layer: 0
   m_Name: Spine GameObject (SpacePirate_Spine)
   m_TagString: Untagged
@@ -738,3 +739,20 @@ MonoBehaviour:
   reloadMixOutDuration: 0.1
   reloadAnimationSpeed: 1.6
   lockAimDuringReload: 1
+--- !u!114 &5257061260410028723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922504853049469839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455dd6ada2ed4874991ae04af83ba217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBodyAnimations
+  skeletonAnimation: {fileID: 7460847933537858617}
+  hurtAnimationName: FullBody_Hurt
+  deathAnimationName: Fullbody_Death
+  bodyTrack: 0
+  mixDuration: 0.05
