@@ -1,383 +1,390 @@
 
 SpacePirate_Spine.png
-size: 2025,2037
+size: 2047,1912
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Biker_Char/Bike_FX
-  rotate: true
-  xy: 1118, 253
+  rotate: false
+  xy: 1299, 355
   size: 440, 295
   orig: 514, 332
   offset: 66, 19
   index: -1
 MainSkin/Bike_FX
-  rotate: true
-  xy: 1118, 253
+  rotate: false
+  xy: 1299, 355
   size: 440, 295
   orig: 514, 332
   offset: 66, 19
   index: -1
-Biker_Char/Bike_Front
-  rotate: false
-  xy: 916, 1337
-  size: 945, 698
-  orig: 947, 700
-  offset: 1, 1
-  index: -1
-Biker_Char/Bike_Motor
-  rotate: false
-  xy: 916, 979
-  size: 916, 356
-  orig: 918, 358
-  offset: 1, 1
-  index: -1
 Biker_Char/Bike_Seat
-  rotate: true
-  xy: 404, 410
+  rotate: false
+  xy: 2, 1204
   size: 475, 183
   orig: 477, 185
   offset: 1, 1
   index: -1
+Biker_Char/Chest
+  rotate: true
+  xy: 1171, 1135
+  size: 202, 271
+  orig: 204, 273
+  offset: 1, 1
+  index: -1
+Biker_Char/Foot_L
+  rotate: false
+  xy: 479, 1167
+  size: 344, 194
+  orig: 344, 194
+  offset: 0, 0
+  index: -1
+Biker_Char/Foot_R
+  rotate: false
+  xy: 825, 1143
+  size: 344, 194
+  orig: 344, 194
+  offset: 0, 0
+  index: -1
 Biker_Char/ForeArm_L
   rotate: true
-  xy: 826, 885
+  xy: 317, 1818
   size: 92, 315
   orig: 94, 317
   offset: 1, 1
   index: -1
 Biker_Char/ForeArm_R
   rotate: true
-  xy: 1143, 885
+  xy: 634, 1818
   size: 92, 315
   orig: 94, 317
   offset: 1, 1
   index: -1
-Biker_Char/Head
-  rotate: true
-  xy: 1200, 716
-  size: 167, 229
-  orig: 169, 232
-  offset: 1, 2
-  index: -1
-Biker_Char/Neck
-  rotate: false
-  xy: 826, 1137
-  size: 84, 156
-  orig: 86, 158
-  offset: 1, 1
-  index: -1
-Biker_Char/Shin_L
-  rotate: false
-  xy: 1863, 1458
-  size: 160, 577
-  orig: 162, 579
-  offset: 1, 1
-  index: -1
-Biker_Char/Shin_R
-  rotate: false
-  xy: 1863, 879
-  size: 160, 577
-  orig: 162, 579
-  offset: 1, 1
-  index: -1
-Biker_Char/UpperArm_L
-  rotate: true
-  xy: 404, 300
-  size: 108, 329
-  orig: 110, 331
-  offset: 1, 1
-  index: -1
-Biker_Char/UpperArm_R
-  rotate: true
-  xy: 735, 326
-  size: 108, 329
-  orig: 110, 331
-  offset: 1, 1
-  index: -1
-MainSkin/BackFin
-  rotate: true
-  xy: 1415, 2
-  size: 351, 335
-  orig: 357, 342
-  offset: 1, 1
-  index: -1
-MainSkin/BackPack
-  rotate: true
-  xy: 826, 695
-  size: 182, 372
-  orig: 185, 376
-  offset: 2, 1
-  index: -1
-MainSkin/BackSideFin
-  rotate: true
-  xy: 1813, 429
-  size: 448, 208
-  orig: 453, 210
-  offset: 1, 1
-  index: -1
-MainSkin/Bike_Front
-  rotate: false
-  xy: 2, 1295
-  size: 912, 740
-  orig: 917, 742
-  offset: 1, 1
-  index: -1
-MainSkin/Bike_Fuel
-  rotate: true
-  xy: 2, 289
-  size: 596, 400
-  orig: 598, 402
-  offset: 1, 1
-  index: -1
-MainSkin/Bike_Motor
-  rotate: true
-  xy: 1460, 355
-  size: 622, 351
-  orig: 624, 353
-  offset: 1, 1
-  index: -1
-MainSkin/Gatling_Gun
-  rotate: false
-  xy: 625, 19
-  size: 384, 279
-  orig: 387, 281
-  offset: 1, 1
-  index: -1
-MainSkin/Hip
-  rotate: false
-  xy: 1752, 34
-  size: 224, 319
-  orig: 226, 321
-  offset: 1, 1
-  index: -1
-MainSkin/Jecket_Back
-  rotate: true
-  xy: 1116, 40
-  size: 211, 288
-  orig: 213, 291
-  offset: 1, 1
-  index: -1
-MainSkin/Neck
-  rotate: false
-  xy: 826, 980
-  size: 84, 155
-  orig: 86, 157
-  offset: 1, 1
-  index: -1
-MainSkin/Paralama_traseiro
-  rotate: false
-  xy: 2, 887
-  size: 588, 406
-  orig: 592, 408
-  offset: 3, 1
-  index: -1
-MainSkin/Shin_L
-  rotate: false
-  xy: 592, 672
-  size: 232, 621
-  orig: 234, 623
-  offset: 1, 1
-  index: -1
-MainSkin/Shin_R
-  rotate: true
-  xy: 2, 55
-  size: 232, 621
-  orig: 234, 623
-  offset: 1, 1
-  index: -1
-MainSkin/Shot_Gun
-  rotate: false
-  xy: 589, 436
-  size: 527, 234
-  orig: 529, 239
-  offset: 1, 1
-  index: -1
-MainSkin/UpperArm_L
-  rotate: false
-  xy: 1011, 23
-  size: 103, 301
-  orig: 105, 303
-  offset: 1, 1
-  index: -1
-
-SpacePirate_Spine2.png
-size: 2004,734
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-Biker_Char/Chest
-  rotate: false
-  xy: 1609, 90
-  size: 202, 271
-  orig: 204, 273
-  offset: 1, 1
-  index: -1
-Biker_Char/Foot_L
-  rotate: true
-  xy: 632, 4
-  size: 344, 194
-  orig: 344, 194
-  offset: 0, 0
-  index: -1
-Biker_Char/Foot_R
-  rotate: true
-  xy: 828, 4
-  size: 344, 194
-  orig: 344, 194
-  offset: 0, 0
-  index: -1
 Biker_Char/Hand_L
   rotate: true
-  xy: 1813, 612
+  xy: 455, 1696
   size: 120, 162
   orig: 122, 164
   offset: 1, 1
   index: -1
 Biker_Char/Hand_R
   rotate: true
-  xy: 1621, 612
+  xy: 619, 1696
   size: 120, 162
   orig: 122, 164
   offset: 1, 1
   index: -1
+Biker_Char/Head
+  rotate: true
+  xy: 986, 1514
+  size: 167, 229
+  orig: 169, 232
+  offset: 1, 2
+  index: -1
 Biker_Char/Hip
-  rotate: false
-  xy: 1459, 73
+  rotate: true
+  xy: 2, 1558
   size: 148, 288
   orig: 148, 288
   offset: 0, 0
   index: -1
+Biker_Char/Neck
+  rotate: true
+  xy: 2, 1826
+  size: 84, 156
+  orig: 86, 158
+  offset: 1, 1
+  index: -1
+Biker_Char/Shin_L
+  rotate: true
+  xy: 2, 1389
+  size: 160, 577
+  orig: 162, 579
+  offset: 1, 1
+  index: -1
+Biker_Char/Shin_R
+  rotate: true
+  xy: 950, 1339
+  size: 160, 577
+  orig: 162, 579
+  offset: 1, 1
+  index: -1
 Biker_Char/Tight_L
-  rotate: false
-  xy: 2, 305
+  rotate: true
+  xy: 1109, 1683
   size: 122, 427
   orig: 124, 429
   offset: 1, 1
   index: -1
 Biker_Char/Tight_R
-  rotate: false
-  xy: 126, 305
+  rotate: true
+  xy: 1538, 1671
   size: 122, 427
   orig: 124, 429
   offset: 1, 1
   index: -1
-MainSkin/Bike_Rocket
+Biker_Char/UpperArm_L
   rotate: true
-  xy: 250, 350
+  xy: 1557, 1802
+  size: 108, 329
+  orig: 110, 331
+  offset: 1, 1
+  index: -1
+Biker_Char/UpperArm_R
+  rotate: true
+  xy: 2, 1708
+  size: 108, 329
+  orig: 110, 331
+  offset: 1, 1
+  index: -1
+MainSkin/BackFin
+  rotate: false
+  xy: 324, 83
+  size: 351, 338
+  orig: 358, 343
+  offset: 1, 1
+  index: -1
+MainSkin/BackPack
+  rotate: true
+  xy: 1529, 1317
+  size: 182, 372
+  orig: 185, 376
+  offset: 2, 1
+  index: -1
+MainSkin/BackSideFin
+  rotate: false
+  xy: 1444, 1107
+  size: 448, 208
+  orig: 453, 210
+  offset: 1, 1
+  index: -1
+MainSkin/Bike_Motor
+  rotate: false
+  xy: 1092, 2
+  size: 622, 351
+  orig: 624, 353
+  offset: 1, 1
+  index: -1
+MainSkin/Bike_Rocket
+  rotate: false
+  xy: 526, 423
   size: 382, 268
   orig: 384, 270
   offset: 1, 1
   index: -1
 MainSkin/Bike_Seat
-  rotate: true
-  xy: 1168, 354
+  rotate: false
+  xy: 946, 684
   size: 378, 233
   orig: 380, 235
   offset: 1, 1
   index: -1
 MainSkin/Chest
   rotate: true
-  xy: 1621, 396
-  size: 214, 259
-  orig: 216, 261
+  xy: 386, 951
+  size: 214, 313
+  orig: 216, 315
   offset: 1, 1
   index: -1
 MainSkin/Foot_L
-  rotate: true
-  xy: 952, 351
+  rotate: false
+  xy: 701, 927
   size: 381, 214
   orig: 383, 216
   offset: 1, 1
   index: -1
 MainSkin/Foot_R
   rotate: true
-  xy: 520, 350
-  size: 382, 215
-  orig: 384, 217
+  xy: 677, 19
+  size: 382, 413
+  orig: 384, 415
   offset: 1, 1
   index: -1
 MainSkin/ForeArm_L
-  rotate: false
-  xy: 2, 2
+  rotate: true
+  xy: 1217, 1513
   size: 168, 301
   orig: 170, 303
   offset: 1, 1
   index: -1
 MainSkin/ForeArm_R
+  rotate: true
+  xy: 1520, 1501
+  size: 168, 340
+  orig: 170, 354
+  offset: 1, 13
+  index: -1
+MainSkin/Gatling_Gun
   rotate: false
-  xy: 172, 2
-  size: 168, 301
-  orig: 170, 303
+  xy: 910, 403
+  size: 387, 279
+  orig: 390, 281
   offset: 1, 1
   index: -1
 MainSkin/Gun
-  rotate: true
-  xy: 737, 350
+  rotate: false
+  xy: 2, 989
   size: 382, 213
   orig: 384, 215
   offset: 1, 1
   index: -1
 MainSkin/Hand_L
-  rotate: false
-  xy: 1882, 449
+  rotate: true
+  xy: 783, 1696
   size: 120, 161
   orig: 122, 163
   offset: 1, 1
   index: -1
 MainSkin/Hand_R
-  rotate: false
-  xy: 1882, 286
+  rotate: true
+  xy: 946, 1685
   size: 120, 161
   orig: 122, 163
   offset: 1, 1
   index: -1
 MainSkin/Head
   rotate: true
-  xy: 1024, 10
-  size: 339, 328
-  orig: 341, 332
+  xy: 2, 143
+  size: 312, 320
+  orig: 314, 323
   offset: 1, 2
   index: -1
+MainSkin/Hip
+  rotate: true
+  xy: 2, 760
+  size: 227, 319
+  orig: 229, 321
+  offset: 1, 1
+  index: -1
+MainSkin/Jecket_Back
+  rotate: true
+  xy: 1084, 919
+  size: 214, 288
+  orig: 216, 291
+  offset: 1, 1
+  index: -1
 MainSkin/Jecket_Front
+  rotate: true
+  xy: 581, 1363
+  size: 175, 367
+  orig: 221, 373
+  offset: 23, 3
+  index: -1
+MainSkin/Long_Gun
   rotate: false
-  xy: 1403, 363
-  size: 216, 369
-  orig: 216, 373
-  offset: 0, 2
+  xy: 1374, 886
+  size: 652, 219
+  orig: 654, 221
+  offset: 1, 1
+  index: -1
+MainSkin/Neck
+  rotate: true
+  xy: 160, 1826
+  size: 84, 155
+  orig: 86, 157
+  offset: 1, 1
+  index: -1
+MainSkin/Shin_L
+  rotate: true
+  xy: 323, 693
+  size: 232, 621
+  orig: 234, 623
+  offset: 1, 1
+  index: -1
+MainSkin/Shin_R
+  rotate: true
+  xy: 1326, 652
+  size: 232, 621
+  orig: 234, 623
+  offset: 1, 1
+  index: -1
+MainSkin/Shot_Gun
+  rotate: false
+  xy: 2, 457
+  size: 522, 234
+  orig: 524, 239
+  offset: 1, 1
   index: -1
 MainSkin/Shoulder_L
-  rotate: true
-  xy: 1813, 47
+  rotate: false
+  xy: 333, 1699
   size: 120, 117
   orig: 127, 120
   offset: 1, 2
   index: -1
 MainSkin/Shoulder_R
   rotate: false
-  xy: 1813, 169
+  xy: 1888, 1795
   size: 157, 115
   orig: 159, 117
   offset: 1, 1
   index: -1
 MainSkin/Tight_L
-  rotate: false
-  xy: 342, 3
+  rotate: true
+  xy: 292, 1551
   size: 143, 345
   orig: 145, 347
   offset: 1, 1
   index: -1
 MainSkin/Tight_R
-  rotate: false
-  xy: 487, 3
+  rotate: true
+  xy: 639, 1540
   size: 143, 345
   orig: 145, 347
   offset: 1, 1
   index: -1
-MainSkin/UpperArm_R
-  rotate: false
-  xy: 1354, 51
+MainSkin/UpperArm_L
+  rotate: true
+  xy: 951, 1807
   size: 103, 301
   orig: 105, 303
   offset: 1, 1
+  index: -1
+MainSkin/UpperArm_R
+  rotate: true
+  xy: 1254, 1807
+  size: 103, 301
+  orig: 105, 303
+  offset: 1, 1
+  index: -1
+
+SpacePirate_Spine2.png
+size: 1733,1300
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Biker_Char/Bike_Front
+  rotate: false
+  xy: 743, 600
+  size: 945, 698
+  orig: 947, 700
+  offset: 1, 1
+  index: -1
+Biker_Char/Bike_Motor
+  rotate: false
+  xy: 2, 29
+  size: 916, 356
+  orig: 918, 358
+  offset: 1, 1
+  index: -1
+MainSkin/Bike_Front
+  rotate: true
+  xy: 2, 387
+  size: 911, 739
+  orig: 917, 741
+  offset: 1, 1
+  index: -1
+MainSkin/Bike_Fuel
+  rotate: true
+  xy: 920, 2
+  size: 596, 403
+  orig: 598, 405
+  offset: 1, 1
+  index: -1
+MainSkin/Paralama_traseiro
+  rotate: true
+  xy: 1325, 10
+  size: 588, 406
+  orig: 592, 408
+  offset: 3, 1
   index: -1
