@@ -938,7 +938,7 @@ PrefabInstance:
     - target: {fileID: 2102112429448459536, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: fillPivot
       value: 
-      objectReference: {fileID: 960459109}
+      objectReference: {fileID: 0}
     - target: {fileID: 2102112429448459536, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: background
       value: 
@@ -2049,11 +2049,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929686843}
   m_CullTransparentMesh: 1
---- !u!4 &960459109 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7402128002628068690, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-  m_PrefabInstance: {fileID: 560543434}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1038259000
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,7 +3435,7 @@ Transform:
   m_GameObject: {fileID: 1483278407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3715,7 +3710,7 @@ Transform:
   m_GameObject: {fileID: 1554308290}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.3, y: -13.9, z: 0}
+  m_LocalPosition: {x: 40.3, y: -12.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3751,24 +3746,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawnerRanges:
-  - spawner: {fileID: 801789444}
-    startWave: 1
-    endWave: 100
-    weight: 1
-  - spawner: {fileID: 822003400}
-    startWave: 1
-    endWave: 100
-    weight: 1
   - spawner: {fileID: 218794651}
     startWave: 1
     endWave: 100
     weight: 1
-  - spawner: {fileID: 288452476}
+  - spawner: {fileID: 801789444}
+    startWave: 1
+    endWave: 100
+    weight: 1
+  - spawner: {fileID: 1211525534}
+    startWave: 1
+    endWave: 100
+    weight: 1
+  - spawner: {fileID: 2117674712}
     startWave: 2
     endWave: 100
     weight: 0.7
-  - spawner: {fileID: 2079592758}
-    startWave: 5
+  - spawner: {fileID: 1811421399}
+    startWave: 1
     endWave: 100
     weight: 0.5
   - spawner: {fileID: 2008155447}
@@ -4163,6 +4158,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1038259001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1811421397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811421398}
+  - component: {fileID: 1811421399}
+  m_Layer: 0
+  m_Name: en05Mine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1811421398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811421397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1961664383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1811421399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811421397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
+  prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
+  allowedSpawnPoints:
+  - {fileID: 1938815160}
+  - {fileID: 1554308291}
+  offsetRange: {x: 1, y: 1}
 --- !u!1 &1825863920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,6 +4482,8 @@ Transform:
   - {fileID: 218794652}
   - {fileID: 801789443}
   - {fileID: 1211525533}
+  - {fileID: 2117674711}
+  - {fileID: 1811421398}
   - {fileID: 288452475}
   - {fileID: 2079592757}
   - {fileID: 2008155446}
@@ -10061,7 +10107,7 @@ Transform:
   m_GameObject: {fileID: 2083548550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10157,6 +10203,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
   nonRigidbodyVelocity: 0
   attenuationObject: {fileID: 0}
+--- !u!1 &2117674710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2117674711}
+  - component: {fileID: 2117674712}
+  m_Layer: 0
+  m_Name: en04JellyFishSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2117674711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117674710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1961664383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117674712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117674710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe2872f463f4247b78c2b0387b325d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
+  prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
+  allowedSpawnPoints:
+  - {fileID: 266124927}
+  - {fileID: 1938815160}
+  - {fileID: 1554308291}
+  - {fileID: 1723738707}
+  - {fileID: 165265289}
+  - {fileID: 2142676718}
+  offsetRange: {x: 0, y: 0}
 --- !u!1 &2130952411
 GameObject:
   m_ObjectHideFlags: 0

@@ -177,9 +177,13 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.11306596
       objectReference: {fileID: 0}
+    - target: {fileID: 1751946278933903, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 976531521935425341, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
