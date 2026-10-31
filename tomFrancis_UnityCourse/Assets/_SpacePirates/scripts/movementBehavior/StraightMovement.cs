@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class StraightMovement : MonoBehaviour
+public class StraightMovement : MonoBehaviour, IMovementBehavior
 {
     public float speed;
 

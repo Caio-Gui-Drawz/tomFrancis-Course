@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class AxisMovement : MonoBehaviour
+public class AxisMovement : MonoBehaviour, IMovementBehavior
 {
     public enum Direction { Right, Left, Up, Down }
 

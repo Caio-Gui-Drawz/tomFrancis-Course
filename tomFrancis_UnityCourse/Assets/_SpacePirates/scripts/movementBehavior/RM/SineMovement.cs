@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SineMovement : MonoBehaviour
+public class SineMovement : MonoBehaviour, IMovementBehavior
 {
     public float forwardSpeed = 3f; 
     public float amplitude = 2f;   

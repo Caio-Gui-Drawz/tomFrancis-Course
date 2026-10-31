@@ -11,6 +11,9 @@ public class WeaponPickupReward : MonoBehaviour
     [Tooltip("Se ligado, a caixa não sorteia a arma que o player já está usando (a não ser que seja a única opção).")]
     public bool avoidCurrentWeapon = true;
 
+    [Tooltip("Se ligado, a caixa também não sorteia a última arma ESPECIAL que uma caixa deu, mesmo que ela já tenha acabado e o player tenha voltado pra pistola.")]
+    public bool avoidLastBoxWeapon = true;
+
     void Start()
     {
         GetComponent<healthSystem>().OnDeath += HandleDeath;
@@ -23,35 +26,38 @@ public class WeaponPickupReward : MonoBehaviour
         Player2D player = references.thePlayer.GetComponent<Player2D>();
         if (player == null) return;
 
-        WeaponData chosen = PickRandomWeapon(player.currentWeapon);
+        WeaponData chosen = PickRandomWeapon(player.currentWeapon, player.LastBoxWeapon);
         if (chosen != null)
         {
+            player.LastBoxWeapon = chosen;
             player.SwapWeapon(chosen);
         }
     }
 
-    WeaponData PickRandomWeapon(WeaponData current)
+    // Tenta respeitar as exclusões na ordem de importância; se sobrar zero opções, vai afrouxando:
+    //   1) sem a atual E sem a última da caixa  ->  2) sem a atual  ->  3) a lista inteira.
+    WeaponData PickRandomWeapon(WeaponData current, WeaponData lastFromBox)
     {
         if (possibleWeapons == null || possibleWeapons.Length == 0) return null;
 
-        List<WeaponData> candidates = new List<WeaponData>();
+        List<WeaponData> candidates = Collect(avoidCurrentWeapon ? current : null, avoidLastBoxWeapon ? lastFromBox : null);
+        if (candidates.Count == 0) candidates = Collect(avoidCurrentWeapon ? current : null, null);
+        if (candidates.Count == 0) candidates = Collect(null, null);
+        if (candidates.Count == 0) return null;
+
+        return candidates[Random.Range(0, candidates.Count)];
+    }
+
+    List<WeaponData> Collect(WeaponData excludeA, WeaponData excludeB)
+    {
+        List<WeaponData> result = new List<WeaponData>();
         foreach (WeaponData weapon in possibleWeapons)
         {
             if (weapon == null) continue;
-            if (avoidCurrentWeapon && weapon == current) continue;
-            candidates.Add(weapon);
+            if (excludeA != null && weapon == excludeA) continue;
+            if (excludeB != null && weapon == excludeB) continue;
+            result.Add(weapon);
         }
-
-        // Só tinha a arma atual na lista (ou nenhuma válida): usa a lista inteira.
-        if (candidates.Count == 0)
-        {
-            foreach (WeaponData weapon in possibleWeapons)
-            {
-                if (weapon != null) candidates.Add(weapon);
-            }
-        }
-
-        if (candidates.Count == 0) return null;
-        return candidates[Random.Range(0, candidates.Count)];
+        return result;
     }
 }

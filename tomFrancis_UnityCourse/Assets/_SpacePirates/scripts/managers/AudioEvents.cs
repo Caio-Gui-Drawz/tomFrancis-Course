@@ -17,6 +17,8 @@ public class AudioEvents : MonoBehaviour
     [Header("Player")]
     public EventReference playerTakeDamage;
     public EventReference playerDeath;
+    [Tooltip("Som de quando o player recupera vida (medkit).")]
+    public EventReference playerHeal;
 
     [Header("Inimigos")]
     public EventReference enemyTakeDamage;
@@ -104,6 +106,7 @@ public class AudioEvents : MonoBehaviour
         }
     }
 
+    public static void PlayPlayerHeal() { if (Instance != null) Play(Instance.playerHeal); }
     public static void PlayWaveStarted() { if (Instance != null) Play(Instance.waveStarted); }
     public static void PlayDeathScreen() { if (Instance != null) Play(Instance.deathScreen); }
     public static void PlayButtonClick() { if (Instance != null) Play(Instance.buttonClick); }

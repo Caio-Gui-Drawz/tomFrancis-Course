@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChasePlayerMovement : MonoBehaviour
+public class ChasePlayerMovement : MonoBehaviour, IMovementBehavior
 {
     public float speed;
     private Vector3 offset;

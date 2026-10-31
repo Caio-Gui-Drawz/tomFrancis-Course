@@ -20,6 +20,10 @@ public class Player2D : MonoBehaviour
     [Tooltip("Ligado = não dá pra atirar enquanto a animação de recarga (troca de arma) está tocando.")]
     public bool blockShootingDuringReload = true;
 
+    // Última arma ESPECIAL que uma caixa deu (mesmo que já tenha acabado e voltado pra pistola).
+    // Usada pelas caixas pra não repetir a mesma arma duas vezes seguidas.
+    public WeaponData LastBoxWeapon { get; set; }
+
     float reloadUnlockTime; // Time.time em que o tiro volta a ser liberado
 
     float weaponTimeRemaining;

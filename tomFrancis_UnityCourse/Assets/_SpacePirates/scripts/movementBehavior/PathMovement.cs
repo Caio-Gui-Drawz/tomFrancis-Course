@@ -7,7 +7,7 @@ using DG.Tweening;
 //
 // REQUER: Rigidbody2D deste prefab com Body Type = Kinematic (senão a física briga com o tween).
 // Compatível com pooling (OnEnable/OnDisable, não Start).
-public class PathMovement : MonoBehaviour
+public class PathMovement : MonoBehaviour, IMovementBehavior
 {
     [Tooltip("Waypoints RELATIVOS ao ponto onde o objeto nasceu. Ex: (-5,2), (-10,-2), (-15,0)")]
     public Vector3[] relativeWaypoints;
