@@ -125,9 +125,9 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: 
+  _animationName: Movement
   loop: 1
-  timeScale: 1
+  timeScale: 0.5
 --- !u!1001 &1205147104945193175
 PrefabInstance:
   m_ObjectHideFlags: 0

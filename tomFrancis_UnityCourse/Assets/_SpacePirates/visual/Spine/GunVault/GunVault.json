@@ -1,13 +1,13 @@
 {
 "skeleton": {
-	"hash": "SmsTQZC6INeu7Z5OfbkVuqrn5zg",
+	"hash": "pDuv0JEfLrHN0tOHRPFZe8LgBtE",
 	"spine": "3.8.0",
 	"x": -414.62,
 	"y": -360.76,
 	"width": 789.5,
 	"height": 706,
-	"images": "C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/Gun_Vault/GunVault_Spine/images/",
-	"audio": "C:\\Users\\Renato\\OneDrive - Grupo Marista (1)\\Cerco_Blender\\Renato_Pessoal\\caio\\Caio_SpacePirate\\Gun_Vault\\GunVault_Spine"
+	"images": "./images/",
+	"audio": "C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/Gun_Vault/GunVault_Spine"
 },
 "bones": [
 	{ "name": "root" },
@@ -46,12 +46,12 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"3": {
+			"2": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
 			},
-			"2": {
+			"3": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
@@ -70,14 +70,14 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"3": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
 			"2": {
 				"color": [
 					{ "color": "ffffffff" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffff00" }
 				]
 			},
 			"1": {
@@ -94,14 +94,14 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"3": {
-				"color": [
-					{ "color": "ffffffff" }
-				]
-			},
 			"2": {
 				"color": [
 					{ "color": "ffffff00" }
+				]
+			},
+			"3": {
+				"color": [
+					{ "color": "ffffffff" }
 				]
 			},
 			"1": {
@@ -118,12 +118,12 @@
 					{ "color": "ffffffff" }
 				]
 			},
-			"3": {
+			"2": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
 			},
-			"2": {
+			"3": {
 				"color": [
 					{ "color": "ffffff00" }
 				]

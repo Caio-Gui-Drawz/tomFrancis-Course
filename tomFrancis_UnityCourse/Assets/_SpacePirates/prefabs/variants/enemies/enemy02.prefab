@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7997678045181277542}
   - component: {fileID: 2728872125831608454}
   - component: {fileID: 359793708466452676}
+  - component: {fileID: 63373732800940130}
   m_Layer: 0
   m_Name: Spine GameObject (Enemy_04)
   m_TagString: Untagged
@@ -128,6 +129,30 @@ MonoBehaviour:
   _animationName: Moving
   loop: 1
   timeScale: 2
+--- !u!114 &63373732800940130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066138705722011775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f2fa991881c6d419500ccc40ad443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spine-unity-examples::Spine.Unity.Examples.SkeletonGhost
+  ghostingEnabled: 1
+  spawnInterval: 0.2
+  maximumGhosts: 15
+  fadeSpeed: 3
+  ghostShader: {fileID: 4800000, guid: 3873d4699ee8a4b4da8fa6b8c229b94d, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 1372842246
+  additive: 0
+  textureFade: 0.042
+  sortWithDistanceOnly: 0
+  zOffset: 0
 --- !u!1001 &9051822542421492731
 PrefabInstance:
   m_ObjectHideFlags: 0
