@@ -6,7 +6,7 @@ using UnityEngine;
 // Requisitos no prefab: Rigidbody2D com Gravity Scale > 0 (é ele que faz o arco; com 0 vira reta)
 // e Linear Damping = 0 (atrito no ar desmonta a conta).
 [RequireComponent(typeof(Rigidbody2D))]
-public class LobAtPlayerMovement : MonoBehaviour
+public class LobAtPlayerMovement : MonoBehaviour, IMovementBehavior
 {
     public enum ArcMode
     {

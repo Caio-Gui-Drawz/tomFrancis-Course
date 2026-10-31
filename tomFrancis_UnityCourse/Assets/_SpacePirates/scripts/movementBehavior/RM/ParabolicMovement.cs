@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class ParabolicMovement : MonoBehaviour
+public class ParabolicMovement : MonoBehaviour, IMovementBehavior
 {
     public float initialSpeedX = 4f; 
     public float initialSpeedY = 6f; 

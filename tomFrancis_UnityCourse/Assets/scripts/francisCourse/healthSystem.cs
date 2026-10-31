@@ -72,6 +72,15 @@ public class healthSystem : MonoBehaviour
         }
     }
 
+    // Recupera vida (até o máximo). Ignorado se a entidade já morreu.
+    public void Heal(float amount)
+    {
+        if (currentHealth <= 0f || amount <= 0f) return;
+
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
     void OnDisable()
     {
         if (myHealthBar != null)

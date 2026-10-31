@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CircularMovement : MonoBehaviour
+public class CircularMovement : MonoBehaviour, IMovementBehavior
 {
     public float radius = 2f;
     public float forwardSpeed = 2f;   
