@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 976531521935425341, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: deathEffectPrefab
+      value: 
+      objectReference: {fileID: 4799620774644603748, guid: 956ad16ac51322340a390bace08b2601, type: 3}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
       value: enemyMine
