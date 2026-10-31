@@ -1,13 +1,48 @@
 
 Enemy_06.png
-size: 374,409
+size: 654,274
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-peixe6
+Bg
   rotate: false
-  xy: 2, 2
-  size: 370, 405
-  orig: 372, 407
+  xy: 2, 6
+  size: 254, 266
+  orig: 256, 268
+  offset: 1, 1
+  index: -1
+FrontPart
+  rotate: true
+  xy: 258, 59
+  size: 213, 210
+  orig: 215, 212
+  offset: 1, 1
+  index: -1
+Miolo
+  rotate: true
+  xy: 470, 93
+  size: 179, 182
+  orig: 185, 188
+  offset: 3, 3
+  index: -1
+Spike_01
+  rotate: true
+  xy: 374, 8
+  size: 49, 99
+  orig: 51, 101
+  offset: 1, 1
+  index: -1
+Spike_02
+  rotate: true
+  xy: 475, 2
+  size: 89, 127
+  orig: 92, 130
+  offset: 2, 1
+  index: -1
+Spike_03
+  rotate: true
+  xy: 258, 8
+  size: 49, 114
+  orig: 51, 115
   offset: 1, 1
   index: -1
