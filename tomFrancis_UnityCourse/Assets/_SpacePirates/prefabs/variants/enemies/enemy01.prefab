@@ -183,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 976531521935425341, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: maxHealth
-      value: 50
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c79a6acc38cb1d4295df20bc587d7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChasePlayerMovement
-  speed: 7
+  speed: 8
   offsetRange: {x: -1, y: 1}
 --- !u!114 &3870797860338111131
 MonoBehaviour:

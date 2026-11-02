@@ -126,10 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a39788eb4e9d14695e5f6203c64933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupReward
-  possibleWeapons:
-  - {fileID: 11400000, guid: 84a30095fcda2544d928f906062964b5, type: 2}
-  - {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
-  - {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
+  possibleWeapons: []
   avoidCurrentWeapon: 1
   avoidLastBoxWeapon: 1
 --- !u!61 &3524578871507667238

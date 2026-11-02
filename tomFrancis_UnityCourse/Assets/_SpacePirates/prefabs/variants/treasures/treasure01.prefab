@@ -12,9 +12,37 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 910066428569159112, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 910066428569159112, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_Color.g
+      value: 0.927191
+      objectReference: {fileID: 0}
+    - target: {fileID: 910066428569159112, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013717164620948825, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: m_Name
       value: treasure01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3459606683554986946, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: m_LocalPosition.x
