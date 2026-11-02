@@ -41,6 +41,7 @@ public class BalanceAssumptions
     public float baseLeakFraction = 0.1f;
     [Tooltip("Chance de o dano de uma explosão (mina) atingir o player.")]
     public float explosionHitsPlayerChance = 0.25f;
+    public float lootCatchRate = 0.85f; // na fase de loot não há inimigos pressionando
     public int waves = 12;
 }
 
@@ -61,6 +62,7 @@ public class WaveStats
     public float medkits;
     public float healTotal;
     public float weaponBoxes;
+    public float lootBoxes; // parte de weaponBoxes que vem da fase de loot
 
     public float specialFraction;
     public float effectiveDps;
@@ -82,6 +84,7 @@ public class WaveSource
     public float secondsBetweenBonusSpawns;
     public List<WaveRangeData> ranges = new List<WaveRangeData>();
     public List<GameObject> bonusPrefabs = new List<GameObject>();
+    public LootPhaseData loot; // null = fase de loot desligada (vale a rodada de bônus antiga)
 
     public static WaveSource FromConfig(WaveConfig c)
     {
@@ -100,6 +103,7 @@ public class WaveSource
             }
         }
         if (c.treasureBonusPrefabs != null) s.bonusPrefabs.AddRange(c.treasureBonusPrefabs);
+        if (c.lootPhase != null && c.lootPhase.enabled) s.loot = c.lootPhase;
         return s;
     }
 
@@ -311,7 +315,17 @@ public static class BalanceModel
             s.spawnSeconds = s.budget * period;
 
             int bonusRounds = 0;
-            if (wm.secondsBetweenWaves > 0f)
+            if (wm.loot != null)
+            {
+                // Fase de loot: dura no máximo 'durationSeconds'; com fim antecipado, estimamos janela de spawn + ~2,5 s para pegar.
+                float maxDuration = Mathf.Max(1f, wm.loot.durationSeconds);
+                float window = maxDuration * Mathf.Clamp(wm.loot.dropWindowFraction, 0.3f, 1f);
+                s.gapSeconds = wm.loot.endWhenAllCollected
+                    ? Mathf.Max(window + 2.5f, wm.loot.minSecondsBeforeEarlyEnd)
+                    : maxDuration;
+                if (wm.loot.waitForEnemiesToClear) s.gapSeconds += 2f; // espera estimada dos últimos inimigos
+            }
+            else if (wm.secondsBetweenWaves > 0f)
             {
                 if (wm.secondsBetweenBonusSpawns > 0.0001f)
                 {
@@ -350,6 +364,20 @@ public static class BalanceModel
                 }
             }
 
+            // Fase de loot: cura e armas fixas (o que depende do desempenho entra mais abaixo).
+            WaveStats ls = new WaveStats();
+            List<WeaponData> lootPool = new List<WeaponData>();
+            if (wm.loot != null)
+            {
+                AccumulateItems(ls, wm.loot.healItems, 1f, lootPool);
+                int every = Mathf.Max(1, wm.loot.weaponEveryNWaves);
+                if (n >= wm.loot.weaponFirstWave && (n - wm.loot.weaponFirstWave) % every == 0)
+                {
+                    AccumulateItems(ls, wm.loot.weaponItems, 1f, lootPool);
+                }
+                pool.AddRange(lootPool);
+            }
+
             // Armas especiais: quanto do tempo o player passa com uma arma de caixa na mão.
             float avgHold = 0f;
             float avgDps = 0f;
@@ -363,7 +391,7 @@ public static class BalanceModel
             if (pool.Count > 0) { avgHold /= pool.Count; avgDps /= pool.Count; }
 
             s.specialFraction = pool.Count > 0 && s.totalSeconds > 0f
-                ? Mathf.Clamp01(s.weaponBoxes * a.pickupCatchRate * avgHold / s.totalSeconds)
+                ? Mathf.Clamp01((s.weaponBoxes * a.pickupCatchRate + ls.weaponBoxes * a.lootCatchRate) * avgHold / s.totalSeconds)
                 : 0f;
             float specialDps = pool.Count > 0 ? avgDps : defaultDps;
             s.effectiveDps = a.accuracy * ((1f - s.specialFraction) * defaultDps + s.specialFraction * specialDps);
@@ -374,7 +402,34 @@ public static class BalanceModel
             float killed = s.killPressure > 1f ? 1f / s.killPressure : 1f;
             float leaked = Mathf.Clamp01(a.baseLeakFraction + (1f - a.baseLeakFraction) * (1f - killed));
             s.expectedDamage = s.contactDamage * leaked + s.explosionDamage * a.explosionHitsPlayerChance;
-            s.expectedHeal = s.healTotal * a.pickupCatchRate;
+
+            if (wm.loot != null)
+            {
+                // Recompensa por desempenho: quanto menos dano, mais itens (igual ao WaveManager).
+                float performance = maxHp > 0f ? Mathf.Clamp01(1f - s.expectedDamage / maxHp) : 1f;
+                AccumulateItems(ls, wm.loot.performanceItems, performance, lootPool);
+                if (s.expectedDamage <= 0.5f && wm.loot.flawlessBonusCount > 0)
+                {
+                    GameObject reward = FirstLootPrefab(wm.loot.performanceItems);
+                    if (reward != null) Accumulate(ls, reward, wm.loot.flawlessBonusCount, lootPool);
+                }
+
+                // Cura extra se a vida projetada ao fim do combate está baixa.
+                float hpAfterCombat = Mathf.Clamp(Mathf.Min(maxHp, hp + s.healTotal * a.pickupCatchRate) - s.expectedDamage, 0f, maxHp);
+                if (maxHp > 0f && hpAfterCombat / maxHp < wm.loot.lowHealthThreshold && wm.loot.extraHealsWhenLow > 0)
+                {
+                    GameObject medkit = FirstLootPrefab(wm.loot.healItems);
+                    if (medkit != null) Accumulate(ls, medkit, wm.loot.extraHealsWhenLow, lootPool);
+                }
+            }
+
+            s.expectedHeal = s.healTotal * a.pickupCatchRate + ls.healTotal * a.lootCatchRate;
+            s.healTotal += ls.healTotal;
+            s.medkits += ls.medkits;
+            s.treasures += ls.treasures;
+            s.score += ls.score;
+            s.weaponBoxes += ls.weaponBoxes;
+            s.lootBoxes = ls.weaponBoxes;
 
             hp = Mathf.Clamp(Mathf.Min(maxHp, hp + s.expectedHeal) - s.expectedDamage, 0f, maxHp);
             s.hpEnd = hp;
@@ -382,6 +437,23 @@ public static class BalanceModel
             list.Add(s);
         }
         return list;
+    }
+
+    static void AccumulateItems(WaveStats s, LootItem[] items, float multiplier, List<WeaponData> pool)
+    {
+        if (items == null) return;
+        foreach (LootItem item in items)
+        {
+            if (item == null || item.prefab == null) continue;
+            Accumulate(s, item.prefab, item.count * multiplier, pool);
+        }
+    }
+
+    static GameObject FirstLootPrefab(LootItem[] items)
+    {
+        if (items == null) return null;
+        foreach (LootItem item in items) if (item != null && item.prefab != null) return item.prefab;
+        return null;
     }
 
     static void Accumulate(WaveStats s, GameObject prefab, float count, List<WeaponData> pool)

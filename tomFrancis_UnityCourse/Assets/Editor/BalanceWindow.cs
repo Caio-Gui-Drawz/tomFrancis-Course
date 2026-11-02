@@ -36,6 +36,7 @@ public class BalanceWindow : EditorWindow
     Tab tab;
     Vector2 scroll;
     WaveManager waveManager;
+    ParallaxSpeedController parallax;
     double nextFindTime;
     bool needRefresh;
     double lastRefresh;
@@ -195,6 +196,7 @@ public class BalanceWindow : EditorWindow
 
         nextFindTime = EditorApplication.timeSinceStartup + 1.0;
         waveManager = FindFirstObjectByType<WaveManager>(FindObjectsInactive.Include);
+        parallax = FindFirstObjectByType<ParallaxSpeedController>(FindObjectsInactive.Include);
         sceneSpawners = FindObjectsByType<Spawner>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
 
@@ -312,9 +314,12 @@ public class BalanceWindow : EditorWindow
         Field(target, "startingBudget", "Spawns na wave 1");
         Field(target, "budgetIncrementPerWave", "+ spawns por wave");
         Field(target, "secondsBetweenSpawnsInWave", "Segundos entre spawns");
-        Field(target, "secondsBetweenWaves", "Intervalo entre waves (s)");
+        bool lootOn = activeConfig != null && activeConfig.lootPhase != null && activeConfig.lootPhase.enabled;
+        Field(target, "secondsBetweenWaves", lootOn ? "Intervalo entre waves (s) — ignorado: fase de loot ligada" : "Intervalo entre waves (s)");
         Field(target, "secondsBeforeFirstWave", "Espera antes da wave 1 (s)");
-        Field(target, "secondsBetweenBonusSpawns", "Segundos entre spawns bônus");
+        Field(target, "secondsBetweenBonusSpawns", lootOn ? "Segundos entre spawns bônus — ignorado" : "Segundos entre spawns bônus");
+
+        if (activeConfig != null) DrawLootPhase();
 
         Header("Quem nasce em cada wave");
         float oldLabelWidth = EditorGUIUtility.labelWidth;
@@ -379,6 +384,109 @@ public class BalanceWindow : EditorWindow
         DrawLossHint(stats, compareStats);
     }
 
+    float weaponBoxTarget = 2f;
+
+    void SetRangeWeight(int index, float weight)
+    {
+        string path = "ranges.Array.data[" + index + "].weight";
+        SerializedObject so = GetSO(activeConfig);
+        SerializedProperty prop = so.FindProperty(path);
+        if (prop == null) return;
+
+        prop.floatValue = Mathf.Round(weight * 100f) / 100f;
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, path);
+        needRefresh = true;
+    }
+
+    // ---------- Fase de loot ----------
+
+    void DrawLootPhase()
+    {
+        Header("Fase de loot entre waves");
+        WaveConfig cfg = activeConfig;
+        Field(cfg, "lootPhase.enabled", "Ligada");
+
+        if (cfg.lootPhase == null || !cfg.lootPhase.enabled)
+        {
+            EditorGUILayout.HelpBox("Desligada: o intervalo entre waves usa 'Intervalo entre waves' e a rodada de bônus aleatória.", MessageType.None);
+            return;
+        }
+
+        Field(cfg, "lootPhase.waitForEnemiesToClear", "Espera os inimigos sumirem antes");
+        Field(cfg, "lootPhase.clearEnemiesTimeoutSeconds", "Limite dessa espera (s)");
+        Field(cfg, "lootPhase.durationSeconds", "Duração planejada (s)");
+        Field(cfg, "lootPhase.dropWindowFraction", "Janela de spawn (fração)");
+        Field(cfg, "lootPhase.endWhenAllCollected", "Termina antes se tudo for pego");
+        Field(cfg, "lootPhase.minSecondsBeforeEarlyEnd", "Duração mínima (s)");
+        Field(cfg, "lootPhase.minSecondsBetweenDrops", "Tempo mínimo entre itens (s)");
+        Field(cfg, "lootPhase.safetyTimeoutSeconds", "Limite de segurança após o último item (s)");
+        Field(cfg, "lootPhase.itemSpeedMultiplier", "Velocidade dos itens (x)");
+
+        if (parallax != null)
+        {
+            Field(parallax, "lootSpeedMultiplier", "Parallax durante o loot (x)");
+            Field(parallax, "lootSlowDownSeconds", "Parallax: tempo para desacelerar (s)");
+            Field(parallax, "lootSpeedUpSeconds", "Parallax: tempo para voltar (s)");
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("Nenhum ParallaxSpeedController na cena aberta (a velocidade do fundo no loot fica lá).", MessageType.None);
+        }
+
+        Header("Loot: cura");
+        DrawLootItems(cfg, "lootPhase.healItems", cfg.lootPhase.healItems);
+        Field(cfg, "lootPhase.lowHealthThreshold", "Vida abaixo disso → cura extra");
+        Field(cfg, "lootPhase.extraHealsWhenLow", "Unidades de cura extra");
+
+        Header("Loot: arma especial");
+        DrawLootItems(cfg, "lootPhase.weaponItems", cfg.lootPhase.weaponItems);
+        Field(cfg, "lootPhase.weaponFirstWave", "Primeira wave que dá arma");
+        Field(cfg, "lootPhase.weaponEveryNWaves", "Repete a cada N waves");
+
+        Header("Loot: recompensa por desempenho");
+        DrawLootItems(cfg, "lootPhase.performanceItems", cfg.lootPhase.performanceItems);
+        Field(cfg, "lootPhase.flawlessBonusCount", "Extra se não tomou dano");
+
+        if (Foldout("loot-lists", "Editar listas completas do loot (adicionar / remover itens)"))
+        {
+            EditorGUI.indentLevel++;
+            Field(cfg, "lootPhase.healItems", "Itens de cura");
+            Field(cfg, "lootPhase.weaponItems", "Itens de arma");
+            Field(cfg, "lootPhase.performanceItems", "Itens de desempenho");
+            EditorGUI.indentLevel--;
+        }
+    }
+
+    void DrawLootItems(WaveConfig cfg, string path, LootItem[] items)
+    {
+        if (items == null || items.Length == 0)
+        {
+            EditorGUILayout.LabelField("(lista vazia — use 'Editar listas completas')", EditorStyles.miniLabel);
+            return;
+        }
+
+        float oldLabelWidth = EditorGUIUtility.labelWidth;
+        for (int i = 0; i < items.Length; i++)
+        {
+            LootItem item = items[i];
+            string itemName = "(vazio)";
+            if (item != null && item.prefab != null)
+            {
+                itemName = item.prefab.name + "  [" + KindTag(BalanceModel.Info(item.prefab).kind) + "]";
+            }
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.Label(itemName, GUILayout.Width(200f));
+                EditorGUIUtility.labelWidth = 42f;
+                Field(cfg, path + ".Array.data[" + i + "].count", "qtd", 95f);
+                EditorGUIUtility.labelWidth = oldLabelWidth;
+            }
+        }
+        EditorGUIUtility.labelWidth = oldLabelWidth;
+    }
+
     void DrawSpawners()
     {
         if (sceneSpawners == null || sceneSpawners.Length == 0) return;
@@ -423,6 +531,25 @@ public class BalanceWindow : EditorWindow
             BalancePrefab info = BalanceModel.Info(r.prefab);
             EditorGUILayout.LabelField("   " + r.prefab.name + "  [" + KindTag(info.kind) + "]",
                 (chance * 100f).ToString("0.#") + "%  ≈ " + (chance * budget).ToString("0.#") + " de " + budget);
+
+            // Caixas de arma: atalho para dizer "quero ~N caixas nesta wave" e o painel calcula o peso.
+            if (info.HasWeaponList && activeConfig != null)
+            {
+                int rangeIndex = source.ranges.IndexOf(r);
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    GUILayout.Space(24f);
+                    GUILayout.Label(new GUIContent("Quero ≈", "Quantas caixas esperar na wave escolhida acima. Muda o PESO desta faixa (vale para todas as waves dela)."), GUILayout.Width(60f));
+                    weaponBoxTarget = EditorGUILayout.FloatField(weaponBoxTarget, GUILayout.Width(50f));
+                    GUILayout.Label("caixas na wave " + previewWave, GUILayout.Width(130f));
+                    if (rangeIndex >= 0 && GUILayout.Button("Ajustar peso", GUILayout.Width(100f)))
+                    {
+                        float others = totalWeight - r.weight;
+                        float p = Mathf.Clamp(weaponBoxTarget / Mathf.Max(1, budget), 0.001f, 0.9f);
+                        SetRangeWeight(rangeIndex, p / (1f - p) * others);
+                    }
+                }
+            }
         }
     }
 
@@ -434,6 +561,7 @@ public class BalanceWindow : EditorWindow
         assume.pelletHitFraction = EditorGUILayout.Slider(new GUIContent("Projéteis que acertam", "Armas com vários projéteis (escopeta): fração que acerta o mesmo alvo."), assume.pelletHitFraction, 0.05f, 1f);
         assume.pickupCatchRate = EditorGUILayout.Slider(new GUIContent("Chance de pegar itens", "Medkits e caixas de arma que o player realmente pega."), assume.pickupCatchRate, 0f, 1f);
         assume.baseLeakFraction = EditorGUILayout.Slider(new GUIContent("Inimigos que sempre escapam", "Mesmo dominando a wave, essa fração encosta no player."), assume.baseLeakFraction, 0f, 1f);
+        assume.lootCatchRate = EditorGUILayout.Slider(new GUIContent("Chance de pegar itens no loot", "Na fase de loot não há inimigos pressionando, então o player pega mais."), assume.lootCatchRate, 0f, 1f);
         assume.explosionHitsPlayerChance = EditorGUILayout.Slider(new GUIContent("Explosão atinge o player", "Chance do dano de explosão (mina) pegar o player."), assume.explosionHitsPlayerChance, 0f, 1f);
         assume.waves = EditorGUILayout.IntSlider("Waves no gráfico", assume.waves, 3, 40);
         if (EditorGUI.EndChangeCheck()) SaveAssumptions();
@@ -598,7 +726,7 @@ public class BalanceWindow : EditorWindow
     {
         Header("Números por wave (valores esperados)");
 
-        string[] heads = { "Wave", "Dur.(s)", "Spawns", "Inim.", "Vida inim.", "Dano pot.", "Dano esp.", "Cura esp.", "Caixas", "Pressão", "HP fim" };
+        string[] heads = { "Wave", "Dur.(s)", "Spawns", "Inim.", "Vida inim.", "Dano pot.", "Dano esp.", "Cura esp.", "Cx.waves", "Cx.loot", "Pressão", "HP fim" };
         using (new EditorGUILayout.HorizontalScope())
         {
             foreach (string h in heads) GUILayout.Label(h, EditorStyles.miniBoldLabel, GUILayout.Width(56f));
@@ -618,7 +746,8 @@ public class BalanceWindow : EditorWindow
                 Cell(w.contactDamage.ToString("0.#"));
                 Cell(w.expectedDamage.ToString("0.#"));
                 Cell(w.expectedHeal.ToString("0.#"));
-                Cell(w.weaponBoxes.ToString("0.#"));
+                Cell((w.weaponBoxes - w.lootBoxes).ToString("0.#"));
+                Cell(w.lootBoxes.ToString("0.#"));
                 Cell(w.killPressure.ToString("0.00"));
                 Cell(w.hpEnd.ToString("0.#"));
             }

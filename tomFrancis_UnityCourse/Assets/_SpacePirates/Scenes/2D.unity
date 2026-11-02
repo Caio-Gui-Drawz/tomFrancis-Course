@@ -658,6 +658,63 @@ MonoBehaviour:
   damageKey: 106
   healAmount: 2
   damageAmount: 1
+--- !u!1001 &394386783
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1081.9783
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 204.44482
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+      propertyPath: m_Name
+      value: SpacePart_Cylinder_011
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
 --- !u!1 &417047838
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,16 +760,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
   spritePrefabs:
-  - {fileID: 5001124398558029869, guid: fe252276339aea544b503a49978447a6, type: 3}
-  - {fileID: 1580078642863164739, guid: daf3d4adb5feafe4bb7c3ad19248a383, type: 3}
+  - {fileID: 919132149155446097, guid: 7285969d55e6c36408d6a998347329d2, type: 3}
+  - {fileID: 919132149155446097, guid: 3379c7cd0ca140943963769412ff28dd, type: 3}
+  - {fileID: 919132149155446097, guid: 76b372f39e5309741a6367792d525d43, type: 3}
+  - {fileID: 919132149155446097, guid: 82cc40b2b009595429817293cce5241e, type: 3}
+  - {fileID: 919132149155446097, guid: 67e09c4bfc03fbc47abdf29405cf3412, type: 3}
+  - {fileID: 919132149155446097, guid: cfbc2e3c549c60649ab0fae1720034bf, type: 3}
+  - {fileID: 919132149155446097, guid: de9c028a83cffae4b8af975c368b6bc5, type: 3}
+  - {fileID: 919132149155446097, guid: 2f7b57257befded409ae502a09fc35e2, type: 3}
+  - {fileID: 919132149155446097, guid: 3ab5ba467db107b4398610359ac59411, type: 3}
   layerSpeed: 0.7
   speedJitter: 0.1
-  minSecondsBetweenSpawns: 2
-  maxSecondsBetweenSpawns: 4
-  minY: -5
-  maxY: 5
-  minScale: 0.03
-  maxScale: 0.4
+  minSecondsBetweenSpawns: 0.7
+  maxSecondsBetweenSpawns: 1.7
+  minY: -40
+  maxY: 40
+  minScale: 0.3
+  maxScale: 1
 --- !u!1 &418853666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,15 +1559,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
   spritePrefabs:
-  - {fileID: 7280068176570772008, guid: 43584b53fcdea734f92c1c78df95d48b, type: 3}
+  - {fileID: 919132149155446097, guid: a2120377a99058841b49d13a98e1d7cb, type: 3}
+  - {fileID: 919132149155446097, guid: 7aa79e3d5b4f14348aa6c0a5efea45b2, type: 3}
+  - {fileID: 919132149155446097, guid: b99d1643b175df34b8568b4a35af7155, type: 3}
+  - {fileID: 919132149155446097, guid: 3318372875e01334189bb46d3db19c91, type: 3}
+  - {fileID: 919132149155446097, guid: 428c3efa5e0e3be42abc47ea4fb9d60e, type: 3}
+  - {fileID: 919132149155446097, guid: 25e3f538f8a8a7e43aa75e8358631e8f, type: 3}
+  - {fileID: 919132149155446097, guid: 968f4a0f81fc1f64f93d4504a73888f6, type: 3}
   layerSpeed: 0.3
   speedJitter: 0.111
-  minSecondsBetweenSpawns: 3
-  maxSecondsBetweenSpawns: 5
-  minY: -3
-  maxY: 3
-  minScale: 0.02
-  maxScale: 0.3
+  minSecondsBetweenSpawns: 0.5
+  maxSecondsBetweenSpawns: 1.5
+  minY: -30
+  maxY: 30
+  minScale: 1
+  maxScale: 3
 --- !u!1 &846956884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,6 +1832,10 @@ MonoBehaviour:
   bannerPanel: {fileID: 1360369842}
   waveText: {fileID: 1507333840}
   visibleSeconds: 2
+  endBannerPanel: {fileID: 0}
+  endWaveText: {fileID: 0}
+  endMessage: "Wave {0} conclu\xEDda!"
+  endVisibleSeconds: 2.5
 --- !u!1 &879767029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,14 +1911,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04900a24a8b2038448815aa7e646879d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxSpeedController
-  menuSpeed: 1
-  startingPlaySpeed: 1
-  maxPlaySpeed: 4
-  gameOverSpeed: 0.5
-  accelerationRate: 1
-  lootSpeedMultiplier: 0.35
-  lootSlowDownSeconds: 0.8
-  lootSpeedUpSeconds: 1.2
+  menuSpeed: 10
+  startingPlaySpeed: 50
+  maxPlaySpeed: 50
+  gameOverSpeed: 10
+  accelerationRate: 2
+  lootSpeedMultiplier: 0.1
+  lootSlowDownSeconds: 1
+  lootSpeedUpSeconds: 1
 --- !u!1 &916056841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3987,15 +4061,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666f3ccfa24cbf943a528891d1d0969f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
-  spritePrefabs: []
+  spritePrefabs:
+  - {fileID: 919132149155446097, guid: 428c3efa5e0e3be42abc47ea4fb9d60e, type: 3}
+  - {fileID: 919132149155446097, guid: 3ab5ba467db107b4398610359ac59411, type: 3}
+  - {fileID: 919132149155446097, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
+  - {fileID: 919132149155446097, guid: be772c9c2044c054a9ef07f93c6ec03d, type: 3}
+  - {fileID: 919132149155446097, guid: 088f6495bc140a849873c0e65e647a73, type: 3}
+  - {fileID: 919132149155446097, guid: 8f8e47bf40aab2b4ebd2c6dec73d9645, type: 3}
+  - {fileID: 919132149155446097, guid: 9b869e5e0d8185d4fac4658eaa0c4caa, type: 3}
   layerSpeed: 1.2
   speedJitter: 0.1
-  minSecondsBetweenSpawns: 4
-  maxSecondsBetweenSpawns: 6
-  minY: -6
-  maxY: 6
-  minScale: 0.05
-  maxScale: 0.5
+  minSecondsBetweenSpawns: 1.5
+  maxSecondsBetweenSpawns: 2.5
+  minY: -20
+  maxY: 20
+  minScale: 1
+  maxScale: 6
 --- !u!1 &1687741148
 GameObject:
   m_ObjectHideFlags: 0
@@ -10430,3 +10511,4 @@ SceneRoots:
   - {fileID: 2130952412}
   - {fileID: 4204617435077376732}
   - {fileID: 560543434}
+  - {fileID: 394386783}

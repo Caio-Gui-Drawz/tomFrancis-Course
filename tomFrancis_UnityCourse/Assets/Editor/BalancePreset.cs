@@ -81,7 +81,13 @@ public static class BalancePresets
     static readonly string[] WavePaths =
     {
         "startingBudget", "budgetIncrementPerWave", "secondsBetweenSpawnsInWave",
-        "secondsBetweenWaves", "secondsBeforeFirstWave", "secondsBetweenBonusSpawns"
+        "secondsBetweenWaves", "secondsBeforeFirstWave", "secondsBetweenBonusSpawns",
+        // Fase de loot (só existe no WaveConfig; no modo legado o campo não é encontrado e é ignorado).
+        "lootPhase.enabled", "lootPhase.durationSeconds", "lootPhase.dropWindowFraction",
+        "lootPhase.endWhenAllCollected", "lootPhase.minSecondsBetweenDrops", "lootPhase.safetyTimeoutSeconds",
+        "lootPhase.waitForEnemiesToClear", "lootPhase.clearEnemiesTimeoutSeconds", "lootPhase.minSecondsBeforeEarlyEnd", "lootPhase.itemSpeedMultiplier",
+        "lootPhase.lowHealthThreshold", "lootPhase.extraHealsWhenLow",
+        "lootPhase.weaponFirstWave", "lootPhase.weaponEveryNWaves", "lootPhase.flawlessBonusCount"
     };
 
     static readonly string[] WeaponPaths =
@@ -107,6 +113,12 @@ public static class BalancePresets
         foreach (WaveConfig cfg in BalanceModel.waveConfigs)
         {
             AddPaths(list, seen, cfg, "Waves (" + cfg.name + ")", WavePaths);
+            if (cfg.lootPhase != null)
+            {
+                AddLootCounts(list, seen, cfg, "healItems", "Loot cura", cfg.lootPhase.healItems);
+                AddLootCounts(list, seen, cfg, "weaponItems", "Loot arma", cfg.lootPhase.weaponItems);
+                AddLootCounts(list, seen, cfg, "performanceItems", "Loot desempenho", cfg.lootPhase.performanceItems);
+            }
             if (cfg.ranges == null) continue;
             for (int i = 0; i < cfg.ranges.Length; i++)
             {
@@ -190,6 +202,16 @@ public static class BalancePresets
             }
         }
         return paths.ToArray();
+    }
+
+    static void AddLootCounts(List<FieldRef> list, HashSet<string> seen, WaveConfig cfg, string arrayName, string label, LootItem[] items)
+    {
+        if (items == null) return;
+        for (int i = 0; i < items.Length; i++)
+        {
+            string itemName = items[i] != null && items[i].prefab != null ? items[i].prefab.name : "?";
+            AddPaths(list, seen, cfg, label + " " + i + " (" + itemName + ")", new[] { "lootPhase." + arrayName + ".Array.data[" + i + "].count" });
+        }
     }
 
     static void AddPaths(List<FieldRef> list, HashSet<string> seen, UnityEngine.Object target, string labelPrefix, string[] paths)

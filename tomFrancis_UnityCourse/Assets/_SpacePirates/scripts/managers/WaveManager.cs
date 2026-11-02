@@ -62,6 +62,9 @@ public class WaveManager : MonoBehaviour
     // Avisa sempre que uma nova wave começa, passando o número dela.
     public event System.Action<int> OnWaveStarted;
 
+    // Avisa quando a wave termina de spawnar (começa o intervalo / fase de loot). Passa o número da wave que acabou.
+    public event System.Action<int> OnWaveCompleted;
+
     // Fase de loot entre waves (só acontece com Config > Loot Phase > Enabled). O número é a wave que ACABOU DE TERMINAR.
     public event System.Action<int> OnLootPhaseStarted;
     public event System.Action<int> OnLootPhaseEnded;
@@ -251,12 +254,26 @@ public class WaveManager : MonoBehaviour
     {
         if (config != null && config.lootPhase != null && config.lootPhase.enabled)
         {
+            // Primeiro espera os inimigos da wave sumirem; só então avisa "wave concluída" e começa o loot.
+            if (config.lootPhase.waitForEnemiesToClear)
+            {
+                float waited = 0f;
+                float timeout = Mathf.Max(1f, config.lootPhase.clearEnemiesTimeoutSeconds);
+                while (waited < timeout && AnyEnemyAlive())
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    waited += 0.25f;
+                }
+            }
+
+            OnWaveCompleted?.Invoke(currentWave);
             yield return LootPhaseRoutine(config.lootPhase);
             currentWave++;
             StartWave();
             yield break;
         }
 
+        OnWaveCompleted?.Invoke(currentWave);
         float step = Mathf.Max(0.01f, BonusIntervalValue);
         float elapsed = 0f;
         while (elapsed < BetweenWavesValue)
@@ -290,7 +307,8 @@ public class WaveManager : MonoBehaviour
 
         float maxDuration = Mathf.Max(1f, loot.durationSeconds);
         float dropWindow = maxDuration * Mathf.Clamp(loot.dropWindowFraction, 0.3f, 1f);
-        float interval = drops.Count > 0 ? Mathf.Max(0.05f, dropWindow / drops.Count) : 0f;
+        float interval = drops.Count > 0 ? Mathf.Max(Mathf.Max(0.05f, loot.minSecondsBetweenDrops), dropWindow / drops.Count) : 0f;
+        Transform lastPoint = null;
         float elapsed = 0f;
 
         foreach (GameObject prefab in drops)
@@ -298,9 +316,10 @@ public class WaveManager : MonoBehaviour
             Spawner spawner = FindSpawner(prefab);
             if (spawner != null)
             {
-                GameObject item = spawner.SpawnOne();
+                GameObject item = spawner.SpawnOne(lastPoint);
                 if (item != null)
                 {
+                    lastPoint = spawner.LastSpawnPoint;
                     SlowLootItem(item, loot.itemSpeedMultiplier);
                     spawned.Add(item);
                 }
@@ -310,19 +329,40 @@ public class WaveManager : MonoBehaviour
             elapsed += interval;
         }
 
-        // Espera os itens acabarem (pegos ou fora da tela = voltaram ao pool) ou o tempo máximo.
-        float minTime = loot.endWhenAllCollected ? loot.minSecondsBeforeEarlyEnd : maxDuration;
-        while (elapsed < maxDuration)
+        // Com fim antecipado: espera todos os itens sumirem (pegos ou fora da tela = voltaram ao pool),
+        // com um limite de segurança contado a partir do último item. Sem fim antecipado: dura a duração planejada.
+        float safety = Mathf.Max(1f, loot.safetyTimeoutSeconds);
+        float waitedAfterDrops = 0f;
+        while (true)
         {
-            if (loot.endWhenAllCollected && elapsed >= minTime && !AnyAlive(spawned)) break;
+            if (loot.endWhenAllCollected)
+            {
+                if (elapsed >= loot.minSecondsBeforeEarlyEnd && !AnyAlive(spawned)) break;
+                if (waitedAfterDrops >= safety) break;
+            }
+            else if (elapsed >= maxDuration)
+            {
+                break;
+            }
 
             yield return null;
             elapsed += Time.deltaTime;
+            waitedAfterDrops += Time.deltaTime;
         }
 
         InLootPhase = false;
         if (ParallaxSpeedController.Instance != null) ParallaxSpeedController.Instance.ExitLootSlowdown();
         OnLootPhaseEnded?.Invoke(finishedWave);
+    }
+
+    static bool AnyEnemyAlive()
+    {
+        enemy2D[] enemies = FindObjectsByType<enemy2D>(FindObjectsSortMode.None);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] != null && enemies[i].isActiveAndEnabled) return true;
+        }
+        return false;
     }
 
     // Um item "vivo" é um que ainda está ativo na cena. Pegar o item ou sair da tela o devolve ao pool (inativo).

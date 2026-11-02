@@ -31,14 +31,24 @@ public class LootPhaseData
 {
     public bool enabled = false;
 
-    [Tooltip("Duração MÁXIMA da fase de loot (substitui 'Seconds Between Waves' quando ligada).")]
+    [Tooltip("Espera os inimigos da wave sumirem (mortos ou fora da tela) antes de começar a fase de loot.")]
+    public bool waitForEnemiesToClear = true;
+    [Tooltip("Se ainda sobrar inimigo depois deste tempo, a fase de loot começa mesmo assim.")]
+    [Min(1f)] public float clearEnemiesTimeoutSeconds = 10f;
+
+    [Tooltip("Duração planejada da fase de loot (substitui 'Seconds Between Waves' quando ligada). Com 'Termina antes se tudo for pego' ligado ela só define o espaçamento dos itens; o limite real é o tempo de segurança abaixo.")]
     [Min(1f)] public float durationSeconds = 6f;
 
     [Tooltip("Os prêmios nascem espalhados nesta fração inicial da fase; o resto é tempo para pegar.")]
     [Range(0.3f, 1f)] public float dropWindowFraction = 0.7f;
 
+    [Tooltip("Tempo mínimo entre um item e o próximo. Evita itens colados (principalmente com os itens lentos).")]
+    [Min(0.05f)] public float minSecondsBetweenDrops = 0.7f;
+
     [Tooltip("Ligado = a fase termina assim que TODOS os itens sumirem (pegos ou saíram da tela). A duração vira o tempo máximo.")]
     public bool endWhenAllCollected = true;
+    [Tooltip("Com 'Termina antes se tudo for pego': tempo máximo de espera DEPOIS que o último item nasceu. Só serve para a fase não travar se algum item ficar preso.")]
+    [Min(1f)] public float safetyTimeoutSeconds = 15f;
     [Tooltip("Mesmo que não sobre nenhum item, a fase dura pelo menos isto (evita um piscar).")]
     [Min(0f)] public float minSecondsBeforeEarlyEnd = 1.5f;
 
