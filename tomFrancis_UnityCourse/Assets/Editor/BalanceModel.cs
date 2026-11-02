@@ -1,0 +1,349 @@
+using System;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+public enum BalanceKind { Enemy, Treasure, Medkit, WeaponBox, Other }
+
+// Resumo de um prefab "balanceável" (inimigo, tesouro, medkit, caixa de arma...).
+public class BalancePrefab
+{
+    public string path;
+    public GameObject root;
+    public BalanceKind kind;
+    public healthSystem health;
+    public enemy2D enemy;
+    public TreasureReward treasure;
+    public HealthPickupReward medkit;
+    public WeaponPickupReward weaponBox;
+    public ExplosionDamage2D explosion;
+    public KnockbackReceiver knockback;
+
+    public string Name { get { return root != null ? root.name : "?"; } }
+
+    public bool HasWeaponList
+    {
+        get { return weaponBox != null && weaponBox.possibleWeapons != null && weaponBox.possibleWeapons.Length > 0; }
+    }
+}
+
+// Premissas editáveis do modelo de dificuldade (salvas nas EditorPrefs).
+[Serializable]
+public class BalanceAssumptions
+{
+    [Tooltip("Fração do dano da arma que realmente acerta (mira, erros, alvo se movendo).")]
+    public float accuracy = 0.7f;
+    [Tooltip("Para armas com vários projéteis: fração dos projéteis que acerta o mesmo alvo.")]
+    public float pelletHitFraction = 0.5f;
+    [Tooltip("Chance de o player conseguir pegar um item (medkit / caixa de arma) que apareceu.")]
+    public float pickupCatchRate = 0.6f;
+    [Tooltip("Mesmo se o player der conta de tudo, essa fração dos inimigos ainda encosta nele.")]
+    public float baseLeakFraction = 0.1f;
+    [Tooltip("Chance de o dano de uma explosão (mina) atingir o player.")]
+    public float explosionHitsPlayerChance = 0.25f;
+    public int waves = 12;
+}
+
+public class WaveStats
+{
+    public int wave;
+    public int budget;
+    public float spawnSeconds;
+    public float gapSeconds;
+    public float totalSeconds;
+
+    public float enemies;
+    public float enemyHp;
+    public float contactDamage;   // dano total se TODOS os inimigos encostassem no player
+    public float explosionDamage; // dano total de explosões (potencial)
+    public float treasures;
+    public float score;
+    public float medkits;
+    public float healTotal;
+    public float weaponBoxes;
+
+    public float specialFraction;
+    public float effectiveDps;
+    public float timeToKill;
+    public float killPressure;
+    public float expectedDamage;
+    public float expectedHeal;
+    public float hpEnd;
+}
+
+public static class BalanceModel
+{
+    public static readonly List<BalancePrefab> prefabs = new List<BalancePrefab>();
+    public static readonly List<WeaponData> weapons = new List<WeaponData>();
+    public static GameObject playerPrefab;
+
+    static readonly Dictionary<GameObject, BalancePrefab> byRoot = new Dictionary<GameObject, BalancePrefab>();
+
+    public const string PrefabFolder = "Assets/_SpacePirates/prefabs";
+
+    public static void Refresh()
+    {
+        prefabs.Clear();
+        weapons.Clear();
+        byRoot.Clear();
+        playerPrefab = null;
+
+        foreach (string guid in AssetDatabase.FindAssets("t:Prefab", new[] { PrefabFolder }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (go == null) continue;
+
+            if (go.GetComponent<Player2D>() != null) { playerPrefab = go; continue; }
+
+            BalancePrefab info = Build(go, path);
+            byRoot[go] = info;
+            if (info.health != null) prefabs.Add(info);
+        }
+
+        foreach (string guid in AssetDatabase.FindAssets("t:WeaponData"))
+        {
+            WeaponData w = AssetDatabase.LoadAssetAtPath<WeaponData>(AssetDatabase.GUIDToAssetPath(guid));
+            if (w != null) weapons.Add(w);
+        }
+
+        prefabs.Sort((a, b) =>
+        {
+            int c = a.kind.CompareTo(b.kind);
+            return c != 0 ? c : string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase);
+        });
+        weapons.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    static BalancePrefab Build(GameObject go, string path)
+    {
+        BalancePrefab p = new BalancePrefab();
+        p.path = path;
+        p.root = go;
+        p.health = go.GetComponent<healthSystem>();
+        p.enemy = go.GetComponent<enemy2D>();
+        p.treasure = go.GetComponent<TreasureReward>();
+        p.medkit = go.GetComponent<HealthPickupReward>();
+        p.weaponBox = go.GetComponent<WeaponPickupReward>();
+        p.knockback = go.GetComponent<KnockbackReceiver>();
+        if (p.health != null && p.health.deathEffectPrefab != null)
+        {
+            p.explosion = p.health.deathEffectPrefab.GetComponent<ExplosionDamage2D>();
+        }
+
+        if (p.medkit != null) p.kind = BalanceKind.Medkit;
+        else if (p.HasWeaponList) p.kind = BalanceKind.WeaponBox;
+        else if (p.enemy != null) p.kind = BalanceKind.Enemy;
+        else if (p.treasure != null) p.kind = BalanceKind.Treasure;
+        else p.kind = BalanceKind.Other;
+        return p;
+    }
+
+    // Info de um prefab qualquer (um prefab de spawner pode estar fora da pasta escaneada).
+    public static BalancePrefab Info(GameObject prefab)
+    {
+        if (prefab == null) return null;
+        BalancePrefab info;
+        if (byRoot.TryGetValue(prefab, out info)) return info;
+        info = Build(prefab, AssetDatabase.GetAssetPath(prefab));
+        byRoot[prefab] = info;
+        return info;
+    }
+
+    // ---------- Armas ----------
+
+    public static float BulletDamage(WeaponData w)
+    {
+        if (w == null || w.bulletPrefab == null) return 0f;
+        bullet2D b = w.bulletPrefab.GetComponent<bullet2D>();
+        return b != null ? b.damage : 0f;
+    }
+
+    public static float RawDps(WeaponData w, BalanceAssumptions a)
+    {
+        if (w == null) return 0f;
+        float shotsPerSecond = 1f / Mathf.Max(0.01f, w.fireRate);
+        float pellets = Mathf.Max(1, w.numberOfProjectiles);
+        float hitting = pellets > 1f ? Mathf.Max(1f, pellets * a.pelletHitFraction) : 1f;
+        return shotsPerSecond * hitting * BulletDamage(w);
+    }
+
+    // Quantos segundos a arma dura na mão (infinito = nunca acaba).
+    public static float HoldSeconds(WeaponData w)
+    {
+        if (w == null) return 0f;
+        switch (w.limitMode)
+        {
+            case WeaponData.LimitMode.Time: return w.durationSeconds;
+            case WeaponData.LimitMode.Ammo: return w.ammo * Mathf.Max(0.01f, w.fireRate);
+        }
+        return float.PositiveInfinity;
+    }
+
+    // ---------- Player ----------
+
+    public static float PlayerMaxHp()
+    {
+        healthSystem live = LivePlayerHealth();
+        if (live != null) return live.maxHealth;
+        if (playerPrefab != null)
+        {
+            healthSystem h = playerPrefab.GetComponent<healthSystem>();
+            if (h != null) return h.maxHealth;
+        }
+        return 10f;
+    }
+
+    public static WeaponData DefaultWeapon()
+    {
+        Player2D live = UnityEngine.Object.FindFirstObjectByType<Player2D>(FindObjectsInactive.Include);
+        if (live != null && live.defaultWeapon != null) return live.defaultWeapon;
+        if (playerPrefab != null)
+        {
+            Player2D p = playerPrefab.GetComponent<Player2D>();
+            if (p != null) return p.defaultWeapon;
+        }
+        return null;
+    }
+
+    static healthSystem LivePlayerHealth()
+    {
+        Player2D live = UnityEngine.Object.FindFirstObjectByType<Player2D>(FindObjectsInactive.Include);
+        return live != null ? live.GetComponent<healthSystem>() : null;
+    }
+
+    // ---------- Simulação das waves ----------
+
+    public static List<WaveStats> ComputeAll(WaveManager wm, BalanceAssumptions a)
+    {
+        List<WaveStats> list = new List<WaveStats>();
+        if (wm == null) return list;
+
+        float maxHp = PlayerMaxHp();
+        float defaultDps = RawDps(DefaultWeapon(), a);
+        float hp = maxHp;
+        float fixedStep = Mathf.Max(0.001f, Time.fixedDeltaTime);
+
+        for (int n = 1; n <= Mathf.Max(1, a.waves); n++)
+        {
+            WaveStats s = new WaveStats();
+            s.wave = n;
+            s.budget = Mathf.Max(0, wm.startingBudget + (n - 1) * wm.budgetIncrementPerWave);
+
+            // O spawn roda no FixedUpdate: o intervalo real é arredondado para cima ao próximo passo de física.
+            float period = Mathf.Max(fixedStep, Mathf.Ceil(wm.secondsBetweenSpawnsInWave / fixedStep - 0.001f) * fixedStep);
+            s.spawnSeconds = s.budget * period;
+
+            int bonusRounds = 0;
+            if (wm.secondsBetweenWaves > 0f)
+            {
+                if (wm.secondsBetweenBonusSpawns > 0.0001f)
+                {
+                    bonusRounds = Mathf.CeilToInt(wm.secondsBetweenWaves / wm.secondsBetweenBonusSpawns - 0.001f);
+                    s.gapSeconds = bonusRounds * wm.secondsBetweenBonusSpawns;
+                }
+                else
+                {
+                    s.gapSeconds = wm.secondsBetweenWaves;
+                }
+            }
+            s.totalSeconds = s.spawnSeconds + s.gapSeconds;
+
+            List<WeaponData> pool = new List<WeaponData>();
+
+            float totalWeight = 0f;
+            List<WaveManager.SpawnerRange> active = new List<WaveManager.SpawnerRange>();
+            if (wm.spawnerRanges != null)
+            {
+                foreach (WaveManager.SpawnerRange r in wm.spawnerRanges)
+                {
+                    if (r == null || r.spawner == null || r.spawner.prefab == null) continue;
+                    if (n < r.startWave || n > r.endWave || r.weight <= 0f) continue;
+                    active.Add(r);
+                    totalWeight += r.weight;
+                }
+            }
+            foreach (WaveManager.SpawnerRange r in active)
+            {
+                Accumulate(s, r.spawner.prefab, s.budget * r.weight / totalWeight, pool);
+            }
+
+            if (wm.treasureBonusSpawners != null && wm.treasureBonusSpawners.Length > 0 && bonusRounds > 0)
+            {
+                float each = bonusRounds / (float)wm.treasureBonusSpawners.Length;
+                foreach (Spawner sp in wm.treasureBonusSpawners)
+                {
+                    if (sp != null && sp.prefab != null) Accumulate(s, sp.prefab, each, pool);
+                }
+            }
+
+            // Armas especiais: quanto do tempo o player passa com uma arma de caixa na mão.
+            float avgHold = 0f;
+            float avgDps = 0f;
+            foreach (WeaponData w in pool)
+            {
+                float hold = HoldSeconds(w);
+                if (float.IsInfinity(hold)) hold = s.totalSeconds;
+                avgHold += hold;
+                avgDps += RawDps(w, a);
+            }
+            if (pool.Count > 0) { avgHold /= pool.Count; avgDps /= pool.Count; }
+
+            s.specialFraction = pool.Count > 0 && s.totalSeconds > 0f
+                ? Mathf.Clamp01(s.weaponBoxes * a.pickupCatchRate * avgHold / s.totalSeconds)
+                : 0f;
+            float specialDps = pool.Count > 0 ? avgDps : defaultDps;
+            s.effectiveDps = a.accuracy * ((1f - s.specialFraction) * defaultDps + s.specialFraction * specialDps);
+
+            s.timeToKill = s.effectiveDps > 0.0001f ? s.enemyHp / s.effectiveDps : (s.enemyHp > 0f ? 999f : 0f);
+            s.killPressure = s.totalSeconds > 0f ? s.timeToKill / s.totalSeconds : 0f;
+
+            float killed = s.killPressure > 1f ? 1f / s.killPressure : 1f;
+            float leaked = Mathf.Clamp01(a.baseLeakFraction + (1f - a.baseLeakFraction) * (1f - killed));
+            s.expectedDamage = s.contactDamage * leaked + s.explosionDamage * a.explosionHitsPlayerChance;
+            s.expectedHeal = s.healTotal * a.pickupCatchRate;
+
+            hp = Mathf.Clamp(Mathf.Min(maxHp, hp + s.expectedHeal) - s.expectedDamage, 0f, maxHp);
+            s.hpEnd = hp;
+
+            list.Add(s);
+        }
+        return list;
+    }
+
+    static void Accumulate(WaveStats s, GameObject prefab, float count, List<WeaponData> pool)
+    {
+        BalancePrefab info = Info(prefab);
+        if (info == null || count <= 0f) return;
+
+        float maxHealth = info.health != null ? info.health.maxHealth : 0f;
+
+        switch (info.kind)
+        {
+            case BalanceKind.Enemy:
+                s.enemies += count;
+                s.enemyHp += count * maxHealth;
+                s.contactDamage += count * (info.enemy != null ? info.enemy.damage : 0f);
+                if (info.explosion != null) s.explosionDamage += count * info.explosion.damage;
+                break;
+            case BalanceKind.Treasure:
+                s.treasures += count;
+                s.score += count * (info.treasure != null ? info.treasure.scoreValue : 0);
+                break;
+            case BalanceKind.Medkit:
+                s.medkits += count;
+                s.healTotal += count * (info.medkit != null ? info.medkit.healAmount : 0f);
+                break;
+        }
+
+        // Caixa de arma (ou medkit que também tem lista de armas).
+        if (info.HasWeaponList)
+        {
+            s.weaponBoxes += count;
+            foreach (WeaponData w in info.weaponBox.possibleWeapons)
+            {
+                if (w != null) pool.Add(w);
+            }
+        }
+    }
+}

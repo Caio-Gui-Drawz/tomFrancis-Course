@@ -1175,6 +1175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8094760540718478058, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5241172525595138199, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
@@ -3774,7 +3778,7 @@ MonoBehaviour:
     startWave: 1
     endWave: 100
     weight: 0.5
-  startingBudget: 2
+  startingBudget: -143
   budgetIncrementPerWave: 1
   secondsBetweenSpawnsInWave: 1
   secondsBetweenWaves: 3
