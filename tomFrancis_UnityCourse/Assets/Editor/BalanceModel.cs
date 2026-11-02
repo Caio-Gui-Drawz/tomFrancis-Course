@@ -71,10 +71,79 @@ public class WaveStats
     public float hpEnd;
 }
 
+// Os números das waves, lidos do WaveConfig (asset) ou, enquanto não houver um, do WaveManager antigo da cena.
+public class WaveSource
+{
+    public int startingBudget;
+    public int budgetIncrementPerWave;
+    public float secondsBetweenSpawnsInWave;
+    public float secondsBetweenWaves;
+    public float secondsBeforeFirstWave;
+    public float secondsBetweenBonusSpawns;
+    public List<WaveRangeData> ranges = new List<WaveRangeData>();
+    public List<GameObject> bonusPrefabs = new List<GameObject>();
+
+    public static WaveSource FromConfig(WaveConfig c)
+    {
+        WaveSource s = new WaveSource();
+        s.startingBudget = c.startingBudget;
+        s.budgetIncrementPerWave = c.budgetIncrementPerWave;
+        s.secondsBetweenSpawnsInWave = c.secondsBetweenSpawnsInWave;
+        s.secondsBetweenWaves = c.secondsBetweenWaves;
+        s.secondsBeforeFirstWave = c.secondsBeforeFirstWave;
+        s.secondsBetweenBonusSpawns = c.secondsBetweenBonusSpawns;
+        if (c.ranges != null)
+        {
+            foreach (WaveRangeData r in c.ranges)
+            {
+                if (r != null) s.ranges.Add(r);
+            }
+        }
+        if (c.treasureBonusPrefabs != null) s.bonusPrefabs.AddRange(c.treasureBonusPrefabs);
+        return s;
+    }
+
+    // Modo legado: uma entrada para CADA faixa do WaveManager (mesma ordem, para os índices baterem com o Inspector).
+    public static WaveSource FromManager(WaveManager wm)
+    {
+        WaveSource s = new WaveSource();
+        s.startingBudget = wm.startingBudget;
+        s.budgetIncrementPerWave = wm.budgetIncrementPerWave;
+        s.secondsBetweenSpawnsInWave = wm.secondsBetweenSpawnsInWave;
+        s.secondsBetweenWaves = wm.secondsBetweenWaves;
+        s.secondsBeforeFirstWave = wm.secondsBeforeFirstWave;
+        s.secondsBetweenBonusSpawns = wm.secondsBetweenBonusSpawns;
+        if (wm.spawnerRanges != null)
+        {
+            foreach (WaveManager.SpawnerRange r in wm.spawnerRanges)
+            {
+                WaveRangeData d = new WaveRangeData();
+                if (r != null)
+                {
+                    d.prefab = r.spawner != null ? r.spawner.prefab : null;
+                    d.startWave = r.startWave;
+                    d.endWave = r.endWave;
+                    d.weight = r.weight;
+                }
+                s.ranges.Add(d);
+            }
+        }
+        if (wm.treasureBonusSpawners != null)
+        {
+            foreach (Spawner sp in wm.treasureBonusSpawners)
+            {
+                if (sp != null && sp.prefab != null) s.bonusPrefabs.Add(sp.prefab);
+            }
+        }
+        return s;
+    }
+}
+
 public static class BalanceModel
 {
     public static readonly List<BalancePrefab> prefabs = new List<BalancePrefab>();
     public static readonly List<WeaponData> weapons = new List<WeaponData>();
+    public static readonly List<WaveConfig> waveConfigs = new List<WaveConfig>();
     public static GameObject playerPrefab;
 
     static readonly Dictionary<GameObject, BalancePrefab> byRoot = new Dictionary<GameObject, BalancePrefab>();
@@ -85,6 +154,7 @@ public static class BalanceModel
     {
         prefabs.Clear();
         weapons.Clear();
+        waveConfigs.Clear();
         byRoot.Clear();
         playerPrefab = null;
 
@@ -105,6 +175,12 @@ public static class BalanceModel
         {
             WeaponData w = AssetDatabase.LoadAssetAtPath<WeaponData>(AssetDatabase.GUIDToAssetPath(guid));
             if (w != null) weapons.Add(w);
+        }
+
+        foreach (string guid in AssetDatabase.FindAssets("t:WaveConfig"))
+        {
+            WaveConfig c = AssetDatabase.LoadAssetAtPath<WaveConfig>(AssetDatabase.GUIDToAssetPath(guid));
+            if (c != null) waveConfigs.Add(c);
         }
 
         prefabs.Sort((a, b) =>
@@ -214,7 +290,7 @@ public static class BalanceModel
 
     // ---------- Simulação das waves ----------
 
-    public static List<WaveStats> ComputeAll(WaveManager wm, BalanceAssumptions a)
+    public static List<WaveStats> ComputeAll(WaveSource wm, BalanceAssumptions a)
     {
         List<WaveStats> list = new List<WaveStats>();
         if (wm == null) return list;
@@ -252,28 +328,25 @@ public static class BalanceModel
             List<WeaponData> pool = new List<WeaponData>();
 
             float totalWeight = 0f;
-            List<WaveManager.SpawnerRange> active = new List<WaveManager.SpawnerRange>();
-            if (wm.spawnerRanges != null)
+            List<WaveRangeData> active = new List<WaveRangeData>();
+            foreach (WaveRangeData r in wm.ranges)
             {
-                foreach (WaveManager.SpawnerRange r in wm.spawnerRanges)
-                {
-                    if (r == null || r.spawner == null || r.spawner.prefab == null) continue;
-                    if (n < r.startWave || n > r.endWave || r.weight <= 0f) continue;
-                    active.Add(r);
-                    totalWeight += r.weight;
-                }
+                if (r == null || r.prefab == null) continue;
+                if (n < r.startWave || n > r.endWave || r.weight <= 0f) continue;
+                active.Add(r);
+                totalWeight += r.weight;
             }
-            foreach (WaveManager.SpawnerRange r in active)
+            foreach (WaveRangeData r in active)
             {
-                Accumulate(s, r.spawner.prefab, s.budget * r.weight / totalWeight, pool);
+                Accumulate(s, r.prefab, s.budget * r.weight / totalWeight, pool);
             }
 
-            if (wm.treasureBonusSpawners != null && wm.treasureBonusSpawners.Length > 0 && bonusRounds > 0)
+            if (wm.bonusPrefabs.Count > 0 && bonusRounds > 0)
             {
-                float each = bonusRounds / (float)wm.treasureBonusSpawners.Length;
-                foreach (Spawner sp in wm.treasureBonusSpawners)
+                float each = bonusRounds / (float)wm.bonusPrefabs.Count;
+                foreach (GameObject bonusPrefab in wm.bonusPrefabs)
                 {
-                    if (sp != null && sp.prefab != null) Accumulate(s, sp.prefab, each, pool);
+                    if (bonusPrefab != null) Accumulate(s, bonusPrefab, each, pool);
                 }
             }
 

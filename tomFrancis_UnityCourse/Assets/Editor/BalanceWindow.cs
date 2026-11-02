@@ -258,59 +258,108 @@ public class BalanceWindow : EditorWindow
 
     // ---------------------------------------------------------------- Waves
 
-    void DrawWaves()
+    WaveConfig activeConfig;
+
+    // Fonte das waves: o WaveConfig (asset) do WaveManager da cena, ou qualquer WaveConfig do projeto,
+    // ou (legado) os campos do próprio WaveManager.
+    WaveSource GetWaveSource()
     {
         FindWaveManager();
-        if (waveManager == null)
+
+        activeConfig = null;
+        if (waveManager != null && waveManager.config != null) activeConfig = waveManager.config;
+        else if (BalanceModel.waveConfigs.Count > 0) activeConfig = BalanceModel.waveConfigs[0];
+
+        if (activeConfig != null) return WaveSource.FromConfig(activeConfig);
+        if (waveManager != null) return WaveSource.FromManager(waveManager);
+        return null;
+    }
+
+    void DrawWaves()
+    {
+        WaveSource source = GetWaveSource();
+        if (source == null)
         {
-            EditorGUILayout.HelpBox("Nenhum WaveManager na cena aberta. Abra a cena do jogo (a 2D) para editar e visualizar as waves.", MessageType.Info);
+            EditorGUILayout.HelpBox("Nenhum WaveConfig no projeto e nenhum WaveManager na cena aberta. Abra a cena do jogo (a 2D) e use o menu de contexto do WaveManager > 'Criar WaveConfig a partir dos valores atuais'.", MessageType.Info);
             return;
         }
 
-        Header("Ritmo das waves  (WaveManager)");
-        Field(waveManager, "startingBudget", "Spawns na wave 1");
-        Field(waveManager, "budgetIncrementPerWave", "+ spawns por wave");
-        Field(waveManager, "secondsBetweenSpawnsInWave", "Segundos entre spawns");
-        Field(waveManager, "secondsBetweenWaves", "Intervalo entre waves (s)");
-        Field(waveManager, "secondsBeforeFirstWave", "Espera antes da wave 1 (s)");
-        Field(waveManager, "secondsBetweenBonusSpawns", "Segundos entre spawns bônus");
-
-        Header("Quem nasce em cada wave  (Spawner Ranges)");
-        SerializedObject so = GetSO(waveManager);
-        SerializedProperty ranges = so.FindProperty("spawnerRanges");
-        int rangeCount = ranges != null ? ranges.arraySize : 0;
-        float oldLabelWidth = EditorGUIUtility.labelWidth;
-        for (int i = 0; i < rangeCount; i++)
+        UnityEngine.Object target;
+        string rangesPath;
+        if (activeConfig != null)
         {
-            WaveManager.SpawnerRange r = waveManager.spawnerRanges[i];
-            string spawnerName = "(vazio)";
-            string tag = "";
-            if (r != null && r.spawner != null && r.spawner.prefab != null)
+            target = activeConfig;
+            rangesPath = "ranges";
+            EditorGUILayout.HelpBox("Editando o asset '" + activeConfig.name + "' (vale para todas as cenas)." +
+                (waveManager != null && waveManager.config != activeConfig ? "\nAtenção: o WaveManager desta cena NÃO usa este asset. Arraste-o para o campo Config dele." : ""),
+                waveManager != null && waveManager.config != activeConfig ? MessageType.Warning : MessageType.None);
+        }
+        else
+        {
+            target = waveManager;
+            rangesPath = "spawnerRanges";
+            EditorGUILayout.HelpBox("O WaveManager desta cena ainda guarda as waves nele mesmo (vale só para esta cena). Crie um WaveConfig para compartilhar entre cenas e salvar mudanças do Play mode.", MessageType.Warning);
+            if (GUILayout.Button("Criar WaveConfig a partir dos valores atuais"))
             {
-                spawnerName = r.spawner.prefab.name;
-                tag = "  [" + KindTag(BalanceModel.Info(r.spawner.prefab).kind) + "]";
+                waveManager.MigrateToConfigEditor();
+                soCache.Clear();
+                needRefresh = true;
+                return;
+            }
+        }
+
+        Header("Ritmo das waves");
+        Field(target, "startingBudget", "Spawns na wave 1");
+        Field(target, "budgetIncrementPerWave", "+ spawns por wave");
+        Field(target, "secondsBetweenSpawnsInWave", "Segundos entre spawns");
+        Field(target, "secondsBetweenWaves", "Intervalo entre waves (s)");
+        Field(target, "secondsBeforeFirstWave", "Espera antes da wave 1 (s)");
+        Field(target, "secondsBetweenBonusSpawns", "Segundos entre spawns bônus");
+
+        Header("Quem nasce em cada wave");
+        float oldLabelWidth = EditorGUIUtility.labelWidth;
+        for (int i = 0; i < source.ranges.Count; i++)
+        {
+            WaveRangeData r = source.ranges[i];
+            string rangeName = "(vazio)";
+            string tag = "";
+            if (r.prefab != null)
+            {
+                rangeName = r.prefab.name;
+                tag = "  [" + KindTag(BalanceModel.Info(r.prefab).kind) + "]";
             }
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                GUILayout.Label(spawnerName + tag, GUILayout.Width(200f));
+                GUILayout.Label(rangeName + tag, GUILayout.Width(200f));
                 EditorGUIUtility.labelWidth = 42f;
-                Field(waveManager, "spawnerRanges.Array.data[" + i + "].startWave", "início", 95f);
-                Field(waveManager, "spawnerRanges.Array.data[" + i + "].endWave", "fim", 95f);
-                Field(waveManager, "spawnerRanges.Array.data[" + i + "].weight", "peso", 95f);
+                Field(target, rangesPath + ".Array.data[" + i + "].startWave", "início", 95f);
+                Field(target, rangesPath + ".Array.data[" + i + "].endWave", "fim", 95f);
+                Field(target, rangesPath + ".Array.data[" + i + "].weight", "peso", 95f);
                 EditorGUIUtility.labelWidth = oldLabelWidth;
             }
         }
         EditorGUIUtility.labelWidth = oldLabelWidth;
 
+        if (activeConfig != null)
+        {
+            if (Foldout("ranges-full", "Editar listas completas (adicionar / remover faixas e tesouros bônus)"))
+            {
+                EditorGUI.indentLevel++;
+                Field(activeConfig, "ranges", "Faixas");
+                Field(activeConfig, "treasureBonusPrefabs", "Tesouros bônus (prefabs)");
+                EditorGUI.indentLevel--;
+            }
+        }
+
         DrawSpawners();
 
-        DrawComposition();
+        DrawComposition(source);
 
         showAssumptions = EditorGUILayout.Foldout(showAssumptions, "Premissas da simulação (afetam só o gráfico)", true);
         if (showAssumptions) DrawAssumptions();
 
-        List<WaveStats> stats = BalanceModel.ComputeAll(waveManager, assume);
+        List<WaveStats> stats = BalanceModel.ComputeAll(source, assume);
         List<WaveStats> compareStats = compareTo != null ? compareTo.ToStats() : null;
 
         Header("Curva de dificuldade estimada");
@@ -347,35 +396,32 @@ public class BalanceWindow : EditorWindow
         EditorGUILayout.HelpBox("O deslocamento aleatório (mín., máx.) é somado à posição do ponto de spawn. Os pontos de spawn em si são objetos da cena: mova-os na Scene.", MessageType.None);
     }
 
-    void DrawComposition()
+    void DrawComposition(WaveSource source)
     {
         previewWave = Mathf.Max(1, EditorGUILayout.IntSlider("Composição na wave", previewWave, 1, Mathf.Max(2, assume.waves)));
 
         float totalWeight = 0f;
-        List<WaveManager.SpawnerRange> active = new List<WaveManager.SpawnerRange>();
-        if (waveManager.spawnerRanges != null)
+        List<WaveRangeData> active = new List<WaveRangeData>();
+        foreach (WaveRangeData r in source.ranges)
         {
-            foreach (WaveManager.SpawnerRange r in waveManager.spawnerRanges)
-            {
-                if (r == null || r.spawner == null || r.spawner.prefab == null) continue;
-                if (previewWave < r.startWave || previewWave > r.endWave || r.weight <= 0f) continue;
-                active.Add(r);
-                totalWeight += r.weight;
-            }
+            if (r == null || r.prefab == null) continue;
+            if (previewWave < r.startWave || previewWave > r.endWave || r.weight <= 0f) continue;
+            active.Add(r);
+            totalWeight += r.weight;
         }
 
-        int budget = Mathf.Max(0, waveManager.startingBudget + (previewWave - 1) * waveManager.budgetIncrementPerWave);
+        int budget = Mathf.Max(0, source.startingBudget + (previewWave - 1) * source.budgetIncrementPerWave);
         if (active.Count == 0)
         {
-            EditorGUILayout.LabelField("Nada nasce nessa wave (nenhum spawner ativo).");
+            EditorGUILayout.LabelField("Nada nasce nessa wave (nenhuma faixa ativa).");
             return;
         }
 
-        foreach (WaveManager.SpawnerRange r in active)
+        foreach (WaveRangeData r in active)
         {
             float chance = r.weight / totalWeight;
-            BalancePrefab info = BalanceModel.Info(r.spawner.prefab);
-            EditorGUILayout.LabelField("   " + r.spawner.prefab.name + "  [" + KindTag(info.kind) + "]",
+            BalancePrefab info = BalanceModel.Info(r.prefab);
+            EditorGUILayout.LabelField("   " + r.prefab.name + "  [" + KindTag(info.kind) + "]",
                 (chance * 100f).ToString("0.#") + "%  ≈ " + (chance * budget).ToString("0.#") + " de " + budget);
         }
     }
@@ -809,7 +855,7 @@ public class BalanceWindow : EditorWindow
         }
         EditorGUILayout.HelpBox(
             "Um preset guarda os valores que esta janela edita (waves, spawners, armas, balas, inimigos, itens, player) e a curva de dificuldade do momento. " +
-            "Fica em " + BalancePresets.Folder + " e entra no git. Waves e spawners só entram se a cena do jogo estiver aberta.",
+            "Fica em " + BalancePresets.Folder + " e entra no git. As waves entram pelo asset WaveConfig; os spawners só se a cena do jogo estiver aberta.",
             MessageType.None);
 
         if (!string.IsNullOrEmpty(presetMessage)) EditorGUILayout.HelpBox(presetMessage, MessageType.Info);
@@ -867,12 +913,12 @@ public class BalanceWindow : EditorWindow
             return;
         }
 
-        FindWaveManager();
-        List<WaveStats> stats = waveManager != null ? BalanceModel.ComputeAll(waveManager, assume) : null;
+        WaveSource source = GetWaveSource();
+        List<WaveStats> stats = source != null ? BalanceModel.ComputeAll(source, assume) : null;
         PresetData data = BalancePresets.Capture(name, stats);
         BalancePresets.Save(data);
         ReloadPresets();
-        presetMessage = "Preset \"" + name + "\" salvo com " + data.entries.Count + " valores" + (stats == null ? " (sem a curva: nenhum WaveManager na cena aberta)." : ".");
+        presetMessage = "Preset \"" + name + "\" salvo com " + data.entries.Count + " valores" + (stats == null ? " (sem a curva: nenhum WaveConfig no projeto nem WaveManager na cena aberta)." : ".");
     }
 
     void ApplyPreset(PresetData d)

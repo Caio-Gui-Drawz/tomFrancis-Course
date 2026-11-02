@@ -3749,6 +3749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01fec07d9c2c7dd4386f3d93a1f148fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  config: {fileID: 11400000, guid: 5700f311dbeea824483ceff7847e8f2d, type: 2}
   spawnerRanges:
   - spawner: {fileID: 218794651}
     startWave: 1

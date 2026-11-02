@@ -103,8 +103,22 @@ public static class BalancePresets
         List<FieldRef> list = new List<FieldRef>();
         HashSet<string> seen = new HashSet<string>();
 
+        // Waves guardadas em assets WaveConfig: valem em qualquer cena.
+        foreach (WaveConfig cfg in BalanceModel.waveConfigs)
+        {
+            AddPaths(list, seen, cfg, "Waves (" + cfg.name + ")", WavePaths);
+            if (cfg.ranges == null) continue;
+            for (int i = 0; i < cfg.ranges.Length; i++)
+            {
+                string prefabName = cfg.ranges[i] != null && cfg.ranges[i].prefab != null ? cfg.ranges[i].prefab.name : "?";
+                string basePath = "ranges.Array.data[" + i + "].";
+                AddPaths(list, seen, cfg, "Faixa " + i + " (" + prefabName + ")", new[] { basePath + "startWave", basePath + "endWave", basePath + "weight" });
+            }
+        }
+
+        // Modo legado: waves guardadas no WaveManager da cena.
         WaveManager wm = UnityEngine.Object.FindFirstObjectByType<WaveManager>(FindObjectsInactive.Include);
-        if (wm != null)
+        if (wm != null && wm.config == null)
         {
             AddPaths(list, seen, wm, "WaveManager", WavePaths);
             if (wm.spawnerRanges != null)
@@ -113,9 +127,8 @@ public static class BalancePresets
                 {
                     WaveManager.SpawnerRange r = wm.spawnerRanges[i];
                     string prefabName = r != null && r.spawner != null && r.spawner.prefab != null ? r.spawner.prefab.name : "?";
-                    string prefix = "Faixa " + i + " (" + prefabName + ")";
                     string basePath = "spawnerRanges.Array.data[" + i + "].";
-                    AddPaths(list, seen, wm, prefix, new[] { basePath + "startWave", basePath + "endWave", basePath + "weight" });
+                    AddPaths(list, seen, wm, "Faixa " + i + " (" + prefabName + ")", new[] { basePath + "startWave", basePath + "endWave", basePath + "weight" });
                 }
             }
         }
