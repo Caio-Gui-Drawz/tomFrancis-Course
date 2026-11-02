@@ -129,6 +129,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
   - {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
   avoidCurrentWeapon: 1
+  avoidLastBoxWeapon: 1
 --- !u!61 &3524578871507667238
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -190,6 +191,7 @@ MonoBehaviour:
   forwardSpeed: -6
   amplitude: 1.5
   frequency: 1.5
+  timeScale: 1
 --- !u!114 &5011255176975204151
 MonoBehaviour:
   m_ObjectHideFlags: 0

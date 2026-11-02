@@ -28,7 +28,10 @@ public class ParallaxLayerSpawner : MonoBehaviour
 
     void Update()
     {
-        secondsUntilNextSpawn -= Time.deltaTime;
+        // Na fase de loot a velocidade cai; o relógio de spawn cai junto, senão os props ficariam
+        // amontoados (mesma quantidade andando mais devagar).
+        float extra = ParallaxSpeedController.Instance != null ? ParallaxSpeedController.Instance.ExtraMultiplier : 1f;
+        secondsUntilNextSpawn -= Time.deltaTime * extra;
         if (secondsUntilNextSpawn <= 0f)
         {
             SpawnOne();

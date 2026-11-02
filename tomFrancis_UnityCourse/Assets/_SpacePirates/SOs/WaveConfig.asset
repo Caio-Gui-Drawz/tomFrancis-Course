@@ -12,39 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b4d4d0ca7397b4a8d61d31786bec25, type: 3}
   m_Name: WaveConfig
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
-  startingBudget: -143
-  budgetIncrementPerWave: 1
-  secondsBetweenSpawnsInWave: 1
-  secondsBetweenWaves: 3
+  startingBudget: 20
+  budgetIncrementPerWave: 5
+  secondsBetweenSpawnsInWave: 1.5
+  secondsBetweenWaves: 2
   secondsBeforeFirstWave: 3
   ranges:
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     startWave: 1
-    endWave: 100
+    endWave: 15
     weight: 1
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
-    startWave: 1
-    endWave: 100
+    startWave: 3
+    endWave: 15
     weight: 1
   - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
-    startWave: 1
-    endWave: 100
+    startWave: 6
+    endWave: 15
     weight: 1
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
-    startWave: 2
-    endWave: 100
-    weight: 0.7
+    startWave: 4
+    endWave: 15
+    weight: 1
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
+    startWave: 8
+    endWave: 15
+    weight: 1
+  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+    startWave: 3
+    endWave: 15
+    weight: 0.2
+  - prefab: {fileID: 283910886752579194, guid: a3f95e646c138624585868d837233292, type: 3}
     startWave: 1
-    endWave: 100
+    endWave: 15
+    weight: 1
+  - prefab: {fileID: 283910886752579194, guid: e8f59f7d6fd352d4b97000f14ce37f52, type: 3}
+    startWave: 5
+    endWave: 15
     weight: 0.5
   - prefab: {fileID: 283910886752579194, guid: 1008517f433ff5b459e5bb49572cc664, type: 3}
-    startWave: 7
-    endWave: 100
-    weight: 0.1
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    startWave: 1
-    endWave: 100
-    weight: 0.5
+    startWave: 8
+    endWave: 15
+    weight: 0.3
   treasureBonusPrefabs: []
-  secondsBetweenBonusSpawns: 0.3
+  secondsBetweenBonusSpawns: 0
+  lootPhase:
+    enabled: 1
+    durationSeconds: 10
+    dropWindowFraction: 0.7
+    endWhenAllCollected: 1
+    minSecondsBeforeEarlyEnd: 4
+    itemSpeedMultiplier: 0.5
+    healItems:
+    - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
+      count: 1
+    lowHealthThreshold: 1
+    extraHealsWhenLow: 2
+    weaponItems:
+    - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+      count: 1
+    weaponFirstWave: 3
+    weaponEveryNWaves: 2
+    performanceItems:
+    - prefab: {fileID: 283910886752579194, guid: a3f95e646c138624585868d837233292, type: 3}
+      count: 5
+    - prefab: {fileID: 283910886752579194, guid: e8f59f7d6fd352d4b97000f14ce37f52, type: 3}
+      count: 3
+    - prefab: {fileID: 283910886752579194, guid: 1008517f433ff5b459e5bb49572cc664, type: 3}
+      count: 2
+    flawlessBonusCount: 3

@@ -978,11 +978,11 @@ PrefabInstance:
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: currentWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
+      objectReference: {fileID: 11400000, guid: 895ef9f97160a8b4eb493996da5f75fa, type: 2}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
+      objectReference: {fileID: 11400000, guid: 895ef9f97160a8b4eb493996da5f75fa, type: 2}
     - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: healthBarPrefab
       value: 
@@ -1842,6 +1842,9 @@ MonoBehaviour:
   maxPlaySpeed: 4
   gameOverSpeed: 0.5
   accelerationRate: 1
+  lootSpeedMultiplier: 0.35
+  lootSlowDownSeconds: 0.8
+  lootSpeedUpSeconds: 1.2
 --- !u!1 &916056841
 GameObject:
   m_ObjectHideFlags: 0

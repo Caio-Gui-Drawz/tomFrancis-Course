@@ -13,7 +13,7 @@ public class ParallaxMover : MonoBehaviour
     void Update()
     {
         float globalSpeed = ParallaxSpeedController.Instance != null
-            ? ParallaxSpeedController.Instance.CurrentGlobalSpeed
+            ? ParallaxSpeedController.Instance.EffectiveSpeed
             : 1f;
 
         transform.position += Vector3.left * layerSpeed * globalSpeed * Time.deltaTime;

@@ -62,6 +62,16 @@ public class WaveManager : MonoBehaviour
     // Avisa sempre que uma nova wave começa, passando o número dela.
     public event System.Action<int> OnWaveStarted;
 
+    // Fase de loot entre waves (só acontece com Config > Loot Phase > Enabled). O número é a wave que ACABOU DE TERMINAR.
+    public event System.Action<int> OnLootPhaseStarted;
+    public event System.Action<int> OnLootPhaseEnded;
+    public bool InLootPhase { get; private set; }
+
+    // Desempenho da wave: dano que o player sofreu desde que ela começou.
+    healthSystem trackedPlayerHealth;
+    float lastPlayerHealth;
+    float damageTakenThisWave;
+
     void OnEnable()
     {
         GameManager.Instance.OnStateChanged += HandleStateChanged;
@@ -70,6 +80,8 @@ public class WaveManager : MonoBehaviour
     void OnDisable()
     {
         GameManager.Instance.OnStateChanged -= HandleStateChanged;
+        if (trackedPlayerHealth != null) trackedPlayerHealth.OnHealthChanged -= HandlePlayerHealthChanged;
+        trackedPlayerHealth = null;
     }
 
     void HandleStateChanged(GameState newState)
@@ -97,6 +109,7 @@ public class WaveManager : MonoBehaviour
         spawnedThisWave = 0;
         waveActive = true;
         RefreshActiveSpawners();
+        BeginPerformanceTracking();
         OnWaveStarted?.Invoke(currentWave);
         AudioEvents.PlayWaveStarted();
     }
@@ -236,6 +249,14 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator WaitAndStartNextWave()
     {
+        if (config != null && config.lootPhase != null && config.lootPhase.enabled)
+        {
+            yield return LootPhaseRoutine(config.lootPhase);
+            currentWave++;
+            StartWave();
+            yield break;
+        }
+
         float step = Mathf.Max(0.01f, BonusIntervalValue);
         float elapsed = 0f;
         while (elapsed < BetweenWavesValue)
@@ -252,6 +273,170 @@ public class WaveManager : MonoBehaviour
 
         currentWave++;
         StartWave();
+    }
+
+
+    // ---------- Fase de loot ----------
+
+    IEnumerator LootPhaseRoutine(LootPhaseData loot)
+    {
+        int finishedWave = currentWave;
+        List<GameObject> drops = BuildLootDrops(loot, finishedWave);
+        List<GameObject> spawned = new List<GameObject>();
+
+        InLootPhase = true;
+        if (ParallaxSpeedController.Instance != null) ParallaxSpeedController.Instance.EnterLootSlowdown();
+        OnLootPhaseStarted?.Invoke(finishedWave);
+
+        float maxDuration = Mathf.Max(1f, loot.durationSeconds);
+        float dropWindow = maxDuration * Mathf.Clamp(loot.dropWindowFraction, 0.3f, 1f);
+        float interval = drops.Count > 0 ? Mathf.Max(0.05f, dropWindow / drops.Count) : 0f;
+        float elapsed = 0f;
+
+        foreach (GameObject prefab in drops)
+        {
+            Spawner spawner = FindSpawner(prefab);
+            if (spawner != null)
+            {
+                GameObject item = spawner.SpawnOne();
+                if (item != null)
+                {
+                    SlowLootItem(item, loot.itemSpeedMultiplier);
+                    spawned.Add(item);
+                }
+            }
+
+            yield return new WaitForSeconds(interval);
+            elapsed += interval;
+        }
+
+        // Espera os itens acabarem (pegos ou fora da tela = voltaram ao pool) ou o tempo máximo.
+        float minTime = loot.endWhenAllCollected ? loot.minSecondsBeforeEarlyEnd : maxDuration;
+        while (elapsed < maxDuration)
+        {
+            if (loot.endWhenAllCollected && elapsed >= minTime && !AnyAlive(spawned)) break;
+
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+
+        InLootPhase = false;
+        if (ParallaxSpeedController.Instance != null) ParallaxSpeedController.Instance.ExitLootSlowdown();
+        OnLootPhaseEnded?.Invoke(finishedWave);
+    }
+
+    // Um item "vivo" é um que ainda está ativo na cena. Pegar o item ou sair da tela o devolve ao pool (inativo).
+    static bool AnyAlive(List<GameObject> items)
+    {
+        foreach (GameObject item in items)
+        {
+            if (item != null && item.activeInHierarchy) return true;
+        }
+        return false;
+    }
+
+    // Deixa o item mais lento sem pará-lo. Chamado logo depois de nascer (o OnEnable dos movimentos já rodou).
+    static void SlowLootItem(GameObject item, float multiplier)
+    {
+        if (Mathf.Approximately(multiplier, 1f)) return;
+
+        Rigidbody2D body = item.GetComponent<Rigidbody2D>();
+        if (body != null) body.linearVelocity *= multiplier;
+
+        SineMovement sine = item.GetComponent<SineMovement>();
+        if (sine != null) sine.timeScale = multiplier;
+    }
+
+    // Monta a lista (embaralhada) do que nasce nesta fase: cura, arma especial e recompensa por desempenho.
+    List<GameObject> BuildLootDrops(LootPhaseData loot, int finishedWave)
+    {
+        List<GameObject> drops = new List<GameObject>();
+
+        // Cura: sempre os itens fixos + extras se a vida está baixa.
+        AddLootItems(drops, loot.healItems, 1f);
+        float healthFraction = GetPlayerHealthFraction();
+        if (healthFraction < loot.lowHealthThreshold && loot.extraHealsWhenLow > 0)
+        {
+            GameObject medkit = FirstPrefab(loot.healItems);
+            for (int i = 0; i < loot.extraHealsWhenLow; i++) if (medkit != null) drops.Add(medkit);
+        }
+
+        // Arma especial: na primeira wave configurada e depois a cada N waves.
+        int every = Mathf.Max(1, loot.weaponEveryNWaves);
+        if (finishedWave >= loot.weaponFirstWave && (finishedWave - loot.weaponFirstWave) % every == 0)
+        {
+            AddLootItems(drops, loot.weaponItems, 1f);
+        }
+
+        // Desempenho: quanto menos dano sofrido, mais prêmios (e um bônus se foi perfeito).
+        float maxHealth = trackedPlayerHealth != null ? Mathf.Max(1f, trackedPlayerHealth.maxHealth) : 1f;
+        float performance = Mathf.Clamp01(1f - damageTakenThisWave / maxHealth);
+        AddLootItems(drops, loot.performanceItems, performance);
+        if (damageTakenThisWave <= 0.01f && loot.flawlessBonusCount > 0)
+        {
+            GameObject reward = FirstPrefab(loot.performanceItems);
+            for (int i = 0; i < loot.flawlessBonusCount; i++) if (reward != null) drops.Add(reward);
+        }
+
+        // Embaralha para os tipos não saírem em bloco.
+        for (int i = drops.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            GameObject tmp = drops[i];
+            drops[i] = drops[j];
+            drops[j] = tmp;
+        }
+
+        return drops;
+    }
+
+    static void AddLootItems(List<GameObject> drops, LootItem[] items, float multiplier)
+    {
+        if (items == null) return;
+        foreach (LootItem item in items)
+        {
+            if (item == null || item.prefab == null) continue;
+            int amount = Mathf.RoundToInt(item.count * multiplier);
+            for (int i = 0; i < amount; i++) drops.Add(item.prefab);
+        }
+    }
+
+    static GameObject FirstPrefab(LootItem[] items)
+    {
+        if (items == null) return null;
+        foreach (LootItem item in items) if (item != null && item.prefab != null) return item.prefab;
+        return null;
+    }
+
+    float GetPlayerHealthFraction()
+    {
+        if (trackedPlayerHealth == null || trackedPlayerHealth.maxHealth <= 0f) return 1f;
+        return Mathf.Clamp01(trackedPlayerHealth.currentHealth / trackedPlayerHealth.maxHealth);
+    }
+
+    // Zera o dano da wave e (re)liga a escuta da vida do player.
+    void BeginPerformanceTracking()
+    {
+        damageTakenThisWave = 0f;
+
+        if (trackedPlayerHealth == null)
+        {
+            Player2D player = FindFirstObjectByType<Player2D>();
+            if (player != null)
+            {
+                trackedPlayerHealth = player.GetComponent<healthSystem>();
+                if (trackedPlayerHealth == null) trackedPlayerHealth = player.GetComponentInChildren<healthSystem>();
+                if (trackedPlayerHealth != null) trackedPlayerHealth.OnHealthChanged += HandlePlayerHealthChanged;
+            }
+        }
+
+        if (trackedPlayerHealth != null) lastPlayerHealth = trackedPlayerHealth.currentHealth;
+    }
+
+    void HandlePlayerHealthChanged(float current, float max)
+    {
+        if (current < lastPlayerHealth) damageTakenThisWave += lastPlayerHealth - current;
+        lastPlayerHealth = current;
     }
 
 #if UNITY_EDITOR

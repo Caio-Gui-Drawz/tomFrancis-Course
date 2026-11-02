@@ -14,13 +14,13 @@ public class Spawner : MonoBehaviour
     {
         offset = new Vector3(Random.Range(offsetRange.x, offsetRange.y), 0, Random.Range(offsetRange.x, offsetRange.y));
     }
-    public void SpawnOne()
+    public GameObject SpawnOne()
     {
-        if (allowedSpawnPoints == null || allowedSpawnPoints.Length == 0) return;
+        if (allowedSpawnPoints == null || allowedSpawnPoints.Length == 0) return null;
         //Escolhe um angulo aleatorio.
 
 
         Transform spawnPoint = allowedSpawnPoints[Random.Range(0, allowedSpawnPoints.Length)];
-        PoolManager.Instance.Get(prefab, spawnPoint.position + offset, Quaternion.identity);
+        return PoolManager.Instance.Get(prefab, spawnPoint.position + offset, Quaternion.identity);
     }
 }
