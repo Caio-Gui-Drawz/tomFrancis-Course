@@ -85,6 +85,11 @@ MonoBehaviour:
   maxY: 2
   minScale: 0.8
   maxScale: 1.2
+  sortingLayerId: 1710842683
+  sortingOrder: 0
+  depthZ: 20
+  zSlots: 6
+  zSlotSpacing: 2
   avoidRepeatCount: 2
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
@@ -216,6 +221,11 @@ MonoBehaviour:
   maxY: 40
   minScale: 0.2
   maxScale: 1
+  sortingLayerId: 1710842683
+  sortingOrder: 0
+  depthZ: 40
+  zSlots: 6
+  zSlotSpacing: 3
   avoidRepeatCount: 3
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
@@ -285,6 +295,11 @@ MonoBehaviour:
   maxY: 20
   minScale: 0.3
   maxScale: 1
+  sortingLayerId: 1710842683
+  sortingOrder: 0
+  depthZ: 20
+  zSlots: 6
+  zSlotSpacing: 3
   avoidRepeatCount: 3
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
@@ -348,6 +363,11 @@ MonoBehaviour:
   maxY: 30
   minScale: 0.08
   maxScale: 0.7
+  sortingLayerId: 1710842683
+  sortingOrder: 0
+  depthZ: 60
+  zSlots: 6
+  zSlotSpacing: 3
   avoidRepeatCount: 4
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}

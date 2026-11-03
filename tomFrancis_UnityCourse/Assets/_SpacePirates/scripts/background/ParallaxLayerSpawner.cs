@@ -22,6 +22,18 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public float minScale = 0.8f;
     public float maxScale = 1.2f;
 
+    [Header("Ordem de desenho (atrás de tudo que é interagível)")]
+    [Tooltip("Sorting Layer desta camada de parallax. Use uma layer ABAIXO da que o gameplay usa (ex.: 'Parallax' entre 'Background' e 'Default').")]
+    [SortingLayerSelect] public int sortingLayerId;
+    [Tooltip("Dentro da Sorting Layer: número MAIOR = desenhado na frente. Camada distante = menor, camada próxima = maior.")]
+    public int sortingOrder = 0;
+    [Tooltip("Profundidade (eixo Z) da camada. Maior = mais longe da câmera. Precisa seguir a mesma ordem do Sorting Order (distante = Z maior) e ficar atrás do gameplay (Z 0).")]
+    public float depthZ = 20f;
+    [Tooltip("Cada objeto nasce numa 'fatia' de Z diferente dentro da camada, para dois objetos não ocuparem o mesmo plano (evita z-fighting).")]
+    [Min(1)] public int zSlots = 6;
+    [Tooltip("Distância em Z entre as fatias. Use pelo menos o tamanho do maior modelo da camada (os modelos giram em 3D).")]
+    [Min(0.01f)] public float zSlotSpacing = 2f;
+
     [Header("Variedade")]
     [Tooltip("Não repete nenhuma das últimas N variantes sorteadas (limitado a 'quantidade de prefabs - 1'). 0 = sorteio livre.")]
     [Min(0)] public int avoidRepeatCount = 2;
@@ -36,6 +48,7 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public float maxSpinDegreesPerSecond = 40f;
 
     readonly List<int> recentPicks = new List<int>();
+    int zSlotCounter;
     float secondsUntilNextSpawn;
 
     void OnEnable()
@@ -72,9 +85,13 @@ public class ParallaxLayerSpawner : MonoBehaviour
         Camera cam = Camera.main;
         Vector3 worldSpawnPos = cam.ViewportToWorldPoint(new Vector3(1.05f, 0.5f, 10f));
         worldSpawnPos.y = Random.Range(minY, maxY);
-        worldSpawnPos.z = 0f; // a ordem visual é resolvida por Sorting Layer, não por profundidade Z
+        // Ordem visual = Sorting Layer/Order (abaixo) E profundidade Z coerentes entre si. Cada objeto usa uma fatia de Z.
+        worldSpawnPos.z = depthZ + (zSlotCounter % Mathf.Max(1, zSlots)) * zSlotSpacing;
+        zSlotCounter++;
 
         GameObject instance = PoolManager.Instance.Get(prefab, worldSpawnPos, Quaternion.identity);
+
+        ApplySorting(instance);
 
         float scale = Random.Range(minScale, maxScale);
         // Usa a escala do prefab (asset), não a da instância, para não acumular quando o objeto volta do pool.
@@ -125,5 +142,16 @@ public class ParallaxLayerSpawner : MonoBehaviour
         recentPicks.Add(pick);
         while (recentPicks.Count > avoid) recentPicks.RemoveAt(0);
         return pick;
+    }
+
+    // Aplica a Sorting Layer / Order desta camada em TODOS os renderers do objeto (modelo 3D, sprites, partículas).
+    void ApplySorting(GameObject instance)
+    {
+        Renderer[] renderers = instance.GetComponentsInChildren<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].sortingLayerID = sortingLayerId;
+            renderers[i].sortingOrder = sortingOrder;
+        }
     }
 }
