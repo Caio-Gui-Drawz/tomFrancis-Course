@@ -931,18 +931,6 @@ PrefabInstance:
       value: player2D
       objectReference: {fileID: 0}
     - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.29
       objectReference: {fileID: 0}
@@ -981,10 +969,6 @@ PrefabInstance:
     - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7246056126596886671, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalScale.x
@@ -1112,8 +1096,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8094760540718478058, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8094760540718478058, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ab61a45bd7a8a44eaa1e33aa710303e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5241172525595138199, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
