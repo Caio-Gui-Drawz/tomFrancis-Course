@@ -14,6 +14,9 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public float minSecondsBetweenSpawns = 1f;
     public float maxSecondsBetweenSpawns = 3f;
 
+    [Tooltip("Folga além da borda direita da tela. O objeto só nasce depois de ficar TODO fora da tela (considerando o tamanho e a rotação dele), então ninguém aparece 'do nada' no canto.")]
+    [Min(0f)] public float spawnMargin = 0.5f;
+
     public float minY = -2f;
     public float maxY = 2f;
 
@@ -114,6 +117,8 @@ public class ParallaxLayerSpawner : MonoBehaviour
             spin = new Vector3(RandomSpin() * rotationAxes.x, RandomSpin() * rotationAxes.y, RandomSpin() * rotationAxes.z);
         }
 
+        PushOffRightEdge(instance, cam);
+
         float jitter = 1f + Random.Range(-speedJitter, speedJitter);
         mover.Initialize(layerSpeed * jitter, spin);
     }
@@ -153,5 +158,27 @@ public class ParallaxLayerSpawner : MonoBehaviour
             renderers[i].sortingLayerID = sortingLayerId;
             renderers[i].sortingOrder = sortingOrder;
         }
+    }
+
+    // Depois de aplicar escala e rotação, empurra o objeto para a direita até ele ficar totalmente fora da tela.
+    // Usa o raio do objeto (a partir do pivô) para valer em qualquer rotação, já que ele gira durante o trajeto.
+    void PushOffRightEdge(GameObject instance, Camera cam)
+    {
+        Renderer[] renderers = instance.GetComponentsInChildren<Renderer>();
+        bool hasBounds = false;
+        Bounds bounds = new Bounds();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (!renderers[i].enabled) continue;
+            if (!hasBounds) { bounds = renderers[i].bounds; hasBounds = true; }
+            else bounds.Encapsulate(renderers[i].bounds);
+        }
+        if (!hasBounds) return;
+
+        Vector3 position = instance.transform.position;
+        float reach = (bounds.center - position).magnitude + bounds.extents.magnitude;
+        float rightEdge = cam.ViewportToWorldPoint(new Vector3(1f, 0.5f, 10f)).x;
+        position.x = rightEdge + spawnMargin + reach;
+        instance.transform.position = position;
     }
 }
