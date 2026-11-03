@@ -320,9 +320,13 @@ public static class BalanceModel
                 // Fase de loot: dura no máximo 'durationSeconds'; com fim antecipado, estimamos janela de spawn + ~2,5 s para pegar.
                 float maxDuration = Mathf.Max(1f, wm.loot.durationSeconds);
                 float window = maxDuration * Mathf.Clamp(wm.loot.dropWindowFraction, 0.3f, 1f);
+
+                // Os itens nascem com pelo menos 'minSecondsBetweenDrops' entre eles: com muitos itens isso passa da janela.
+                int plannedDrops = CountLootItems(wm.loot.healItems) + CountLootItems(wm.loot.weaponItems) + CountLootItems(wm.loot.performanceItems);
+                float spawnTime = Mathf.Max(window, Mathf.Max(0, plannedDrops - 1) * Mathf.Max(0.05f, wm.loot.minSecondsBetweenDrops));
                 s.gapSeconds = wm.loot.endWhenAllCollected
-                    ? Mathf.Max(window + 2.5f, wm.loot.minSecondsBeforeEarlyEnd)
-                    : maxDuration;
+                    ? Mathf.Max(spawnTime + 2.5f, wm.loot.minSecondsBeforeEarlyEnd)
+                    : Mathf.Max(maxDuration, spawnTime);
                 if (wm.loot.waitForEnemiesToClear) s.gapSeconds += 2f; // espera estimada dos últimos inimigos
             }
             else if (wm.secondsBetweenWaves > 0f)
@@ -437,6 +441,14 @@ public static class BalanceModel
             list.Add(s);
         }
         return list;
+    }
+
+    static int CountLootItems(LootItem[] items)
+    {
+        int total = 0;
+        if (items == null) return 0;
+        foreach (LootItem item in items) if (item != null && item.prefab != null) total += Mathf.Max(0, item.count);
+        return total;
     }
 
     static void AccumulateItems(WaveStats s, LootItem[] items, float multiplier, List<WeaponData> pool)

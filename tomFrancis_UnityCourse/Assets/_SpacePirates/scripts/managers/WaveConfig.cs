@@ -47,7 +47,7 @@ public class LootPhaseData
 
     [Tooltip("Ligado = a fase termina assim que TODOS os itens sumirem (pegos ou saíram da tela). A duração vira o tempo máximo.")]
     public bool endWhenAllCollected = true;
-    [Tooltip("Com 'Termina antes se tudo for pego': tempo máximo de espera DEPOIS que o último item nasceu. Só serve para a fase não travar se algum item ficar preso.")]
+    [Tooltip("Com 'Termina antes se tudo for pego': quanto tempo a fase espera quando NENHUM item pendente está visível na tela (ex.: item preso fora da tela). Enquanto um item estiver visível o relógio não anda.")]
     [Min(1f)] public float safetyTimeoutSeconds = 15f;
     [Tooltip("Mesmo que não sobre nenhum item, a fase dura pelo menos isto (evita um piscar).")]
     [Min(0f)] public float minSecondsBeforeEarlyEnd = 1.5f;

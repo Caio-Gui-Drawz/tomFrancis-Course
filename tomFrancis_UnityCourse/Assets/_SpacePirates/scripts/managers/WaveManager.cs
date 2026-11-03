@@ -255,15 +255,23 @@ public class WaveManager : MonoBehaviour
         if (config != null && config.lootPhase != null && config.lootPhase.enabled)
         {
             // Primeiro espera os inimigos da wave sumirem; só então avisa "wave concluída" e começa o loot.
+            LogLoot("wave " + currentWave + " terminou de spawnar");
             if (config.lootPhase.waitForEnemiesToClear)
             {
                 float waited = 0f;
                 float timeout = Mathf.Max(1f, config.lootPhase.clearEnemiesTimeoutSeconds);
+                float nextReport = 2f;
                 while (waited < timeout && AnyEnemyAlive())
                 {
                     yield return new WaitForSeconds(0.25f);
                     waited += 0.25f;
+                    if (waited >= nextReport)
+                    {
+                        nextReport += 2f;
+                        LogLoot("esperando inimigos há " + waited.ToString("0.0") + "s: " + DescribeEnemiesAlive());
+                    }
                 }
+                LogLoot("espera de inimigos acabou após " + waited.ToString("0.0") + "s" + (waited >= timeout ? " (ESTOUROU o limite)" : ""));
             }
 
             OnWaveCompleted?.Invoke(currentWave);
@@ -310,10 +318,13 @@ public class WaveManager : MonoBehaviour
         float interval = drops.Count > 0 ? Mathf.Max(Mathf.Max(0.05f, loot.minSecondsBetweenDrops), dropWindow / drops.Count) : 0f;
         Transform lastPoint = null;
         float elapsed = 0f;
+        HashSet<GameObject> seenOnScreen = new HashSet<GameObject>();
 
-        foreach (GameObject prefab in drops)
+        LogLoot("loot começou: " + drops.Count + " itens, intervalo " + interval.ToString("0.00") + "s => ~" + (drops.Count * interval).ToString("0.0") + "s só para nascer todos");
+
+        for (int d = 0; d < drops.Count; d++)
         {
-            Spawner spawner = FindSpawner(prefab);
+            Spawner spawner = FindSpawner(drops[d]);
             if (spawner != null)
             {
                 GameObject item = spawner.SpawnOne(lastPoint);
@@ -325,30 +336,60 @@ public class WaveManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(interval);
-            elapsed += interval;
+            if (d == drops.Count - 1) break; // depois do último item não precisa esperar o intervalo
+
+            // Espera o intervalo, mas se o player já limpou tudo o que nasceu antes, não faz ele esperar à toa.
+            float waitedInterval = 0f;
+            while (waitedInterval < interval)
+            {
+                bool visibleNow;
+                if (waitedInterval >= 0.3f && !AnyLootPending(spawned, seenOnScreen, out visibleNow)) break;
+                yield return null;
+                waitedInterval += Time.deltaTime;
+                elapsed += Time.deltaTime;
+            }
         }
 
-        // Com fim antecipado: espera todos os itens sumirem (pegos ou fora da tela = voltaram ao pool),
-        // com um limite de segurança contado a partir do último item. Sem fim antecipado: dura a duração planejada.
+        LogLoot("todos os itens nasceram (" + spawned.Count + ") após " + elapsed.ToString("0.0") + "s de loot");
+
+        // Com fim antecipado: espera todos os itens sumirem (pegos ou fora da tela = voltaram ao pool).
+        // O limite de segurança só conta enquanto NENHUM item pendente está visível na tela: um item lento
+        // atravessando a tela não é "travado". Existe ainda um teto absoluto para a fase nunca ficar infinita.
+        // Sem fim antecipado: dura a duração planejada.
         float safety = Mathf.Max(1f, loot.safetyTimeoutSeconds);
         float waitedAfterDrops = 0f;
+        float waitedWithNothingVisible = 0f;
+        float nextPendingReport = 3f;
+        string endReason = "";
         while (true)
         {
             if (loot.endWhenAllCollected)
             {
-                if (elapsed >= loot.minSecondsBeforeEarlyEnd && !AnyAlive(spawned)) break;
-                if (waitedAfterDrops >= safety) break;
+                bool anyVisible;
+                bool pending = AnyLootPending(spawned, seenOnScreen, out anyVisible);
+                if (elapsed >= loot.minSecondsBeforeEarlyEnd && !pending) { endReason = "todos os itens consumidos"; break; }
+                if (anyVisible) waitedWithNothingVisible = 0f;
+                if (waitedWithNothingVisible >= safety) { endReason = "limite de segurança (nenhum item visível)"; break; }
+                if (waitedAfterDrops >= LootHardCapSeconds) { endReason = "teto absoluto"; break; }
+                if (pending && waitedAfterDrops >= nextPendingReport)
+                {
+                    nextPendingReport += 3f;
+                    LogLoot("esperando itens há " + waitedAfterDrops.ToString("0.0") + "s: " + DescribeLootPending(spawned));
+                }
             }
             else if (elapsed >= maxDuration)
             {
+                endReason = "duração planejada";
                 break;
             }
 
             yield return null;
             elapsed += Time.deltaTime;
             waitedAfterDrops += Time.deltaTime;
+            waitedWithNothingVisible += Time.deltaTime;
         }
+
+        LogLoot("loot terminou: " + endReason + " (loot durou " + elapsed.ToString("0.0") + "s)");
 
         InLootPhase = false;
         if (ParallaxSpeedController.Instance != null) ParallaxSpeedController.Instance.ExitLootSlowdown();
@@ -365,14 +406,87 @@ public class WaveManager : MonoBehaviour
         return false;
     }
 
-    // Um item "vivo" é um que ainda está ativo na cena. Pegar o item ou sair da tela o devolve ao pool (inativo).
-    static bool AnyAlive(List<GameObject> items)
+    const float LootHardCapSeconds = 180f;
+
+    // Logs de tempo da fase de loot. Desligados: as chamadas nem são compiladas.
+    // Para ligar de novo: Project Settings > Player > Scripting Define Symbols > adicione COSMO_LOOT_DEBUG.
+    [System.Diagnostics.Conditional("COSMO_LOOT_DEBUG")]
+    void LogLoot(string message)
     {
+        Debug.Log("[Loot] t=" + Time.time.ToString("0.0") + " " + message, this);
+    }
+
+    static string DescribeEnemiesAlive()
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        Camera cam = Camera.main;
+        enemy2D[] enemies = FindObjectsByType<enemy2D>(FindObjectsSortMode.None);
+        int shown = 0;
+        foreach (enemy2D e in enemies)
+        {
+            if (e == null || !e.isActiveAndEnabled) continue;
+            if (shown++ >= 5) { sb.Append(" ..."); break; }
+            Vector3 v = cam != null ? cam.WorldToViewportPoint(e.transform.position) : Vector3.zero;
+            sb.Append(e.name).Append(" (tela ").Append(v.x.ToString("0.00")).Append(",").Append(v.y.ToString("0.00")).Append(") ");
+        }
+        return sb.ToString();
+    }
+
+    static string DescribeLootPending(List<GameObject> items)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        Camera cam = Camera.main;
+        int shown = 0;
         foreach (GameObject item in items)
         {
-            if (item != null && item.activeInHierarchy) return true;
+            if (item == null || !item.activeInHierarchy) continue;
+            if (shown++ >= 5) { sb.Append(" ..."); break; }
+            Vector3 v = cam != null ? cam.WorldToViewportPoint(item.transform.position) : Vector3.zero;
+            sb.Append(item.name).Append(" (tela ").Append(v.x.ToString("0.00")).Append(",").Append(v.y.ToString("0.00")).Append(") ");
         }
-        return false;
+        return sb.ToString();
+    }
+
+    // Um item está "pendente" enquanto estiver ativo e ainda não tiver saído da tela depois de aparecer.
+    // Pegar/destruir o item ou ele sair da tela (com folga) o tira da lista; se saiu da tela e ainda está ativo,
+    // devolvemos ao pool na hora (sem esperar o OnBecameInvisible, que no Editor também depende da Scene view).
+    static bool AnyLootPending(List<GameObject> items, HashSet<GameObject> seen, out bool anyVisible)
+    {
+        anyVisible = false;
+        bool pending = false;
+        Camera cam = Camera.main;
+
+        foreach (GameObject item in items)
+        {
+            if (item == null || !item.activeInHierarchy) continue;
+
+            if (cam != null)
+            {
+                Vector3 v = cam.WorldToViewportPoint(item.transform.position);
+                const float margin = 0.05f;
+                bool inside = v.x > -margin && v.x < 1f + margin && v.y > -margin && v.y < 1f + margin;
+
+                if (inside)
+                {
+                    seen.Add(item);
+                    anyVisible = true;
+                    pending = true;
+                    continue;
+                }
+
+                // Saiu da tela depois de aparecer, OU está muito longe da tela (ex.: item lançado para cima/para o lado
+                // que nunca entrou na tela e fica caindo pela gravidade): conta como consumido e volta ao pool.
+                bool farAway = v.x < -1.5f || v.x > 2.5f || v.y < -1.5f || v.y > 2.5f;
+                if (seen.Remove(item) || farAway)
+                {
+                    if (PoolManager.Instance != null) PoolManager.Instance.Return(item);
+                    continue;
+                }
+            }
+
+            pending = true;
+        }
+        return pending;
     }
 
     // Deixa o item mais lento sem pará-lo. Chamado logo depois de nascer (o OnEnable dos movimentos já rodou).

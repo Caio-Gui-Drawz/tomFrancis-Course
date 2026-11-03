@@ -42,6 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Parallax
+    uniqueID: 1710842683
+    locked: 0
+  - name: Gameplay
+    uniqueID: 1594438595
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1
