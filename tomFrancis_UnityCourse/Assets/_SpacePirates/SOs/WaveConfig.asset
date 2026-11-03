@@ -82,6 +82,4 @@ MonoBehaviour:
       count: 5
     - prefab: {fileID: 283910886752579194, guid: e8f59f7d6fd352d4b97000f14ce37f52, type: 3}
       count: 3
-    - prefab: {fileID: 283910886752579194, guid: 1008517f433ff5b459e5bb49572cc664, type: 3}
-      count: 1
     flawlessBonusCount: 3
