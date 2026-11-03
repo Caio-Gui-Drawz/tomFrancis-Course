@@ -197,15 +197,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
   spritePrefabs:
-  - {fileID: 919132149155446097, guid: 7285969d55e6c36408d6a998347329d2, type: 3}
-  - {fileID: 919132149155446097, guid: 3379c7cd0ca140943963769412ff28dd, type: 3}
-  - {fileID: 919132149155446097, guid: 76b372f39e5309741a6367792d525d43, type: 3}
-  - {fileID: 919132149155446097, guid: 82cc40b2b009595429817293cce5241e, type: 3}
-  - {fileID: 919132149155446097, guid: 67e09c4bfc03fbc47abdf29405cf3412, type: 3}
-  - {fileID: 919132149155446097, guid: cfbc2e3c549c60649ab0fae1720034bf, type: 3}
-  - {fileID: 919132149155446097, guid: de9c028a83cffae4b8af975c368b6bc5, type: 3}
-  - {fileID: 919132149155446097, guid: 2f7b57257befded409ae502a09fc35e2, type: 3}
-  - {fileID: 919132149155446097, guid: 3ab5ba467db107b4398610359ac59411, type: 3}
+  - {fileID: 6871199252147300678, guid: 3d7758eba9927e04e8db982c2e5cebc6, type: 3}
+  - {fileID: 4285882072816286877, guid: 767e1c024bc9a5f418c00f78c565641d, type: 3}
+  - {fileID: 6558682823596916136, guid: 30840569641d2e8449f43da0506b73a7, type: 3}
+  - {fileID: 2063030673512726167, guid: 4e25b8118e7e28d4780ab4b791e0c886, type: 3}
+  - {fileID: 2344108737764411328, guid: 98f4d81d30afadc4d95c43f972f3c6c5, type: 3}
+  - {fileID: 5647134805843414829, guid: e2ba2472d3206374794ddb110d3f1c6f, type: 3}
   layerSpeed: 0.7
   speedJitter: 0.1
   minSecondsBetweenSpawns: 0.7
@@ -259,13 +256,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
   spritePrefabs:
-  - {fileID: 919132149155446097, guid: 428c3efa5e0e3be42abc47ea4fb9d60e, type: 3}
-  - {fileID: 919132149155446097, guid: 3ab5ba467db107b4398610359ac59411, type: 3}
-  - {fileID: 919132149155446097, guid: 954d168f73510d64db60c299f34d32e0, type: 3}
-  - {fileID: 919132149155446097, guid: be772c9c2044c054a9ef07f93c6ec03d, type: 3}
-  - {fileID: 919132149155446097, guid: 088f6495bc140a849873c0e65e647a73, type: 3}
-  - {fileID: 919132149155446097, guid: 8f8e47bf40aab2b4ebd2c6dec73d9645, type: 3}
-  - {fileID: 919132149155446097, guid: 9b869e5e0d8185d4fac4658eaa0c4caa, type: 3}
+  - {fileID: 6548609656694750626, guid: 6bd468fbab20369428e54cc9225e6d55, type: 3}
+  - {fileID: 722697422458438682, guid: 829d0c8bf3e4bd346b37f84681e934e8, type: 3}
+  - {fileID: 3784563685085733570, guid: b7007fb7075c73142bc0da05d9017f0a, type: 3}
+  - {fileID: 1504910101567125639, guid: e7248075ad716584695471345ea423c4, type: 3}
+  - {fileID: 8014942376156972265, guid: 66bfdeac330ac6048ab11379cce5c8b0, type: 3}
+  - {fileID: 8819248401653265254, guid: aa5f788d1eb3e9846aa3ab33e30b6ac8, type: 3}
+  - {fileID: 1918556572704543935, guid: 534ae204b8570164ca3d2057becd843b, type: 3}
+  - {fileID: 5964060346422655604, guid: 711298806da24bc43a1484f2c2a97af9, type: 3}
+  - {fileID: 6363595897934311362, guid: c240784255ad0af49a2941f4908da467, type: 3}
+  - {fileID: 7292362296724402758, guid: 2f2380818ec64b94d93bccfe2281b752, type: 3}
+  - {fileID: 5890606845062635127, guid: d19d9fd09a0c94148b545c3d6f235cba, type: 3}
   layerSpeed: 1.2
   speedJitter: 0.1
   minSecondsBetweenSpawns: 1.5
@@ -319,13 +320,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxLayerSpawner
   spritePrefabs:
-  - {fileID: 919132149155446097, guid: a2120377a99058841b49d13a98e1d7cb, type: 3}
-  - {fileID: 919132149155446097, guid: 7aa79e3d5b4f14348aa6c0a5efea45b2, type: 3}
-  - {fileID: 919132149155446097, guid: b99d1643b175df34b8568b4a35af7155, type: 3}
-  - {fileID: 919132149155446097, guid: 3318372875e01334189bb46d3db19c91, type: 3}
-  - {fileID: 919132149155446097, guid: 428c3efa5e0e3be42abc47ea4fb9d60e, type: 3}
-  - {fileID: 919132149155446097, guid: 25e3f538f8a8a7e43aa75e8358631e8f, type: 3}
-  - {fileID: 919132149155446097, guid: 968f4a0f81fc1f64f93d4504a73888f6, type: 3}
+  - {fileID: 1563076340885252691, guid: c4aa68423edb5024787cf9b97ac84a30, type: 3}
+  - {fileID: 9164589736983150214, guid: 71b32f14320c76444a7b0fdfa80149f9, type: 3}
+  - {fileID: 2654393905560309573, guid: 39bfdaefbf1d1d744a9f51f1999e2655, type: 3}
+  - {fileID: 6019425739994124562, guid: bd663b56705290a4b80475c640b94155, type: 3}
+  - {fileID: 1190201507341170566, guid: 45e60a51eb69e804cb2e2428ceead5b8, type: 3}
   layerSpeed: 0.3
   speedJitter: 0.111
   minSecondsBetweenSpawns: 0.5

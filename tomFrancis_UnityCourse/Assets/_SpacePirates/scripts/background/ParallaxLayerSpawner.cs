@@ -16,6 +16,8 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public float minY = -2f;
     public float maxY = 2f;
 
+    // Variação em torno da escala do PRÓPRIO PREFAB (1 = tamanho do prefab). Ex.: 0.8–1.2 = de 80% a 120% do que
+    // você ajustou no prefab/variant. A escala do prefab não é mais sobrescrita.
     public float minScale = 0.8f;
     public float maxScale = 1.2f;
 
@@ -60,7 +62,8 @@ public class ParallaxLayerSpawner : MonoBehaviour
         GameObject instance = PoolManager.Instance.Get(prefab, worldSpawnPos, Quaternion.identity);
 
         float scale = Random.Range(minScale, maxScale);
-        instance.transform.localScale = Vector3.one * scale;
+        // Usa a escala do prefab (asset), não a da instância, para não acumular quando o objeto volta do pool.
+        instance.transform.localScale = prefab.transform.localScale * scale;
 
         ParallaxMover mover = instance.GetComponent<ParallaxMover>();
         if (mover == null)
