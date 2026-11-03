@@ -10159,6 +10159,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: spritePrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: 'spritePrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4285882072816286877, guid: 767e1c024bc9a5f418c00f78c565641d, type: 3}
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: 'spritePrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6558682823596916136, guid: 30840569641d2e8449f43da0506b73a7, type: 3}
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: 'spritePrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2063030673512726167, guid: 4e25b8118e7e28d4780ab4b791e0c886, type: 3}
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: 'spritePrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2344108737764411328, guid: 98f4d81d30afadc4d95c43f972f3c6c5, type: 3}
+    - target: {fileID: 1152302248909577871, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+      propertyPath: 'spritePrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 5647134805843414829, guid: e2ba2472d3206374794ddb110d3f1c6f, type: 3}
     - target: {fileID: 3035816680168961019, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
       propertyPath: m_Name
       value: Environment

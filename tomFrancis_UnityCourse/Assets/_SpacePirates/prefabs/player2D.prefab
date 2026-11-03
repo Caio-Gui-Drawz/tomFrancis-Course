@@ -895,6 +895,7 @@ MonoBehaviour:
   minReachFraction: 0.75
   reachSmoothing: 18
   aimLockBlendSpeed: 12
+  ignoreBodyAnimationOnArmTarget: 1
 --- !u!114 &3957120532492979787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,8 +914,8 @@ MonoBehaviour:
   shootAnimationName: ArmOnly_Shot
   shootAnimationTrack: 2
   shootMixDuration: 0.02
-  shootAnimationSpeed: 1
-  maxShootAnimationSpeed: 4
+  shootAnimationSpeed: 0.7
+  maxShootAnimationSpeed: 2
   returnMixDuration: 0.05
   weaponTrack: 3
   weaponSwapMixDuration: 0

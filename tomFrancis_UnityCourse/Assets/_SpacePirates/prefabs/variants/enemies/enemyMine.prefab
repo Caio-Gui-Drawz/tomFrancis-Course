@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5383370176089516564, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: damage
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
     m_RemovedGameObjects: []
@@ -270,9 +274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202d67f798957dd47a40aa83c9306949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SineMovement
-  forwardSpeed: 5
+  forwardSpeed: 4
   amplitude: 1
   frequency: 1.5
+  timeScale: 1
 --- !u!4 &976550915805596207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}

@@ -14,6 +14,9 @@ public class WeaponData : ScriptableObject
     public GameObject bulletPrefab;
     public float fireRate; // segundos entre tiros
 
+    [Tooltip("Ligado = segurar o botão do mouse continua atirando (ex.: uzi). Desligado = um tiro por clique, é preciso clicar de novo. A cadência (Fire Rate) vale nos dois casos como tempo mínimo entre tiros.")]
+    public bool automaticFire = false;
+
     [Header("Múltiplos projéteis e precisão")]
     public int numberOfProjectiles = 1;
     [Tooltip("Desvio angular máximo (para cada lado) aplicado a cada bala, em graus. 0 = mira perfeita.")]

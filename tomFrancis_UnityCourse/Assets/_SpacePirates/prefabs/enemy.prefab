@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::healthSystem
-  maxHealth: 2
+  maxHealth: 1
   currentHealth: 0
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 1.5
@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa51a2cf6ae5646b0cc8761cc5cfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
+  offscreenSlack: 0.02
+  farViewportMargin: 1.5
 --- !u!114 &3673519896331117539
 MonoBehaviour:
   m_ObjectHideFlags: 0

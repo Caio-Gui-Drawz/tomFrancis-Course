@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4565545823884652171}
   - component: {fileID: 3577221425972651217}
   - component: {fileID: 5015345181579605520}
+  - component: {fileID: 1302126510045362664}
   m_Layer: 0
   m_Name: Spine GameObject (Enem_03)
   m_TagString: Untagged
@@ -128,6 +129,30 @@ MonoBehaviour:
   _animationName: Movement
   loop: 1
   timeScale: 0.5
+--- !u!114 &1302126510045362664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820014380130074162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f2fa991881c6d419500ccc40ad443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spine-unity-examples::Spine.Unity.Examples.SkeletonGhost
+  ghostingEnabled: 1
+  spawnInterval: 0.05
+  maximumGhosts: 15
+  fadeSpeed: 2.5
+  ghostShader: {fileID: 4800000, guid: 3873d4699ee8a4b4da8fa6b8c229b94d, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 1372842246
+  additive: 0
+  textureFade: 0.042
+  sortWithDistanceOnly: 0
+  zOffset: 0
 --- !u!1001 &1205147104945193175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -151,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 1751946278933903, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Offset.y
       value: 0.27505982
+      objectReference: {fileID: 0}
+    - target: {fileID: 976531521935425341, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: maxHealth
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
