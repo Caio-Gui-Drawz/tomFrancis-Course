@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // Um ParallaxLayerSpawner por camada de profundidade (nuvens, montanhas próximas, distantes...).
@@ -21,6 +22,20 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public float minScale = 0.8f;
     public float maxScale = 1.2f;
 
+    [Header("Variedade")]
+    [Tooltip("Não repete nenhuma das últimas N variantes sorteadas (limitado a 'quantidade de prefabs - 1'). 0 = sorteio livre.")]
+    [Min(0)] public int avoidRepeatCount = 2;
+
+    [Header("Rotação 3D")]
+    [Tooltip("Ligado = cada objeto nasce com uma rotação aleatória e continua girando durante o trajeto.")]
+    public bool randomRotation = true;
+    [Tooltip("Quais eixos giram (1 = gira, 0 = fica parado naquele eixo). Valores intermediários reduzem o giro naquele eixo.")]
+    public Vector3 rotationAxes = Vector3.one;
+    [Tooltip("Velocidade de giro sorteada por eixo (graus/s), com sentido aleatório. Acompanha a velocidade do parallax.")]
+    public float minSpinDegreesPerSecond = 5f;
+    public float maxSpinDegreesPerSecond = 40f;
+
+    readonly List<int> recentPicks = new List<int>();
     float secondsUntilNextSpawn;
 
     void OnEnable()
@@ -50,7 +65,7 @@ public class ParallaxLayerSpawner : MonoBehaviour
     {
         if (spritePrefabs == null || spritePrefabs.Length == 0) return;
 
-        GameObject prefab = spritePrefabs[Random.Range(0, spritePrefabs.Length)];
+        GameObject prefab = spritePrefabs[PickIndex()];
 
         // Assume câmera ortográfica (setup 2D padrão) — nesse caso, X/Y não dependem do valor de
         // profundidade usado aqui, então qualquer distância positiva serve.
@@ -71,7 +86,44 @@ public class ParallaxLayerSpawner : MonoBehaviour
             mover = instance.AddComponent<ParallaxMover>();
         }
 
+        Vector3 spin = Vector3.zero;
+        if (randomRotation)
+        {
+            instance.transform.rotation = Quaternion.Euler(
+                Random.Range(0f, 360f) * rotationAxes.x,
+                Random.Range(0f, 360f) * rotationAxes.y,
+                Random.Range(0f, 360f) * rotationAxes.z) * prefab.transform.rotation;
+
+            spin = new Vector3(RandomSpin() * rotationAxes.x, RandomSpin() * rotationAxes.y, RandomSpin() * rotationAxes.z);
+        }
+
         float jitter = 1f + Random.Range(-speedJitter, speedJitter);
-        mover.Initialize(layerSpeed * jitter);
+        mover.Initialize(layerSpeed * jitter, spin);
+    }
+
+    float RandomSpin()
+    {
+        float speed = Random.Range(minSpinDegreesPerSecond, maxSpinDegreesPerSecond);
+        return Random.value < 0.5f ? -speed : speed;
+    }
+
+    // Sorteia uma variante evitando repetir as últimas 'avoidRepeatCount'.
+    int PickIndex()
+    {
+        int count = spritePrefabs.Length;
+        int avoid = Mathf.Min(avoidRepeatCount, count - 1);
+        if (avoid <= 0) return Random.Range(0, count);
+
+        List<int> candidates = new List<int>();
+        for (int i = 0; i < count; i++)
+        {
+            if (!recentPicks.Contains(i)) candidates.Add(i);
+        }
+
+        int pick = candidates.Count > 0 ? candidates[Random.Range(0, candidates.Count)] : Random.Range(0, count);
+
+        recentPicks.Add(pick);
+        while (recentPicks.Count > avoid) recentPicks.RemoveAt(0);
+        return pick;
     }
 }

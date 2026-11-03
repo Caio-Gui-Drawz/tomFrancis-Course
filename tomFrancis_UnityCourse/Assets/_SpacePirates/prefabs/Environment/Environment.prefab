@@ -85,6 +85,11 @@ MonoBehaviour:
   maxY: 2
   minScale: 0.8
   maxScale: 1.2
+  avoidRepeatCount: 2
+  randomRotation: 1
+  rotationAxes: {x: 1, y: 1, z: 1}
+  minSpinDegreesPerSecond: 5
+  maxSpinDegreesPerSecond: 40
 --- !u!1 &3261611845876735497
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,12 +210,17 @@ MonoBehaviour:
   - {fileID: 5647134805843414829, guid: e2ba2472d3206374794ddb110d3f1c6f, type: 3}
   layerSpeed: 0.7
   speedJitter: 0.1
-  minSecondsBetweenSpawns: 0.7
-  maxSecondsBetweenSpawns: 1.7
+  minSecondsBetweenSpawns: 1.5
+  maxSecondsBetweenSpawns: 4.5
   minY: -40
   maxY: 40
-  minScale: 0.1
-  maxScale: 0.5
+  minScale: 0.2
+  maxScale: 1
+  avoidRepeatCount: 3
+  randomRotation: 1
+  rotationAxes: {x: 1, y: 1, z: 1}
+  minSpinDegreesPerSecond: 1.5
+  maxSpinDegreesPerSecond: 6
 --- !u!1 &5235749392990759816
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,12 +279,17 @@ MonoBehaviour:
   - {fileID: 5890606845062635127, guid: d19d9fd09a0c94148b545c3d6f235cba, type: 3}
   layerSpeed: 1.2
   speedJitter: 0.1
-  minSecondsBetweenSpawns: 1.5
-  maxSecondsBetweenSpawns: 2.5
+  minSecondsBetweenSpawns: 2.5
+  maxSecondsBetweenSpawns: 3.5
   minY: -20
   maxY: 20
   minScale: 0.3
-  maxScale: 0.5
+  maxScale: 1
+  avoidRepeatCount: 3
+  randomRotation: 1
+  rotationAxes: {x: 1, y: 1, z: 1}
+  minSpinDegreesPerSecond: 1.5
+  maxSpinDegreesPerSecond: 4.5
 --- !u!1 &9056029603880205533
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,9 +342,14 @@ MonoBehaviour:
   - {fileID: 1190201507341170566, guid: 45e60a51eb69e804cb2e2428ceead5b8, type: 3}
   layerSpeed: 0.3
   speedJitter: 0.111
-  minSecondsBetweenSpawns: 0.5
-  maxSecondsBetweenSpawns: 1.5
+  minSecondsBetweenSpawns: 2
+  maxSecondsBetweenSpawns: 5
   minY: -30
   maxY: 30
-  minScale: 0.1
-  maxScale: 0.3
+  minScale: 0.08
+  maxScale: 0.7
+  avoidRepeatCount: 4
+  randomRotation: 1
+  rotationAxes: {x: 1, y: 1, z: 1}
+  minSpinDegreesPerSecond: 1.5
+  maxSpinDegreesPerSecond: 4
