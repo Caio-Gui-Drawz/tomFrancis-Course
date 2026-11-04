@@ -27,12 +27,35 @@ public class PresetWave
 }
 
 [Serializable]
+public class PresetMatrixCell
+{
+    public string prefabGuid;
+    public string weaponGuid;
+    public int wave;
+    public int phase;
+    public int count;
+}
+
+// Foto da planilha de um WaveConfig (células, flags e ordem das colunas). Referências por GUID: renomear prefabs não quebra.
+[Serializable]
+public class PresetMatrix
+{
+    public string configPath;
+    public bool useMatrix;
+    public bool limitWaves;
+    public int totalWaves;
+    public List<PresetMatrixCell> cells = new List<PresetMatrixCell>();
+    public List<string> columnOrder = new List<string>();
+}
+
+[Serializable]
 public class PresetData
 {
     public string name;
     public string savedAt;
     public List<PresetEntry> entries = new List<PresetEntry>();
     public List<PresetWave> waves = new List<PresetWave>();
+    public List<PresetMatrix> matrices = new List<PresetMatrix>();
 
     [NonSerialized] public string filePath;
 
@@ -301,6 +324,8 @@ public static class BalancePresets
             d.entries.Add(e);
         }
 
+        foreach (WaveConfig cfg in BalanceModel.waveConfigs) d.matrices.Add(CaptureMatrix(cfg));
+
         if (stats != null)
         {
             foreach (WaveStats s in stats)
@@ -342,6 +367,16 @@ public static class BalancePresets
             BalanceEdit.AfterEdit(so, f.path);
             applied++;
         }
+
+        // Planilha (modo, nº de waves, células, ordem das colunas)
+        foreach (PresetMatrix m in d.matrices)
+        {
+            WaveConfig cfg = FindConfig(m.configPath);
+            if (cfg == null) { skipped++; continue; }
+            if (MatrixSignature(CaptureMatrix(cfg)) == MatrixSignature(m)) continue;
+            ApplyMatrix(cfg, m);
+            applied++;
+        }
     }
 
     public static List<PresetDiff> Diff(PresetData d, out int missing)
@@ -364,7 +399,189 @@ public static class BalancePresets
             diff.preset = e.value;
             diffs.Add(diff);
         }
+
+        foreach (PresetMatrix m in d.matrices)
+        {
+            WaveConfig cfg = FindConfig(m.configPath);
+            if (cfg == null) { missing++; continue; }
+            DiffMatrix(cfg, m, diffs);
+        }
         return diffs;
+    }
+
+    // ---------------------------------------------------------------- planilha
+
+    static WaveConfig FindConfig(string assetPath)
+    {
+        foreach (WaveConfig cfg in BalanceModel.waveConfigs)
+        {
+            if (AssetDatabase.GetAssetPath(cfg) == assetPath) return cfg;
+        }
+        return null;
+    }
+
+    static string GuidOf(UnityEngine.Object o)
+    {
+        return o == null ? "" : AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(o));
+    }
+
+    static string NameOfGuid(string guid)
+    {
+        if (string.IsNullOrEmpty(guid)) return "";
+        string p = AssetDatabase.GUIDToAssetPath(guid);
+        return string.IsNullOrEmpty(p) ? "?" : Path.GetFileNameWithoutExtension(p);
+    }
+
+    static T LoadByGuid<T>(string guid) where T : UnityEngine.Object
+    {
+        if (string.IsNullOrEmpty(guid)) return null;
+        string p = AssetDatabase.GUIDToAssetPath(guid);
+        return string.IsNullOrEmpty(p) ? null : AssetDatabase.LoadAssetAtPath<T>(p);
+    }
+
+    public static PresetMatrix CaptureMatrix(WaveConfig cfg)
+    {
+        PresetMatrix m = new PresetMatrix();
+        m.configPath = AssetDatabase.GetAssetPath(cfg);
+        m.useMatrix = cfg.useMatrix;
+        m.limitWaves = cfg.limitWaves;
+        m.totalWaves = cfg.totalWaves;
+        if (cfg.matrixCells != null)
+        {
+            foreach (WaveMatrixCell c in cfg.matrixCells)
+            {
+                if (c == null || c.prefab == null) continue;
+                PresetMatrixCell pc = new PresetMatrixCell();
+                pc.prefabGuid = GuidOf(c.prefab);
+                pc.weaponGuid = GuidOf(c.weapon);
+                pc.wave = c.wave;
+                pc.phase = (int)c.phase;
+                pc.count = c.count;
+                m.cells.Add(pc);
+            }
+        }
+        if (cfg.matrixColumnOrder != null)
+        {
+            foreach (GameObject g in cfg.matrixColumnOrder)
+            {
+                if (g != null) m.columnOrder.Add(GuidOf(g));
+            }
+        }
+        return m;
+    }
+
+    static string CellKey(PresetMatrixCell c)
+    {
+        return c.prefabGuid + "|" + c.wave + "|" + c.phase;
+    }
+
+    static Dictionary<string, PresetMatrixCell> CellMap(PresetMatrix m)
+    {
+        Dictionary<string, PresetMatrixCell> map = new Dictionary<string, PresetMatrixCell>();
+        foreach (PresetMatrixCell c in m.cells)
+        {
+            if (c.count <= 0 && string.IsNullOrEmpty(c.weaponGuid)) continue; // célula vazia = ausente
+            map[CellKey(c)] = c;
+        }
+        return map;
+    }
+
+    static string CellText(PresetMatrixCell c)
+    {
+        if (c == null) return "-";
+        return c.count + (string.IsNullOrEmpty(c.weaponGuid) ? "" : " (" + NameOfGuid(c.weaponGuid) + ")");
+    }
+
+    static string MatrixSignature(PresetMatrix m)
+    {
+        List<string> parts = new List<string>();
+        foreach (KeyValuePair<string, PresetMatrixCell> kv in CellMap(m)) parts.Add(kv.Key + "=" + kv.Value.count + "/" + kv.Value.weaponGuid);
+        parts.Sort(StringComparer.Ordinal);
+        return m.useMatrix + ";" + m.limitWaves + ";" + m.totalWaves + ";" + string.Join(",", m.columnOrder.ToArray()) + ";" + string.Join(",", parts.ToArray());
+    }
+
+    static void DiffMatrix(WaveConfig cfg, PresetMatrix saved, List<PresetDiff> diffs)
+    {
+        PresetMatrix cur = CaptureMatrix(cfg);
+        string head = "Planilha (" + cfg.name + ") · ";
+
+        if (cur.useMatrix != saved.useMatrix) AddDiff(diffs, head + "usar planilha", cur.useMatrix.ToString(), saved.useMatrix.ToString());
+        if (cur.limitWaves != saved.limitWaves) AddDiff(diffs, head + "limitar waves", cur.limitWaves.ToString(), saved.limitWaves.ToString());
+        if (cur.totalWaves != saved.totalWaves) AddDiff(diffs, head + "total de waves", cur.totalWaves.ToString(), saved.totalWaves.ToString());
+        if (string.Join(",", cur.columnOrder.ToArray()) != string.Join(",", saved.columnOrder.ToArray()))
+        {
+            AddDiff(diffs, head + "ordem das colunas", cur.columnOrder.Count + " colunas", saved.columnOrder.Count + " colunas");
+        }
+
+        Dictionary<string, PresetMatrixCell> a = CellMap(cur);
+        Dictionary<string, PresetMatrixCell> b = CellMap(saved);
+        HashSet<string> keys = new HashSet<string>(a.Keys);
+        keys.UnionWith(b.Keys);
+
+        List<string> sorted = new List<string>(keys);
+        sorted.Sort(StringComparer.Ordinal);
+
+        int shown = 0;
+        int extra = 0;
+        foreach (string k in sorted)
+        {
+            PresetMatrixCell ca;
+            PresetMatrixCell cb;
+            a.TryGetValue(k, out ca);
+            b.TryGetValue(k, out cb);
+            if (ca != null && cb != null && ca.count == cb.count && ca.weaponGuid == cb.weaponGuid) continue;
+
+            if (shown >= 60) { extra++; continue; }
+            PresetMatrixCell any = cb != null ? cb : ca;
+            AddDiff(diffs, head + NameOfGuid(any.prefabGuid) + " · wave " + any.wave + (any.phase == 1 ? " (loot)" : ""), CellText(ca), CellText(cb));
+            shown++;
+        }
+        if (extra > 0) AddDiff(diffs, head + "e mais " + extra + " células", "...", "...");
+    }
+
+    static void AddDiff(List<PresetDiff> diffs, string label, string current, string preset)
+    {
+        PresetDiff d = new PresetDiff();
+        d.label = label;
+        d.current = current;
+        d.preset = preset;
+        diffs.Add(d);
+    }
+
+    static void ApplyMatrix(WaveConfig cfg, PresetMatrix m)
+    {
+        SerializedObject so = new SerializedObject(cfg);
+        so.FindProperty("useMatrix").boolValue = m.useMatrix;
+        so.FindProperty("limitWaves").boolValue = m.limitWaves;
+        so.FindProperty("totalWaves").intValue = Mathf.Max(1, m.totalWaves);
+
+        SerializedProperty cells = so.FindProperty("matrixCells");
+        cells.ClearArray();
+        foreach (PresetMatrixCell pc in m.cells)
+        {
+            GameObject prefab = LoadByGuid<GameObject>(pc.prefabGuid);
+            if (prefab == null) continue; // prefab apagado: pula a célula
+            cells.InsertArrayElementAtIndex(cells.arraySize);
+            SerializedProperty e = cells.GetArrayElementAtIndex(cells.arraySize - 1);
+            e.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+            e.FindPropertyRelative("wave").intValue = Mathf.Max(1, pc.wave);
+            e.FindPropertyRelative("phase").enumValueIndex = pc.phase;
+            e.FindPropertyRelative("count").intValue = Mathf.Max(0, pc.count);
+            e.FindPropertyRelative("weapon").objectReferenceValue = LoadByGuid<WeaponData>(pc.weaponGuid);
+        }
+
+        SerializedProperty order = so.FindProperty("matrixColumnOrder");
+        order.ClearArray();
+        foreach (string guid in m.columnOrder)
+        {
+            GameObject g = LoadByGuid<GameObject>(guid);
+            if (g == null) continue;
+            order.InsertArrayElementAtIndex(order.arraySize);
+            order.GetArrayElementAtIndex(order.arraySize - 1).objectReferenceValue = g;
+        }
+
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixCells");
     }
 
     // ---------------------------------------------------------------- arquivos

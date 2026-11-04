@@ -7,9 +7,9 @@ using UnityEngine;
 // uma estimativa da curva de dificuldade por wave. Veja BalanceEdit.cs para como o Play mode é tratado.
 public class BalanceWindow : EditorWindow
 {
-    enum Tab { Waves, Armas, Inimigos, Itens, Presets, Mudancas }
+    enum Tab { Waves, Planilha, Armas, Inimigos, Itens, Presets, Mudancas }
 
-    static readonly string[] TabNames = { "Waves", "Armas", "Inimigos", "Itens & Player", "Presets", "Mudanças" };
+    static readonly string[] TabNames = { "Waves", "Planilha", "Armas", "Inimigos", "Itens & Player", "Presets", "Mudanças" };
 
     static readonly string[] SeriesNames =
     {
@@ -18,7 +18,10 @@ public class BalanceWindow : EditorWindow
         "Cura esperada",
         "HP projetado do player",
         "Vida total dos inimigos",
-        "Duração da wave (s)"
+        "Duração da wave (s)",
+        "Inimigos (quantidade)",
+        "Itens (quantidade: medkits, caixas de arma e tesouros)",
+        "Dano potencial (contato + explosão, se tudo acertasse o player)"
     };
 
     static readonly Color[] SeriesColors =
@@ -28,7 +31,10 @@ public class BalanceWindow : EditorWindow
         new Color(0.35f, 0.9f, 0.4f),
         new Color(0.3f, 0.8f, 1f),
         new Color(0.7f, 0.7f, 0.75f),
-        new Color(0.9f, 0.9f, 0.4f)
+        new Color(0.9f, 0.9f, 0.4f),
+        new Color(1f, 0.5f, 0.75f),
+        new Color(0.4f, 0.95f, 0.75f),
+        new Color(1f, 0.5f, 0.2f)
     };
 
     const string AssumePref = "CosmoBalance.assumptions";
@@ -47,7 +53,7 @@ public class BalanceWindow : EditorWindow
     BalanceAssumptions assume = new BalanceAssumptions();
     bool showAssumptions;
     bool normalize = true;
-    bool[] seriesOn = { true, true, true, true, false, false };
+    bool[] seriesOn = { true, true, true, true, false, false, false, false, false };
     int previewWave = 1;
 
     Spawner[] sceneSpawners = new Spawner[0];
@@ -217,6 +223,7 @@ public class BalanceWindow : EditorWindow
         switch (tab)
         {
             case Tab.Waves: DrawWaves(); break;
+            case Tab.Planilha: DrawMatrix(); break;
             case Tab.Armas: DrawWeapons(); break;
             case Tab.Inimigos: DrawEnemies(); break;
             case Tab.Itens: DrawItems(); break;
@@ -308,6 +315,11 @@ public class BalanceWindow : EditorWindow
                 needRefresh = true;
                 return;
             }
+        }
+
+        if (activeConfig != null && activeConfig.useMatrix)
+        {
+            EditorGUILayout.HelpBox("Modo planilha LIGADO: o orçamento, as faixas de peso e os tesouros bônus abaixo são IGNORADOS (quem nasce em cada wave vem da aba Planilha). O intervalo entre waves, a espera pelos inimigos e a fase de loot continuam valendo.", MessageType.Warning);
         }
 
         Header("Ritmo das waves");
@@ -593,8 +605,11 @@ public class BalanceWindow : EditorWindow
             case 2: return "Cura";
             case 3: return "HP player";
             case 4: return "Vida inimigos";
+            case 5: return "Duração";
+            case 6: return "Inimigos";
+            case 7: return "Itens";
         }
-        return "Duração";
+        return "Dano pot.";
     }
 
     static float Value(int series, WaveStats w)
@@ -607,6 +622,9 @@ public class BalanceWindow : EditorWindow
             case 3: return w.hpEnd;
             case 4: return w.enemyHp;
             case 5: return w.totalSeconds;
+            case 6: return w.enemies;
+            case 7: return w.medkits + w.weaponBoxes + w.treasures;
+            case 8: return w.contactDamage + w.explosionDamage;
         }
         return 0f;
     }
@@ -787,6 +805,726 @@ public class BalanceWindow : EditorWindow
     }
 
     // ---------------------------------------------------------------- Armas
+
+    // ---------------------------------------------------------------- Planilha (waves x objetos)
+
+    class MxColumn
+    {
+        public GameObject prefab;
+        public BalancePrefab info;
+        public bool isEnemy;
+    }
+
+    const string MxChartsPref = "CosmoBalance.matrixCharts";
+    const float MxLabelW = 96f;
+    const float MxCellW = 84f;
+    const float MxTotalW = 70f;
+
+    static readonly Color MxHpColor = new Color(1f, 0.38f, 0.38f, 0.55f);
+    static readonly Color MxSpeedColor = new Color(1f, 0.95f, 0.5f, 0.45f);
+    static readonly Color MxDamageColor = new Color(0.45f, 0.75f, 0.45f, 0.55f);
+    static readonly Color MxEffectColor = new Color(0.5f, 0.7f, 1f, 0.45f);
+    static readonly Color MxWaveColor = new Color(0.45f, 0.65f, 1f, 0.40f);
+    static readonly Color MxLootColor = new Color(0.75f, 0.75f, 0.75f, 0.28f);
+    static readonly Color MxHeadColor = new Color(0.5f, 0.65f, 0.95f, 0.55f);
+
+    static readonly string[] MxSpeedFields = { "speed", "forwardSpeed", "moveSpeed", "initialSpeedX" };
+    static readonly string[] MxTimeFields = { "duration", "flightTime", "lifetimeSeconds" };
+
+    Vector2 matrixScroll;
+    GUIStyle mxCenter;
+    GUIStyle mxHead;
+    Dictionary<(int, int, int), int> mxIndex = new Dictionary<(int, int, int), int>();
+
+    void DrawMatrix()
+    {
+        GetWaveSource(); // atualiza activeConfig
+        if (activeConfig == null)
+        {
+            EditorGUILayout.HelpBox("A planilha precisa de um WaveConfig (asset). Abra a cena do jogo e use, na aba Waves, 'Criar WaveConfig a partir dos valores atuais'.", MessageType.Info);
+            return;
+        }
+
+        if (mxCenter == null)
+        {
+            mxCenter = new GUIStyle(EditorStyles.label);
+            mxCenter.alignment = TextAnchor.MiddleCenter;
+            mxHead = new GUIStyle(EditorStyles.boldLabel);
+            mxHead.alignment = TextAnchor.MiddleCenter;
+            mxHead.wordWrap = true;
+        }
+
+        WaveConfig cfg = activeConfig;
+
+        EditorGUILayout.HelpBox("Asset '" + cfg.name + "'. Cada linha é uma wave: o número é quantos daquele objeto nascem (misturados, em ordem aleatória). " +
+            "'Loot N' é o que aparece na fase de loot DEPOIS da wave N. As alterações valem na hora, inclusive em Play mode (na próxima wave). Arraste os nomes no cabeçalho para reordenar as colunas.", MessageType.None);
+
+        Header("Número de waves");
+        Field(cfg, "useMatrix", "Usar a planilha (contagem exata por wave)");
+        if (cfg.useMatrix)
+        {
+            Field(cfg, "totalWaves", "Total de waves");
+        }
+        else
+        {
+            Field(cfg, "limitWaves", "Limitar o número de waves");
+            if (cfg.limitWaves) Field(cfg, "totalWaves", "Total de waves");
+            EditorGUILayout.HelpBox("Planilha DESLIGADA: o jogo usa o orçamento + faixas da aba Waves. Você pode preencher a planilha agora; ela só passa a valer quando 'Usar a planilha' estiver ligado.", MessageType.Warning);
+        }
+
+        int waves = Mathf.Max(1, cfg.totalWaves);
+
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            if (GUILayout.Button("Preencher a partir do orçamento atual", GUILayout.Width(250f))) MxFillFromBudget(cfg, waves);
+            if (GUILayout.Button("Limpar planilha", GUILayout.Width(120f))) MxClear(cfg);
+            if (GUILayout.Button("Ordem padrão das colunas", GUILayout.Width(170f))) MxResetOrder(cfg);
+        }
+
+        List<MxColumn> cols = BuildMatrixColumns(cfg);
+        if (cols.Count == 0)
+        {
+            EditorGUILayout.HelpBox("Nenhum prefab de inimigo/item encontrado em " + BalanceModel.PrefabFolder + ".", MessageType.Info);
+            return;
+        }
+
+        MxRebuildIndex(cfg);
+
+        bool anyItem = false;
+        bool anyExplosion = false;
+        foreach (MxColumn col in cols)
+        {
+            if (!col.isEnemy) anyItem = true;
+            if (col.info != null && col.info.explosion != null) anyExplosion = true;
+        }
+
+        EditorGUILayout.Space(6);
+        // Altura explícita: sem ela, a rolagem interna encolhia e só aparecia o começo da planilha.
+        float matrixHeight = 34f + MxRowH * 3f + (anyExplosion ? MxRowH : 0f) + (anyItem ? MxRowH : 0f) + 8f + waves * 2f * MxRowH + 22f;
+        matrixScroll = EditorGUILayout.BeginScrollView(matrixScroll, true, false, GUILayout.Height(matrixHeight));
+
+        // Cabeçalho: nomes
+        MxRowBegin(MxHeadColor, "");
+        MxDrawHeaders(cfg, cols);
+        MxRowEnd();
+
+        // Status
+        MxRowBegin(MxHpColor, "Vida");
+        foreach (MxColumn col in cols) CellField(col.info != null ? col.info.health : null, "maxHealth", MxCellW);
+        MxRowEnd();
+
+        MxRowBegin(MxSpeedColor, "Velocidade");
+        foreach (MxColumn col in cols) MxSpeedCell(col);
+        MxRowEnd();
+
+        MxRowBegin(MxDamageColor, "Dano (contato)");
+        foreach (MxColumn col in cols)
+        {
+            if (col.isEnemy && col.info.enemy != null) CellField(col.info.enemy, "damage", MxCellW);
+            else MxLabelCell("—", null, MxCellW);
+        }
+        MxRowEnd();
+
+        if (anyExplosion)
+        {
+            MxRowBegin(MxDamageColor, "Dano (explosão)");
+            foreach (MxColumn col in cols)
+            {
+                if (col.info != null && col.info.explosion != null) CellField(col.info.explosion, "damage", MxCellW);
+                else MxLabelCell("—", null, MxCellW);
+            }
+            MxRowEnd();
+        }
+
+        if (anyItem)
+        {
+            MxRowBegin(MxEffectColor, "Efeito do item");
+            foreach (MxColumn col in cols) MxEffectCell(col);
+            MxRowEnd();
+        }
+
+        EditorGUILayout.Space(4);
+
+        // Waves
+        float grandHp = 0f;
+        int grandEnemies = 0;
+        for (int w = 1; w <= waves; w++)
+        {
+            MxRowBegin(MxWaveColor, "Wave " + w);
+            int spawns = 0;
+            float hp = 0f;
+            foreach (MxColumn col in cols)
+            {
+                int count = MxCountCell(cfg, col, w, MatrixPhase.Wave);
+                spawns += count;
+                if (col.isEnemy && col.info != null && col.info.health != null)
+                {
+                    hp += count * col.info.health.maxHealth;
+                    grandEnemies += count;
+                }
+            }
+            grandHp += hp;
+            MxLabelCell("Σ " + spawns, "Total de objetos que nascem na wave", MxTotalW);
+            MxLabelCell("HP " + hp.ToString("0.#"), "Vida total dos inimigos da wave", MxTotalW + 14f);
+            MxRowEnd();
+
+            MxRowBegin(MxLootColor, "Loot " + w);
+            int lootSpawns = 0;
+            foreach (MxColumn col in cols)
+            {
+                if (col.isEnemy)
+                {
+                    MxCellRect(MxCellW);
+                    continue;
+                }
+                lootSpawns += MxCountCell(cfg, col, w, MatrixPhase.Loot);
+            }
+            MxLabelCell("Σ " + lootSpawns, "Total de itens na fase de loot", MxTotalW);
+            MxRowEnd();
+        }
+
+        EditorGUILayout.EndScrollView();
+
+        EditorGUILayout.Space(6);
+        bool showCharts = EditorPrefs.GetBool(MxChartsPref, true);
+        bool nowShowCharts = EditorGUILayout.Foldout(showCharts, "Curvas da planilha (clique para fechar / abrir)", true, EditorStyles.foldoutHeader);
+        if (nowShowCharts != showCharts) EditorPrefs.SetBool(MxChartsPref, nowShowCharts);
+
+        if (nowShowCharts)
+        {
+            // Curvas calculadas a partir da planilha (mesmo se ela ainda estiver desligada: serve de pré-visualização).
+            WaveSource matrixSource = WaveSource.FromConfig(cfg);
+            matrixSource.useMatrix = true;
+            matrixSource.limitWaves = true;
+            matrixSource.totalWaves = waves;
+            if (matrixSource.loot == null) matrixSource.loot = cfg.lootPhase;
+            List<WaveStats> matrixStats = BalanceModel.ComputeAll(matrixSource, assume);
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.Label("Mostrar:", GUILayout.Width(56f));
+                if (GUILayout.Button("Composição da planilha", GUILayout.Width(150f)))
+                {
+                    seriesOn = new[] { false, false, false, false, true, false, true, true, true };
+                }
+                if (GUILayout.Button("Dificuldade estimada", GUILayout.Width(140f)))
+                {
+                    seriesOn = new[] { true, true, true, true, false, false, false, false, false };
+                }
+            }
+            DrawSeriesToggles();
+            if (waves < 2) EditorGUILayout.HelpBox("O gráfico precisa de pelo menos 2 waves.", MessageType.None);
+            Rect matrixChartRect = GUILayoutUtility.GetRect(100f, 240f, GUILayout.ExpandWidth(true));
+            DrawChart(matrixChartRect, matrixStats, null);
+            DrawTable(matrixStats);
+            DrawLossHint(matrixStats, null);
+        }
+
+
+        EditorGUILayout.HelpBox("Total no jogo: " + grandEnemies + " inimigos, " + grandHp.ToString("0.#") + " de vida somada.", MessageType.None);
+        EditorGUILayout.HelpBox("Velocidade mostra o campo 'speed' (ou forwardSpeed) do movimento do prefab; movimentos sem velocidade simples mostram a duração com um 't' (ex.: Path). " +
+            "Para editar a lista de armas de uma caixa, use a aba 'Itens & Player'. Presets guardam a planilha (células, nº de waves e ordem das colunas).", MessageType.None);
+    }
+
+    List<MxColumn> BuildMatrixColumns(WaveConfig cfg)
+    {
+        List<MxColumn> cols = new List<MxColumn>();
+        HashSet<GameObject> seen = new HashSet<GameObject>();
+
+        BalanceKind[] order = { BalanceKind.WeaponBox, BalanceKind.Medkit, BalanceKind.Treasure, BalanceKind.Enemy };
+        foreach (BalanceKind kind in order)
+        {
+            foreach (BalancePrefab p in BalanceModel.prefabs)
+            {
+                if (p.kind != kind || p.root == null || !seen.Add(p.root)) continue;
+                MxColumn col = new MxColumn();
+                col.prefab = p.root;
+                col.info = p;
+                col.isEnemy = kind == BalanceKind.Enemy;
+                cols.Add(col);
+            }
+        }
+
+        // Prefabs que já estão na planilha mas não foram achados na pasta padrão.
+        if (cfg.matrixCells != null)
+        {
+            foreach (WaveMatrixCell cell in cfg.matrixCells)
+            {
+                if (cell == null || cell.prefab == null || !seen.Add(cell.prefab)) continue;
+                BalancePrefab info = BalanceModel.Info(cell.prefab);
+                MxColumn col = new MxColumn();
+                col.prefab = cell.prefab;
+                col.info = info;
+                col.isEnemy = info != null && info.kind == BalanceKind.Enemy;
+                cols.Add(col);
+            }
+        }
+
+        // Ordem escolhida pelo usuário (arrastando os cabeçalhos): as colunas salvas vêm primeiro, nessa ordem;
+        // as que não estão na lista (prefabs novos) ficam depois, na ordem padrão.
+        if (cfg.matrixColumnOrder != null && cfg.matrixColumnOrder.Length > 0)
+        {
+            List<MxColumn> ordered = new List<MxColumn>();
+            foreach (GameObject saved in cfg.matrixColumnOrder)
+            {
+                if (saved == null) continue;
+                int i = cols.FindIndex(c => c.prefab == saved);
+                if (i < 0) continue;
+                ordered.Add(cols[i]);
+                cols.RemoveAt(i);
+            }
+            ordered.AddRange(cols);
+            cols = ordered;
+        }
+        return cols;
+    }
+
+    // ---------- cabeçalho arrastável ----------
+
+    Rect[] mxHeaderRects = new Rect[0];
+    int mxDragFrom = -1;
+    int mxDragTo = -1;
+    int mxDragControl;
+
+    // Desenha os nomes das colunas. Clicar e arrastar um nome para o lado troca a coluna de lugar.
+    void MxDrawHeaders(WaveConfig cfg, List<MxColumn> cols)
+    {
+        if (mxHeaderRects.Length != cols.Count) mxHeaderRects = new Rect[cols.Count];
+        Event e = Event.current;
+
+        for (int i = 0; i < cols.Count; i++)
+        {
+            MxColumn col = cols[i];
+            string kind = col.info != null ? KindTag(col.info.kind) : "";
+            Rect rect = GUILayoutUtility.GetRect(MxCellW, 34f, GUILayout.Width(MxCellW), GUILayout.Height(34f));
+            if (e.type != EventType.Layout) mxHeaderRects[i] = rect;
+
+            int id = GUIUtility.GetControlID(FocusType.Passive);
+            EditorGUIUtility.AddCursorRect(rect, MouseCursor.Pan);
+
+            if (e.type == EventType.MouseDown && e.button == 0 && rect.Contains(e.mousePosition))
+            {
+                GUIUtility.hotControl = id;
+                mxDragControl = id;
+                mxDragFrom = i;
+                mxDragTo = i;
+                e.Use();
+            }
+            else if (e.type == EventType.Repaint)
+            {
+                bool dragging = mxDragFrom >= 0 && GUIUtility.hotControl != 0 && GUIUtility.hotControl == mxDragControl;
+                GUI.Label(rect, new GUIContent(col.prefab.name, kind + ": " + col.prefab.name + "\n(arraste para mudar a ordem)"), mxHead);
+                if (dragging && i == mxDragFrom) EditorGUI.DrawRect(rect, new Color(0f, 0f, 0f, 0.3f));
+                if (dragging && i == mxDragTo && mxDragTo != mxDragFrom)
+                {
+                    float x = mxDragTo < mxDragFrom ? rect.x - 1f : rect.xMax - 2f;
+                    EditorGUI.DrawRect(new Rect(x, rect.y, 3f, rect.height), new Color(1f, 0.8f, 0.2f, 1f));
+                }
+            }
+        }
+
+        // Arrasto: descobre a coluna sob o mouse (os retângulos de todas as colunas já foram atualizados neste evento).
+        if (mxDragFrom >= 0 && GUIUtility.hotControl != 0 && GUIUtility.hotControl == mxDragControl)
+        {
+            if (e.type == EventType.MouseDrag)
+            {
+                for (int i = 0; i < mxHeaderRects.Length; i++)
+                {
+                    bool last = i == mxHeaderRects.Length - 1;
+                    if (e.mousePosition.x >= mxHeaderRects[i].x && (e.mousePosition.x < mxHeaderRects[i].xMax || last)) mxDragTo = i;
+                }
+                if (mxHeaderRects.Length > 0 && e.mousePosition.x < mxHeaderRects[0].x) mxDragTo = 0;
+                e.Use();
+                Repaint();
+            }
+            else if (e.type == EventType.MouseUp)
+            {
+                int from = mxDragFrom;
+                int to = mxDragTo;
+                GUIUtility.hotControl = 0;
+                mxDragFrom = -1;
+                mxDragTo = -1;
+                e.Use();
+                if (from >= 0 && to >= 0 && from != to) MxMoveColumn(cfg, cols, from, to);
+                Repaint();
+            }
+        }
+    }
+
+    void MxMoveColumn(WaveConfig cfg, List<MxColumn> cols, int from, int to)
+    {
+        List<GameObject> order = new List<GameObject>();
+        foreach (MxColumn col in cols) order.Add(col.prefab);
+
+        GameObject moved = order[from];
+        order.RemoveAt(from);
+        order.Insert(to, moved);
+
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixColumnOrder");
+        if (arr == null) return;
+        arr.arraySize = order.Count;
+        for (int i = 0; i < order.Count; i++) arr.GetArrayElementAtIndex(i).objectReferenceValue = order[i];
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixColumnOrder");
+    }
+
+    void MxResetOrder(WaveConfig cfg)
+    {
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixColumnOrder");
+        if (arr == null) return;
+        arr.ClearArray();
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixColumnOrder");
+    }
+
+    const float MxRowH = 22f;
+
+    // Toda célula da planilha ocupa um retângulo de largura EXATA e sem margens (GUIStyle.none). Os campos do Unity
+    // têm margem própria, e somar isso coluna a coluna desalinhava os campos do cabeçalho.
+    static Rect MxCellRect(float width)
+    {
+        return GUILayoutUtility.GetRect(width, MxRowH, GUIStyle.none, GUILayout.Width(width), GUILayout.Height(MxRowH));
+    }
+
+    static Rect MxPad(Rect r)
+    {
+        return new Rect(r.x + 2f, r.y + 1f, r.width - 4f, r.height - 2f);
+    }
+
+    void MxLabelCell(string text, string tooltip, float width)
+    {
+        GUI.Label(MxCellRect(width), new GUIContent(text, tooltip), mxCenter);
+    }
+
+    Rect MxRowBegin(Color tint, string label)
+    {
+        Rect r = EditorGUILayout.BeginHorizontal();
+        if (Event.current.type == EventType.Repaint) EditorGUI.DrawRect(r, tint);
+        GUI.Label(MxCellRect(MxLabelW), label, EditorStyles.boldLabel);
+        return r;
+    }
+
+    void MxRowEnd()
+    {
+        EditorGUILayout.EndHorizontal();
+    }
+
+    // Campo sem rótulo numa célula da planilha, com o mesmo caminho de edição do resto da janela.
+    // Usa campos tipados (e não PropertyField) para não herdar [Header]/[Space] do script.
+    bool CellField(UnityEngine.Object target, string path, float width)
+    {
+        Rect cell = MxCellRect(width);
+        if (target == null)
+        {
+            GUI.Label(cell, "—", mxCenter);
+            return false;
+        }
+
+        SerializedObject so = GetSO(target);
+        SerializedProperty prop = so.FindProperty(path);
+        if (prop == null)
+        {
+            GUI.Label(cell, "?", mxCenter);
+            return false;
+        }
+
+        Rect r = MxPad(cell);
+        EditorGUI.BeginChangeCheck();
+        switch (prop.propertyType)
+        {
+            case SerializedPropertyType.Float:
+                prop.floatValue = EditorGUI.FloatField(r, prop.floatValue);
+                break;
+            case SerializedPropertyType.Integer:
+                prop.intValue = EditorGUI.IntField(r, prop.intValue);
+                break;
+            default:
+                EditorGUI.PropertyField(r, prop, GUIContent.none);
+                break;
+        }
+        if (EditorGUI.EndChangeCheck())
+        {
+            so.ApplyModifiedProperties();
+            BalanceEdit.AfterEdit(so, path);
+            return true;
+        }
+        return false;
+    }
+
+    void MxSpeedCell(MxColumn col)
+    {
+        Component comp = null;
+        string path = null;
+        bool isTime = false;
+
+        if (col.prefab != null)
+        {
+            foreach (IMovementBehavior m in col.prefab.GetComponentsInChildren<IMovementBehavior>(true))
+            {
+                Component c = m as Component;
+                if (c == null) continue;
+                SerializedObject so = GetSO(c);
+
+                foreach (string n in MxSpeedFields)
+                {
+                    SerializedProperty p = so.FindProperty(n);
+                    if (p != null && p.propertyType == SerializedPropertyType.Float) { comp = c; path = n; break; }
+                }
+                if (comp == null)
+                {
+                    foreach (string n in MxTimeFields)
+                    {
+                        SerializedProperty p = so.FindProperty(n);
+                        if (p != null && p.propertyType == SerializedPropertyType.Float) { comp = c; path = n; isTime = true; break; }
+                    }
+                }
+                if (comp != null) break;
+            }
+        }
+
+        if (comp == null)
+        {
+            MxLabelCell("—", null, MxCellW);
+            return;
+        }
+
+        if (isTime)
+        {
+            MxLabelCell("t", "Este movimento não tem velocidade simples; edita a duração (" + path + "). Maior = mais lento.", 16f);
+            CellField(comp, path, MxCellW - 16f);
+        }
+        else
+        {
+            CellField(comp, path, MxCellW);
+        }
+    }
+
+    void MxEffectCell(MxColumn col)
+    {
+        BalancePrefab p = col.info;
+        if (p == null || col.isEnemy)
+        {
+            MxLabelCell("—", null, MxCellW);
+        }
+        else if (p.medkit != null)
+        {
+            MxLabelCell("cura", "Quanto o medkit cura", 32f);
+            CellField(p.medkit, "healAmount", MxCellW - 32f);
+        }
+        else if (p.treasure != null)
+        {
+            MxLabelCell("pts", "Pontos do tesouro", 28f);
+            CellField(p.treasure, "scoreValue", MxCellW - 28f);
+        }
+        else if (p.HasWeaponList)
+        {
+            List<string> names = new List<string>();
+            foreach (WeaponData w in p.weaponBox.possibleWeapons) if (w != null) names.Add(w.name);
+            MxLabelCell(names.Count + " arma(s)", string.Join(", ", names.ToArray()), MxCellW);
+        }
+        else
+        {
+            MxLabelCell("—", null, MxCellW);
+        }
+    }
+
+    // ---------- células de contagem ----------
+
+    void MxRebuildIndex(WaveConfig cfg)
+    {
+        mxIndex.Clear();
+        if (cfg.matrixCells == null) return;
+        for (int i = 0; i < cfg.matrixCells.Length; i++)
+        {
+            WaveMatrixCell cell = cfg.matrixCells[i];
+            if (cell == null || cell.prefab == null) continue;
+            mxIndex[(cell.prefab.GetInstanceID(), cell.wave, (int)cell.phase)] = i;
+        }
+    }
+
+    // Desenha a célula (quantidade, e para caixas de arma também a arma) e devolve a quantidade atual.
+    int MxCountCell(WaveConfig cfg, MxColumn col, int wave, MatrixPhase phase)
+    {
+        int idx;
+        int count = 0;
+        WeaponData weapon = null;
+        if (mxIndex.TryGetValue((col.prefab.GetInstanceID(), wave, (int)phase), out idx) && cfg.matrixCells != null && idx < cfg.matrixCells.Length)
+        {
+            count = Mathf.Max(0, cfg.matrixCells[idx].count);
+            weapon = cfg.matrixCells[idx].weapon;
+        }
+
+        bool isWeaponBox = col.info != null && col.info.kind == BalanceKind.WeaponBox;
+        const float countW = 30f;
+
+        Rect countRect = MxCellRect(isWeaponBox ? countW : MxCellW);
+        Rect popupRect = isWeaponBox ? MxCellRect(MxCellW - countW) : default(Rect);
+
+        Color oldBg = GUI.backgroundColor;
+        if (count > 0) GUI.backgroundColor = new Color(1f, 1f, 0.55f);
+        EditorGUI.BeginChangeCheck();
+        int newCount = EditorGUI.IntField(MxPad(countRect), count);
+        bool countChanged = EditorGUI.EndChangeCheck();
+        GUI.backgroundColor = oldBg;
+
+        if (isWeaponBox)
+        {
+            List<WeaponData> list = BalanceModel.weapons;
+            string[] options = new string[list.Count + 1];
+            options[0] = "(sorteio)";
+            int selected = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                options[i + 1] = list[i].name;
+                if (list[i] == weapon) selected = i + 1;
+            }
+
+            using (new EditorGUI.DisabledScope(count <= 0 && !countChanged))
+            {
+                EditorGUI.BeginChangeCheck();
+                int picked = EditorGUI.Popup(MxPad(popupRect), selected, options);
+                if (EditorGUI.EndChangeCheck() && count > 0)
+                {
+                    MxSetWeapon(cfg, col.prefab, wave, phase, picked == 0 ? null : list[picked - 1]);
+                    return count;
+                }
+            }
+        }
+
+        if (countChanged)
+        {
+            newCount = Mathf.Max(0, newCount);
+            MxSetCount(cfg, col.prefab, wave, phase, newCount);
+            return newCount;
+        }
+        return count;
+    }
+
+    int MxFind(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase)
+    {
+        int idx;
+        return mxIndex.TryGetValue((prefab.GetInstanceID(), wave, (int)phase), out idx) ? idx : -1;
+    }
+
+    void MxSetCount(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, int count)
+    {
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixCells");
+        if (arr == null) return;
+
+        int idx = MxFind(cfg, prefab, wave, phase);
+        if (count <= 0)
+        {
+            if (idx >= 0 && idx < arr.arraySize) arr.DeleteArrayElementAtIndex(idx);
+        }
+        else if (idx >= 0 && idx < arr.arraySize)
+        {
+            arr.GetArrayElementAtIndex(idx).FindPropertyRelative("count").intValue = count;
+        }
+        else
+        {
+            MxAppend(arr, prefab, wave, phase, count, null);
+        }
+
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixCells");
+        MxRebuildIndex(cfg);
+    }
+
+    void MxSetWeapon(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, WeaponData weapon)
+    {
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixCells");
+        int idx = MxFind(cfg, prefab, wave, phase);
+        if (arr == null || idx < 0 || idx >= arr.arraySize) return;
+
+        arr.GetArrayElementAtIndex(idx).FindPropertyRelative("weapon").objectReferenceValue = weapon;
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixCells");
+        MxRebuildIndex(cfg);
+    }
+
+    static void MxAppend(SerializedProperty arr, GameObject prefab, int wave, MatrixPhase phase, int count, WeaponData weapon)
+    {
+        int n = arr.arraySize;
+        arr.arraySize = n + 1;
+        SerializedProperty el = arr.GetArrayElementAtIndex(n);
+        el.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+        el.FindPropertyRelative("wave").intValue = wave;
+        el.FindPropertyRelative("phase").enumValueIndex = (int)phase;
+        el.FindPropertyRelative("count").intValue = count;
+        el.FindPropertyRelative("weapon").objectReferenceValue = weapon;
+    }
+
+    void MxClear(WaveConfig cfg)
+    {
+        if (!EditorUtility.DisplayDialog("Limpar planilha", "Apagar TODAS as células da planilha de '" + cfg.name + "'?", "Limpar", "Cancelar")) return;
+
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixCells");
+        if (arr == null) return;
+        arr.ClearArray();
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixCells");
+        MxRebuildIndex(cfg);
+    }
+
+    // Gera a planilha a partir do orçamento + faixas de peso atuais (contagem esperada por wave) e do loot fixo.
+    void MxFillFromBudget(WaveConfig cfg, int waves)
+    {
+        if (!EditorUtility.DisplayDialog("Preencher a planilha",
+            "Substituir a planilha de '" + cfg.name + "' pelas contagens esperadas do orçamento + faixas atuais (" + waves + " waves)?\nO loot recebe os itens fixos de cura/arma/desempenho (sem bônus).",
+            "Preencher", "Cancelar")) return;
+
+        SerializedObject so = GetSO(cfg);
+        SerializedProperty arr = so.FindProperty("matrixCells");
+        if (arr == null) return;
+        arr.ClearArray();
+
+        for (int w = 1; w <= waves; w++)
+        {
+            int budget = Mathf.Max(0, cfg.startingBudget + (w - 1) * cfg.budgetIncrementPerWave);
+            float totalWeight = 0f;
+            List<WaveRangeData> active = new List<WaveRangeData>();
+            if (cfg.ranges != null)
+            {
+                foreach (WaveRangeData r in cfg.ranges)
+                {
+                    if (r == null || r.prefab == null || w < r.startWave || w > r.endWave || r.weight <= 0f) continue;
+                    active.Add(r);
+                    totalWeight += r.weight;
+                }
+            }
+            foreach (WaveRangeData r in active)
+            {
+                int count = Mathf.RoundToInt(budget * r.weight / totalWeight);
+                if (count > 0) MxAppend(arr, r.prefab, w, MatrixPhase.Wave, count, null);
+            }
+
+            LootPhaseData loot = cfg.lootPhase;
+            if (loot == null) continue;
+            MxAppendLootItems(arr, loot.healItems, w);
+            int every = Mathf.Max(1, loot.weaponEveryNWaves);
+            if (w >= loot.weaponFirstWave && (w - loot.weaponFirstWave) % every == 0) MxAppendLootItems(arr, loot.weaponItems, w);
+            MxAppendLootItems(arr, loot.performanceItems, w);
+        }
+
+        so.ApplyModifiedProperties();
+        BalanceEdit.AfterEdit(so, "matrixCells");
+        MxRebuildIndex(cfg);
+    }
+
+    static void MxAppendLootItems(SerializedProperty arr, LootItem[] items, int wave)
+    {
+        if (items == null) return;
+        foreach (LootItem item in items)
+        {
+            if (item == null || item.prefab == null || item.count <= 0) continue;
+            MxAppend(arr, item.prefab, wave, MatrixPhase.Loot, item.count, null);
+        }
+    }
 
     void DrawWeapons()
     {
@@ -983,7 +1721,7 @@ public class BalanceWindow : EditorWindow
             if (GUILayout.Button("Salvar preset", GUILayout.Width(110f))) SaveCurrentPreset();
         }
         EditorGUILayout.HelpBox(
-            "Um preset guarda os valores que esta janela edita (waves, spawners, armas, balas, inimigos, itens, player) e a curva de dificuldade do momento. " +
+            "Um preset guarda os valores que esta janela edita (waves, planilha, spawners, armas, balas, inimigos, itens, player) e a curva de dificuldade do momento. " +
             "Fica em " + BalancePresets.Folder + " e entra no git. As waves entram pelo asset WaveConfig; os spawners só se a cena do jogo estiver aberta.",
             MessageType.None);
 
@@ -1003,7 +1741,7 @@ public class BalanceWindow : EditorWindow
         {
             using (new EditorGUILayout.HorizontalScope())
             {
-                GUILayout.Label(d.name + "   (" + d.savedAt + ", " + d.entries.Count + " valores)", GUILayout.MinWidth(180f));
+                GUILayout.Label(d.name + "   (" + d.savedAt + ", " + d.entries.Count + " valores" + (d.matrices != null && d.matrices.Count > 0 ? ", com planilha" : "") + ")", GUILayout.MinWidth(180f));
                 GUILayout.FlexibleSpace();
 
                 if (GUILayout.Button("Aplicar", GUILayout.Width(60f))) ApplyPreset(d);

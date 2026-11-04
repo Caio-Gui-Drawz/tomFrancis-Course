@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706158519920592932, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: maxHealth
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 910066428569159112, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: m_Color.b
@@ -35,6 +35,10 @@ PrefabInstance:
     - target: {fileID: 910066428569159112, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274833584900650299, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+      propertyPath: scoreValue
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
       propertyPath: m_Name

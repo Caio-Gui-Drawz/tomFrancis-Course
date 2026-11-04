@@ -85,6 +85,10 @@ public class WaveSource
     public List<WaveRangeData> ranges = new List<WaveRangeData>();
     public List<GameObject> bonusPrefabs = new List<GameObject>();
     public LootPhaseData loot; // null = fase de loot desligada (vale a rodada de bônus antiga)
+    public bool limitWaves;
+    public int totalWaves = 8;
+    public bool useMatrix;     // planilha: contagem exata por wave (ignora orçamento e faixas)
+    public List<WaveMatrixCell> cells = new List<WaveMatrixCell>();
 
     public static WaveSource FromConfig(WaveConfig c)
     {
@@ -103,7 +107,18 @@ public class WaveSource
             }
         }
         if (c.treasureBonusPrefabs != null) s.bonusPrefabs.AddRange(c.treasureBonusPrefabs);
-        if (c.lootPhase != null && c.lootPhase.enabled) s.loot = c.lootPhase;
+        // Na planilha o loot roda nas waves que têm itens de loot, mesmo com 'enabled' desligado.
+        if (c.lootPhase != null && (c.lootPhase.enabled || c.useMatrix)) s.loot = c.lootPhase;
+        s.limitWaves = c.limitWaves;
+        s.totalWaves = c.totalWaves;
+        s.useMatrix = c.useMatrix;
+        if (c.matrixCells != null)
+        {
+            foreach (WaveMatrixCell cell in c.matrixCells)
+            {
+                if (cell != null) s.cells.Add(cell);
+            }
+        }
         return s;
     }
 
@@ -304,25 +319,29 @@ public static class BalanceModel
         float hp = maxHp;
         float fixedStep = Mathf.Max(0.001f, Time.fixedDeltaTime);
 
-        for (int n = 1; n <= Mathf.Max(1, a.waves); n++)
+        // Waves limitadas (ou planilha): o gráfico tem exatamente 'totalWaves' waves.
+        int waveCount = (wm.useMatrix || wm.limitWaves) ? Mathf.Max(1, wm.totalWaves) : Mathf.Max(1, a.waves);
+
+        for (int n = 1; n <= waveCount; n++)
         {
             WaveStats s = new WaveStats();
             s.wave = n;
-            s.budget = Mathf.Max(0, wm.startingBudget + (n - 1) * wm.budgetIncrementPerWave);
+            s.budget = wm.useMatrix ? MatrixSpawnCount(wm, n, MatrixPhase.Wave) : Mathf.Max(0, wm.startingBudget + (n - 1) * wm.budgetIncrementPerWave);
 
             // O spawn roda no FixedUpdate: o intervalo real é arredondado para cima ao próximo passo de física.
             float period = Mathf.Max(fixedStep, Mathf.Ceil(wm.secondsBetweenSpawnsInWave / fixedStep - 0.001f) * fixedStep);
             s.spawnSeconds = s.budget * period;
 
             int bonusRounds = 0;
-            if (wm.loot != null)
+            int matrixLootCount = wm.useMatrix ? MatrixSpawnCount(wm, n, MatrixPhase.Loot) : 0;
+            if (wm.loot != null && (!wm.useMatrix || matrixLootCount > 0))
             {
                 // Fase de loot: dura no máximo 'durationSeconds'; com fim antecipado, estimamos janela de spawn + ~2,5 s para pegar.
                 float maxDuration = Mathf.Max(1f, wm.loot.durationSeconds);
                 float window = maxDuration * Mathf.Clamp(wm.loot.dropWindowFraction, 0.3f, 1f);
 
                 // Os itens nascem com pelo menos 'minSecondsBetweenDrops' entre eles: com muitos itens isso passa da janela.
-                int plannedDrops = CountLootItems(wm.loot.healItems) + CountLootItems(wm.loot.weaponItems) + CountLootItems(wm.loot.performanceItems);
+                int plannedDrops = wm.useMatrix ? matrixLootCount : CountLootItems(wm.loot.healItems) + CountLootItems(wm.loot.weaponItems) + CountLootItems(wm.loot.performanceItems);
                 float spawnTime = Mathf.Max(window, Mathf.Max(0, plannedDrops - 1) * Mathf.Max(0.05f, wm.loot.minSecondsBetweenDrops));
                 s.gapSeconds = wm.loot.endWhenAllCollected
                     ? Mathf.Max(spawnTime + 2.5f, wm.loot.minSecondsBeforeEarlyEnd)
@@ -354,12 +373,19 @@ public static class BalanceModel
                 active.Add(r);
                 totalWeight += r.weight;
             }
-            foreach (WaveRangeData r in active)
+            if (wm.useMatrix)
             {
-                Accumulate(s, r.prefab, s.budget * r.weight / totalWeight, pool);
+                AccumulateCells(s, wm, n, MatrixPhase.Wave, pool);
+            }
+            else
+            {
+                foreach (WaveRangeData r in active)
+                {
+                    Accumulate(s, r.prefab, s.budget * r.weight / totalWeight, pool);
+                }
             }
 
-            if (wm.bonusPrefabs.Count > 0 && bonusRounds > 0)
+            if (wm.bonusPrefabs.Count > 0 && bonusRounds > 0 && !wm.useMatrix)
             {
                 float each = bonusRounds / (float)wm.bonusPrefabs.Count;
                 foreach (GameObject bonusPrefab in wm.bonusPrefabs)
@@ -373,11 +399,18 @@ public static class BalanceModel
             List<WeaponData> lootPool = new List<WeaponData>();
             if (wm.loot != null)
             {
-                AccumulateItems(ls, wm.loot.healItems, 1f, lootPool);
-                int every = Mathf.Max(1, wm.loot.weaponEveryNWaves);
-                if (n >= wm.loot.weaponFirstWave && (n - wm.loot.weaponFirstWave) % every == 0)
+                if (wm.useMatrix)
                 {
-                    AccumulateItems(ls, wm.loot.weaponItems, 1f, lootPool);
+                    AccumulateCells(ls, wm, n, MatrixPhase.Loot, lootPool);
+                }
+                else
+                {
+                    AccumulateItems(ls, wm.loot.healItems, 1f, lootPool);
+                    int every = Mathf.Max(1, wm.loot.weaponEveryNWaves);
+                    if (n >= wm.loot.weaponFirstWave && (n - wm.loot.weaponFirstWave) % every == 0)
+                    {
+                        AccumulateItems(ls, wm.loot.weaponItems, 1f, lootPool);
+                    }
                 }
                 pool.AddRange(lootPool);
             }
@@ -407,7 +440,7 @@ public static class BalanceModel
             float leaked = Mathf.Clamp01(a.baseLeakFraction + (1f - a.baseLeakFraction) * (1f - killed));
             s.expectedDamage = s.contactDamage * leaked + s.explosionDamage * a.explosionHitsPlayerChance;
 
-            if (wm.loot != null)
+            if (wm.loot != null && !wm.useMatrix)
             {
                 // Recompensa por desempenho: quanto menos dano, mais itens (igual ao WaveManager).
                 float performance = maxHp > 0f ? Mathf.Clamp01(1f - s.expectedDamage / maxHp) : 1f;
@@ -441,6 +474,37 @@ public static class BalanceModel
             list.Add(s);
         }
         return list;
+    }
+
+    // Quantos objetos a planilha manda nascer nesta wave/fase (soma de todas as células).
+    public static int MatrixSpawnCount(WaveSource wm, int wave, MatrixPhase phase)
+    {
+        int total = 0;
+        foreach (WaveMatrixCell cell in wm.cells)
+        {
+            if (cell != null && cell.prefab != null && cell.wave == wave && cell.phase == phase) total += Mathf.Max(0, cell.count);
+        }
+        return total;
+    }
+
+    static void AccumulateCells(WaveStats s, WaveSource wm, int wave, MatrixPhase phase, List<WeaponData> pool)
+    {
+        foreach (WaveMatrixCell cell in wm.cells)
+        {
+            if (cell == null || cell.prefab == null || cell.wave != wave || cell.phase != phase || cell.count <= 0) continue;
+
+            if (cell.weapon != null)
+            {
+                // Arma forçada: a caixa dá sempre essa arma, não a lista inteira dela.
+                Accumulate(s, cell.prefab, cell.count, new List<WeaponData>());
+                BalancePrefab info = Info(cell.prefab);
+                if (info != null && info.HasWeaponList) pool.Add(cell.weapon);
+            }
+            else
+            {
+                Accumulate(s, cell.prefab, cell.count, pool);
+            }
+        }
     }
 
     static int CountLootItems(LootItem[] items)

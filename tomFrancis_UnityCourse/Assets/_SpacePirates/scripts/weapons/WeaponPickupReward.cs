@@ -14,6 +14,10 @@ public class WeaponPickupReward : MonoBehaviour
     [Tooltip("Se ligado, a caixa também não sorteia a última arma ESPECIAL que uma caixa deu, mesmo que ela já tenha acabado e o player tenha voltado pra pistola.")]
     public bool avoidLastBoxWeapon = true;
 
+    // Definida pelo WaveManager ao nascer (planilha de waves): arma fixa desta caixa. null = sorteia da lista.
+    // Não é salva: é reposta a cada vez que a caixa nasce (o objeto vem do pool).
+    [System.NonSerialized] public WeaponData forcedWeapon;
+
     void Start()
     {
         GetComponent<healthSystem>().OnDeath += HandleDeath;
@@ -26,7 +30,7 @@ public class WeaponPickupReward : MonoBehaviour
         Player2D player = references.thePlayer.GetComponent<Player2D>();
         if (player == null) return;
 
-        WeaponData chosen = PickRandomWeapon(player.currentWeapon, player.LastBoxWeapon);
+        WeaponData chosen = forcedWeapon != null ? forcedWeapon : PickRandomWeapon(player.currentWeapon, player.LastBoxWeapon);
         if (chosen != null)
         {
             player.LastBoxWeapon = chosen;
