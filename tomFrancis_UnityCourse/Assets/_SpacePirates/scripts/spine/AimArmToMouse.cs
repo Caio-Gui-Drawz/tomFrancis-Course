@@ -176,7 +176,7 @@ public class AimArmToMouse : MonoBehaviour
 
         if (aimControlBone == null) return;
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(TouchInput.PointerPosition);
         mouseWorldPos.z = 0;
 
         // Unity (mundo) -> espaço do esqueleto.

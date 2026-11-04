@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa51a2cf6ae5646b0cc8761cc5cfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
+  offscreenSlack: 0.02
+  farViewportMargin: 1.5
 --- !u!114 &4655378237017652562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123d0080854fa7443b63e19c62ce78ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthPickupReward
-  healAmount: 5
+  healAmount: 3
 --- !u!114 &4963316054466557508
 MonoBehaviour:
   m_ObjectHideFlags: 0

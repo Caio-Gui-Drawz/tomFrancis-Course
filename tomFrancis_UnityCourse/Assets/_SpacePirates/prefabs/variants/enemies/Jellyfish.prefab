@@ -181,9 +181,17 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1768834766762188566, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768834766762188566, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
-      value: enemy_Jellyfish
+      value: Jellyfish
       objectReference: {fileID: 0}
     - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_LocalScale.x
@@ -255,6 +263,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4522371558789309227}
+    - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1720919594120210852}
   m_SourcePrefab: {fileID: 100100000, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
 --- !u!1 &698582299325842013 stripped
 GameObject:
@@ -268,7 +279,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698582299325842013}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c79a6acc38cb1d4295df20bc587d7f6, type: 3}
   m_Name: 
@@ -291,6 +302,21 @@ MonoBehaviour:
   angleOffset: 180
   turnSpeed: 360
   minSpeed: 0.1
+  ignoreKnockback: 1
+--- !u!114 &1720919594120210852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698582299325842013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b55d44451b51d42b84ce501385c309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AxisMovement
+  direction: 1
+  speed: 30
 --- !u!4 &976550915805596207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
