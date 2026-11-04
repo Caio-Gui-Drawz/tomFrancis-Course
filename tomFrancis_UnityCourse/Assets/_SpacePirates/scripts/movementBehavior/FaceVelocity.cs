@@ -22,13 +22,18 @@ public class FaceVelocity : MonoBehaviour
     [Tooltip("Abaixo dessa velocidade o objeto para de girar (evita tremer quando está quase parado).")]
     public float minSpeed = 0.1f;
 
+    [Tooltip("Ligado = o empurrão (KnockbackReceiver) não altera a rotação: o visual mantém o ângulo que tinha durante o knockback.")]
+    public bool ignoreKnockback = true;
+
     Rigidbody2D body;
+    KnockbackReceiver knockback;
     Vector3 lastPosition;
     bool snapNextFrame;
 
     void OnEnable()
     {
         body = GetComponent<Rigidbody2D>();
+        knockback = GetComponent<KnockbackReceiver>();
         lastPosition = transform.position;
         snapNextFrame = true; // objetos do pool: o primeiro frame já nasce virado pro lado certo
     }
@@ -36,6 +41,12 @@ public class FaceVelocity : MonoBehaviour
     void LateUpdate()
     {
         Transform target = visual != null ? visual : transform;
+
+        if (ignoreKnockback && knockback != null && knockback.IsKnockedBack)
+        {
+            lastPosition = transform.position;
+            return;
+        }
 
         Vector2 velocity = Vector2.zero;
         if (body != null) velocity = body.linearVelocity;

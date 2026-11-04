@@ -22,6 +22,9 @@ public class KnockbackReceiver : MonoBehaviour
     [Tooltip("Ligado = se o corpo estiver com a posição travada (ex.: bonecos parados da cena Gym), destrava só durante o empurrão e trava de novo no fim.")]
     public bool ignoreFrozenConstraints = true;
 
+    // True enquanto o empurrão está rolando (FaceVelocity usa isso pra não girar o visual).
+    public bool IsKnockedBack { get { return active; } }
+
     Rigidbody2D body;
     readonly List<Behaviour> pausedMovements = new List<Behaviour>();
     Vector2 velocity;
