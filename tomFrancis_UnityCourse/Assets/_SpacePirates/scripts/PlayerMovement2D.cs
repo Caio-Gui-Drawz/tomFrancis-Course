@@ -34,6 +34,12 @@ public class PlayerMovement2D : MonoBehaviour
         set { verticalMovementEnabled = value; ApplyMode(); }
     }
 
+    // Velocidade vertical atual, de -1 (descendo na velocidade máxima) a +1 (subindo). Usada pelas animações.
+    public float NormalizedVelocityY
+    {
+        get { return (verticalMovementEnabled && maxSpeed > 0f) ? Mathf.Clamp(currentVelocityY / maxSpeed, -1f, 1f) : 0f; }
+    }
+
     Rigidbody2D body;
     RigidbodyConstraints2D originalConstraints;
     float originalGravityScale;

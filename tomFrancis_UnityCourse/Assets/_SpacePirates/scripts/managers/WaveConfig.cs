@@ -24,6 +24,21 @@ public class LootItem
     [Min(0)] public int count = 1;
 }
 
+// Em qual parte da wave a linha da planilha vale: durante a wave (inimigos e itens que nascem junto) ou na fase de loot.
+public enum MatrixPhase { Wave, Loot }
+
+// Uma célula da planilha de waves (aba "Planilha" da janela de Balance): quantos de um prefab nascem numa wave.
+[Serializable]
+public class WaveMatrixCell
+{
+    public GameObject prefab;
+    [Min(1)] public int wave = 1;
+    public MatrixPhase phase = MatrixPhase.Wave;
+    [Min(0)] public int count = 1;
+    [Tooltip("Só para caixas de arma: força esta arma nas caixas desta célula. Vazio = sorteia da lista da caixa.")]
+    public WeaponData weapon;
+}
+
 // Pausa de loot entre uma wave e outra: sem inimigos, os prêmios sobem e o fundo desacelera.
 // Desligada por padrão — nesse caso o intervalo continua sendo a rodada de bônus antiga.
 [Serializable]
@@ -103,4 +118,16 @@ public class WaveConfig : ScriptableObject
 
     [Header("Fase de loot entre waves")]
     public LootPhaseData lootPhase = new LootPhaseData();
+
+    [Header("Número de waves")]
+    [Tooltip("Ligado = o jogo termina depois de 'Total Waves' waves, em vez de waves infinitas.")]
+    public bool limitWaves = false;
+    [Min(1)] public int totalWaves = 8;
+
+    [Header("Planilha de waves (aba Planilha da janela de Balance)")]
+    [Tooltip("Ligado = quem nasce em cada wave vem da planilha (contagem exata) em vez do orçamento + faixas de peso. Implica waves limitadas ('Total Waves'). Na planilha, a fase de loot roda nas waves que tiverem itens de loot.")]
+    public bool useMatrix = false;
+    public WaveMatrixCell[] matrixCells;
+    [Tooltip("Ordem das colunas na planilha (arraste os cabeçalhos na aba Planilha). Vazio = ordem padrão.")]
+    public GameObject[] matrixColumnOrder;
 }

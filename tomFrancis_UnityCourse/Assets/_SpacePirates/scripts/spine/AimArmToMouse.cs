@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Spine;
 using Spine.Unity;
@@ -31,11 +32,16 @@ public class AimArmToMouse : MonoBehaviour
     [Tooltip("Velocidade com que a mira entra/sai do modo travado (recarga). Maior = mais rápido, menor = mais suave.")]
     public float aimLockBlendSpeed = 12f;
 
+    [Tooltip("Ligado = enquanto mira, o alvo da IK do braço (filho do bone de controle) fica na posição do rig e as animações do CORPO (ex.: FullBody_Idle) não o empurram. Só animações das tracks de cima que mexem nele (tiro, recarga) o movem. Resolve o braço 'dobrado' quando o alvo ficou dentro do bone de controle.")]
+    public bool ignoreBodyAnimationOnArmTarget = true;
+
     float currentReach = -1f;
     float lockedUntilTime;   // Time.time até quando a mira fica travada na pose do rig
     float lockWeight;        // 0 = segue o mouse, 1 = totalmente na pose do rig
 
     Bone aimControlBone;
+    Bone armTargetBone;   // alvo (mão) da IK do braço
+    readonly Dictionary<Spine.Animation, bool> keysTargetCache = new Dictionary<Spine.Animation, bool>();
     IkConstraint armIkConstraint;
     Bone shoulderBone;   // primeiro bone da cadeia da IK do braço: a "origem" da mira
     float armLength;     // soma dos comprimentos dos bones da cadeia
@@ -64,6 +70,7 @@ public class AimArmToMouse : MonoBehaviour
             // Começa desligada: o braço segue a pose da animação (mãos abaixadas), não o mouse.
             // SetAiming(true) é chamado de fora (Player2D) quando entra em modo de combate.
             armIkConstraint.Mix = 0f;
+            armTargetBone = armIkConstraint.Target;
 
             var chain = armIkConstraint.Bones;
             if (chain.Count > 0)
@@ -117,10 +124,56 @@ public class AimArmToMouse : MonoBehaviour
         }
     }
 
+    // O alvo da IK do braço (IK_ARM_R) é filho do bone de controle da mira, mas a animação de corpo
+    // (FullBody_Idle) ainda tem keys de translate nele, vindas de quando ele era a mão do guidão. Isso
+    // empurra a mão ~180 unidades pra longe da mira e o braço fica dobrado. Se nenhuma animação das
+    // tracks de cima (tiro/recarga) mexe nele, devolve o alvo à posição do rig.
+    void ResetArmTargetIfOnlyBodyAnimates()
+    {
+        if (!ignoreBodyAnimationOnArmTarget || armTargetBone == null || armIkConstraint == null) return;
+        if (armIkConstraint.Mix <= 0f) return;
+
+        var tracks = skeletonAnimation.AnimationState.Tracks;
+        for (int i = 1; i < tracks.Count; i++)
+        {
+            for (TrackEntry entry = tracks.Items[i]; entry != null; entry = entry.MixingFrom)
+            {
+                if (entry.Alpha > 0f && AnimationKeysTranslateOfTarget(entry.Animation)) return;
+            }
+        }
+
+        armTargetBone.X = armTargetBone.Data.X;
+        armTargetBone.Y = armTargetBone.Data.Y;
+    }
+
+    bool AnimationKeysTranslateOfTarget(Spine.Animation animation)
+    {
+        if (animation == null) return false;
+        bool keys;
+        if (keysTargetCache.TryGetValue(animation, out keys)) return keys;
+
+        keys = false;
+        var timelines = animation.Timelines;
+        for (int i = 0; i < timelines.Count; i++)
+        {
+            TranslateTimeline translate = timelines.Items[i] as TranslateTimeline;
+            // ScaleTimeline e ShearTimeline herdam de TranslateTimeline: só o translate de verdade interessa.
+            if (translate != null && translate.GetType() == typeof(TranslateTimeline) && translate.BoneIndex == armTargetBone.Data.Index)
+            {
+                keys = true;
+                break;
+            }
+        }
+        keysTargetCache[animation] = keys;
+        return keys;
+    }
+
     // Roda depois das animações serem aplicadas e ANTES da IK resolver — ponto certo pra
     // posicionar o bone de controle sem as animações sobrescreverem (nenhuma anima ele).
     void UpdateAim(ISkeletonAnimation anim)
     {
+        ResetArmTargetIfOnlyBodyAnimates();
+
         if (aimControlBone == null) return;
 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

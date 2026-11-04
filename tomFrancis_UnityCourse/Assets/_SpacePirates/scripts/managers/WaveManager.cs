@@ -40,6 +40,18 @@ public class WaveManager : MonoBehaviour
     float BeforeFirstWaveValue { get { return config != null ? config.secondsBeforeFirstWave : secondsBeforeFirstWave; } }
     float BonusIntervalValue { get { return config != null ? config.secondsBetweenBonusSpawns : secondsBetweenBonusSpawns; } }
 
+    // Modo planilha: contagem exata por wave (Config > Use Matrix).
+    bool MatrixMode { get { return config != null && config.useMatrix; } }
+
+    // 0 = waves infinitas. A planilha implica waves limitadas.
+    int TotalWavesValue
+    {
+        get { return config != null && (config.useMatrix || config.limitWaves) ? Mathf.Max(1, config.totalWaves) : 0; }
+    }
+
+    public int TotalWaves { get { return TotalWavesValue; } }
+    public int CurrentWave { get { return currentWave; } }
+
     class ActiveEntry
     {
         public Spawner spawner;
@@ -53,6 +65,23 @@ public class WaveManager : MonoBehaviour
     bool waveActive;
     bool canRun;
     bool hasStartedFirstWave;
+    bool allWavesDone;
+
+    // Fila de spawns da wave atual no modo planilha (já embaralhada).
+    class QueuedSpawn
+    {
+        public Spawner spawner;
+        public WeaponData weapon;
+    }
+    readonly List<QueuedSpawn> waveQueue = new List<QueuedSpawn>();
+
+    // Um item da fase de loot: o prefab e (opcional) a arma forçada, para caixas de arma da planilha.
+    class DropEntry
+    {
+        public GameObject prefab;
+        public WeaponData weapon;
+        public DropEntry(GameObject prefab, WeaponData weapon = null) { this.prefab = prefab; this.weapon = weapon; }
+    }
 
     readonly List<ActiveEntry> activeRanges = new List<ActiveEntry>();
     readonly List<Spawner> bonusSpawners = new List<Spawner>();
@@ -64,6 +93,10 @@ public class WaveManager : MonoBehaviour
 
     // Avisa quando a wave termina de spawnar (começa o intervalo / fase de loot). Passa o número da wave que acabou.
     public event System.Action<int> OnWaveCompleted;
+
+    // Avisa quando a última wave (e o loot dela) terminou. Só dispara com waves limitadas (Config > Limit Waves ou Use Matrix).
+    public event System.Action OnAllWavesCompleted;
+    public bool AllWavesDone { get { return allWavesDone; } }
 
     // Fase de loot entre waves (só acontece com Config > Loot Phase > Enabled). O número é a wave que ACABOU DE TERMINAR.
     public event System.Action<int> OnLootPhaseStarted;
@@ -108,13 +141,28 @@ public class WaveManager : MonoBehaviour
 
     void StartWave()
     {
-        currentBudget = StartingBudgetValue + (currentWave - 1) * BudgetIncrementValue;
         spawnedThisWave = 0;
         waveActive = true;
         RefreshActiveSpawners();
+        if (MatrixMode)
+        {
+            BuildWaveQueue();
+            currentBudget = waveQueue.Count;
+        }
+        else
+        {
+            currentBudget = StartingBudgetValue + (currentWave - 1) * BudgetIncrementValue;
+        }
         BeginPerformanceTracking();
         OnWaveStarted?.Invoke(currentWave);
         AudioEvents.PlayWaveStarted();
+
+        // Wave sem nada para nascer (planilha vazia nessa linha): termina na hora.
+        if (currentBudget <= 0)
+        {
+            waveActive = false;
+            StartCoroutine(WaitAndStartNextWave());
+        }
     }
 
     // Monta a lista de spawners ativos nesta wave. Com Config, cada faixa aponta para um PREFAB e o
@@ -219,10 +267,21 @@ public class WaveManager : MonoBehaviour
         if (secondsSinceLastSpawn < SpawnIntervalValue) return;
         secondsSinceLastSpawn = 0;
 
-        Spawner chosen = PickWeightedSpawner();
-        if (chosen != null)
+        if (MatrixMode)
         {
-            chosen.SpawnOne();
+            if (spawnedThisWave < waveQueue.Count)
+            {
+                QueuedSpawn queued = waveQueue[spawnedThisWave];
+                ApplyForcedWeapon(queued.spawner.SpawnOne(), queued.weapon);
+            }
+        }
+        else
+        {
+            Spawner chosen = PickWeightedSpawner();
+            if (chosen != null)
+            {
+                chosen.SpawnOne();
+            }
         }
 
         spawnedThisWave++;
@@ -252,7 +311,10 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator WaitAndStartNextWave()
     {
-        if (config != null && config.lootPhase != null && config.lootPhase.enabled)
+        bool isLastWave = TotalWavesValue > 0 && currentWave >= TotalWavesValue;
+        bool lootBranch = config != null && config.lootPhase != null && (MatrixMode || config.lootPhase.enabled);
+
+        if (lootBranch)
         {
             // Primeiro espera os inimigos da wave sumirem; só então avisa "wave concluída" e começa o loot.
             LogLoot("wave " + currentWave + " terminou de spawnar");
@@ -275,13 +337,23 @@ public class WaveManager : MonoBehaviour
             }
 
             OnWaveCompleted?.Invoke(currentWave);
-            yield return LootPhaseRoutine(config.lootPhase);
-            currentWave++;
-            StartWave();
+
+            // Planilha: o loot roda só nas waves que têm itens de loot. Waves limitadas (sem planilha): a última wave não tem loot.
+            bool runLoot = MatrixMode ? HasMatrixLoot(currentWave) : !isLastWave;
+            if (runLoot) yield return LootPhaseRoutine(config.lootPhase);
+            else if (!isLastWave) yield return new WaitForSeconds(Mathf.Max(0f, BetweenWavesValue));
+
+            AdvanceOrFinish();
             yield break;
         }
 
         OnWaveCompleted?.Invoke(currentWave);
+        if (isLastWave)
+        {
+            FinishAllWaves();
+            yield break;
+        }
+
         float step = Mathf.Max(0.01f, BonusIntervalValue);
         float elapsed = 0f;
         while (elapsed < BetweenWavesValue)
@@ -296,17 +368,104 @@ public class WaveManager : MonoBehaviour
             elapsed += step;
         }
 
+        AdvanceOrFinish();
+    }
+
+    // Passa para a próxima wave, ou termina tudo se a última acabou de acontecer (waves limitadas).
+    void AdvanceOrFinish()
+    {
+        if (TotalWavesValue > 0 && currentWave >= TotalWavesValue)
+        {
+            FinishAllWaves();
+            return;
+        }
+
         currentWave++;
         StartWave();
     }
 
+    void FinishAllWaves()
+    {
+        if (allWavesDone) return;
+        allWavesDone = true;
+        waveActive = false;
+        OnAllWavesCompleted?.Invoke();
+    }
+
+    // ---------- Planilha de waves ----------
+
+    static void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            T tmp = list[i];
+            list[i] = list[j];
+            list[j] = tmp;
+        }
+    }
+
+    // Monta a fila (embaralhada) do que nasce durante a wave atual: inimigos e itens da linha "Wave N" da planilha.
+    void BuildWaveQueue()
+    {
+        waveQueue.Clear();
+        if (config == null || config.matrixCells == null) return;
+
+        foreach (WaveMatrixCell cell in config.matrixCells)
+        {
+            if (cell == null || cell.prefab == null || cell.phase != MatrixPhase.Wave) continue;
+            if (cell.wave != currentWave || cell.count <= 0) continue;
+
+            Spawner spawner = FindSpawner(cell.prefab);
+            if (spawner == null) continue;
+
+            for (int i = 0; i < cell.count; i++)
+            {
+                QueuedSpawn queued = new QueuedSpawn();
+                queued.spawner = spawner;
+                queued.weapon = cell.weapon;
+                waveQueue.Add(queued);
+            }
+        }
+
+        Shuffle(waveQueue);
+    }
+
+    bool HasMatrixLoot(int wave)
+    {
+        if (config == null || config.matrixCells == null) return false;
+        foreach (WaveMatrixCell cell in config.matrixCells)
+        {
+            if (cell != null && cell.prefab != null && cell.phase == MatrixPhase.Loot && cell.wave == wave && cell.count > 0) return true;
+        }
+        return false;
+    }
+
+    void AddMatrixLootDrops(List<DropEntry> drops, int wave)
+    {
+        if (config == null || config.matrixCells == null) return;
+        foreach (WaveMatrixCell cell in config.matrixCells)
+        {
+            if (cell == null || cell.prefab == null || cell.phase != MatrixPhase.Loot) continue;
+            if (cell.wave != wave || cell.count <= 0) continue;
+            for (int i = 0; i < cell.count; i++) drops.Add(new DropEntry(cell.prefab, cell.weapon));
+        }
+    }
+
+    // Caixa de arma que nasce com arma definida na planilha. Sempre repõe (null = sorteio), porque o objeto vem do pool.
+    static void ApplyForcedWeapon(GameObject spawned, WeaponData weapon)
+    {
+        if (spawned == null) return;
+        WeaponPickupReward box = spawned.GetComponent<WeaponPickupReward>();
+        if (box != null) box.forcedWeapon = weapon;
+    }
 
     // ---------- Fase de loot ----------
 
     IEnumerator LootPhaseRoutine(LootPhaseData loot)
     {
         int finishedWave = currentWave;
-        List<GameObject> drops = BuildLootDrops(loot, finishedWave);
+        List<DropEntry> drops = BuildLootDrops(loot, finishedWave);
         List<GameObject> spawned = new List<GameObject>();
 
         InLootPhase = true;
@@ -324,7 +483,7 @@ public class WaveManager : MonoBehaviour
 
         for (int d = 0; d < drops.Count; d++)
         {
-            Spawner spawner = FindSpawner(drops[d]);
+            Spawner spawner = FindSpawner(drops[d].prefab);
             if (spawner != null)
             {
                 GameObject item = spawner.SpawnOne(lastPoint);
@@ -332,6 +491,7 @@ public class WaveManager : MonoBehaviour
                 {
                     lastPoint = spawner.LastSpawnPoint;
                     SlowLootItem(item, loot.itemSpeedMultiplier);
+                    ApplyForcedWeapon(item, drops[d].weapon);
                     spawned.Add(item);
                 }
             }
@@ -502,9 +662,17 @@ public class WaveManager : MonoBehaviour
     }
 
     // Monta a lista (embaralhada) do que nasce nesta fase: cura, arma especial e recompensa por desempenho.
-    List<GameObject> BuildLootDrops(LootPhaseData loot, int finishedWave)
+    List<DropEntry> BuildLootDrops(LootPhaseData loot, int finishedWave)
     {
-        List<GameObject> drops = new List<GameObject>();
+        List<DropEntry> drops = new List<DropEntry>();
+
+        // Planilha: o que nasce no loot é exatamente o que está na linha "Loot N" (sem regras de cura/arma/desempenho).
+        if (MatrixMode)
+        {
+            AddMatrixLootDrops(drops, finishedWave);
+            Shuffle(drops);
+            return drops;
+        }
 
         // Cura: sempre os itens fixos + extras se a vida está baixa.
         AddLootItems(drops, loot.healItems, 1f);
@@ -512,7 +680,7 @@ public class WaveManager : MonoBehaviour
         if (healthFraction < loot.lowHealthThreshold && loot.extraHealsWhenLow > 0)
         {
             GameObject medkit = FirstPrefab(loot.healItems);
-            for (int i = 0; i < loot.extraHealsWhenLow; i++) if (medkit != null) drops.Add(medkit);
+            for (int i = 0; i < loot.extraHealsWhenLow; i++) if (medkit != null) drops.Add(new DropEntry(medkit));
         }
 
         // Arma especial: na primeira wave configurada e depois a cada N waves.
@@ -529,29 +697,23 @@ public class WaveManager : MonoBehaviour
         if (damageTakenThisWave <= 0.01f && loot.flawlessBonusCount > 0)
         {
             GameObject reward = FirstPrefab(loot.performanceItems);
-            for (int i = 0; i < loot.flawlessBonusCount; i++) if (reward != null) drops.Add(reward);
+            for (int i = 0; i < loot.flawlessBonusCount; i++) if (reward != null) drops.Add(new DropEntry(reward));
         }
 
         // Embaralha para os tipos não saírem em bloco.
-        for (int i = drops.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            GameObject tmp = drops[i];
-            drops[i] = drops[j];
-            drops[j] = tmp;
-        }
+        Shuffle(drops);
 
         return drops;
     }
 
-    static void AddLootItems(List<GameObject> drops, LootItem[] items, float multiplier)
+    static void AddLootItems(List<DropEntry> drops, LootItem[] items, float multiplier)
     {
         if (items == null) return;
         foreach (LootItem item in items)
         {
             if (item == null || item.prefab == null) continue;
             int amount = Mathf.RoundToInt(item.count * multiplier);
-            for (int i = 0; i < amount; i++) drops.Add(item.prefab);
+            for (int i = 0; i < amount; i++) drops.Add(new DropEntry(item.prefab));
         }
     }
 

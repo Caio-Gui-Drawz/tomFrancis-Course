@@ -1,0 +1,1987 @@
+{
+    "name": "BalanceamentoV01",
+    "savedAt": "2026-11-03 22:30",
+    "entries": [
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#startingBudget",
+            "path": "startingBudget",
+            "kind": "i",
+            "value": "20",
+            "label": "Waves (WaveConfig) · Starting Budget"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#budgetIncrementPerWave",
+            "path": "budgetIncrementPerWave",
+            "kind": "i",
+            "value": "5",
+            "label": "Waves (WaveConfig) · Budget Increment Per Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#secondsBetweenSpawnsInWave",
+            "path": "secondsBetweenSpawnsInWave",
+            "kind": "f",
+            "value": "1.5",
+            "label": "Waves (WaveConfig) · Seconds Between Spawns In Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#secondsBetweenWaves",
+            "path": "secondsBetweenWaves",
+            "kind": "f",
+            "value": "2",
+            "label": "Waves (WaveConfig) · Seconds Between Waves"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#secondsBeforeFirstWave",
+            "path": "secondsBeforeFirstWave",
+            "kind": "f",
+            "value": "3",
+            "label": "Waves (WaveConfig) · Seconds Before First Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#secondsBetweenBonusSpawns",
+            "path": "secondsBetweenBonusSpawns",
+            "kind": "f",
+            "value": "0",
+            "label": "Waves (WaveConfig) · Seconds Between Bonus Spawns"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.enabled",
+            "path": "lootPhase.enabled",
+            "kind": "b",
+            "value": "1",
+            "label": "Waves (WaveConfig) · Enabled"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.durationSeconds",
+            "path": "lootPhase.durationSeconds",
+            "kind": "f",
+            "value": "15",
+            "label": "Waves (WaveConfig) · Duration Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.dropWindowFraction",
+            "path": "lootPhase.dropWindowFraction",
+            "kind": "f",
+            "value": "0.7",
+            "label": "Waves (WaveConfig) · Drop Window Fraction"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.endWhenAllCollected",
+            "path": "lootPhase.endWhenAllCollected",
+            "kind": "b",
+            "value": "1",
+            "label": "Waves (WaveConfig) · End When All Collected"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.minSecondsBetweenDrops",
+            "path": "lootPhase.minSecondsBetweenDrops",
+            "kind": "f",
+            "value": "0.7",
+            "label": "Waves (WaveConfig) · Min Seconds Between Drops"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.safetyTimeoutSeconds",
+            "path": "lootPhase.safetyTimeoutSeconds",
+            "kind": "f",
+            "value": "15",
+            "label": "Waves (WaveConfig) · Safety Timeout Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.waitForEnemiesToClear",
+            "path": "lootPhase.waitForEnemiesToClear",
+            "kind": "b",
+            "value": "1",
+            "label": "Waves (WaveConfig) · Wait For Enemies To Clear"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.clearEnemiesTimeoutSeconds",
+            "path": "lootPhase.clearEnemiesTimeoutSeconds",
+            "kind": "f",
+            "value": "10",
+            "label": "Waves (WaveConfig) · Clear Enemies Timeout Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.minSecondsBeforeEarlyEnd",
+            "path": "lootPhase.minSecondsBeforeEarlyEnd",
+            "kind": "f",
+            "value": "4",
+            "label": "Waves (WaveConfig) · Min Seconds Before Early End"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.itemSpeedMultiplier",
+            "path": "lootPhase.itemSpeedMultiplier",
+            "kind": "f",
+            "value": "0.5",
+            "label": "Waves (WaveConfig) · Item Speed Multiplier"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.lowHealthThreshold",
+            "path": "lootPhase.lowHealthThreshold",
+            "kind": "f",
+            "value": "1",
+            "label": "Waves (WaveConfig) · Low Health Threshold"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.extraHealsWhenLow",
+            "path": "lootPhase.extraHealsWhenLow",
+            "kind": "i",
+            "value": "2",
+            "label": "Waves (WaveConfig) · Extra Heals When Low"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.weaponFirstWave",
+            "path": "lootPhase.weaponFirstWave",
+            "kind": "i",
+            "value": "3",
+            "label": "Waves (WaveConfig) · Weapon First Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.weaponEveryNWaves",
+            "path": "lootPhase.weaponEveryNWaves",
+            "kind": "i",
+            "value": "1",
+            "label": "Waves (WaveConfig) · Weapon Every N Waves"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.flawlessBonusCount",
+            "path": "lootPhase.flawlessBonusCount",
+            "kind": "i",
+            "value": "3",
+            "label": "Waves (WaveConfig) · Flawless Bonus Count"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.healItems.Array.data[0].count",
+            "path": "lootPhase.healItems.Array.data[0].count",
+            "kind": "i",
+            "value": "1",
+            "label": "Loot cura 0 (medkitProp) · Count"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.weaponItems.Array.data[0].count",
+            "path": "lootPhase.weaponItems.Array.data[0].count",
+            "kind": "i",
+            "value": "1",
+            "label": "Loot arma 0 (weaponProp) · Count"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.performanceItems.Array.data[0].count",
+            "path": "lootPhase.performanceItems.Array.data[0].count",
+            "kind": "i",
+            "value": "5",
+            "label": "Loot desempenho 0 (treasure01) · Count"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#lootPhase.performanceItems.Array.data[1].count",
+            "path": "lootPhase.performanceItems.Array.data[1].count",
+            "kind": "i",
+            "value": "3",
+            "label": "Loot desempenho 1 (treasure02) · Count"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[0].startWave",
+            "path": "ranges.Array.data[0].startWave",
+            "kind": "i",
+            "value": "1",
+            "label": "Faixa 0 (Fish) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[0].endWave",
+            "path": "ranges.Array.data[0].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 0 (Fish) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[0].weight",
+            "path": "ranges.Array.data[0].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 0 (Fish) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[1].startWave",
+            "path": "ranges.Array.data[1].startWave",
+            "kind": "i",
+            "value": "3",
+            "label": "Faixa 1 (SwordFish) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[1].endWave",
+            "path": "ranges.Array.data[1].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 1 (SwordFish) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[1].weight",
+            "path": "ranges.Array.data[1].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 1 (SwordFish) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[2].startWave",
+            "path": "ranges.Array.data[2].startWave",
+            "kind": "i",
+            "value": "4",
+            "label": "Faixa 2 (Jamanta) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[2].endWave",
+            "path": "ranges.Array.data[2].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 2 (Jamanta) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[2].weight",
+            "path": "ranges.Array.data[2].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 2 (Jamanta) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[3].startWave",
+            "path": "ranges.Array.data[3].startWave",
+            "kind": "i",
+            "value": "2",
+            "label": "Faixa 3 (Jellyfish) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[3].endWave",
+            "path": "ranges.Array.data[3].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 3 (Jellyfish) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[3].weight",
+            "path": "ranges.Array.data[3].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 3 (Jellyfish) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[4].startWave",
+            "path": "ranges.Array.data[4].startWave",
+            "kind": "i",
+            "value": "5",
+            "label": "Faixa 4 (Mine) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[4].endWave",
+            "path": "ranges.Array.data[4].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 4 (Mine) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[4].weight",
+            "path": "ranges.Array.data[4].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 4 (Mine) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[5].startWave",
+            "path": "ranges.Array.data[5].startWave",
+            "kind": "i",
+            "value": "2",
+            "label": "Faixa 5 (weaponProp) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[5].endWave",
+            "path": "ranges.Array.data[5].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 5 (weaponProp) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[5].weight",
+            "path": "ranges.Array.data[5].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 5 (weaponProp) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[6].startWave",
+            "path": "ranges.Array.data[6].startWave",
+            "kind": "i",
+            "value": "1",
+            "label": "Faixa 6 (treasure01) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[6].endWave",
+            "path": "ranges.Array.data[6].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 6 (treasure01) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[6].weight",
+            "path": "ranges.Array.data[6].weight",
+            "kind": "f",
+            "value": "1",
+            "label": "Faixa 6 (treasure01) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[7].startWave",
+            "path": "ranges.Array.data[7].startWave",
+            "kind": "i",
+            "value": "5",
+            "label": "Faixa 7 (treasure02) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[7].endWave",
+            "path": "ranges.Array.data[7].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 7 (treasure02) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[7].weight",
+            "path": "ranges.Array.data[7].weight",
+            "kind": "f",
+            "value": "0.5",
+            "label": "Faixa 7 (treasure02) · Weight"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[8].startWave",
+            "path": "ranges.Array.data[8].startWave",
+            "kind": "i",
+            "value": "8",
+            "label": "Faixa 8 (treasure03) · Start Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[8].endWave",
+            "path": "ranges.Array.data[8].endWave",
+            "kind": "i",
+            "value": "15",
+            "label": "Faixa 8 (treasure03) · End Wave"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/WaveConfig.asset|WaveConfig#ranges.Array.data[8].weight",
+            "path": "ranges.Array.data[8].weight",
+            "kind": "f",
+            "value": "0.5",
+            "label": "Faixa 8 (treasure03) · Weight"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/en01Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner en01Spawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/treasure03Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner treasure03Spawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/en04JellyFishSpawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner en04JellyFishSpawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/en05Mine|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "1;1",
+            "label": "Spawner en05Mine · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/en03Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner en03Spawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/en02Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner en02Spawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/treasure02Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner treasure02Spawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/weaponBoxSpawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner weaponBoxSpawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/medkitSpawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "3;0",
+            "label": "Spawner medkitSpawner · Offset Range"
+        },
+        {
+            "key": "scene|gameManager/waveManager/spawners/treasure01Spawner|Spawner#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Spawner treasure01Spawner · Offset Range"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#fireRate",
+            "path": "fireRate",
+            "kind": "f",
+            "value": "0",
+            "label": "Arma assaultWeapon · Fire Rate"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#numberOfProjectiles",
+            "path": "numberOfProjectiles",
+            "kind": "i",
+            "value": "1",
+            "label": "Arma assaultWeapon · Number Of Projectiles"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#spreadAngleDegrees",
+            "path": "spreadAngleDegrees",
+            "kind": "f",
+            "value": "3",
+            "label": "Arma assaultWeapon · Spread Angle Degrees"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#limitMode",
+            "path": "limitMode",
+            "kind": "e",
+            "value": "1",
+            "label": "Arma assaultWeapon · Limit Mode"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#durationSeconds",
+            "path": "durationSeconds",
+            "kind": "f",
+            "value": "10",
+            "label": "Arma assaultWeapon · Duration Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/assaultWeapon.asset|WeaponData#ammo",
+            "path": "ammo",
+            "kind": "i",
+            "value": "30",
+            "label": "Arma assaultWeapon · Ammo"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/assaultBullet.prefab||bullet2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1.3",
+            "label": "Bala assaultBullet · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/assaultBullet.prefab||bullet2D#bulletSpeed",
+            "path": "bulletSpeed",
+            "kind": "f",
+            "value": "100",
+            "label": "Bala assaultBullet · Bullet Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/assaultBullet.prefab||bullet2D#secondsUntilDestroy",
+            "path": "secondsUntilDestroy",
+            "kind": "f",
+            "value": "5",
+            "label": "Bala assaultBullet · Seconds Until Destroy"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/assaultBullet.prefab||bullet2D#knockbackForce",
+            "path": "knockbackForce",
+            "kind": "f",
+            "value": "6",
+            "label": "Bala assaultBullet · Knockback Force"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/assaultBullet.prefab||bullet2D#knockbackDuration",
+            "path": "knockbackDuration",
+            "kind": "f",
+            "value": "0.2",
+            "label": "Bala assaultBullet · Knockback Duration"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#fireRate",
+            "path": "fireRate",
+            "kind": "f",
+            "value": "0",
+            "label": "Arma pistolWeapon · Fire Rate"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#numberOfProjectiles",
+            "path": "numberOfProjectiles",
+            "kind": "i",
+            "value": "1",
+            "label": "Arma pistolWeapon · Number Of Projectiles"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#spreadAngleDegrees",
+            "path": "spreadAngleDegrees",
+            "kind": "f",
+            "value": "1",
+            "label": "Arma pistolWeapon · Spread Angle Degrees"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#limitMode",
+            "path": "limitMode",
+            "kind": "e",
+            "value": "0",
+            "label": "Arma pistolWeapon · Limit Mode"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#durationSeconds",
+            "path": "durationSeconds",
+            "kind": "f",
+            "value": "10",
+            "label": "Arma pistolWeapon · Duration Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/pistolWeapon.asset|WeaponData#ammo",
+            "path": "ammo",
+            "kind": "i",
+            "value": "30",
+            "label": "Arma pistolWeapon · Ammo"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/pistolBullet.prefab||bullet2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "Bala pistolBullet · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/pistolBullet.prefab||bullet2D#bulletSpeed",
+            "path": "bulletSpeed",
+            "kind": "f",
+            "value": "100",
+            "label": "Bala pistolBullet · Bullet Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/pistolBullet.prefab||bullet2D#secondsUntilDestroy",
+            "path": "secondsUntilDestroy",
+            "kind": "f",
+            "value": "5",
+            "label": "Bala pistolBullet · Seconds Until Destroy"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/pistolBullet.prefab||bullet2D#knockbackForce",
+            "path": "knockbackForce",
+            "kind": "f",
+            "value": "6",
+            "label": "Bala pistolBullet · Knockback Force"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/pistolBullet.prefab||bullet2D#knockbackDuration",
+            "path": "knockbackDuration",
+            "kind": "f",
+            "value": "0.2",
+            "label": "Bala pistolBullet · Knockback Duration"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#fireRate",
+            "path": "fireRate",
+            "kind": "f",
+            "value": "1.5",
+            "label": "Arma shotgunWeapon · Fire Rate"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#numberOfProjectiles",
+            "path": "numberOfProjectiles",
+            "kind": "i",
+            "value": "7",
+            "label": "Arma shotgunWeapon · Number Of Projectiles"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#spreadAngleDegrees",
+            "path": "spreadAngleDegrees",
+            "kind": "f",
+            "value": "18",
+            "label": "Arma shotgunWeapon · Spread Angle Degrees"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#limitMode",
+            "path": "limitMode",
+            "kind": "e",
+            "value": "2",
+            "label": "Arma shotgunWeapon · Limit Mode"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#durationSeconds",
+            "path": "durationSeconds",
+            "kind": "f",
+            "value": "10",
+            "label": "Arma shotgunWeapon · Duration Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/shotgunWeapon.asset|WeaponData#ammo",
+            "path": "ammo",
+            "kind": "i",
+            "value": "5",
+            "label": "Arma shotgunWeapon · Ammo"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/shotgunBullet.prefab||bullet2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "0.5",
+            "label": "Bala shotgunBullet · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/shotgunBullet.prefab||bullet2D#bulletSpeed",
+            "path": "bulletSpeed",
+            "kind": "f",
+            "value": "100",
+            "label": "Bala shotgunBullet · Bullet Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/shotgunBullet.prefab||bullet2D#secondsUntilDestroy",
+            "path": "secondsUntilDestroy",
+            "kind": "f",
+            "value": "5",
+            "label": "Bala shotgunBullet · Seconds Until Destroy"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/shotgunBullet.prefab||bullet2D#knockbackForce",
+            "path": "knockbackForce",
+            "kind": "f",
+            "value": "6",
+            "label": "Bala shotgunBullet · Knockback Force"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/shotgunBullet.prefab||bullet2D#knockbackDuration",
+            "path": "knockbackDuration",
+            "kind": "f",
+            "value": "0.2",
+            "label": "Bala shotgunBullet · Knockback Duration"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#fireRate",
+            "path": "fireRate",
+            "kind": "f",
+            "value": "0.1",
+            "label": "Arma smgWeapon · Fire Rate"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#numberOfProjectiles",
+            "path": "numberOfProjectiles",
+            "kind": "i",
+            "value": "1",
+            "label": "Arma smgWeapon · Number Of Projectiles"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#spreadAngleDegrees",
+            "path": "spreadAngleDegrees",
+            "kind": "f",
+            "value": "5",
+            "label": "Arma smgWeapon · Spread Angle Degrees"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#limitMode",
+            "path": "limitMode",
+            "kind": "e",
+            "value": "1",
+            "label": "Arma smgWeapon · Limit Mode"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#durationSeconds",
+            "path": "durationSeconds",
+            "kind": "f",
+            "value": "5",
+            "label": "Arma smgWeapon · Duration Seconds"
+        },
+        {
+            "key": "Assets/_SpacePirates/SOs/weapons/smgWeapon.asset|WeaponData#ammo",
+            "path": "ammo",
+            "kind": "i",
+            "value": "30",
+            "label": "Arma smgWeapon · Ammo"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/smgBullet.prefab||bullet2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "0.4",
+            "label": "Bala smgBullet · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/smgBullet.prefab||bullet2D#bulletSpeed",
+            "path": "bulletSpeed",
+            "kind": "f",
+            "value": "150",
+            "label": "Bala smgBullet · Bullet Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/smgBullet.prefab||bullet2D#secondsUntilDestroy",
+            "path": "secondsUntilDestroy",
+            "kind": "f",
+            "value": "5",
+            "label": "Bala smgBullet · Seconds Until Destroy"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/smgBullet.prefab||bullet2D#knockbackForce",
+            "path": "knockbackForce",
+            "kind": "f",
+            "value": "6",
+            "label": "Bala smgBullet · Knockback Force"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/bullets/smgBullet.prefab||bullet2D#knockbackDuration",
+            "path": "knockbackDuration",
+            "kind": "f",
+            "value": "0.2",
+            "label": "Bala smgBullet · Knockback Duration"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/enemy.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "1",
+            "label": "enemy · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/enemy.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "enemy · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/enemy.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "enemy · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Fish.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "1",
+            "label": "Fish · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Fish.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "Fish · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Fish.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "Fish · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Fish.prefab||ChasePlayerMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "8",
+            "label": "Fish (ChasePlayerMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Fish.prefab||ChasePlayerMovement#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "-1;1",
+            "label": "Fish (ChasePlayerMovement) · Offset Range"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jamanta.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "5",
+            "label": "Jamanta · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jamanta.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "3",
+            "label": "Jamanta · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jamanta.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "Jamanta · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jamanta.prefab||ChasePlayerMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "3",
+            "label": "Jamanta (ChasePlayerMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jamanta.prefab||ChasePlayerMovement#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "-1;1",
+            "label": "Jamanta (ChasePlayerMovement) · Offset Range"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jellyfish.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "Jellyfish · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jellyfish.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "Jellyfish · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jellyfish.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "Jellyfish · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jellyfish.prefab||ChasePlayerMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "8",
+            "label": "Jellyfish (ChasePlayerMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Jellyfish.prefab||ChasePlayerMovement#offsetRange",
+            "path": "offsetRange",
+            "kind": "v2",
+            "value": "0;0",
+            "label": "Jellyfish (ChasePlayerMovement) · Offset Range"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "3",
+            "label": "Mine · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "Mine · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "Mine · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/2dExplosion.prefab||ExplosionDamage2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "2",
+            "label": "Explosão de Mine · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/2dExplosion.prefab||ExplosionDamage2D#radius",
+            "path": "radius",
+            "kind": "f",
+            "value": "10",
+            "label": "Explosão de Mine · Radius"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/2dExplosion.prefab||ExplosionDamage2D#knockbackForce",
+            "path": "knockbackForce",
+            "kind": "f",
+            "value": "100",
+            "label": "Explosão de Mine · Knockback Force"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/2dExplosion.prefab||ExplosionDamage2D#knockbackDuration",
+            "path": "knockbackDuration",
+            "kind": "f",
+            "value": "0.4",
+            "label": "Explosão de Mine · Knockback Duration"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "6",
+            "label": "Mine (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1",
+            "label": "Mine (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/Mine.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1.5",
+            "label": "Mine (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "1",
+            "label": "SwordFish · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||enemy2D#damage",
+            "path": "damage",
+            "kind": "f",
+            "value": "1",
+            "label": "SwordFish · Damage"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||KnockbackReceiver#resistance",
+            "path": "resistance",
+            "kind": "f",
+            "value": "0",
+            "label": "SwordFish · Resistance"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#arcMode",
+            "path": "arcMode",
+            "kind": "e",
+            "value": "1",
+            "label": "SwordFish (LobAtPlayerMovement) · Arc Mode"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#flightTime",
+            "path": "flightTime",
+            "kind": "f",
+            "value": "1",
+            "label": "SwordFish (LobAtPlayerMovement) · Flight Time"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#apexHeight",
+            "path": "apexHeight",
+            "kind": "f",
+            "value": "20",
+            "label": "SwordFish (LobAtPlayerMovement) · Apex Height"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#aimRadius",
+            "path": "aimRadius",
+            "kind": "f",
+            "value": "7",
+            "label": "SwordFish (LobAtPlayerMovement) · Aim Radius"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#fallbackDirection",
+            "path": "fallbackDirection",
+            "kind": "v2",
+            "value": "-12.22;10.01",
+            "label": "SwordFish (LobAtPlayerMovement) · Fallback Direction"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#useSpeedCurve",
+            "path": "useSpeedCurve",
+            "kind": "b",
+            "value": "1",
+            "label": "SwordFish (LobAtPlayerMovement) · Use Speed Curve"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/enemies/SwordFish.prefab||LobAtPlayerMovement#minSpeedMultiplier",
+            "path": "minSpeedMultiplier",
+            "kind": "f",
+            "value": "0.5",
+            "label": "SwordFish (LobAtPlayerMovement) · Min Speed Multiplier"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/treasure.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "1",
+            "label": "treasure · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/treasure.prefab||TreasureReward#scoreValue",
+            "path": "scoreValue",
+            "kind": "i",
+            "value": "10",
+            "label": "treasure · Score Value"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure01.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "1",
+            "label": "treasure01 · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure01.prefab||TreasureReward#scoreValue",
+            "path": "scoreValue",
+            "kind": "i",
+            "value": "10",
+            "label": "treasure01 · Score Value"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure01.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "5",
+            "label": "treasure01 (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure01.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1.3",
+            "label": "treasure01 (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure01.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1",
+            "label": "treasure01 (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure02.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "3",
+            "label": "treasure02 · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure02.prefab||TreasureReward#scoreValue",
+            "path": "scoreValue",
+            "kind": "i",
+            "value": "30",
+            "label": "treasure02 · Score Value"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure02.prefab||AxisMovement#direction",
+            "path": "direction",
+            "kind": "e",
+            "value": "3",
+            "label": "treasure02 (AxisMovement) · Direction"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure02.prefab||AxisMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "5",
+            "label": "treasure02 (AxisMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure03.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "5",
+            "label": "treasure03 · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure03.prefab||TreasureReward#scoreValue",
+            "path": "scoreValue",
+            "kind": "i",
+            "value": "50",
+            "label": "treasure03 · Score Value"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure03.prefab||AxisMovement#direction",
+            "path": "direction",
+            "kind": "e",
+            "value": "0",
+            "label": "treasure03 (AxisMovement) · Direction"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/treasures/treasure03.prefab||AxisMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "5",
+            "label": "treasure03 (AxisMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "medkitProp · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||HealthPickupReward#healAmount",
+            "path": "healAmount",
+            "kind": "f",
+            "value": "5",
+            "label": "medkitProp · Heal Amount"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||WeaponPickupReward#avoidCurrentWeapon",
+            "path": "avoidCurrentWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "medkitProp · Avoid Current Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||WeaponPickupReward#avoidLastBoxWeapon",
+            "path": "avoidLastBoxWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "medkitProp · Avoid Last Box Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||AxisMovement#direction",
+            "path": "direction",
+            "kind": "e",
+            "value": "2",
+            "label": "medkitProp (AxisMovement) · Direction"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/medkitProp.prefab||AxisMovement#speed",
+            "path": "speed",
+            "kind": "f",
+            "value": "10",
+            "label": "medkitProp (AxisMovement) · Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "assaultWeaponProp · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||WeaponPickupReward#avoidCurrentWeapon",
+            "path": "avoidCurrentWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "assaultWeaponProp · Avoid Current Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||WeaponPickupReward#avoidLastBoxWeapon",
+            "path": "avoidLastBoxWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "assaultWeaponProp · Avoid Last Box Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "-6",
+            "label": "assaultWeaponProp (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1.5",
+            "label": "assaultWeaponProp (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/assaultWeaponProp.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1.5",
+            "label": "assaultWeaponProp (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "shotgunWeaponProp · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||WeaponPickupReward#avoidCurrentWeapon",
+            "path": "avoidCurrentWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "shotgunWeaponProp · Avoid Current Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||WeaponPickupReward#avoidLastBoxWeapon",
+            "path": "avoidLastBoxWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "shotgunWeaponProp · Avoid Last Box Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "-6",
+            "label": "shotgunWeaponProp (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1.5",
+            "label": "shotgunWeaponProp (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/shotgunWeaponProp.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1.5",
+            "label": "shotgunWeaponProp (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "smgWeaponProp · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||WeaponPickupReward#avoidCurrentWeapon",
+            "path": "avoidCurrentWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "smgWeaponProp · Avoid Current Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||WeaponPickupReward#avoidLastBoxWeapon",
+            "path": "avoidLastBoxWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "smgWeaponProp · Avoid Last Box Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "-6",
+            "label": "smgWeaponProp (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1.5",
+            "label": "smgWeaponProp (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/variants/weaponProps/smgWeaponProp.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1.5",
+            "label": "smgWeaponProp (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "2",
+            "label": "weaponProp · Max Health"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||WeaponPickupReward#avoidCurrentWeapon",
+            "path": "avoidCurrentWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "weaponProp · Avoid Current Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||WeaponPickupReward#avoidLastBoxWeapon",
+            "path": "avoidLastBoxWeapon",
+            "kind": "b",
+            "value": "1",
+            "label": "weaponProp · Avoid Last Box Weapon"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||SineMovement#forwardSpeed",
+            "path": "forwardSpeed",
+            "kind": "f",
+            "value": "-6",
+            "label": "weaponProp (SineMovement) · Forward Speed"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||SineMovement#amplitude",
+            "path": "amplitude",
+            "kind": "f",
+            "value": "1.5",
+            "label": "weaponProp (SineMovement) · Amplitude"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/weaponProp.prefab||SineMovement#frequency",
+            "path": "frequency",
+            "kind": "f",
+            "value": "1.5",
+            "label": "weaponProp (SineMovement) · Frequency"
+        },
+        {
+            "key": "Assets/_SpacePirates/prefabs/player2D.prefab||healthSystem#maxHealth",
+            "path": "maxHealth",
+            "kind": "f",
+            "value": "10",
+            "label": "Player · Max Health"
+        }
+    ],
+    "waves": [
+        {
+            "wave": 1,
+            "killPressure": 0.00185185216832906,
+            "expectedDamage": 0.5,
+            "expectedHeal": 4.25,
+            "hpEnd": 9.5,
+            "enemyHp": 5.0,
+            "totalSeconds": 29.9999942779541
+        },
+        {
+            "wave": 2,
+            "killPressure": 0.0033725793473422529,
+            "expectedDamage": 0.9000000357627869,
+            "expectedHeal": 4.25,
+            "hpEnd": 9.100000381469727,
+            "enemyHp": 11.0,
+            "totalSeconds": 41.9999885559082
+        },
+        {
+            "wave": 3,
+            "killPressure": 0.004308423027396202,
+            "expectedDamage": 1.0,
+            "expectedHeal": 8.5,
+            "hpEnd": 9.0,
+            "enemyHp": 14.0,
+            "totalSeconds": 44.9999885559082
+        },
+        {
+            "wave": 4,
+            "killPressure": 0.004243828356266022,
+            "expectedDamage": 2.299999952316284,
+            "expectedHeal": 8.5,
+            "hpEnd": 7.699999809265137,
+            "enemyHp": 22.0,
+            "totalSeconds": 53.99998474121094
+        },
+        {
+            "wave": 5,
+            "killPressure": 0.008395930752158165,
+            "expectedDamage": 3.0999999046325685,
+            "expectedHeal": 4.25,
+            "hpEnd": 6.900000095367432,
+            "enemyHp": 28.0,
+            "totalSeconds": 41.9999885559082
+        },
+        {
+            "wave": 6,
+            "killPressure": 0.00871304702013731,
+            "expectedDamage": 3.5,
+            "expectedHeal": 4.25,
+            "hpEnd": 6.5,
+            "enemyHp": 33.0,
+            "totalSeconds": 49.49998474121094
+        },
+        {
+            "wave": 7,
+            "killPressure": 0.010285953059792519,
+            "expectedDamage": 4.699999809265137,
+            "expectedHeal": 4.25,
+            "hpEnd": 5.300000190734863,
+            "enemyHp": 45.0,
+            "totalSeconds": 58.49998092651367
+        },
+        {
+            "wave": 8,
+            "killPressure": 0.011486438103020192,
+            "expectedDamage": 5.900000095367432,
+            "expectedHeal": 4.25,
+            "hpEnd": 3.6500000953674318,
+            "enemyHp": 57.0,
+            "totalSeconds": 67.49998474121094
+        },
+        {
+            "wave": 9,
+            "killPressure": 0.012819684110581875,
+            "expectedDamage": 7.400000095367432,
+            "expectedHeal": 8.5,
+            "hpEnd": 2.5999999046325685,
+            "enemyHp": 74.0,
+            "totalSeconds": 76.4999771118164
+        },
+        {
+            "wave": 10,
+            "killPressure": 0.017112726345658304,
+            "expectedDamage": 8.699999809265137,
+            "expectedHeal": 0.0,
+            "hpEnd": 0.0,
+            "enemyHp": 88.0,
+            "totalSeconds": 69.49996948242188
+        }
+    ],
+    "matrices": [
+        {
+            "configPath": "Assets/_SpacePirates/SOs/WaveConfig.asset",
+            "useMatrix": true,
+            "limitWaves": false,
+            "totalWaves": 10,
+            "cells": [
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 1,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 0,
+                    "count": 7
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 4
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 0,
+                    "count": 7
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 8
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 8
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 9
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 9
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 10
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 10
+                },
+                {
+                    "prefabGuid": "5a853256400430348ba387c727f324cc",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 10
+                },
+                {
+                    "prefabGuid": "da72e5bdb99ca554191970da738b7dcf",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 10
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 0,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 0,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 0,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 4
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 4
+                },
+                {
+                    "prefabGuid": "84ad67f5bbbb56f43b2e36bf7df62fab",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "84ad67f5bbbb56f43b2e36bf7df62fab",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "84ad67f5bbbb56f43b2e36bf7df62fab",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 4
+                },
+                {
+                    "prefabGuid": "84ad67f5bbbb56f43b2e36bf7df62fab",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "9110e717871db114a96ee7eceff0e38a",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 7
+                },
+                {
+                    "prefabGuid": "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 7
+                },
+                {
+                    "prefabGuid": "3f219a6c707750641a760547a8b608a1",
+                    "weaponGuid": "60f2ee82e5580df4995f812cef87c8bc",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "3f219a6c707750641a760547a8b608a1",
+                    "weaponGuid": "169d444e385b4ad46ad77c9a8e6510bd",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "3f219a6c707750641a760547a8b608a1",
+                    "weaponGuid": "84a30095fcda2544d928f906062964b5",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "60f2ee82e5580df4995f812cef87c8bc",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "169d444e385b4ad46ad77c9a8e6510bd",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "84a30095fcda2544d928f906062964b5",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 0,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 0,
+                    "count": 4
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "d5b7a75b2cef14549bae0a483f0deb8e",
+                    "weaponGuid": "",
+                    "wave": 10,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 1,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 1,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 1,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 5,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 6,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 7,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 8,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "f2e59ca3369b2f344aabff99beb0b976",
+                    "weaponGuid": "",
+                    "wave": 9,
+                    "phase": 1,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 1,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 1,
+                    "phase": 1,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 1,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 2,
+                    "phase": 1,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "1008517f433ff5b459e5bb49572cc664",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 0,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 1,
+                    "count": 5
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 1,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "1008517f433ff5b459e5bb49572cc664",
+                    "weaponGuid": "",
+                    "wave": 3,
+                    "phase": 1,
+                    "count": 1
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "1008517f433ff5b459e5bb49572cc664",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 0,
+                    "count": 2
+                },
+                {
+                    "prefabGuid": "a3f95e646c138624585868d837233292",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 1,
+                    "count": 6
+                },
+                {
+                    "prefabGuid": "e8f59f7d6fd352d4b97000f14ce37f52",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 1,
+                    "count": 3
+                },
+                {
+                    "prefabGuid": "1008517f433ff5b459e5bb49572cc664",
+                    "weaponGuid": "",
+                    "wave": 4,
+                    "phase": 1,
+                    "count": 2
+                }
+            ],
+            "columnOrder": [
+                "3f219a6c707750641a760547a8b608a1",
+                "12f7eec588d9956449d72c12ec8e25d1",
+                "befb54718073dcf45a846887ec8941a0",
+                "d5b7a75b2cef14549bae0a483f0deb8e",
+                "f2e59ca3369b2f344aabff99beb0b976",
+                "0861ae6fc6b2e8742b75de2bb0014383",
+                "a3f95e646c138624585868d837233292",
+                "e8f59f7d6fd352d4b97000f14ce37f52",
+                "1008517f433ff5b459e5bb49572cc664",
+                "5a853256400430348ba387c727f324cc",
+                "da72e5bdb99ca554191970da738b7dcf",
+                "9110e717871db114a96ee7eceff0e38a",
+                "f6c42b8becc9f4a42ad3917c4a4fc84b",
+                "84ad67f5bbbb56f43b2e36bf7df62fab",
+                "e6b3c7fceb54c4d489933d3149e4bc3f"
+            ]
+        }
+    ]
+}

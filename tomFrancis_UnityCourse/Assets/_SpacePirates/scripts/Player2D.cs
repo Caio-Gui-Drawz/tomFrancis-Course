@@ -12,6 +12,10 @@ public class Player2D : MonoBehaviour
 
     float secondsSinceLastShot;
 
+    [Tooltip("Armas de um tiro por clique: um clique dado até este tempo ANTES da arma estar pronta (cadência ou recarga) ainda conta e sai assim que ela liberar. 0 = o clique só vale se a arma já estiver pronta.")]
+    [Min(0f)] public float clickBufferSeconds = 0.12f;
+    float lastClickTime = -999f;
+
     // Ângulo (graus) na direção do mouse, recalculado todo frame — usado só para mirar o
     // tiro. NÃO aplicamos isso em transform.rotation porque isso girava o player inteiro
     // e, com ele, todos os filhos do prefab (incluindo o Spine), causando rotação esquisita.
@@ -133,13 +137,21 @@ public class Player2D : MonoBehaviour
             if (weaponTimeRemaining <= 0f) RevertToDefaultWeapon();
         }
 
+        if (Input.GetButtonDown("Fire1")) lastClickTime = Time.time;
+
         // Atirar (usando a arma atual)
         if (currentWeapon != null && inCombatStance)
         {
             secondsSinceLastShot += Time.deltaTime;
             bool reloading = blockShootingDuringReload && Time.time < reloadUnlockTime;
-            if (!reloading && secondsSinceLastShot >= currentWeapon.fireRate && Input.GetButton("Fire1"))
+            // Automática: segurar atira. Semi-automática: 1 tiro por clique (com um pequeno buffer do clique).
+            bool wantsToFire = currentWeapon.automaticFire
+                ? Input.GetButton("Fire1")
+                : Time.time - lastClickTime <= clickBufferSeconds;
+
+            if (!reloading && secondsSinceLastShot >= currentWeapon.fireRate && wantsToFire)
             {
+                lastClickTime = -999f; // consome o clique
                 FireCurrentWeapon();
                 secondsSinceLastShot = 0;
             }

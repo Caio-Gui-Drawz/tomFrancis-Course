@@ -1,17 +1,17 @@
 {
 "skeleton": {
-	"hash": "MRIUQ22Y+sZCrosjyOEb42fzejQ",
+	"hash": "gtH9PK8Nf3HAtwmh4GDpxgZEVtY",
 	"spine": "3.8.0",
-	"x": -1195.51,
-	"y": 85.31,
-	"width": 2332.98,
+	"x": -1220.42,
+	"y": -444.09,
+	"width": 2329.88,
 	"height": 1316.59,
 	"images": "./images/",
 	"audio": "D:/OneDrive/GAMEDEV/2026/Caio_SpacePirate/SpacePirate_Spine"
 },
 "bones": [
 	{ "name": "root", "shearY": -0.18 },
-	{ "name": "Bike_Root", "parent": "root", "length": 73.73, "x": 22.91, "y": 519.24 },
+	{ "name": "Bike_Root", "parent": "root", "length": 73.73, "x": -0.35, "y": -10.17 },
 	{
 		"name": "Bike_CTRL",
 		"parent": "Bike_Root",
@@ -31,7 +31,7 @@
 		"y": -105.48,
 		"color": "abe323ff"
 	},
-	{ "name": "HIP_Master", "parent": "Bike_Seat", "rotation": 176.74, "x": 313.41, "y": -255.86 },
+	{ "name": "HIP_Master", "parent": "Bike_Seat", "rotation": 176.74, "x": 316.51, "y": -256.04 },
 	{ "name": "Hip", "parent": "HIP_Master", "length": 104.85, "rotation": -131.5, "x": 42.98, "y": -5.37 },
 	{ "name": "Hip3", "parent": "Hip", "length": 100.09, "rotation": -178.06, "x": -5.57, "y": -1.04 },
 	{ "name": "Chest", "parent": "Hip3", "length": 218.38, "rotation": -11.05, "x": 90.55, "y": 0.43 },
@@ -88,8 +88,8 @@
 	{ "name": "IK_TOES_L", "parent": "Bike_CTRL", "rotation": 73.41, "x": 119.31, "y": -306.97, "color": "ff3f00ff" },
 	{ "name": "IK_FOOT_L", "parent": "IK_TOES_L", "x": -127.56, "y": 18.01, "color": "ff3f00ff" },
 	{ "name": "IK_LEG_L", "parent": "IK_FOOT_L", "x": -72.49, "y": 60.28, "color": "ff3f00ff" },
-	{ "name": "AimPivot", "parent": "root", "x": -45.92, "y": 1024.9 },
-	{ "name": "AimPivot2", "parent": "HIP_Master", "length": 381.88, "x": 273.94, "y": 174.84 },
+	{ "name": "AimPivot", "parent": "HIP_Master", "x": 273.9, "y": 174.49 },
+	{ "name": "AimPivot2", "parent": "AimPivot", "length": 381.88, "x": 0.05, "y": 0.35 },
 	{ "name": "Shoulder_Slot_L", "parent": "Chest", "rotation": -0.58, "x": 182.64, "y": -49.82 },
 	{
 		"name": "UpperArm_L",
@@ -381,11 +381,11 @@
 			"Foot_R": {
 				"Foot_R": {
 					"name": "MainSkin/Foot_R",
-					"x": -23.3,
-					"y": 30.38,
+					"x": 9.4,
+					"y": 112.76,
 					"scaleX": 0.8664,
 					"scaleY": 0.8664,
-					"rotation": 4.95,
+					"rotation": 1.54,
 					"width": 384,
 					"height": 415
 				}
@@ -1305,9 +1305,9 @@
 					{ "color": "8e8e8eff" }
 				]
 			},
-			"Gun_FX": {
+			"UpperArm_L": {
 				"color": [
-					{ "color": "ffffff00" }
+					{ "color": "565656ff" }
 				]
 			},
 			"ForeArm_L": {
@@ -1315,9 +1315,9 @@
 					{ "color": "7b7b7bff" }
 				]
 			},
-			"UpperArm_L": {
+			"Gun_FX": {
 				"color": [
-					{ "color": "565656ff" }
+					{ "color": "ffffff00" }
 				]
 			}
 		},
@@ -1500,17 +1500,6 @@
 					{ "time": 1 }
 				]
 			},
-			"IK_ARM_R": {
-				"rotate": [
-					{ "curve": "stepped" },
-					{ "time": 1 }
-				],
-				"translate": [
-					{ "x": -161.38, "y": -91.49 },
-					{ "time": 0.5, "x": -152.08, "y": -113.42 },
-					{ "time": 1, "x": -161.38, "y": -91.49 }
-				]
-			},
 			"IK_TOES_R": {
 				"rotate": [
 					{ "curve": "stepped" },
@@ -1581,11 +1570,6 @@
 				"rotate": [
 					{ "curve": "stepped" },
 					{ "time": 1 }
-				]
-			},
-			"IK_ARM_L": {
-				"translate": [
-					{ "x": -266.89 }
 				]
 			},
 			"MainSkin/BackFin": {
@@ -2198,14 +2182,14 @@
 	},
 	"WeaponOnly_GatlingGun": {
 		"slots": {
-			"MainSkin/Shot_Gun": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"MainSkin/Gatling_Gun": {
 				"attachment": [
 					{ "name": "MainSkin/Gatling_Gun" }
+				]
+			},
+			"MainSkin/Shot_Gun": {
+				"attachment": [
+					{ "name": null }
 				]
 			},
 			"MainSkin/Gun": {
@@ -2224,11 +2208,6 @@
 	},
 	"WeaponOnly_LongGun": {
 		"slots": {
-			"MainSkin/Shot_Gun": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"MainSkin/Gatling_Gun": {
 				"attachment": [
 					{ "name": null }
@@ -2237,6 +2216,11 @@
 			"MainSkin/Long_Gun": {
 				"attachment": [
 					{ "name": "MainSkin/Long_Gun" }
+				]
+			},
+			"MainSkin/Shot_Gun": {
+				"attachment": [
+					{ "name": null }
 				]
 			},
 			"MainSkin/Gun": {
@@ -2255,12 +2239,12 @@
 	},
 	"WeaponOnly_Pistol": {
 		"slots": {
-			"MainSkin/Shot_Gun": {
+			"MainSkin/Gatling_Gun": {
 				"attachment": [
 					{ "name": null }
 				]
 			},
-			"MainSkin/Gatling_Gun": {
+			"MainSkin/Shot_Gun": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -2274,14 +2258,14 @@
 	},
 	"WeaponOnly_Shotgun": {
 		"slots": {
-			"MainSkin/Shot_Gun": {
-				"attachment": [
-					{ "name": "MainSkin/Shot_Gun" }
-				]
-			},
 			"MainSkin/Gatling_Gun": {
 				"attachment": [
 					{ "name": null }
+				]
+			},
+			"MainSkin/Shot_Gun": {
+				"attachment": [
+					{ "name": "MainSkin/Shot_Gun" }
 				]
 			},
 			"MainSkin/Gun": {
@@ -2297,6 +2281,50 @@
 				],
 				"translate": [
 					{ "x": 88.09, "y": 29.86 }
+				]
+			}
+		}
+	},
+	"bike_Down": {
+		"bones": {
+			"Bike_CTRL": {
+				"rotate": [
+					{ "angle": -25.01 }
+				]
+			},
+			"HIP_Master": {
+				"translate": [
+					{ "x": -41.16, "y": -190.27 }
+				]
+			}
+		}
+	},
+	"bike_up": {
+		"bones": {
+			"Bike_CTRL": {
+				"rotate": [
+					{ "angle": 21.49 }
+				]
+			},
+			"HIP_Master": {
+				"translate": [
+					{ "x": 72.53, "y": -26.34 }
+				]
+			},
+			"IK_TOES_R": {
+				"rotate": [
+					{ "angle": 42.85 }
+				],
+				"translate": [
+					{ "x": -62.18, "y": 49.97 }
+				]
+			},
+			"IK_TOES_L": {
+				"rotate": [
+					{ "angle": 18.99 }
+				],
+				"translate": [
+					{ "x": 16.3, "y": 53.51 }
 				]
 			}
 		}
