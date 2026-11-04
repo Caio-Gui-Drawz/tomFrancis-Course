@@ -130,7 +130,7 @@ public class PlayerMovement2D : MonoBehaviour
     {
         if (!verticalMovementEnabled) return;
 
-        float input = playing ? Input.GetAxisRaw("Vertical") : 0f; // W/S e setas
+        float input = playing ? TouchInput.Vertical : 0f; // W/S e setas
         float target = input * maxSpeed;
         float rate = Mathf.Abs(target) > Mathf.Abs(currentVelocityY) ? acceleration : deceleration;
         currentVelocityY = Mathf.MoveTowards(currentVelocityY, target, rate * Time.fixedDeltaTime);

@@ -137,7 +137,7 @@ public class Player2D : MonoBehaviour
             if (weaponTimeRemaining <= 0f) RevertToDefaultWeapon();
         }
 
-        if (Input.GetButtonDown("Fire1")) lastClickTime = Time.time;
+        if (TouchInput.FireDown) lastClickTime = Time.time;
 
         // Atirar (usando a arma atual)
         if (currentWeapon != null && inCombatStance)
@@ -146,7 +146,7 @@ public class Player2D : MonoBehaviour
             bool reloading = blockShootingDuringReload && Time.time < reloadUnlockTime;
             // Automática: segurar atira. Semi-automática: 1 tiro por clique (com um pequeno buffer do clique).
             bool wantsToFire = currentWeapon.automaticFire
-                ? Input.GetButton("Fire1")
+                ? TouchInput.FireHeld
                 : Time.time - lastClickTime <= clickBufferSeconds;
 
             if (!reloading && secondsSinceLastShot >= currentWeapon.fireRate && wantsToFire)
