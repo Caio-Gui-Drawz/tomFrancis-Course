@@ -2788,21 +2788,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolManager
   poolsToPrewarm:
-  - prefab: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+  - prefab: {fileID: 7806555387631928024, guid: 19cd3566054972840a087068e354b808, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 9076596221152695787, guid: f5e4aa8f83c591544a3e97710f8bbea1, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 60644171757082306, guid: 6979f587210345c43ab2c5b529596c7a, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 7332364211217927865, guid: 16866d56cc460a042b1f8d459c30030a, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 7332364211217927865, guid: 16866d56cc460a042b1f8d459c30030a, type: 3}
     initialSize: 20
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     initialSize: 20
-  - prefab: {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}
+  - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
     initialSize: 20
-  - prefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+  - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     initialSize: 20
-  - prefab: {fileID: 5001124398558029869, guid: fe252276339aea544b503a49978447a6, type: 3}
-    initialSize: 10
-  - prefab: {fileID: 1580078642863164739, guid: daf3d4adb5feafe4bb7c3ad19248a383, type: 3}
-    initialSize: 10
-  - prefab: {fileID: 7280068176570772008, guid: 43584b53fcdea734f92c1c78df95d48b, type: 3}
-    initialSize: 10
-  - prefab: {fileID: 3740702229260040184, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+  - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+    initialSize: 20
+  - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     initialSize: 20
 --- !u!4 &1272574810
 Transform:
