@@ -18,9 +18,11 @@ MonoBehaviour:
   skeletonJSON: {fileID: 4900000, guid: 7c66ee3126e44fc428d89a36d79e7e96, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
-    requiresBlendModeMaterials: 0
+    requiresBlendModeMaterials: 1
     applyAdditiveMaterial: 1
-    additiveMaterials: []
+    additiveMaterials:
+    - pageName: GunVault.png
+      material: {fileID: 2100000, guid: 4d21891fee8ccac4c9d5e3f2caa01f91, type: 2}
     multiplyMaterials: []
     screenMaterials: []
   skeletonDataModifiers: []

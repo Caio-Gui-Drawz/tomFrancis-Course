@@ -1,0 +1,20 @@
+
+medikit.png
+size: 652,382
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+flare_30
+  rotate: false
+  xy: 2, 2
+  size: 394, 378
+  orig: 512, 512
+  offset: 59, 75
+  index: -1
+medikit
+  rotate: true
+  xy: 398, 72
+  size: 308, 252
+  orig: 310, 254
+  offset: 1, 1
+  index: -1
