@@ -34,6 +34,14 @@ public class PresetMatrixCell
     public int wave;
     public int phase;
     public int count;
+    public int group; // > 0 = coluna aleatória (número do grupo)
+}
+
+[Serializable]
+public class PresetGroup
+{
+    public string label;
+    public List<string> options = new List<string>(); // GUIDs dos prefabs
 }
 
 // Foto da planilha de um WaveConfig (células, flags e ordem das colunas). Referências por GUID: renomear prefabs não quebra.
@@ -45,6 +53,7 @@ public class PresetMatrix
     public bool limitWaves;
     public int totalWaves;
     public List<PresetMatrixCell> cells = new List<PresetMatrixCell>();
+    public List<PresetGroup> groups = new List<PresetGroup>();
     public List<string> columnOrder = new List<string>();
 }
 
@@ -450,14 +459,28 @@ public static class BalancePresets
         {
             foreach (WaveMatrixCell c in cfg.matrixCells)
             {
-                if (c == null || c.prefab == null) continue;
+                if (c == null || (c.prefab == null && c.group <= 0)) continue;
                 PresetMatrixCell pc = new PresetMatrixCell();
+                pc.group = c.group;
                 pc.prefabGuid = GuidOf(c.prefab);
                 pc.weaponGuid = GuidOf(c.weapon);
                 pc.wave = c.wave;
                 pc.phase = (int)c.phase;
                 pc.count = c.count;
                 m.cells.Add(pc);
+            }
+        }
+        if (cfg.randomGroups != null)
+        {
+            foreach (MatrixRandomGroup rg in cfg.randomGroups)
+            {
+                PresetGroup pg = new PresetGroup();
+                pg.label = rg != null ? rg.label : "";
+                if (rg != null && rg.options != null)
+                {
+                    foreach (GameObject o in rg.options) if (o != null) pg.options.Add(GuidOf(o));
+                }
+                m.groups.Add(pg);
             }
         }
         if (cfg.matrixColumnOrder != null)
@@ -472,7 +495,7 @@ public static class BalancePresets
 
     static string CellKey(PresetMatrixCell c)
     {
-        return c.prefabGuid + "|" + c.wave + "|" + c.phase;
+        return c.prefabGuid + "|" + c.group + "|" + c.wave + "|" + c.phase;
     }
 
     static Dictionary<string, PresetMatrixCell> CellMap(PresetMatrix m)
@@ -497,7 +520,20 @@ public static class BalancePresets
         List<string> parts = new List<string>();
         foreach (KeyValuePair<string, PresetMatrixCell> kv in CellMap(m)) parts.Add(kv.Key + "=" + kv.Value.count + "/" + kv.Value.weaponGuid);
         parts.Sort(StringComparer.Ordinal);
-        return m.useMatrix + ";" + m.limitWaves + ";" + m.totalWaves + ";" + string.Join(",", m.columnOrder.ToArray()) + ";" + string.Join(",", parts.ToArray());
+        return m.useMatrix + ";" + m.limitWaves + ";" + m.totalWaves + ";" + string.Join(",", m.columnOrder.ToArray()) + ";" + GroupsSignature(m) + ";" + string.Join(",", parts.ToArray());
+    }
+
+    static string GroupsSignature(PresetMatrix m)
+    {
+        List<string> parts = new List<string>();
+        foreach (PresetGroup g in m.groups) parts.Add(g.label + ":" + string.Join("+", g.options.ToArray()));
+        return string.Join("/", parts.ToArray());
+    }
+
+    static string GroupName(PresetMatrix m, int group)
+    {
+        if (group >= 1 && group <= m.groups.Count && !string.IsNullOrEmpty(m.groups[group - 1].label)) return m.groups[group - 1].label;
+        return "Grupo " + group;
     }
 
     static void DiffMatrix(WaveConfig cfg, PresetMatrix saved, List<PresetDiff> diffs)
@@ -508,6 +544,7 @@ public static class BalancePresets
         if (cur.useMatrix != saved.useMatrix) AddDiff(diffs, head + "usar planilha", cur.useMatrix.ToString(), saved.useMatrix.ToString());
         if (cur.limitWaves != saved.limitWaves) AddDiff(diffs, head + "limitar waves", cur.limitWaves.ToString(), saved.limitWaves.ToString());
         if (cur.totalWaves != saved.totalWaves) AddDiff(diffs, head + "total de waves", cur.totalWaves.ToString(), saved.totalWaves.ToString());
+        if (GroupsSignature(cur) != GroupsSignature(saved)) AddDiff(diffs, head + "grupos aleatórios", cur.groups.Count + " grupo(s)", saved.groups.Count + " grupo(s)");
         if (string.Join(",", cur.columnOrder.ToArray()) != string.Join(",", saved.columnOrder.ToArray()))
         {
             AddDiff(diffs, head + "ordem das colunas", cur.columnOrder.Count + " colunas", saved.columnOrder.Count + " colunas");
@@ -533,7 +570,8 @@ public static class BalancePresets
 
             if (shown >= 60) { extra++; continue; }
             PresetMatrixCell any = cb != null ? cb : ca;
-            AddDiff(diffs, head + NameOfGuid(any.prefabGuid) + " · wave " + any.wave + (any.phase == 1 ? " (loot)" : ""), CellText(ca), CellText(cb));
+            string cellName = any.group > 0 ? GroupName(cb != null ? saved : cur, any.group) : NameOfGuid(any.prefabGuid);
+            AddDiff(diffs, head + cellName + " · wave " + any.wave + (any.phase == 1 ? " (loot)" : ""), CellText(ca), CellText(cb));
             shown++;
         }
         if (extra > 0) AddDiff(diffs, head + "e mais " + extra + " células", "...", "...");
@@ -555,14 +593,34 @@ public static class BalancePresets
         so.FindProperty("limitWaves").boolValue = m.limitWaves;
         so.FindProperty("totalWaves").intValue = Mathf.Max(1, m.totalWaves);
 
+        // Grupos primeiro: as células apontam para eles pelo número.
+        SerializedProperty groupsProp = so.FindProperty("randomGroups");
+        groupsProp.ClearArray();
+        foreach (PresetGroup pg in m.groups)
+        {
+            groupsProp.InsertArrayElementAtIndex(groupsProp.arraySize);
+            SerializedProperty ge = groupsProp.GetArrayElementAtIndex(groupsProp.arraySize - 1);
+            ge.FindPropertyRelative("label").stringValue = pg.label;
+            SerializedProperty opts = ge.FindPropertyRelative("options");
+            opts.ClearArray();
+            foreach (string guid in pg.options)
+            {
+                GameObject o = LoadByGuid<GameObject>(guid);
+                if (o == null) continue;
+                opts.InsertArrayElementAtIndex(opts.arraySize);
+                opts.GetArrayElementAtIndex(opts.arraySize - 1).objectReferenceValue = o;
+            }
+        }
+
         SerializedProperty cells = so.FindProperty("matrixCells");
         cells.ClearArray();
         foreach (PresetMatrixCell pc in m.cells)
         {
-            GameObject prefab = LoadByGuid<GameObject>(pc.prefabGuid);
-            if (prefab == null) continue; // prefab apagado: pula a célula
+            GameObject prefab = pc.group > 0 ? null : LoadByGuid<GameObject>(pc.prefabGuid);
+            if (pc.group <= 0 && prefab == null) continue; // prefab apagado: pula a célula
             cells.InsertArrayElementAtIndex(cells.arraySize);
             SerializedProperty e = cells.GetArrayElementAtIndex(cells.arraySize - 1);
+            e.FindPropertyRelative("group").intValue = pc.group;
             e.FindPropertyRelative("prefab").objectReferenceValue = prefab;
             e.FindPropertyRelative("wave").intValue = Mathf.Max(1, pc.wave);
             e.FindPropertyRelative("phase").enumValueIndex = pc.phase;

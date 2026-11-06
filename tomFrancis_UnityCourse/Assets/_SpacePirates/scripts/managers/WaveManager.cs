@@ -413,17 +413,18 @@ public class WaveManager : MonoBehaviour
 
         foreach (WaveMatrixCell cell in config.matrixCells)
         {
-            if (cell == null || cell.prefab == null || cell.phase != MatrixPhase.Wave) continue;
+            if (!CellUsable(cell) || cell.phase != MatrixPhase.Wave) continue;
             if (cell.wave != currentWave || cell.count <= 0) continue;
-
-            Spawner spawner = FindSpawner(cell.prefab);
-            if (spawner == null) continue;
 
             for (int i = 0; i < cell.count; i++)
             {
+                // Em coluna aleatória cada unidade sorteia o prefab (e usa o Spawner dele).
+                Spawner spawner = FindSpawner(ResolveCellPrefab(cell));
+                if (spawner == null) continue;
+
                 QueuedSpawn queued = new QueuedSpawn();
                 queued.spawner = spawner;
-                queued.weapon = cell.weapon;
+                queued.weapon = cell.group > 0 ? null : cell.weapon;
                 waveQueue.Add(queued);
             }
         }
@@ -436,7 +437,7 @@ public class WaveManager : MonoBehaviour
         if (config == null || config.matrixCells == null) return false;
         foreach (WaveMatrixCell cell in config.matrixCells)
         {
-            if (cell != null && cell.prefab != null && cell.phase == MatrixPhase.Loot && cell.wave == wave && cell.count > 0) return true;
+            if (CellUsable(cell) && cell.phase == MatrixPhase.Loot && cell.wave == wave && cell.count > 0) return true;
         }
         return false;
     }
@@ -446,10 +447,43 @@ public class WaveManager : MonoBehaviour
         if (config == null || config.matrixCells == null) return;
         foreach (WaveMatrixCell cell in config.matrixCells)
         {
-            if (cell == null || cell.prefab == null || cell.phase != MatrixPhase.Loot) continue;
+            if (!CellUsable(cell) || cell.phase != MatrixPhase.Loot) continue;
             if (cell.wave != wave || cell.count <= 0) continue;
-            for (int i = 0; i < cell.count; i++) drops.Add(new DropEntry(cell.prefab, cell.weapon));
+            for (int i = 0; i < cell.count; i++)
+            {
+                GameObject chosen = ResolveCellPrefab(cell);
+                if (chosen != null) drops.Add(new DropEntry(chosen, cell.group > 0 ? null : cell.weapon));
+            }
         }
+    }
+
+    // Prefabs válidos (não vazios) do grupo aleatório N (1 = primeiro), ou null se o grupo não existe / está vazio.
+    List<GameObject> GroupOptions(int group)
+    {
+        if (config == null || config.randomGroups == null || group < 1 || group > config.randomGroups.Length) return null;
+        MatrixRandomGroup g = config.randomGroups[group - 1];
+        if (g == null || g.options == null) return null;
+
+        List<GameObject> list = new List<GameObject>();
+        foreach (GameObject option in g.options)
+        {
+            if (option != null) list.Add(option);
+        }
+        return list.Count > 0 ? list : null;
+    }
+
+    bool CellUsable(WaveMatrixCell cell)
+    {
+        if (cell == null) return false;
+        return cell.group > 0 ? GroupOptions(cell.group) != null : cell.prefab != null;
+    }
+
+    // O prefab que esta célula faz nascer agora: o da célula, ou um sorteado do grupo (sorteio puro).
+    GameObject ResolveCellPrefab(WaveMatrixCell cell)
+    {
+        if (cell.group <= 0) return cell.prefab;
+        List<GameObject> options = GroupOptions(cell.group);
+        return options == null ? null : options[Random.Range(0, options.Count)];
     }
 
     // Caixa de arma que nasce com arma definida na planilha. Sempre repõe (null = sorteio), porque o objeto vem do pool.

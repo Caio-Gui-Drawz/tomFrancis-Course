@@ -1,39 +1,78 @@
 {
 "skeleton": {
-	"hash": "pDuv0JEfLrHN0tOHRPFZe8LgBtE",
+	"hash": "mlnQlEztdfj8u5kxhrvvQye6eKE",
 	"spine": "3.8.0",
-	"x": -414.62,
-	"y": -360.76,
-	"width": 789.5,
-	"height": 706,
+	"x": -1638.52,
+	"y": -1598.12,
+	"width": 3314.21,
+	"height": 3314.21,
 	"images": "./images/",
 	"audio": "C:/Users/Renato/OneDrive - Grupo Marista (1)/Cerco_Blender/Renato_Pessoal/caio/Caio_SpacePirate/Gun_Vault/GunVault_Spine"
 },
 "bones": [
-	{ "name": "root" },
-	{ "name": "Main_Bone", "parent": "root", "length": 167.53, "x": 0.33, "y": -0.37 }
+	{ "name": "ROOOOOOT", "length": 300, "color": "e41c1cff" },
+	{ "name": "Main_Bone", "parent": "ROOOOOOT", "length": 1597.44, "x": 0.33, "y": -0.37 },
+	{
+		"name": "bACKsHINE",
+		"parent": "ROOOOOOT",
+		"length": 734.03,
+		"rotation": 119.85,
+		"x": 23,
+		"y": 97.36,
+		"color": "e41c1cff"
+	},
+	{
+		"name": "light_03",
+		"parent": "ROOOOOOT",
+		"length": 1027.39,
+		"rotation": -93.54,
+		"x": -47.8,
+		"y": 14.45,
+		"scaleX": -0.5724,
+		"scaleY": -0.5724
+	}
 ],
 "slots": [
-	{ "name": "4", "bone": "Main_Bone", "attachment": "4" },
+	{ "name": "flare_30", "bone": "bACKsHINE", "attachment": "flare_30" },
 	{ "name": "3", "bone": "Main_Bone", "attachment": "3" },
 	{ "name": "2", "bone": "Main_Bone", "attachment": "2" },
-	{ "name": "1", "bone": "Main_Bone", "attachment": "1" }
+	{ "name": "1", "bone": "Main_Bone", "attachment": "1" },
+	{ "name": "light_03", "bone": "light_03", "attachment": "light_03", "blend": "additive" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
+			"light_03": {
+				"light_03": {
+					"x": 5.74,
+					"y": 4.3,
+					"scaleX": 4.1093,
+					"scaleY": 2.6934,
+					"rotation": 93.54,
+					"width": 512,
+					"height": 512
+				}
+			},
+			"flare_30": {
+				"flare_30": {
+					"x": -31.08,
+					"y": 22.93,
+					"scaleX": 6.4731,
+					"scaleY": 6.4731,
+					"rotation": -119.85,
+					"width": 512,
+					"height": 512
+				}
+			},
 			"1": {
-				"1": { "x": 0.55, "y": 3.6, "width": 748, "height": 510 }
+				"1": { "x": -32.18, "y": -5.75, "width": 1499, "height": 1043 }
 			},
 			"2": {
-				"2": { "x": -30.45, "y": -8.4, "width": 769, "height": 565 }
+				"2": { "x": -30.45, "y": -4.05, "width": 1498, "height": 1041 }
 			},
 			"3": {
-				"3": { "x": -30.95, "y": 4.6, "width": 733, "height": 682 }
-			},
-			"4": {
-				"4": { "x": -40.45, "y": -21.4, "width": 689, "height": 678 }
+				"3": { "x": -30.95, "y": 4.6, "width": 1498, "height": 1041 }
 			}
 		}
 	}
@@ -41,7 +80,7 @@
 "animations": {
 	"Vault_1": {
 		"slots": {
-			"4": {
+			"3": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
@@ -51,21 +90,63 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"3": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
 			"1": {
 				"color": [
 					{ "color": "ffffffff" }
+				]
+			},
+			"flare_30": {
+				"color": [
+					{ "color": "fdfdfd3a", "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "color": "fefefe9b", "curve": 0.314, "c2": 0.27, "c3": 0.657, "c4": 0.64 },
+					{ "time": 3.3333, "color": "fdfdfd3a" }
+				]
+			},
+			"light_03": {
+				"color": [
+					{ "color": "e22de522" },
+					{ "time": 1.6667, "color": "e22de59c" },
+					{ "time": 3.3333, "color": "e22de522" }
+				]
+			}
+		},
+		"bones": {
+			"light_03": {
+				"translate": [
+					{ "x": -1.19, "y": 11.2, "curve": "stepped" },
+					{ "time": 3.3333, "x": -1.19, "y": 11.2 }
+				],
+				"scale": [
+					{ "x": 2.088, "y": 1.824 },
+					{ "time": 1.6667, "x": 2.09, "y": 1.826 },
+					{ "time": 3.3333, "x": 2.088, "y": 1.824 }
+				]
+			},
+			"bACKsHINE": {
+				"translate": [
+					{ "x": -27.07, "y": -58.64, "curve": "stepped" },
+					{ "time": 3.3333, "x": -27.07, "y": -58.64 }
+				],
+				"scale": [
+					{ "x": 0.658, "y": 0.658, "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "x": 1.162, "y": 1.162, "curve": 0.333, "c2": 0.33, "c3": 0.758 },
+					{ "time": 3.3333, "x": 0.658, "y": 0.658 }
+				]
+			},
+			"ROOOOOOT": {
+				"rotate": [
+					{},
+					{ "time": 0.8333, "angle": 90 },
+					{ "time": 1.6667, "angle": -180 },
+					{ "time": 2.5, "angle": -90 },
+					{ "time": 3.3333 }
 				]
 			}
 		}
 	},
 	"Vault_2": {
 		"slots": {
-			"4": {
+			"3": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
@@ -75,23 +156,65 @@
 					{ "color": "ffffffff" }
 				]
 			},
-			"3": {
+			"1": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
 			},
-			"1": {
+			"flare_30": {
 				"color": [
-					{ "color": "ffffff00" }
+					{ "color": "fdfdfd3a", "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "color": "fefefe9b", "curve": 0.314, "c2": 0.27, "c3": 0.657, "c4": 0.64 },
+					{ "time": 3.3333, "color": "fdfdfd3a" }
+				]
+			},
+			"light_03": {
+				"color": [
+					{ "color": "f9101053" },
+					{ "time": 1.6667, "color": "f90f0f7d" },
+					{ "time": 3.3333, "color": "f9101053" }
+				]
+			}
+		},
+		"bones": {
+			"light_03": {
+				"translate": [
+					{ "x": -1.19, "y": 11.2, "curve": "stepped" },
+					{ "time": 3.3333, "x": -1.19, "y": 11.2 }
+				],
+				"scale": [
+					{ "x": 2.088, "y": 1.824 },
+					{ "time": 1.6667, "x": 2.09, "y": 1.826 },
+					{ "time": 3.3333, "x": 2.088, "y": 1.824 }
+				]
+			},
+			"ROOOOOOT": {
+				"rotate": [
+					{},
+					{ "time": 0.8333, "angle": 90 },
+					{ "time": 1.6667, "angle": -180 },
+					{ "time": 2.5, "angle": -90 },
+					{ "time": 3.3333 }
+				]
+			},
+			"bACKsHINE": {
+				"translate": [
+					{ "x": -27.07, "y": -58.64, "curve": "stepped" },
+					{ "time": 3.3333, "x": -27.07, "y": -58.64 }
+				],
+				"scale": [
+					{ "x": 0.658, "y": 0.658, "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "x": 1.162, "y": 1.162, "curve": 0.333, "c2": 0.33, "c3": 0.758 },
+					{ "time": 3.3333, "x": 0.658, "y": 0.658 }
 				]
 			}
 		}
 	},
 	"Vault_3": {
 		"slots": {
-			"4": {
+			"3": {
 				"color": [
-					{ "color": "ffffff00" }
+					{ "color": "ffffffff" }
 				]
 			},
 			"2": {
@@ -99,38 +222,56 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"3": {
-				"color": [
-					{ "color": "ffffffff" }
-				]
-			},
 			"1": {
 				"color": [
 					{ "color": "ffffff00" }
+				]
+			},
+			"flare_30": {
+				"color": [
+					{ "color": "fdfdfd3a", "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "color": "fefefe9b", "curve": 0.314, "c2": 0.27, "c3": 0.657, "c4": 0.64 },
+					{ "time": 3.3333, "color": "fdfdfd3a" }
+				]
+			},
+			"light_03": {
+				"color": [
+					{ "color": "e5ca2d23" },
+					{ "time": 1.6667, "color": "e5c92d58" },
+					{ "time": 3.3333, "color": "e5ca2d23" }
 				]
 			}
-		}
-	},
-	"Vault_4": {
-		"slots": {
-			"4": {
-				"color": [
-					{ "color": "ffffffff" }
+		},
+		"bones": {
+			"light_03": {
+				"translate": [
+					{ "x": -1.19, "y": 11.2, "curve": "stepped" },
+					{ "time": 3.3333, "x": -1.19, "y": 11.2 }
+				],
+				"scale": [
+					{ "x": 2.088, "y": 1.824 },
+					{ "time": 1.6667, "x": 2.09, "y": 1.826 },
+					{ "time": 3.3333, "x": 2.088, "y": 1.824 }
 				]
 			},
-			"2": {
-				"color": [
-					{ "color": "ffffff00" }
+			"ROOOOOOT": {
+				"rotate": [
+					{},
+					{ "time": 0.8333, "angle": 90 },
+					{ "time": 1.6667, "angle": -180 },
+					{ "time": 2.5, "angle": -90 },
+					{ "time": 3.3333 }
 				]
 			},
-			"3": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"1": {
-				"color": [
-					{ "color": "ffffff00" }
+			"bACKsHINE": {
+				"translate": [
+					{ "x": -27.07, "y": -58.64, "curve": "stepped" },
+					{ "time": 3.3333, "x": -27.07, "y": -58.64 }
+				],
+				"scale": [
+					{ "x": 0.658, "y": 0.658, "curve": 0.276, "c3": 0.621, "c4": 0.4 },
+					{ "time": 1.6667, "x": 1.162, "y": 1.162, "curve": 0.333, "c2": 0.33, "c3": 0.758 },
+					{ "time": 3.3333, "x": 0.658, "y": 0.658 }
 				]
 			}
 		}

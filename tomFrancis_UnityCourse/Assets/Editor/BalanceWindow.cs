@@ -813,6 +813,11 @@ public class BalanceWindow : EditorWindow
         public GameObject prefab;
         public BalancePrefab info;
         public bool isEnemy;
+        public int group;     // > 0 = coluna aleatória (número do grupo, 1 = primeiro); nesse caso prefab é null
+        public string title;
+
+        public string Name { get { return group > 0 ? title : prefab.name; } }
+        public int Key { get { return group > 0 ? int.MinValue + group : prefab.GetInstanceID(); } }
     }
 
     const string MxChartsPref = "CosmoBalance.matrixCharts";
@@ -851,7 +856,9 @@ public class BalanceWindow : EditorWindow
             mxCenter.alignment = TextAnchor.MiddleCenter;
             mxHead = new GUIStyle(EditorStyles.boldLabel);
             mxHead.alignment = TextAnchor.MiddleCenter;
-            mxHead.wordWrap = true;
+            mxHead.wordWrap = false;
+            mxHead.clipping = TextClipping.Clip;
+            mxHead.fontSize = 10;
         }
 
         WaveConfig cfg = activeConfig;
@@ -879,6 +886,13 @@ public class BalanceWindow : EditorWindow
             if (GUILayout.Button("Preencher a partir do orçamento atual", GUILayout.Width(250f))) MxFillFromBudget(cfg, waves);
             if (GUILayout.Button("Limpar planilha", GUILayout.Width(120f))) MxClear(cfg);
             if (GUILayout.Button("Ordem padrão das colunas", GUILayout.Width(170f))) MxResetOrder(cfg);
+        }
+
+        if (Foldout("mxGroups", "Grupos aleatórios (colunas que sorteiam entre vários prefabs)"))
+        {
+            EditorGUILayout.HelpBox("Cada grupo vira uma coluna na planilha. Cada vez que a planilha manda nascer um item dessa coluna, o jogo sorteia UM prefab da lista (sorteio puro: pode repetir). " +
+                "Cada prefab continua usando o próprio Spawner da cena. Ex.: um grupo com as 3 caixas de arma; depois é só pôr 1 na coluna dele no Loot das waves desejadas.", MessageType.None);
+            Field(cfg, "randomGroups", "Grupos");
         }
 
         List<MxColumn> cols = BuildMatrixColumns(cfg);
@@ -1076,6 +1090,20 @@ public class BalanceWindow : EditorWindow
             ordered.AddRange(cols);
             cols = ordered;
         }
+
+        // Colunas aleatórias: ficam logo depois da última caixa de arma (ou no começo, se não houver).
+        if (cfg.randomGroups != null)
+        {
+            int insertAt = cols.FindLastIndex(c => c.info != null && c.info.kind == BalanceKind.WeaponBox) + 1;
+            for (int g = 0; g < cfg.randomGroups.Length; g++)
+            {
+                MatrixRandomGroup group = cfg.randomGroups[g];
+                MxColumn gc = new MxColumn();
+                gc.group = g + 1;
+                gc.title = group != null && !string.IsNullOrEmpty(group.label) ? group.label : "Grupo " + (g + 1);
+                cols.Insert(insertAt++, gc);
+            }
+        }
         return cols;
     }
 
@@ -1113,7 +1141,7 @@ public class BalanceWindow : EditorWindow
             else if (e.type == EventType.Repaint)
             {
                 bool dragging = mxDragFrom >= 0 && GUIUtility.hotControl != 0 && GUIUtility.hotControl == mxDragControl;
-                GUI.Label(rect, new GUIContent(col.prefab.name, kind + ": " + col.prefab.name + "\n(arraste para mudar a ordem)"), mxHead);
+                GUI.Label(rect, new GUIContent(MxHeaderText(col.Name), MxHeaderTip(cfg, col, kind)), mxHead);
                 if (dragging && i == mxDragFrom) EditorGUI.DrawRect(rect, new Color(0f, 0f, 0f, 0.3f));
                 if (dragging && i == mxDragTo && mxDragTo != mxDragFrom)
                 {
@@ -1151,14 +1179,46 @@ public class BalanceWindow : EditorWindow
         }
     }
 
+    // Nome no cabeçalho: tira o sufixo "Prop" e quebra em 2 linhas (no espaço ou na maiúscula mais perto do meio) em vez de cortar no meio da palavra.
+    static string MxHeaderText(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return "";
+        if (name.Length > 6 && name.EndsWith("Prop")) name = name.Substring(0, name.Length - 4);
+        if (name.Length <= 10) return name;
+
+        int mid = name.Length / 2;
+        int best = -1;
+        for (int i = 1; i < name.Length; i++)
+        {
+            bool boundary = name[i] == ' ' || char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]);
+            if (boundary && (best < 0 || Mathf.Abs(i - mid) < Mathf.Abs(best - mid))) best = i;
+        }
+        if (best < 0) return name;
+        return name.Substring(0, best).TrimEnd() + "\n" + name.Substring(best).TrimStart();
+    }
+
+    static string MxHeaderTip(WaveConfig cfg, MxColumn col, string kind)
+    {
+        if (col.group > 0)
+        {
+            List<string> names = new List<string>();
+            MatrixRandomGroup g = cfg.randomGroups[col.group - 1];
+            if (g != null && g.options != null) foreach (GameObject o in g.options) if (o != null) names.Add(o.name);
+            return "Grupo aleatório " + col.group + ": sorteia entre " + (names.Count > 0 ? string.Join(", ", names.ToArray()) : "(nenhum prefab)");
+        }
+        return kind + ": " + col.prefab.name + "\n(arraste para mudar a ordem)";
+    }
+
     void MxMoveColumn(WaveConfig cfg, List<MxColumn> cols, int from, int to)
     {
-        List<GameObject> order = new List<GameObject>();
-        foreach (MxColumn col in cols) order.Add(col.prefab);
+        // As colunas aleatórias não entram na ordem salva (ficam sempre depois da última caixa de arma).
+        List<MxColumn> moving = new List<MxColumn>(cols);
+        MxColumn movedCol = moving[from];
+        moving.RemoveAt(from);
+        moving.Insert(to, movedCol);
 
-        GameObject moved = order[from];
-        order.RemoveAt(from);
-        order.Insert(to, moved);
+        List<GameObject> order = new List<GameObject>();
+        foreach (MxColumn col in moving) if (col.group <= 0) order.Add(col.prefab);
 
         SerializedObject so = GetSO(cfg);
         SerializedProperty arr = so.FindProperty("matrixColumnOrder");
@@ -1339,9 +1399,14 @@ public class BalanceWindow : EditorWindow
         for (int i = 0; i < cfg.matrixCells.Length; i++)
         {
             WaveMatrixCell cell = cfg.matrixCells[i];
-            if (cell == null || cell.prefab == null) continue;
-            mxIndex[(cell.prefab.GetInstanceID(), cell.wave, (int)cell.phase)] = i;
+            if (cell == null || (cell.prefab == null && cell.group <= 0)) continue;
+            mxIndex[(MxKey(cell.prefab, cell.group), cell.wave, (int)cell.phase)] = i;
         }
+    }
+
+    static int MxKey(GameObject prefab, int group)
+    {
+        return group > 0 ? int.MinValue + group : prefab.GetInstanceID();
     }
 
     // Desenha a célula (quantidade, e para caixas de arma também a arma) e devolve a quantidade atual.
@@ -1350,7 +1415,7 @@ public class BalanceWindow : EditorWindow
         int idx;
         int count = 0;
         WeaponData weapon = null;
-        if (mxIndex.TryGetValue((col.prefab.GetInstanceID(), wave, (int)phase), out idx) && cfg.matrixCells != null && idx < cfg.matrixCells.Length)
+        if (mxIndex.TryGetValue((col.Key, wave, (int)phase), out idx) && cfg.matrixCells != null && idx < cfg.matrixCells.Length)
         {
             count = Mathf.Max(0, cfg.matrixCells[idx].count);
             weapon = cfg.matrixCells[idx].weapon;
@@ -1387,7 +1452,7 @@ public class BalanceWindow : EditorWindow
                 int picked = EditorGUI.Popup(MxPad(popupRect), selected, options);
                 if (EditorGUI.EndChangeCheck() && count > 0)
                 {
-                    MxSetWeapon(cfg, col.prefab, wave, phase, picked == 0 ? null : list[picked - 1]);
+                    MxSetWeapon(cfg, col.prefab, wave, phase, picked == 0 ? null : list[picked - 1], col.group);
                     return count;
                 }
             }
@@ -1396,25 +1461,25 @@ public class BalanceWindow : EditorWindow
         if (countChanged)
         {
             newCount = Mathf.Max(0, newCount);
-            MxSetCount(cfg, col.prefab, wave, phase, newCount);
+            MxSetCount(cfg, col.prefab, wave, phase, newCount, col.group);
             return newCount;
         }
         return count;
     }
 
-    int MxFind(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase)
+    int MxFind(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, int group = 0)
     {
         int idx;
-        return mxIndex.TryGetValue((prefab.GetInstanceID(), wave, (int)phase), out idx) ? idx : -1;
+        return mxIndex.TryGetValue((MxKey(prefab, group), wave, (int)phase), out idx) ? idx : -1;
     }
 
-    void MxSetCount(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, int count)
+    void MxSetCount(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, int count, int group = 0)
     {
         SerializedObject so = GetSO(cfg);
         SerializedProperty arr = so.FindProperty("matrixCells");
         if (arr == null) return;
 
-        int idx = MxFind(cfg, prefab, wave, phase);
+        int idx = MxFind(cfg, prefab, wave, phase, group);
         if (count <= 0)
         {
             if (idx >= 0 && idx < arr.arraySize) arr.DeleteArrayElementAtIndex(idx);
@@ -1425,7 +1490,7 @@ public class BalanceWindow : EditorWindow
         }
         else
         {
-            MxAppend(arr, prefab, wave, phase, count, null);
+            MxAppend(arr, prefab, wave, phase, count, null, group);
         }
 
         so.ApplyModifiedProperties();
@@ -1433,11 +1498,11 @@ public class BalanceWindow : EditorWindow
         MxRebuildIndex(cfg);
     }
 
-    void MxSetWeapon(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, WeaponData weapon)
+    void MxSetWeapon(WaveConfig cfg, GameObject prefab, int wave, MatrixPhase phase, WeaponData weapon, int group = 0)
     {
         SerializedObject so = GetSO(cfg);
         SerializedProperty arr = so.FindProperty("matrixCells");
-        int idx = MxFind(cfg, prefab, wave, phase);
+        int idx = MxFind(cfg, prefab, wave, phase, group);
         if (arr == null || idx < 0 || idx >= arr.arraySize) return;
 
         arr.GetArrayElementAtIndex(idx).FindPropertyRelative("weapon").objectReferenceValue = weapon;
@@ -1446,12 +1511,13 @@ public class BalanceWindow : EditorWindow
         MxRebuildIndex(cfg);
     }
 
-    static void MxAppend(SerializedProperty arr, GameObject prefab, int wave, MatrixPhase phase, int count, WeaponData weapon)
+    static void MxAppend(SerializedProperty arr, GameObject prefab, int wave, MatrixPhase phase, int count, WeaponData weapon, int group = 0)
     {
         int n = arr.arraySize;
         arr.arraySize = n + 1;
         SerializedProperty el = arr.GetArrayElementAtIndex(n);
-        el.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+        el.FindPropertyRelative("group").intValue = group;
+        el.FindPropertyRelative("prefab").objectReferenceValue = group > 0 ? null : prefab;
         el.FindPropertyRelative("wave").intValue = wave;
         el.FindPropertyRelative("phase").enumValueIndex = (int)phase;
         el.FindPropertyRelative("count").intValue = count;

@@ -371,3 +371,4 @@ MonoBehaviour:
   angleOffset: 180
   turnSpeed: 360
   minSpeed: 0.1
+  ignoreKnockback: 1
