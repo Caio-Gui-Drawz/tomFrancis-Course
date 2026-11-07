@@ -859,6 +859,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1485192531968261184, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.178
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485192531968261184, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7653
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006430418576544187, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.9279
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006430418576544187, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2341
+      objectReference: {fileID: 0}
     - target: {fileID: 2008612357980755159, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalScale.x
       value: 23
@@ -914,18 +930,6 @@ PrefabInstance:
     - target: {fileID: 2802742672718126812, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: shootAnimationTrack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: aimIdleAnimationName
-      value: ArmOnly_AimPose
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: reloadAnimationSpeed
-      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: waveManager
