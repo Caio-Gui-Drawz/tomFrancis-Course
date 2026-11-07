@@ -392,6 +392,52 @@ public class WaveManager : MonoBehaviour
         OnAllWavesCompleted?.Invoke();
     }
 
+    // ---------- Debug (usado pelo DebugCommands) ----------
+
+    // Faz nascer o prefab pelo Spawner dele na cena. Devolve o objeto criado (ou null se não há Spawner).
+    public GameObject DebugSpawn(GameObject prefab)
+    {
+        BuildSpawnerLookup();
+        Spawner spawner = FindSpawner(prefab);
+        return spawner != null ? spawner.SpawnOne() : null;
+    }
+
+    // Pula direto para uma wave: cancela a wave/loot em andamento, limpa os inimigos vivos e começa a wave pedida.
+    public void DebugGoToWave(int wave)
+    {
+        wave = Mathf.Max(1, wave);
+        if (TotalWavesValue > 0) wave = Mathf.Min(wave, TotalWavesValue);
+
+        StopAllCoroutines();
+
+        if (InLootPhase)
+        {
+            InLootPhase = false;
+            if (ParallaxSpeedController.Instance != null) ParallaxSpeedController.Instance.ExitLootSlowdown();
+            OnLootPhaseEnded?.Invoke(currentWave);
+        }
+
+        foreach (enemy2D enemy in FindObjectsByType<enemy2D>(FindObjectsSortMode.None))
+        {
+            if (enemy != null && enemy.isActiveAndEnabled) PoolManager.Instance.Return(enemy.gameObject);
+        }
+
+        hasStartedFirstWave = true;
+        allWavesDone = false;
+        waveActive = false;
+        secondsSinceLastSpawn = 0f;
+        currentWave = wave;
+
+        // Se pulou a introdução, o player ainda não entrou em modo de combate.
+        if (references.thePlayer != null)
+        {
+            Player2D player = references.thePlayer.GetComponent<Player2D>();
+            if (player != null) player.SetCombatStance(true);
+        }
+
+        StartWave();
+    }
+
     // ---------- Planilha de waves ----------
 
     static void Shuffle<T>(List<T> list)
