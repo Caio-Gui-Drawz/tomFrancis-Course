@@ -1,10 +1,10 @@
 {
 "skeleton": {
-	"hash": "gtH9PK8Nf3HAtwmh4GDpxgZEVtY",
+	"hash": "1lCXUO81lVnbE1j4q8CULDVSoJI",
 	"spine": "3.8.0",
 	"x": -1220.42,
 	"y": -444.09,
-	"width": 2329.88,
+	"width": 2261.53,
 	"height": 1316.59,
 	"images": "./images/",
 	"audio": "D:/OneDrive/GAMEDEV/2026/Caio_SpacePirate/SpacePirate_Spine"
@@ -111,8 +111,8 @@
 		"y": -160.41,
 		"color": "abe323ff"
 	},
-	{ "name": "Biker_Char/Gun", "parent": "Hand_R", "length": 163.4, "rotation": -6.33, "x": 85.57, "y": 54.6 },
-	{ "name": "Gun_Shoot_Point", "parent": "Biker_Char/Gun", "x": 288.75, "y": 18.8, "color": "9b9b9b00" },
+	{ "name": "Biker_Char/Gun", "parent": "Hand_R", "length": 163.4, "rotation": -6.33, "x": 117.8, "y": 76.53 },
+	{ "name": "Gun_Shoot_Point", "parent": "Biker_Char/Gun", "x": 292.79, "y": 23.41, "shearY": 0.05, "color": "9b9b9b00" },
 	{ "name": "Jecket_Front", "parent": "Chest", "x": 91.08, "y": -49.27, "skin": true },
 	{ "name": "Jecket_Back", "parent": "Chest", "rotation": -6.09, "x": 33.77, "y": -90.9, "skin": true },
 	{ "name": "MainSkin/BackPack", "parent": "Chest", "length": 95.52, "rotation": 11.98, "x": 68.91, "y": 116.76 },
@@ -208,8 +208,7 @@
 	{ "name": "MainSkin/Gatling_Gun", "bone": "Biker_Char/Gun" },
 	{ "name": "Hand_R", "bone": "Hand_R", "attachment": "Hand_R" },
 	{ "name": "ForeArm_R", "bone": "ForeArm_R", "attachment": "ForeArm_R" },
-	{ "name": "Shoulder_R", "bone": "UpperArm_R", "attachment": "Shoulder_R" },
-	{ "name": "Gun_FX", "bone": "Gun_Shoot_Point", "attachment": "Bike_FX" }
+	{ "name": "Shoulder_R", "bone": "UpperArm_R", "attachment": "Shoulder_R" }
 ],
 "ik": [
 	{
@@ -289,7 +288,7 @@
 		"name": "default",
 		"attachments": {
 			"MainSkin/Gun": {
-				"MainSkin/Gun": { "x": 89.52, "y": -17.37, "rotation": 1.76, "width": 384, "height": 215 }
+				"MainSkin/Gun": { "x": 82.32, "y": -33.38, "rotation": 1.76, "width": 448, "height": 242 }
 			},
 			"MainSkin/BackSideFin": {
 				"MainSkin/BackSideFin": { "x": 121.95, "y": 16.12, "rotation": 149.83, "width": 453, "height": 210 }
@@ -313,13 +312,13 @@
 				"MainSkin/Paralama_traseiro": { "x": 371.12, "y": -63.18, "rotation": 179.32, "width": 592, "height": 408 }
 			},
 			"MainSkin/Shot_Gun": {
-				"MainSkin/Shot_Gun": { "x": 104.35, "y": -26.31, "rotation": 4.61, "width": 524, "height": 239 }
+				"MainSkin/Shot_Gun": { "x": 104.35, "y": -26.31, "rotation": 4.61, "width": 653, "height": 301 }
 			},
 			"MainSkin/Long_Gun": {
-				"MainSkin/Long_Gun": { "x": 161.06, "y": -10.8, "rotation": 5.34, "width": 654, "height": 221 }
+				"MainSkin/Long_Gun": { "x": 161.06, "y": -10.8, "rotation": 5.34, "width": 774, "height": 253 }
 			},
 			"MainSkin/Gatling_Gun": {
-				"MainSkin/Gatling_Gun": { "x": 108.15, "y": -43.88, "rotation": 4.61, "width": 390, "height": 281 }
+				"MainSkin/Gatling_Gun": { "x": 108.15, "y": -43.88, "rotation": 4.61, "width": 416, "height": 290 }
 			},
 			"MainSkin/BackPack": {
 				"MainSkin/BackPack": { "x": 12.14, "y": -10.43, "rotation": -91.28, "width": 185, "height": 376 }
@@ -396,17 +395,6 @@
 			"Bike_Seat": {
 				"Bike_Seat": { "name": "MainSkin/Bike_Seat", "x": 363.7, "y": -84.62, "rotation": -178.19, "width": 380, "height": 235 }
 			},
-			"Gun_FX": {
-				"Bike_FX": {
-					"name": "MainSkin/Bike_FX",
-					"x": 188.22,
-					"y": 23.48,
-					"scaleY": 0.5984,
-					"rotation": -174.77,
-					"width": 514,
-					"height": 332
-				}
-			},
 			"Shin_R": {
 				"Shin_R": { "name": "MainSkin/Shin_R", "x": 218.08, "y": -28.55, "rotation": 95.81, "width": 234, "height": 623 }
 			},
@@ -478,7 +466,7 @@
 					"name": "Biker_Char/Foot_L",
 					"type": "mesh",
 					"uvs": [ 1, 0.58428, 1, 1, 0.62499, 1, 1.0E-5, 0.8864, 0, 0, 0.42548, 0, 1, 0, 0.36364, 0.80694, 0.43811, 0.80844, 0.50304, 0.58948, 0.58953, 0.31998, 0.33693, 0.93672 ],
-					"triangles": [ 7, 4, 5, 3, 4, 7, 10, 5, 6, 10, 6, 0, 7, 5, 9, 8, 7, 9, 11, 3, 7, 2, 10, 0, 9, 10, 2, 8, 9, 2, 11, 7, 8, 2, 11, 8, 3, 11, 2, 2, 0, 1, 9, 5, 10 ],
+					"triangles": [ 3, 4, 7, 7, 4, 5, 9, 5, 10, 2, 0, 1, 3, 11, 2, 2, 11, 8, 11, 7, 8, 8, 9, 2, 9, 10, 2, 2, 10, 0, 11, 3, 7, 8, 7, 9, 7, 5, 9, 10, 6, 0, 10, 5, 6 ],
 					"vertices": [ 2, 17, 172.18, 5.7, 0.99626, 16, 230.64, 115.87, 0.00374, 1, 17, 175.02, -74.9, 1, 1, 17, 46.1, -79.45, 1, 1, 16, 18.73, -161.37, 1, 1, 16, -98.41, -35.48, 1, 1, 16, 8.74, 64.22, 1, 1, 17, 168.18, 118.98, 1, 2, 17, -45.07, -45.19, 0.816, 16, 99.81, -64.87, 0.184, 2, 17, -19.46, -44.58, 0.54359, 16, 118.76, -47.64, 0.45641, 1, 17, 1.37, -1.34, 1, 2, 17, 29.26, 51.96, 0.54127, 16, 92.34, 57.22, 0.45873, 2, 17, -53.36, -70.68, 0.88231, 16, 110.23, -89.56, 0.11769 ],
 					"hull": 7,
 					"edges": [ 6, 8, 8, 10, 10, 12, 2, 0, 0, 12, 2, 4, 4, 6, 22, 14, 14, 16, 16, 18, 18, 20, 20, 10 ],
@@ -494,7 +482,7 @@
 					"name": "Biker_Char/Foot_R",
 					"type": "mesh",
 					"uvs": [ 1, 0.61875, 1, 1, 0.64921, 0.99999, 0.45216, 0.96618, 0.33501, 0.95295, 0.03141, 0.8329, 0, 0.49107, 0, 0, 0.42282, 1.0E-5, 1, 0, 0.49582, 0.56967, 0.6281, 0.37503, 0.8727, 0.29925, 0.36338, 0.79408, 0.46244, 0.82063 ],
-					"triangles": [ 2, 0, 1, 3, 14, 2, 14, 10, 2, 10, 11, 2, 0, 11, 12, 0, 2, 11, 12, 9, 0, 11, 8, 12, 12, 8, 9, 3, 13, 14, 4, 13, 3, 4, 5, 13, 5, 6, 13, 10, 13, 8, 13, 6, 8, 10, 8, 11, 6, 7, 8, 14, 13, 10 ],
+					"triangles": [ 12, 8, 9, 11, 8, 12, 12, 9, 0, 0, 2, 11, 0, 11, 12, 10, 11, 2, 14, 10, 2, 3, 14, 2, 2, 0, 1, 14, 13, 10, 6, 7, 8, 10, 8, 11, 13, 6, 8, 10, 13, 8, 5, 6, 13, 4, 5, 13, 4, 13, 3, 3, 13, 14 ],
 					"vertices": [ 1, 13, 175.09, 5.36, 1, 2, 12, 284.44, 41.21, 0.00642, 13, 181.47, -68.33, 0.99358, 1, 13, 61.25, -78.73, 1, 2, 12, 132.53, -70.52, 0.37794, 13, -6.85, -78.04, 0.62206, 2, 12, 99.33, -93.5, 0.792, 13, -47.22, -78.96, 0.208, 1, 12, 2.95, -140, 1, 1, 12, -46.65, -94.68, 1, 2, 12, -105.73, -19.94, 0.99614, 13, -177.97, 95.29, 0.00386, 1, 12, 8.37, 70.26, 1, 1, 13, 164.74, 124.95, 1, 2, 12, 96.61, -0.86, 0.50797, 13, 1.48, -0.11, 0.49203, 2, 12, 108.89, 56.98, 0.48965, 13, 43.56, 41.43, 0.51035, 1, 13, 126.12, 63.33, 1, 2, 12, 87.87, -63.27, 0.784, 13, -40.16, -47.41, 0.216, 2, 12, 117.79, -46.18, 0.4306, 13, -5.76, -49.6, 0.5694 ],
 					"hull": 10,
 					"edges": [ 8, 10, 14, 16, 16, 18, 2, 0, 0, 18, 10, 12, 12, 14, 2, 4, 4, 6, 6, 8, 8, 26, 26, 20, 20, 22, 22, 16, 22, 24 ],
@@ -507,9 +495,6 @@
 			},
 			"Bike_Seat": {
 				"Bike_Seat": { "name": "Biker_Char/Bike_Seat", "x": 26.21, "y": 5.06, "rotation": 176.57, "width": 477, "height": 185 }
-			},
-			"Gun_FX": {
-				"Bike_FX": { "name": "Biker_Char/Bike_FX", "x": -1750.04, "y": -699.01, "rotation": 0.16, "width": 514, "height": 332 }
 			},
 			"Shin_R": {
 				"Shin_R": { "name": "Biker_Char/Shin_R", "x": 238.21, "y": -8.48, "rotation": 95.81, "width": 162, "height": 579 }
@@ -528,7 +513,7 @@
 					"name": "Biker_Char/Hip",
 					"type": "mesh",
 					"uvs": [ 1, 0.13204, 1, 0.54726, 1, 1, 0.58623, 1, 0, 1, 0, 0.57022, 0, 0.11821, 0, 0, 0.4769, 0, 1, 0, 0.47752, 0.55255, 0.47613, 0.12306 ],
-					"triangles": [ 6, 7, 8, 11, 8, 9, 0, 11, 9, 11, 6, 8, 10, 11, 0, 1, 10, 0, 10, 5, 6, 10, 6, 11, 3, 10, 1, 4, 10, 3, 3, 1, 2, 4, 5, 10 ],
+					"triangles": [ 11, 6, 8, 0, 11, 9, 11, 8, 9, 6, 7, 8, 10, 6, 11, 10, 5, 6, 1, 10, 0, 10, 11, 0, 4, 5, 10, 3, 1, 2, 4, 10, 3, 3, 10, 1 ],
 					"vertices": [ 3, 5, -114.91, 93.1, 0.00291, 6, 122.21, -76.7, 0.432, 7, -3.49, -76.57, 0.56509, 3, 5, 3.55, 76.77, 0.5118, 6, 2.63, -78.3, 0.47828, 7, -123.08, -77.55, 0.00992, 1, 5, 132.72, 58.96, 1, 1, 5, 124.36, -1.7, 1, 1, 5, 112.51, -87.65, 1, 3, 5, -10.11, -70.75, 0.50909, 6, -5.95, 69.6, 0.45395, 7, -130.9, 70.39, 0.03695, 2, 6, 124.21, 71.34, 0.5364, 7, -0.73, 71.46, 0.4636, 1, 7, 33.32, 71.74, 1, 1, 7, 33.9, 1.16, 1, 1, 7, 34.53, -76.26, 1, 2, 5, -5.5, -0.04, 0.48, 6, 0.08, -1, 0.52, 2, 6, 123.76, 0.86, 0.73608, 7, -1.55, 0.98, 0.26392 ],
 					"hull": 10,
 					"edges": [ 4, 2, 8, 10, 2, 0, 0, 18, 10, 12, 12, 14, 4, 6, 6, 8, 14, 16, 16, 18 ],
@@ -563,13 +548,6 @@
 		}
 	},
 	"ArmOnly_Reload": {
-		"slots": {
-			"Gun_FX": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			}
-		},
 		"bones": {
 			"Biker_Char/Gun": {
 				"rotate": [
@@ -614,14 +592,6 @@
 		}
 	},
 	"ArmOnly_Shot": {
-		"slots": {
-			"Gun_FX": {
-				"color": [
-					{ "color": "ffffffff" },
-					{ "time": 0.1, "color": "ffffff00" }
-				]
-			}
-		},
 		"bones": {
 			"Hand_L": {
 				"rotate": [
@@ -648,13 +618,6 @@
 		}
 	},
 	"FullBody_Hurt": {
-		"slots": {
-			"Gun_FX": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			}
-		},
 		"bones": {
 			"HIP_Master": {
 				"rotate": [
@@ -1305,19 +1268,14 @@
 					{ "color": "8e8e8eff" }
 				]
 			},
-			"UpperArm_L": {
-				"color": [
-					{ "color": "565656ff" }
-				]
-			},
 			"ForeArm_L": {
 				"color": [
 					{ "color": "7b7b7bff" }
 				]
 			},
-			"Gun_FX": {
+			"UpperArm_L": {
 				"color": [
-					{ "color": "ffffff00" }
+					{ "color": "565656ff" }
 				]
 			}
 		},
@@ -1610,13 +1568,6 @@
 		}
 	},
 	"Fullbody_Death": {
-		"slots": {
-			"Gun_FX": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			}
-		},
 		"bones": {
 			"root": {
 				"rotate": [
@@ -2182,11 +2133,6 @@
 	},
 	"WeaponOnly_GatlingGun": {
 		"slots": {
-			"MainSkin/Gatling_Gun": {
-				"attachment": [
-					{ "name": "MainSkin/Gatling_Gun" }
-				]
-			},
 			"MainSkin/Shot_Gun": {
 				"attachment": [
 					{ "name": null }
@@ -2196,6 +2142,11 @@
 				"attachment": [
 					{ "name": null }
 				]
+			},
+			"MainSkin/Gatling_Gun": {
+				"attachment": [
+					{ "name": "MainSkin/Gatling_Gun" }
+				]
 			}
 		},
 		"bones": {
@@ -2203,11 +2154,26 @@
 				"translate": [
 					{ "x": 4.32, "y": -4.43 }
 				]
+			},
+			"Gun_Shoot_Point": {
+				"translate": [
+					{ "x": 36.57, "y": 36.44 }
+				]
 			}
 		}
 	},
 	"WeaponOnly_LongGun": {
 		"slots": {
+			"MainSkin/Shot_Gun": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"MainSkin/Gun": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
 			"MainSkin/Gatling_Gun": {
 				"attachment": [
 					{ "name": null }
@@ -2217,33 +2183,26 @@
 				"attachment": [
 					{ "name": "MainSkin/Long_Gun" }
 				]
-			},
-			"MainSkin/Shot_Gun": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"MainSkin/Gun": {
-				"attachment": [
-					{ "name": null }
-				]
 			}
 		},
 		"bones": {
+			"Biker_Char/Gun": {
+				"rotate": [
+					{ "angle": -2.51 }
+				],
+				"translate": [
+					{ "x": 54.44, "y": -0.94 }
+				]
+			},
 			"Gun_Shoot_Point": {
 				"translate": [
-					{ "x": 200.63, "y": 23.8 }
+					{ "x": 223.27, "y": 27.51 }
 				]
 			}
 		}
 	},
 	"WeaponOnly_Pistol": {
 		"slots": {
-			"MainSkin/Gatling_Gun": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"MainSkin/Shot_Gun": {
 				"attachment": [
 					{ "name": null }
@@ -2253,16 +2212,23 @@
 				"attachment": [
 					{ "name": "MainSkin/Gun" }
 				]
+			},
+			"MainSkin/Gatling_Gun": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Gun_Shoot_Point": {
+				"translate": [
+					{ "x": 4.9, "y": -1.52 }
+				]
 			}
 		}
 	},
 	"WeaponOnly_Shotgun": {
 		"slots": {
-			"MainSkin/Gatling_Gun": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"MainSkin/Shot_Gun": {
 				"attachment": [
 					{ "name": "MainSkin/Shot_Gun" }
@@ -2272,15 +2238,25 @@
 				"attachment": [
 					{ "name": null }
 				]
+			},
+			"MainSkin/Gatling_Gun": {
+				"attachment": [
+					{ "name": null }
+				]
 			}
 		},
 		"bones": {
-			"Gun_Shoot_Point": {
+			"Biker_Char/Gun": {
 				"rotate": [
-					{ "angle": 3.52 }
+					{ "angle": -2.65 }
 				],
 				"translate": [
-					{ "x": 88.09, "y": 29.86 }
+					{ "x": 37.17, "y": 22.21 }
+				]
+			},
+			"Gun_Shoot_Point": {
+				"translate": [
+					{ "x": 92.92, "y": 31.58 }
 				]
 			}
 		}

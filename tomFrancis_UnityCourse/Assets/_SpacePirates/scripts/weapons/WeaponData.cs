@@ -40,6 +40,10 @@ public class WeaponData : ScriptableObject
     [Tooltip("Animação 'WeaponOnly_...' que mostra esta arma na mão do player. <None> = não troca o visual.")]
     public string weaponAnimationName;
 
+    [MuzzleFlashName]
+    [Tooltip("Muzzle flash (partículas) que toca no GunShootPoint a cada disparo. A lista mostra os flashes que existem no player. (nenhum) = sem flash.")]
+    public string muzzleFlash;
+
     [Header("Áudio")]
     [Tooltip("Evento do FMOD tocado UMA vez a cada disparo (mesmo que a arma atire vários projéteis).")]
     public EventReference shootSound;

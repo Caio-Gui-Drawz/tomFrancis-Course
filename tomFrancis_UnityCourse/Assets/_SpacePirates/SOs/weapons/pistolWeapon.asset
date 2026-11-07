@@ -23,6 +23,7 @@ MonoBehaviour:
   ammo: 30
   skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
   weaponAnimationName: WeaponOnly_Pistol
+  muzzleFlash: Muzzle_Pistol
   shootSound:
     Guid:
       Data1: -1287297212

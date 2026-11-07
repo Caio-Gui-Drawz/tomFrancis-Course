@@ -6,6 +6,8 @@ public class Player2D : MonoBehaviour
     public WeaponData defaultWeapon;
     public WeaponData currentWeapon;
     public PlayerWeaponVisual weaponVisual; // opcional — se vazio, usa o spawn antigo
+    [Tooltip("Toca o muzzle flash da arma a cada disparo. Se vazio, procura um MuzzleFlashPlayer nos filhos do player.")]
+    public MuzzleFlashPlayer muzzleFlash;
     public WaveManager waveManager; // arraste o GameObject do WaveManager aqui
 
     AimArmToMouse aimArmToMouse; // pego automaticamente do mesmo objeto do weaponVisual
@@ -63,6 +65,8 @@ public class Player2D : MonoBehaviour
 
         if (defaultWeapon == null) defaultWeapon = currentWeapon;
         ResetWeaponLimit();
+
+        if (muzzleFlash == null) muzzleFlash = GetComponentInChildren<MuzzleFlashPlayer>(true);
 
         if (weaponVisual != null)
         {
@@ -190,6 +194,9 @@ public class Player2D : MonoBehaviour
 
         // Som do tiro: um por disparo (não por projétil), definido na própria arma.
         AudioEvents.Play(currentWeapon.shootSound);
+
+        // Muzzle flash: um por disparo (não por projétil), escolhido no WeaponData.
+        if (muzzleFlash != null) muzzleFlash.Play(currentWeapon.muzzleFlash, aimAngle);
 
         if (weaponVisual != null)
         {

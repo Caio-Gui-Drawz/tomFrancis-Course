@@ -5790,26 +5790,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: weaponTrack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: shootMixDuration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: returnMixDuration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: shootAnimationSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3957120532492979787, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: shootAnimationTrack
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: waveManager
       value: 
@@ -5857,10 +5837,6 @@ PrefabInstance:
     - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8094760540718478058, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
