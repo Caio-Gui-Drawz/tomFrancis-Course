@@ -37,6 +37,17 @@ public class WaveMatrixCell
     [Min(0)] public int count = 1;
     [Tooltip("Só para caixas de arma: força esta arma nas caixas desta célula. Vazio = sorteia da lista da caixa.")]
     public WeaponData weapon;
+    [Tooltip("0 = célula normal (usa 'prefab'). N = sorteia entre as opções do grupo N da lista 'Random Groups' do WaveConfig (1 = primeiro grupo); nesse caso 'prefab' fica vazio.")]
+    [Min(0)] public int group = 0;
+}
+
+// Uma coluna "aleatória" da planilha: cada vez que a planilha manda nascer um item dessa coluna, o WaveManager
+// sorteia UM dos prefabs da lista (sorteio puro, pode repetir). Cada prefab continua usando o próprio Spawner da cena.
+[Serializable]
+public class MatrixRandomGroup
+{
+    public string label = "Caixa aleatória";
+    public GameObject[] options;
 }
 
 // Pausa de loot entre uma wave e outra: sem inimigos, os prêmios sobem e o fundo desacelera.
@@ -128,6 +139,8 @@ public class WaveConfig : ScriptableObject
     [Tooltip("Ligado = quem nasce em cada wave vem da planilha (contagem exata) em vez do orçamento + faixas de peso. Implica waves limitadas ('Total Waves'). Na planilha, a fase de loot roda nas waves que tiverem itens de loot.")]
     public bool useMatrix = false;
     public WaveMatrixCell[] matrixCells;
+    [Tooltip("Colunas aleatórias da planilha (ex.: sortear entre as 3 caixas de arma). Na célula, 'Group' = número do grupo (1 = primeiro).")]
+    public MatrixRandomGroup[] randomGroups;
     [Tooltip("Ordem das colunas na planilha (arraste os cabeçalhos na aba Planilha). Vazio = ordem padrão.")]
     public GameObject[] matrixColumnOrder;
 }

@@ -92,350 +92,407 @@ MonoBehaviour:
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 2
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 3
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 4
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 5
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 6
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 2
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 3
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 4
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 5
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 6
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 7
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 7
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 8
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 8
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 9
     phase: 0
     count: 15
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 9
     phase: 0
     count: 15
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 1312454691778121369, guid: 5a853256400430348ba387c727f324cc, type: 3}
     wave: 10
     phase: 0
     count: 15
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: da72e5bdb99ca554191970da738b7dcf, type: 3}
     wave: 10
     phase: 0
     count: 15
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 4
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 5
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 5
     phase: 0
     count: 3
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 6
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 6
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 7
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 7
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
     wave: 7
     phase: 0
     count: 3
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
     wave: 8
     phase: 0
     count: 5
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
     wave: 9
     phase: 0
     count: 7
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: 84ad67f5bbbb56f43b2e36bf7df62fab, type: 3}
     wave: 10
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 8
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 8
     phase: 0
     count: 7
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 9
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 9
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 698582299325842013, guid: 9110e717871db114a96ee7eceff0e38a, type: 3}
     wave: 10
     phase: 0
     count: 10
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
     wave: 10
     phase: 0
     count: 10
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
-    wave: 2
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
-    wave: 3
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
-    wave: 4
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 84a30095fcda2544d928f906062964b5, type: 2}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 2
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 3
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 4
-    phase: 0
-    count: 1
-    weapon: {fileID: 11400000, guid: 84a30095fcda2544d928f906062964b5, type: 2}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 5
-    phase: 0
-    count: 2
-    weapon: {fileID: 0}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 6
-    phase: 0
-    count: 3
-    weapon: {fileID: 0}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 7
-    phase: 0
-    count: 4
-    weapon: {fileID: 0}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 8
-    phase: 0
-    count: 5
-    weapon: {fileID: 0}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 9
-    phase: 0
-    count: 5
-    weapon: {fileID: 0}
-  - prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-    wave: 10
-    phase: 0
-    count: 5
-    weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 1
     phase: 1
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 2
     phase: 1
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 3
     phase: 1
     count: 2
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 4
     phase: 1
     count: 2
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 5
     phase: 1
     count: 2
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 6
     phase: 1
     count: 2
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 7
     phase: 1
     count: 3
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 8
     phase: 1
     count: 3
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 9
     phase: 1
     count: 3
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 10
     phase: 0
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 9
     phase: 0
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 8
     phase: 0
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 7
     phase: 0
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 6
     phase: 0
     count: 1
     weapon: {fileID: 0}
+    group: 0
   - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
     wave: 5
     phase: 0
     count: 1
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 0
+  - prefab: {fileID: 0}
     wave: 5
     phase: 0
     count: 2
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 1
+  - prefab: {fileID: 0}
     wave: 6
     phase: 0
     count: 3
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 1
+  - prefab: {fileID: 0}
     wave: 7
     phase: 0
     count: 4
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 1
+  - prefab: {fileID: 0}
     wave: 8
     phase: 0
     count: 5
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 1
+  - prefab: {fileID: 0}
     wave: 9
     phase: 0
-    count: 6
+    count: 5
     weapon: {fileID: 0}
-  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    group: 1
+  - prefab: {fileID: 0}
     wave: 10
     phase: 0
-    count: 7
+    count: 5
     weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    wave: 1
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 0
+  - prefab: {fileID: 7036027618206008343, guid: befb54718073dcf45a846887ec8941a0, type: 3}
+    wave: 2
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 0
+  - prefab: {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
+    wave: 3
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 0
+  - prefab: {fileID: 0}
+    wave: 4
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 0}
+    wave: 5
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 0}
+    wave: 6
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 0}
+    wave: 7
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 0}
+    wave: 8
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  - prefab: {fileID: 0}
+    wave: 9
+    phase: 1
+    count: 1
+    weapon: {fileID: 0}
+    group: 1
+  randomGroups:
+  - label: Caixas Aleatorias
+    options:
+    - {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
+    - {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
+    - {fileID: 7036027618206008343, guid: befb54718073dcf45a846887ec8941a0, type: 3}
   matrixColumnOrder:
   - {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
-  - {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
   - {fileID: 7036027618206008343, guid: befb54718073dcf45a846887ec8941a0, type: 3}
+  - {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
   - {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
   - {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
   - {fileID: 2839716671122140853, guid: 0861ae6fc6b2e8742b75de2bb0014383, type: 3}

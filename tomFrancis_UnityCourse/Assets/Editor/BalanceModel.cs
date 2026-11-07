@@ -89,6 +89,7 @@ public class WaveSource
     public int totalWaves = 8;
     public bool useMatrix;     // planilha: contagem exata por wave (ignora orçamento e faixas)
     public List<WaveMatrixCell> cells = new List<WaveMatrixCell>();
+    public List<MatrixRandomGroup> groups = new List<MatrixRandomGroup>();
 
     public static WaveSource FromConfig(WaveConfig c)
     {
@@ -118,6 +119,10 @@ public class WaveSource
             {
                 if (cell != null) s.cells.Add(cell);
             }
+        }
+        if (c.randomGroups != null)
+        {
+            foreach (MatrixRandomGroup g in c.randomGroups) s.groups.Add(g);
         }
         return s;
     }
@@ -482,7 +487,7 @@ public static class BalanceModel
         int total = 0;
         foreach (WaveMatrixCell cell in wm.cells)
         {
-            if (cell != null && cell.prefab != null && cell.wave == wave && cell.phase == phase) total += Mathf.Max(0, cell.count);
+            if (cell != null && (cell.prefab != null || cell.group > 0) && cell.wave == wave && cell.phase == phase) total += Mathf.Max(0, cell.count);
         }
         return total;
     }
@@ -491,7 +496,21 @@ public static class BalanceModel
     {
         foreach (WaveMatrixCell cell in wm.cells)
         {
-            if (cell == null || cell.prefab == null || cell.wave != wave || cell.phase != phase || cell.count <= 0) continue;
+            if (cell == null || cell.wave != wave || cell.phase != phase || cell.count <= 0) continue;
+
+            if (cell.group > 0)
+            {
+                // Coluna aleatória: em média, cada opção recebe a mesma fatia da contagem.
+                List<GameObject> options = new List<GameObject>();
+                if (wm.groups != null && cell.group <= wm.groups.Count && wm.groups[cell.group - 1] != null && wm.groups[cell.group - 1].options != null)
+                {
+                    foreach (GameObject option in wm.groups[cell.group - 1].options) if (option != null) options.Add(option);
+                }
+                foreach (GameObject option in options) Accumulate(s, option, cell.count / (float)options.Count, pool);
+                continue;
+            }
+
+            if (cell.prefab == null) continue;
 
             if (cell.weapon != null)
             {

@@ -1,34 +1,53 @@
 
 GunVault.png
-size: 1504,1245
+size: 1991,1045
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 1
   rotate: false
-  xy: 2, 54
-  size: 746, 508
-  orig: 748, 510
+  xy: 2, 2
+  size: 1497, 1041
+  orig: 1499, 1043
   offset: 1, 1
   index: -1
+flare_30
+  rotate: true
+  xy: 1501, 157
+  size: 394, 378
+  orig: 512, 512
+  offset: 59, 75
+  index: -1
+light_03
+  rotate: false
+  xy: 1501, 553
+  size: 488, 490
+  orig: 512, 512
+  offset: 12, 11
+  index: -1
+
+GunVault2.png
+size: 1500,1043
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
 2
   rotate: false
-  xy: 735, 680
-  size: 767, 563
-  orig: 769, 565
+  xy: 2, 2
+  size: 1496, 1039
+  orig: 1498, 1041
   offset: 1, 1
   index: -1
+
+GunVault3.png
+size: 1500,1043
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
 3
   rotate: false
-  xy: 2, 564
-  size: 731, 679
-  orig: 733, 682
-  offset: 1, 2
-  index: -1
-4
-  rotate: false
-  xy: 750, 2
-  size: 687, 676
-  orig: 689, 678
+  xy: 2, 2
+  size: 1496, 1039
+  orig: 1498, 1041
   offset: 1, 1
   index: -1
