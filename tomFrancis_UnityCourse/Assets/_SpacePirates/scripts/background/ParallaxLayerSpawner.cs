@@ -46,9 +46,11 @@ public class ParallaxLayerSpawner : MonoBehaviour
     public bool randomRotation = true;
     [Tooltip("Quais eixos giram (1 = gira, 0 = fica parado naquele eixo). Valores intermediários reduzem o giro naquele eixo.")]
     public Vector3 rotationAxes = Vector3.one;
-    [Tooltip("Velocidade de giro sorteada por eixo (graus/s), com sentido aleatório. Acompanha a velocidade do parallax.")]
+    [Tooltip("Velocidade de giro sorteada por eixo (graus/s), com sentido aleatório.")]
     public float minSpinDegreesPerSecond = 5f;
     public float maxSpinDegreesPerSecond = 40f;
+    [Tooltip("Quanto o giro acompanha a velocidade do parallax. 0 = gira sempre na mesma velocidade (não desacelera na fase de loot nem acelera ao começar a corrida); 1 = acompanha totalmente; valores no meio misturam.")]
+    [Range(0f, 1f)] public float spinFollowsParallaxSpeed = 0f;
 
     readonly List<int> recentPicks = new List<int>();
     int zSlotCounter;
@@ -120,7 +122,7 @@ public class ParallaxLayerSpawner : MonoBehaviour
         PushOffRightEdge(instance, cam);
 
         float jitter = 1f + Random.Range(-speedJitter, speedJitter);
-        mover.Initialize(layerSpeed * jitter, spin);
+        mover.Initialize(layerSpeed * jitter, spin, spinFollowsParallaxSpeed);
     }
 
     float RandomSpin()

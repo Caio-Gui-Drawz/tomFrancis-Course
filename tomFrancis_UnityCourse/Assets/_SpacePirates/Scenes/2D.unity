@@ -1916,9 +1916,9 @@ MonoBehaviour:
   maxPlaySpeed: 50
   gameOverSpeed: 10
   accelerationRate: 2
-  lootSpeedMultiplier: 0.1
-  lootSlowDownSeconds: 1
-  lootSpeedUpSeconds: 1
+  lootSpeedMultiplier: 0.3
+  lootSlowDownSeconds: 2
+  lootSpeedUpSeconds: 2
 --- !u!1 &916056841
 GameObject:
   m_ObjectHideFlags: 0
