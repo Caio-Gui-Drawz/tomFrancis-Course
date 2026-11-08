@@ -1293,7 +1293,7 @@ MonoBehaviour:
   prefab: {fileID: 4513114398952757857, guid: 12f7eec588d9956449d72c12ec8e25d1, type: 3}
   allowedSpawnPoints:
   - {fileID: 147283498}
-  offsetRange: {x: 1, y: 0}
+  offsetRange: {x: 0, y: 0}
   avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
@@ -1566,7 +1566,7 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 879767030}
   - {fileID: 1250806675}
-  offsetRange: {x: 3, y: 0}
+  offsetRange: {x: 0, y: 0}
   avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
@@ -1616,10 +1616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   prefab: {fileID: 2839716671122140853, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-  allowedSpawnPoints:
-  - {fileID: 1515917823}
-  - {fileID: 1554308291}
-  offsetRange: {x: 1, y: 0}
+  allowedSpawnPoints: []
+  offsetRange: {x: 0, y: 0}
   avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
@@ -4185,7 +4183,7 @@ MonoBehaviour:
   prefab: {fileID: 7036027618206008343, guid: 3f219a6c707750641a760547a8b608a1, type: 3}
   allowedSpawnPoints:
   - {fileID: 147283498}
-  offsetRange: {x: 1, y: 0}
+  offsetRange: {x: 0, y: 0}
   avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
@@ -5053,7 +5051,7 @@ MonoBehaviour:
   prefab: {fileID: 7036027618206008343, guid: befb54718073dcf45a846887ec8941a0, type: 3}
   allowedSpawnPoints:
   - {fileID: 147283498}
-  offsetRange: {x: 1, y: 0}
+  offsetRange: {x: 0, y: 0}
   avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5

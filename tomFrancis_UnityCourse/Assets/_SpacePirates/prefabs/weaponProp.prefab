@@ -88,6 +88,7 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
   removeOnDeath: 1
   soundProfile: 0
+  invulnerable: 0
 --- !u!114 &5424197058285939121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,11 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupReward
   possibleWeapons:
-  - {fileID: 11400000, guid: 84a30095fcda2544d928f906062964b5, type: 2}
-  - {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
   - {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
   avoidCurrentWeapon: 1
   avoidLastBoxWeapon: 1
+  logPicks: 1
 --- !u!114 &5011255176975204151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +297,6 @@ GameObject:
   - component: {fileID: 852338982667042930}
   - component: {fileID: 8237934577621931368}
   - component: {fileID: 4431955685891418660}
-  - component: {fileID: 4545394498630933660}
   m_Layer: 0
   m_Name: Spine GameObject (GunVault)
   m_TagString: Untagged
@@ -418,21 +417,3 @@ MonoBehaviour:
   _animationName: Vault_1
   loop: 1
   timeScale: 1
---- !u!114 &4545394498630933660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5163424250899879846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e87af1d70f25a4f95e35c6e2991f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RandomSpineAnimation
-  skeletonAnimation: {fileID: 4431955685891418660}
-  animationNamePrefix: Vault_
-  track: 0
-  loop: 0
-  randomizeStartTime: 1
-  avoidRepeatAcrossInstances: 1
