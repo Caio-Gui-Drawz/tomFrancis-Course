@@ -6,8 +6,13 @@ public class Spawner : MonoBehaviour
     public GameObject prefab;
     public Transform[] allowedSpawnPoints;
 
-    private Vector3 offset;
+    [Tooltip("Cada spawn recebe um deslocamento ao acaso (em X e Y) entre estes dois valores (mínimo, máximo). 0,0 = sem deslocamento.")]
     public Vector2 offsetRange;
+
+    [Tooltip("Quantos dos últimos pontos usados este spawner evita repetir (0 = sorteio puro). Limitado automaticamente a (nº de pontos - 1).")]
+    [Min(0)] public int avoidRepeatLastPoints = 1;
+
+    readonly System.Collections.Generic.List<Transform> recentPoints = new System.Collections.Generic.List<Transform>();
 
     [Header("Teste (cena de balanceamento)")]
     [Tooltip("Ligado = este spawner fica spawnando sozinho, sem WaveManager. Serve para uma cena só de teste de movimento/curva. Deixe DESLIGADO nas cenas do jogo.")]
@@ -19,10 +24,6 @@ public class Spawner : MonoBehaviour
     float autoTimer;
 
 
-    public void OnEnable()
-    {
-        offset = new Vector3(Random.Range(offsetRange.x, offsetRange.y), 0, Random.Range(offsetRange.x, offsetRange.y));
-    }
     void Update()
     {
         if (!autoSpawn) return;
@@ -46,18 +47,37 @@ public class Spawner : MonoBehaviour
     public GameObject SpawnOne(Transform avoid)
     {
         if (allowedSpawnPoints == null || allowedSpawnPoints.Length == 0) return null;
-        //Escolhe um angulo aleatorio.
 
+        int memory = Mathf.Clamp(avoidRepeatLastPoints, 0, allowedSpawnPoints.Length - 1);
+        while (recentPoints.Count > memory) recentPoints.RemoveAt(0);
 
-        Transform spawnPoint = allowedSpawnPoints[Random.Range(0, allowedSpawnPoints.Length)];
-        if (avoid != null && spawnPoint == avoid && allowedSpawnPoints.Length > 1)
+        // Candidatos: pontos que não foram usados há pouco e (se der) diferentes de 'avoid'.
+        System.Collections.Generic.List<Transform> candidates = new System.Collections.Generic.List<Transform>();
+        foreach (Transform p in allowedSpawnPoints)
         {
-            for (int i = 0; i < 8 && spawnPoint == avoid; i++)
-            {
-                spawnPoint = allowedSpawnPoints[Random.Range(0, allowedSpawnPoints.Length)];
-            }
+            if (p == null || recentPoints.Contains(p)) continue;
+            if (avoid != null && p == avoid && allowedSpawnPoints.Length > 1) continue;
+            candidates.Add(p);
         }
+        if (candidates.Count == 0)
+        {
+            foreach (Transform p in allowedSpawnPoints)
+            {
+                if (p != null) candidates.Add(p);
+            }
+            if (candidates.Count == 0) return null;
+        }
+
+        Transform spawnPoint = candidates[Random.Range(0, candidates.Count)];
         LastSpawnPoint = spawnPoint;
+
+        if (memory > 0)
+        {
+            recentPoints.Add(spawnPoint);
+            while (recentPoints.Count > memory) recentPoints.RemoveAt(0);
+        }
+
+        Vector3 offset = new Vector3(Random.Range(offsetRange.x, offsetRange.y), Random.Range(offsetRange.x, offsetRange.y), 0f);
         return PoolManager.Instance.Get(prefab, spawnPoint.position + offset, Quaternion.identity);
     }
 }

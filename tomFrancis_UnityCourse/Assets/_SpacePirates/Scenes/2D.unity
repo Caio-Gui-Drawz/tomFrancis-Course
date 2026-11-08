@@ -504,7 +504,8 @@ MonoBehaviour:
   - {fileID: 165265289}
   - {fileID: 1618675490}
   - {fileID: 1250806675}
-  offsetRange: {x: 0, y: 0}
+  offsetRange: {x: -2, y: 2}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -604,6 +605,7 @@ MonoBehaviour:
   - {fileID: 1515917823}
   - {fileID: 1938815160}
   offsetRange: {x: 0, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -616,8 +618,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 291783710}
-  - component: {fileID: 291783711}
-  - component: {fileID: 291783712}
   - component: {fileID: 291783713}
   m_Layer: 0
   m_Name: debugTools
@@ -641,35 +641,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1130104355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &291783711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291783709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2baf8f5e7de58f6418b5854cf4e5f5da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DebugReset
-  resetKey: 114
---- !u!114 &291783712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291783709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c959ad69cc908459689f54d8dd5e53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DebugHealthKeys
-  healKey: 104
-  damageKey: 106
-  healAmount: 2
-  damageAmount: 1
 --- !u!114 &291783713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,6 +1294,7 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 147283498}
   offsetRange: {x: 1, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -1541,7 +1513,8 @@ MonoBehaviour:
   prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
   allowedSpawnPoints:
   - {fileID: 1554308291}
-  offsetRange: {x: 0, y: 0}
+  offsetRange: {x: -2, y: 2}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -1594,6 +1567,7 @@ MonoBehaviour:
   - {fileID: 879767030}
   - {fileID: 1250806675}
   offsetRange: {x: 3, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -1646,6 +1620,7 @@ MonoBehaviour:
   - {fileID: 1515917823}
   - {fileID: 1554308291}
   offsetRange: {x: 1, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -2531,7 +2506,8 @@ MonoBehaviour:
   - {fileID: 1554308291}
   - {fileID: 165265289}
   - {fileID: 0}
-  offsetRange: {x: 0, y: 0}
+  offsetRange: {x: -1, y: 1}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -4210,6 +4186,7 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 147283498}
   offsetRange: {x: 1, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -4462,7 +4439,8 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 1938815160}
   - {fileID: 1554308291}
-  offsetRange: {x: 1, y: 1}
+  offsetRange: {x: -1, y: 1}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -4887,6 +4865,7 @@ MonoBehaviour:
   - {fileID: 1715493237}
   - {fileID: 1334999278}
   offsetRange: {x: 0, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -5075,6 +5054,7 @@ MonoBehaviour:
   allowedSpawnPoints:
   - {fileID: 147283498}
   offsetRange: {x: 1, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -5397,6 +5377,7 @@ MonoBehaviour:
   - {fileID: 266124927}
   - {fileID: 1723738707}
   offsetRange: {x: 0, y: 0}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
@@ -5625,7 +5606,8 @@ MonoBehaviour:
   - {fileID: 1938815160}
   - {fileID: 1554308291}
   - {fileID: 1515917823}
-  offsetRange: {x: 0, y: 0}
+  offsetRange: {x: -1, y: 1}
+  avoidRepeatLastPoints: 1
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1

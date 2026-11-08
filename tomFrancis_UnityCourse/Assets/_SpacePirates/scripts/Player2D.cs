@@ -189,7 +189,23 @@ public class Player2D : MonoBehaviour
             float spreadOffset = Random.Range(-currentWeapon.spreadAngleDegrees, currentWeapon.spreadAngleDegrees);
             Quaternion bulletRotation = aimRotation * Quaternion.Euler(0, 0, spreadOffset);
 
-            PoolManager.Instance.Get(currentWeapon.bulletPrefab, spawnPosition, bulletRotation);
+            // Cada projétil pode nascer um pouco deslocado do cano (jitter) e com velocidade levemente diferente.
+            Vector3 pelletPosition = spawnPosition;
+            if (currentWeapon.pelletPositionJitter > 0f)
+            {
+                pelletPosition += (Vector3)(Random.insideUnitCircle * currentWeapon.pelletPositionJitter);
+            }
+
+            GameObject pellet = PoolManager.Instance.Get(currentWeapon.bulletPrefab, pelletPosition, bulletRotation);
+
+            if (currentWeapon.pelletSpeedVariation > 0f && pellet != null)
+            {
+                Rigidbody2D pelletBody = pellet.GetComponent<Rigidbody2D>();
+                if (pelletBody != null)
+                {
+                    pelletBody.linearVelocity *= 1f + Random.Range(-currentWeapon.pelletSpeedVariation, currentWeapon.pelletSpeedVariation);
+                }
+            }
         }
 
         // Som do tiro: um por disparo (não por projétil), definido na própria arma.

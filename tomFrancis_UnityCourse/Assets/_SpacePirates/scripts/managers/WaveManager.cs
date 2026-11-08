@@ -476,6 +476,50 @@ public class WaveManager : MonoBehaviour
         }
 
         Shuffle(waveQueue);
+        SpaceOutQueue(waveQueue, config.minSpawnsBetweenSameType);
+    }
+
+    // Reordena a fila (já embaralhada) para itens do mesmo tipo não nascerem colados: em cada posição pega o primeiro
+    // item que não repete um tipo presente nos últimos 'gap' spawns. Tipos muito frequentes têm o espaço reduzido.
+    static void SpaceOutQueue(List<QueuedSpawn> queue, int gap)
+    {
+        if (gap <= 0 || queue.Count < 3) return;
+
+        int total = queue.Count;
+        Dictionary<Spawner, int> counts = new Dictionary<Spawner, int>();
+        foreach (QueuedSpawn q in queue)
+        {
+            int c;
+            counts.TryGetValue(q.spawner, out c);
+            counts[q.spawner] = c + 1;
+        }
+
+        List<QueuedSpawn> remaining = new List<QueuedSpawn>(queue);
+        List<QueuedSpawn> result = new List<QueuedSpawn>(total);
+
+        while (remaining.Count > 0)
+        {
+            int pick = 0;
+            for (int i = 0; i < remaining.Count; i++)
+            {
+                Spawner candidate = remaining[i].spawner;
+                int effectiveGap = Mathf.Min(gap, Mathf.Max(0, total / counts[candidate] - 1));
+
+                bool tooClose = false;
+                for (int k = 1; k <= effectiveGap && k <= result.Count; k++)
+                {
+                    if (result[result.Count - k].spawner == candidate) { tooClose = true; break; }
+                }
+
+                if (!tooClose) { pick = i; break; }
+            }
+
+            result.Add(remaining[pick]);
+            remaining.RemoveAt(pick);
+        }
+
+        queue.Clear();
+        queue.AddRange(result);
     }
 
     bool HasMatrixLoot(int wave)
