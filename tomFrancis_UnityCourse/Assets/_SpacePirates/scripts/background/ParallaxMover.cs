@@ -5,6 +5,7 @@ public class ParallaxMover : MonoBehaviour
 {
     float layerSpeed;
     Vector3 spinDegreesPerSecond;
+    float spinFollowSpeed;
 
     public void Initialize(float speed)
     {
@@ -13,8 +14,15 @@ public class ParallaxMover : MonoBehaviour
 
     public void Initialize(float speed, Vector3 spin)
     {
+        Initialize(speed, spin, 1f);
+    }
+
+    // spinFollowSpeed: 0 = giro sempre na velocidade própria; 1 = acompanha a velocidade do parallax (loot, aceleração).
+    public void Initialize(float speed, Vector3 spin, float spinFollowSpeed)
+    {
         layerSpeed = speed;
         spinDegreesPerSecond = spin;
+        this.spinFollowSpeed = Mathf.Clamp01(spinFollowSpeed);
     }
 
     void Update()
@@ -25,10 +33,11 @@ public class ParallaxMover : MonoBehaviour
 
         transform.position += Vector3.left * layerSpeed * globalSpeed * Time.deltaTime;
 
-        // O giro acompanha a velocidade do parallax (desacelera junto na fase de loot).
+        // O giro acompanha a velocidade do parallax só na proporção configurada no spawner (0 = nunca).
         if (spinDegreesPerSecond != Vector3.zero)
         {
-            transform.Rotate(spinDegreesPerSecond * globalSpeed * Time.deltaTime, Space.Self);
+            float spinSpeed = Mathf.Lerp(1f, globalSpeed, spinFollowSpeed);
+            transform.Rotate(spinDegreesPerSecond * spinSpeed * Time.deltaTime, Space.Self);
         }
     }
 }

@@ -119,6 +119,9 @@ public class WaveConfig : ScriptableObject
     [Tooltip("Quanto tempo depois de começar a jogar até a wave 1 realmente começar (janela de só voar, sem combate).")]
     public float secondsBeforeFirstWave = 3f;
 
+    [Tooltip("Modo planilha: quantos spawns, no mínimo, separam dois itens do MESMO tipo na fila da wave (evita 3 minas coladas). 0 = sorteio puro. Se um tipo aparece tantas vezes que não cabe, o espaço é reduzido sozinho.")]
+    [Min(0)] public int minSpawnsBetweenSameType = 3;
+
     [Header("Quem nasce em cada wave")]
     public WaveRangeData[] ranges;
 

@@ -56,7 +56,7 @@ Material:
     - _HorizonBlend: 149.3
     - _NadirBlendPower: 2.5
     - _NoiseSCALE: 32
-    - _Posterize_NormalTime: -0.02
+    - _Posterize_NormalTime: 0.05
     - _Posterize_Steps: 8
     - _QueueControl: 0
     - _QueueOffset: 0

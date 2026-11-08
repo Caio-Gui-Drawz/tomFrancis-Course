@@ -18,6 +18,9 @@ public class WeaponPickupReward : MonoBehaviour
     // Não é salva: é reposta a cada vez que a caixa nasce (o objeto vem do pool).
     [System.NonSerialized] public WeaponData forcedWeapon;
 
+    [Tooltip("Escreve no Console qual arma esta caixa deu (e por quê). Serve para caçar caixas que dão a arma errada; desligue depois.")]
+    public bool logPicks = true;
+
     void Start()
     {
         GetComponent<healthSystem>().OnDeath += HandleDeath;
@@ -31,6 +34,20 @@ public class WeaponPickupReward : MonoBehaviour
         if (player == null) return;
 
         WeaponData chosen = forcedWeapon != null ? forcedWeapon : PickRandomWeapon(player.currentWeapon, player.LastBoxWeapon);
+
+        if (logPicks)
+        {
+            System.Text.StringBuilder list = new System.Text.StringBuilder();
+            if (possibleWeapons != null)
+            {
+                foreach (WeaponData w in possibleWeapons) list.Append(w != null ? w.name : "null").Append(' ');
+            }
+            Spine.Unity.SkeletonAnimation skeleton = GetComponentInChildren<Spine.Unity.SkeletonAnimation>();
+            string visual = skeleton != null ? skeleton.AnimationName : "sem Spine";
+            RandomSpineAnimation randomizer = GetComponentInChildren<RandomSpineAnimation>();
+            Debug.Log("[Caixa] '" + name + "' (id " + GetInstanceID() + ") visual: " + visual + (randomizer != null ? " (RandomSpineAnimation ATIVO)" : "") + " | morreu. Forçada: " + (forcedWeapon != null ? forcedWeapon.name : "nenhuma")
+                + " | lista: " + list + "| deu: " + (chosen != null ? chosen.name : "nada"), this);
+        }
         if (chosen != null)
         {
             player.LastBoxWeapon = chosen;

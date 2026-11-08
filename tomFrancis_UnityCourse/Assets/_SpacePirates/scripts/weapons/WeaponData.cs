@@ -22,6 +22,12 @@ public class WeaponData : ScriptableObject
     [Tooltip("Desvio angular máximo (para cada lado) aplicado a cada bala, em graus. 0 = mira perfeita.")]
     public float spreadAngleDegrees = 0f;
 
+    [Tooltip("Cada projétil nasce deslocado ao acaso dentro deste raio (unidades de mundo) em volta do cano, em vez de todos no mesmo ponto. 0 = todos no mesmo ponto. É o que dá a distância entre as balas da shotgun.")]
+    [Min(0f)] public float pelletPositionJitter = 0f;
+
+    [Tooltip("Variação ao acaso da velocidade de cada projétil: 0.2 = de 20% mais lento a 20% mais rápido. Faz o grupo se esticar em uma nuvem, com umas balas à frente de outras. 0 = todos na mesma velocidade.")]
+    [Range(0f, 0.9f)] public float pelletSpeedVariation = 0f;
+
     [Header("Limite de uso (armas de caixa)")]
     [Tooltip("Unlimited = nunca acaba (pistola padrão). Time = acaba depois de N segundos. Ammo = acaba depois de N tiros.")]
     public LimitMode limitMode = LimitMode.Unlimited;

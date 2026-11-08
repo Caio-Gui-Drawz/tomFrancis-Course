@@ -17,7 +17,9 @@ MonoBehaviour:
   fireRate: 0.1
   automaticFire: 1
   numberOfProjectiles: 1
-  spreadAngleDegrees: 5
+  spreadAngleDegrees: 6
+  pelletPositionJitter: 0
+  pelletSpeedVariation: 0.252
   limitMode: 2
   durationSeconds: 5
   ammo: 60

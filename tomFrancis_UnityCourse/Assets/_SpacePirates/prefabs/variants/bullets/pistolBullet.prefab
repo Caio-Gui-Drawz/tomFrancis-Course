@@ -344,6 +344,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1728494642418109448, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1728494642418109448, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1594438595
+      objectReference: {fileID: 0}
     - target: {fileID: 3640802471804579802, guid: 98bf9dc448540884a9eb0d1431a35624, type: 3}
       propertyPath: bulletSpeed
       value: 75

@@ -25,6 +25,18 @@ PrefabInstance:
       value: smgWeaponProp
       objectReference: {fileID: 0}
     - target: {fileID: 3459606683554986946, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459606683554986946, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -89,14 +101,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
     - target: {fileID: 4655378237017652562, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-      propertyPath: possibleWeapons.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4655378237017652562, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
-      propertyPath: 'possibleWeapons.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 60f2ee82e5580df4995f812cef87c8bc, type: 2}
-    - target: {fileID: 4655378237017652562, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: 'possibleWeapons.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 84a30095fcda2544d928f906062964b5, type: 2}
@@ -106,22 +110,21 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 169d444e385b4ad46ad77c9a8e6510bd, type: 2}
     - target: {fileID: 8237934577621931368, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8237934577621931368, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 9000299f67d773140986dc10b835e7ea, type: 2}
+      objectReference: {fileID: 2100000, guid: b3b6126a66ddb3b40aa03c0295d87819, type: 2}
     - target: {fileID: 8237934577621931368, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: b3b6126a66ddb3b40aa03c0295d87819, type: 2}
+      objectReference: {fileID: 2100000, guid: ba6a5a7624397264cbcd7bcc601fbe40, type: 2}
     - target: {fileID: 8237934577621931368, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: ba6a5a7624397264cbcd7bcc601fbe40, type: 2}
-    m_RemovedComponents:
-    - {fileID: 4545394498630933660, guid: d5b7a75b2cef14549bae0a483f0deb8e, type: 3}
+      objectReference: {fileID: 2100000, guid: 9000299f67d773140986dc10b835e7ea, type: 2}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

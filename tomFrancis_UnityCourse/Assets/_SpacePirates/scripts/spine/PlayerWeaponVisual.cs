@@ -73,8 +73,17 @@ public class PlayerWeaponVisual : MonoBehaviour
 
     Bone muzzleBone;
 
+    // Avisa se duas tracks configuradas aqui forem iguais: a que toca depois SUBSTITUI a outra (ex.: o tiro apagava o visual da arma).
+    void WarnIfTracksCollide()
+    {
+        if (shootAnimationTrack == weaponTrack) Debug.LogWarning("PlayerWeaponVisual '" + name + "': Shoot Animation Track (" + shootAnimationTrack + ") e Weapon Track (" + weaponTrack + ") são a mesma: o tiro apaga o visual da arma. Use tracks diferentes (e Weapon Track maior que a do tiro, se a animação de tiro mexer na arma).", this);
+        if (reloadTrack == weaponTrack) Debug.LogWarning("PlayerWeaponVisual '" + name + "': Reload Track e Weapon Track são a mesma (" + reloadTrack + ").", this);
+        if (reloadTrack == shootAnimationTrack) Debug.LogWarning("PlayerWeaponVisual '" + name + "': Reload Track e Shoot Animation Track são a mesma (" + reloadTrack + ").", this);
+    }
+
     void Start()
     {
+        WarnIfTracksCollide();
         muzzleBone = skeletonAnimation.Skeleton.FindBone(muzzleBoneName);
         if (muzzleBone == null)
         {

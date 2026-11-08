@@ -26,6 +26,9 @@ public class healthSystem : MonoBehaviour
     // Avisa toda vez que a vida muda (dano ou reset) — usado por UI fixa, tipo o HUD do player.
     public event System.Action<float, float> OnHealthChanged;
 
+    // DEBUG: ligado = não recebe dano (usado pelo comando "Imortal" do DebugCommands).
+    [HideInInspector] public bool invulnerable;
+
     healthBarBehavior myHealthBar;
 
     void OnEnable()
@@ -47,7 +50,7 @@ public class healthSystem : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
-        if (currentHealth <= 0) return;
+        if (currentHealth <= 0 || invulnerable) return;
 
         currentHealth -= damageAmount;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);

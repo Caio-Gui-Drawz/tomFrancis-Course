@@ -16,6 +16,10 @@ public class PoolManager : MonoBehaviour
 
     Dictionary<GameObject, Queue<GameObject>> pools = new Dictionary<GameObject, Queue<GameObject>>();
 
+    // Instâncias que já estão guardadas nas filas. Evita devolver o mesmo objeto duas vezes (ex.: loot + DestroyOffScreen
+    // no mesmo frame), o que colocaria o mesmo objeto duas vezes na fila e o entregaria a dois spawns ao mesmo tempo.
+    readonly HashSet<GameObject> inPool = new HashSet<GameObject>();
+
     void Awake()
     {
         Instance = this;
@@ -34,6 +38,7 @@ public class PoolManager : MonoBehaviour
             GameObject instance = CreateNewInstance(prefab);
             instance.SetActive(false);
             queue.Enqueue(instance);
+            inPool.Add(instance);
         }
     }
 
@@ -71,6 +76,7 @@ public class PoolManager : MonoBehaviour
         while (queue.Count > 0 && instance == null)
         {
             instance = queue.Dequeue();
+            if (instance != null) inPool.Remove(instance);
         }
 
         bool isBrandNew = false;
@@ -100,6 +106,8 @@ public class PoolManager : MonoBehaviour
             Destroy(instance); // não veio do pool, não tem pra onde devolver
             return;
         }
+
+        if (!inPool.Add(instance)) return; // já está no pool: devolução duplicada, ignora
 
         instance.SetActive(false);
         instance.transform.SetParent(transform);

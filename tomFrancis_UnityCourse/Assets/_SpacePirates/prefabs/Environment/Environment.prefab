@@ -81,6 +81,7 @@ MonoBehaviour:
   speedJitter: 0.1
   minSecondsBetweenSpawns: 1
   maxSecondsBetweenSpawns: 3
+  spawnMargin: 0.5
   minY: -2
   maxY: 2
   minScale: 0.8
@@ -93,8 +94,9 @@ MonoBehaviour:
   avoidRepeatCount: 2
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
-  minSpinDegreesPerSecond: 5
-  maxSpinDegreesPerSecond: 40
+  minSpinDegreesPerSecond: 1
+  maxSpinDegreesPerSecond: 2
+  spinFollowsParallaxSpeed: 0
 --- !u!1 &3261611845876735497
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +219,7 @@ MonoBehaviour:
   speedJitter: 0.1
   minSecondsBetweenSpawns: 1.5
   maxSecondsBetweenSpawns: 4.5
+  spawnMargin: 0.5
   minY: -40
   maxY: 40
   minScale: 0.2
@@ -229,8 +232,9 @@ MonoBehaviour:
   avoidRepeatCount: 3
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
-  minSpinDegreesPerSecond: 1.5
-  maxSpinDegreesPerSecond: 6
+  minSpinDegreesPerSecond: 20
+  maxSpinDegreesPerSecond: 30
+  spinFollowsParallaxSpeed: 0
 --- !u!1 &5235749392990759816
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +295,7 @@ MonoBehaviour:
   speedJitter: 0.1
   minSecondsBetweenSpawns: 2.5
   maxSecondsBetweenSpawns: 3.5
+  spawnMargin: 0.5
   minY: -20
   maxY: 20
   minScale: 0.3
@@ -303,8 +308,9 @@ MonoBehaviour:
   avoidRepeatCount: 3
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
-  minSpinDegreesPerSecond: 1.5
-  maxSpinDegreesPerSecond: 4.5
+  minSpinDegreesPerSecond: 20
+  maxSpinDegreesPerSecond: 30
+  spinFollowsParallaxSpeed: 0
 --- !u!1 &9056029603880205533
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +365,7 @@ MonoBehaviour:
   speedJitter: 0.111
   minSecondsBetweenSpawns: 2
   maxSecondsBetweenSpawns: 5
+  spawnMargin: 0.5
   minY: -30
   maxY: 30
   minScale: 0.08
@@ -371,5 +378,6 @@ MonoBehaviour:
   avoidRepeatCount: 4
   randomRotation: 1
   rotationAxes: {x: 1, y: 1, z: 1}
-  minSpinDegreesPerSecond: 1.5
-  maxSpinDegreesPerSecond: 4
+  minSpinDegreesPerSecond: 20
+  maxSpinDegreesPerSecond: 30
+  spinFollowsParallaxSpeed: 0

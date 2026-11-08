@@ -87,9 +87,9 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1594438595
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4556198354213377842
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Name
-      value: enemy01
+      value: Fish
       objectReference: {fileID: 0}
     - target: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_LocalScale.x
@@ -304,6 +304,7 @@ MonoBehaviour:
   angleOffset: 180
   turnSpeed: 360
   minSpeed: 0.1
+  ignoreKnockback: 1
 --- !u!4 &1588219886954825451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2104567554939128568, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
