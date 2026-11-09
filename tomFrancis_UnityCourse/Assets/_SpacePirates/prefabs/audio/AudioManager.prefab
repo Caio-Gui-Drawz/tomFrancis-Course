@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8990253151450278725}
   - component: {fileID: 4696786302490898313}
   - component: {fileID: 837245385140576648}
-  - component: {fileID: 3686797923597074891}
+  - component: {fileID: 4808067860812779315}
+  - component: {fileID: 30088790842736839}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -80,6 +81,13 @@ MonoBehaviour:
       Data3: 1642632594
       Data4: -1191385826
     Path: event:/sfx/player/playerDeath
+  playerHeal:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   enemyTakeDamage:
     Guid:
       Data1: -539518561
@@ -143,7 +151,32 @@ MonoBehaviour:
       Data3: -658578811
       Data4: 1810370132
     Path: event:/sfx/interfaces/deathScreen
---- !u!114 &3686797923597074891
+--- !u!114 &4808067860812779315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470444145774697529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6d245c208081e4783d8e880b6f7631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicController
+  emitter: {fileID: 30088790842736839}
+  music:
+    Guid:
+      Data1: -255463601
+      Data2: 1073937845
+      Data3: -224924776
+      Data4: 486129059
+    Path: event:/music/Musics
+  parameter: gameState
+  parameterIsGlobal: 1
+  calmValue: 0
+  combatValue: 1
+  calmOnWaveEnd: 1
+--- !u!114 &30088790842736839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,11 +191,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1735050024
-      Data2: 1253838872
-      Data3: 2026561699
-      Data4: -1865467887
-    Path: event:/music/combatMusic
+      Data1: -255463601
+      Data2: 1073937845
+      Data3: -224924776
+      Data4: 486129059
+    Path: event:/music/Musics
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2
@@ -172,5 +205,5 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
