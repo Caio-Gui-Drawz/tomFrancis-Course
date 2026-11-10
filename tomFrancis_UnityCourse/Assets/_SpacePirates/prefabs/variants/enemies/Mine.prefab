@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: damage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5383370176089516564, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: dieOnPlayerContact
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
     m_RemovedGameObjects: []
