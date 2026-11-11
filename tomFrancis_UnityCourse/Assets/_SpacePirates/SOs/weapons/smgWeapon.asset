@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: SMG
   bulletPrefab: {fileID: 7332364211217927865, guid: 16866d56cc460a042b1f8d459c30030a, type: 3}
-  fireRate: 0.1
+  fireRate: 0.08
   automaticFire: 1
   numberOfProjectiles: 1
   spreadAngleDegrees: 6
@@ -22,7 +22,7 @@ MonoBehaviour:
   pelletSpeedVariation: 0.252
   limitMode: 2
   durationSeconds: 5
-  ammo: 60
+  ammo: 80
   skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
   weaponAnimationName: WeaponOnly_GatlingGun
   muzzleFlash: Muzzle_02

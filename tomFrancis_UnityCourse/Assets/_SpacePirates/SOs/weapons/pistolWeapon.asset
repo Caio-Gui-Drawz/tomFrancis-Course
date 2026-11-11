@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: pistol
   bulletPrefab: {fileID: 9076596221152695787, guid: f5e4aa8f83c591544a3e97710f8bbea1, type: 3}
-  fireRate: 0
-  automaticFire: 0
+  fireRate: 0.3
+  automaticFire: 1
   numberOfProjectiles: 1
   spreadAngleDegrees: 1
+  pelletPositionJitter: 0
+  pelletSpeedVariation: 0
   limitMode: 0
   durationSeconds: 10
   ammo: 30

@@ -2,7 +2,10 @@ using UnityEngine;
 
 // Controles de toque, no mesmo sistema de Input antigo. Convive com teclado e mouse na mesma build.
 //   Metade ESQUERDA da tela: joystick vertical flutuante (o ponto onde o dedo toca vira o centro).
-//   Metade DIREITA da tela: o dedo mira (posição do dedo) e atira enquanto estiver tocando.
+//   Metade DIREITA da tela: atira enquanto estiver tocando e mira. Dois modos (campo "Aim By Angle"):
+//     - por ÂNGULO (padrão): subir/descer o dedo gira a mira entre -Max Aim Angle e +Max Aim Angle, como o joystick
+//       da esquerda. A mira fica no ângulo onde o dedo parou;
+//     - por POSIÇÃO: a mira vai para o ponto da tela onde está o dedo (modo antigo).
 // Cria a si mesmo ao iniciar o jogo (não precisa colocar na cena). Os controles só aparecem depois do primeiro toque.
 //
 // Uso no resto do jogo (troque as chamadas diretas de Input por estas, que somam teclado/mouse + toque):
@@ -24,6 +27,19 @@ public class TouchInput : MonoBehaviour
 
     [Tooltip("Até onde vai a zona do joystick, em fração da largura da tela (o resto é mira e tiro).")]
     [Range(0.2f, 0.8f)] public float stickZoneWidth = 0.5f;
+
+    [Header("Mira por ângulo (lado direito)")]
+    [Tooltip("Ligado = no toque, o lado direito controla o ÂNGULO da mira: subir o dedo sobe a mira, descer desce. Desligado = a mira vai para a posição do dedo na tela (modo antigo).")]
+    public bool aimByAngle = true;
+
+    [Tooltip("Ângulo máximo para cima e para baixo, em graus. 90 = leque total de 180° (de -90° a +90°). 0° é reto para frente.")]
+    [Range(10f, 90f)] public float maxAimAngle = 90f;
+
+    [Tooltip("Quanto o dedo anda na vertical para varrer a mira de um extremo ao outro, em fração da altura da tela. Menor = mais sensível.")]
+    [Range(0.1f, 1f)] public float aimSweepFraction = 0.35f;
+
+    [Tooltip("Ligado = a cada novo toque a mira volta ao centro (0°). Desligado = continua de onde o toque anterior parou (sem pulo).")]
+    public bool resetAimOnTouch = false;
 
     public static TouchInput Instance { get; private set; }
 
@@ -58,6 +74,18 @@ public class TouchInput : MonoBehaviour
         }
     }
 
+    // Mira por ângulo: valores válidos só quando UseAimAngle é verdadeiro (toque + Aim By Angle ligado).
+    public static bool UseAimAngle
+    {
+        get { return Instance != null && Instance.touchMode && Instance.aimByAngle; }
+    }
+
+    // Graus a partir da direita do player: 0 = frente, + = para cima, - = para baixo.
+    public static float AimAngleDegrees
+    {
+        get { return Instance != null ? Instance.aimAngle : 0f; }
+    }
+
     public static bool TouchMode
     {
         get { return Instance != null && Instance.touchMode; }
@@ -72,6 +100,9 @@ public class TouchInput : MonoBehaviour
     Vector2 stickPos;
     float stickValue;
     Vector2 aimPosition;
+    float aimAngle;
+    float aimLastY;
+    Vector2 aimOrigin;
     int fireDownFrame = -1;
     Texture2D circle;
 
@@ -138,7 +169,10 @@ public class TouchInput : MonoBehaviour
                 else if (!leftSide && aimFinger == -1)
                 {
                     aimFinger = t.fingerId;
-                    aimPosition = t.position;
+                    aimOrigin = t.position;
+                    aimLastY = t.position.y;
+                    if (!aimByAngle) aimPosition = t.position;
+                    else if (resetAimOnTouch) aimAngle = 0f;
                     fireDownFrame = Time.frameCount;
                 }
             }
@@ -150,7 +184,20 @@ public class TouchInput : MonoBehaviour
             else
             {
                 if (t.fingerId == stickFinger) stickPos = t.position;
-                if (t.fingerId == aimFinger) aimPosition = t.position;
+                if (t.fingerId == aimFinger)
+                {
+                    if (aimByAngle)
+                    {
+                        // O dedo só soma/subtrai ângulo: não existe "folga" ao passar do limite (voltar já desfaz).
+                        float degreesPerPixel = (2f * maxAimAngle) / Mathf.Max(1f, Screen.height * aimSweepFraction);
+                        aimAngle = Mathf.Clamp(aimAngle + (t.position.y - aimLastY) * degreesPerPixel, -maxAimAngle, maxAimAngle);
+                        aimLastY = t.position.y;
+                    }
+                    else
+                    {
+                        aimPosition = t.position;
+                    }
+                }
             }
         }
 
@@ -186,6 +233,22 @@ public class TouchInput : MonoBehaviour
         DrawCircle(center, radius);
         GUI.color = new Color(1f, 1f, 1f, stickFinger != -1 ? 0.6f : 0.2f);
         DrawCircle(knob, radius * 0.45f);
+        if (aimByAngle)
+        {
+            // Mostrador da mira: círculo no ponto do toque e uma agulha apontando para o ângulo atual.
+            bool aiming = aimFinger != -1;
+            Vector2 aimCenter = aiming ? aimOrigin : new Vector2(Screen.width * 0.88f, Screen.height * 0.3f);
+            GUI.color = new Color(1f, 1f, 1f, aiming ? 0.25f : 0.12f);
+            DrawCircle(aimCenter, radius);
+
+            GUI.color = new Color(1f, 1f, 1f, aiming ? 0.7f : 0.25f);
+            Vector2 pivot = new Vector2(aimCenter.x, Screen.height - aimCenter.y);
+            Matrix4x4 oldMatrix = GUI.matrix;
+            GUIUtility.RotateAroundPivot(-aimAngle, pivot);
+            GUI.DrawTexture(new Rect(pivot.x, pivot.y - 3f, radius, 6f), Texture2D.whiteTexture);
+            GUI.matrix = oldMatrix;
+        }
+
         GUI.color = old;
     }
 

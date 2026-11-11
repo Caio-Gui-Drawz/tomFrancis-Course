@@ -925,6 +925,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1094449361340699387, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0025113027
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123674429965129313, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.28645566
+      objectReference: {fileID: 0}
     - target: {fileID: 1485192531968261184, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.178
@@ -1009,9 +1017,29 @@ PrefabInstance:
       propertyPath: defaultWeapon
       value: 
       objectReference: {fileID: 11400000, guid: 895ef9f97160a8b4eb493996da5f75fa, type: 2}
+    - target: {fileID: 4953810988252584989, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.94107485
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953810988252584989, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.3381984
+      objectReference: {fileID: 0}
     - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: healthBarPrefab
-      value: 
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: healthBarOffset
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764727950451722886, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9118993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764727950451722886, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.41041404
       objectReference: {fileID: 0}
     - target: {fileID: 6035196309292413793, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: ikConstraintName
@@ -1148,6 +1176,10 @@ PrefabInstance:
     - target: {fileID: 7402128002628068690, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7689981659357208858, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7085261
       objectReference: {fileID: 0}
     - target: {fileID: 7878567744855332695, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalScale.x
@@ -5617,6 +5649,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/music/combatMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: 1735050024
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1253838872
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 2026561699
+      objectReference: {fileID: 0}
+    - target: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1865467887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5470444145774697529, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: m_Name
       value: AudioManager

@@ -129,10 +129,17 @@ public class Player2D : MonoBehaviour
 
         // Calcula o ângulo até o mouse (mas não gira o player com isso — ver comentário
         // em currentAimAngle acima). O braço quem se vira sozinho, via IK (AimArmToMouse).
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        Vector2 direction = mousePosition - transform.position;
-        currentAimAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        if (TouchInput.UseAimAngle)
+        {
+            currentAimAngle = TouchInput.AimAngleDegrees; // toque: mira por ângulo
+        }
+        else
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(TouchInput.PointerPosition);
+            mousePosition.z = 0;
+            Vector2 direction = mousePosition - transform.position;
+            currentAimAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        }
 
         // Arma de caixa com limite de tempo: o relógio corre enquanto o jogo está rodando.
         if (currentWeapon != null && currentWeapon.limitMode == WeaponData.LimitMode.Time)
