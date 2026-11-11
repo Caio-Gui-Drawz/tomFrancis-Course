@@ -176,12 +176,6 @@ public class AimArmToMouse : MonoBehaviour
 
         if (aimControlBone == null) return;
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(TouchInput.PointerPosition);
-        mouseWorldPos.z = 0;
-
-        // Unity (mundo) -> espaço do esqueleto.
-        Vector3 mouseSkeleton = skeletonAnimation.transform.InverseTransformPoint(mouseWorldPos);
-
         // Origem da mira = o ombro (posição da última atualização do esqueleto).
         float originX, originY;
         if (shoulderBone != null)
@@ -194,6 +188,23 @@ public class AimArmToMouse : MonoBehaviour
             originX = aimControlBone.Parent != null ? aimControlBone.Parent.WorldX : 0f;
             originY = aimControlBone.Parent != null ? aimControlBone.Parent.WorldY : 0f;
         }
+
+        Vector3 mouseWorldPos;
+        if (TouchInput.UseAimAngle)
+        {
+            // Mira por ângulo (toque): um ponto bem longe do ombro, na direção do ângulo (0° = frente do player).
+            Vector3 shoulderWorld = skeletonAnimation.transform.TransformPoint(new Vector3(originX, originY, 0f));
+            float radians = TouchInput.AimAngleDegrees * Mathf.Deg2Rad;
+            mouseWorldPos = shoulderWorld + new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f) * 20f;
+        }
+        else
+        {
+            mouseWorldPos = Camera.main.ScreenToWorldPoint(TouchInput.PointerPosition);
+        }
+        mouseWorldPos.z = 0;
+
+        // Unity (mundo) -> espaço do esqueleto.
+        Vector3 mouseSkeleton = skeletonAnimation.transform.InverseTransformPoint(mouseWorldPos);
 
         Vector2 direction = new Vector2(mouseSkeleton.x - originX, mouseSkeleton.y - originY);
         if (direction.sqrMagnitude > 0.0001f)

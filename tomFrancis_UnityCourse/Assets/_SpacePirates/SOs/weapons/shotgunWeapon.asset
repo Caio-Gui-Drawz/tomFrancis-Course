@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: shotgun
   bulletPrefab: {fileID: 60644171757082306, guid: 6979f587210345c43ab2c5b529596c7a, type: 3}
   fireRate: 0.5
-  automaticFire: 0
+  automaticFire: 1
   numberOfProjectiles: 7
   spreadAngleDegrees: 15
   pelletPositionJitter: 0.6
