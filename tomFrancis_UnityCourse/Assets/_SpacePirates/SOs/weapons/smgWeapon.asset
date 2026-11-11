@@ -22,7 +22,7 @@ MonoBehaviour:
   pelletSpeedVariation: 0.252
   limitMode: 2
   durationSeconds: 5
-  ammo: 60
+  ammo: 80
   skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
   weaponAnimationName: WeaponOnly_GatlingGun
   muzzleFlash: Muzzle_02

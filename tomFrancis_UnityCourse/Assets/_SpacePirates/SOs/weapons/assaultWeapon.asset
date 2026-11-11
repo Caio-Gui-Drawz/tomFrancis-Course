@@ -18,9 +18,11 @@ MonoBehaviour:
   automaticFire: 0
   numberOfProjectiles: 1
   spreadAngleDegrees: 3
+  pelletPositionJitter: 0
+  pelletSpeedVariation: 0
   limitMode: 2
   durationSeconds: 10
-  ammo: 40
+  ammo: 50
   skeletonData: {fileID: 11400000, guid: d1ba6fea475e864448e876c76757b42a, type: 2}
   weaponAnimationName: WeaponOnly_LongGun
   muzzleFlash: Muzzle_04

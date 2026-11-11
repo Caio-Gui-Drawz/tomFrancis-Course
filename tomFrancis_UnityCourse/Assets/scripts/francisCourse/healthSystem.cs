@@ -36,16 +36,24 @@ public class healthSystem : MonoBehaviour
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
-        if (healthBarPrefab != null && references.Canvas != null && myHealthBar == null)
-        {
-            GameObject healthBarObject = Instantiate(healthBarPrefab, references.Canvas.transform);
-            myHealthBar = healthBarObject.GetComponent<healthBarBehavior>();
-        }
+        EnsureHealthBar();
 
         if (myHealthBar != null)
         {
             myHealthBar.gameObject.SetActive(true);
         }
+    }
+
+    // Cria a barra flutuante se ainda não existe. Tenta de novo no Update: um objeto que já está na cena (como o player)
+    // pode ligar ANTES do Canvas existir (ordem de Awake/OnEnable não é garantida) e a barra nunca nasceria.
+    void EnsureHealthBar()
+    {
+        if (myHealthBar != null || healthBarPrefab == null || references.Canvas == null) return;
+
+        GameObject healthBarObject = Instantiate(healthBarPrefab, references.Canvas.transform);
+        myHealthBar = healthBarObject.GetComponent<healthBarBehavior>();
+        if (myHealthBar == null) myHealthBar = healthBarObject.GetComponentInChildren<healthBarBehavior>(true);
+        if (myHealthBar != null) myHealthBar.gameObject.SetActive(true);
     }
 
     public void TakeDamage(float damageAmount)
@@ -94,7 +102,11 @@ public class healthSystem : MonoBehaviour
 
     void Update()
     {
-        if (myHealthBar == null) return;
+        if (myHealthBar == null)
+        {
+            EnsureHealthBar();
+            if (myHealthBar == null) return;
+        }
 
         myHealthBar.ShowHealthFraction(currentHealth / maxHealth);
         myHealthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * healthBarOffset);
