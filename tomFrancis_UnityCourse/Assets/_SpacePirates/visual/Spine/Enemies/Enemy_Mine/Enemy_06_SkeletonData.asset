@@ -18,11 +18,13 @@ MonoBehaviour:
   skeletonJSON: {fileID: 4900000, guid: 5972e0f220df6a241b0133907f63747e, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
-    requiresBlendModeMaterials: 0
+    requiresBlendModeMaterials: 1
     applyAdditiveMaterial: 1
     additiveMaterials: []
     multiplyMaterials: []
-    screenMaterials: []
+    screenMaterials:
+    - pageName: Enemy_06.png
+      material: {fileID: 2100000, guid: 32dcc3b20d99edc4187195666938026f, type: 2}
   skeletonDataModifiers: []
   fromAnimation: []
   toAnimation: []
