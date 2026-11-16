@@ -245,6 +245,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3328399361590587261, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: farViewportMargin
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328399361590587261, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: offscreenGraceSeconds
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: m_Color.g
       value: 0.48467696
