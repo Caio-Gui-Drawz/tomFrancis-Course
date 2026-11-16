@@ -103,6 +103,24 @@ public class WaveManager : MonoBehaviour
     public event System.Action<int> OnLootPhaseEnded;
     public bool InLootPhase { get; private set; }
 
+    // Portões: enquanto alguém estiver "segurando" a próxima wave (ex.: um evento de cenário com animação),
+    // a próxima wave não começa. Quem segura chama HoldNextWave(this) e depois ReleaseNextWave(this).
+    readonly HashSet<object> waveGates = new HashSet<object>();
+    public bool NextWaveHeld { get { return waveGates.Count > 0; } }
+    public void HoldNextWave(object who) { if (who != null) waveGates.Add(who); }
+    public void ReleaseNextWave(object who) { if (who != null) waveGates.Remove(who); }
+
+    IEnumerator WaitForWaveGates()
+    {
+        float held = 0f;
+        while (waveGates.Count > 0)
+        {
+            held += Time.deltaTime;
+            yield return null;
+        }
+        if (held > 0f) LogLoot("próxima wave esperou " + held.ToString("0.0") + "s por um evento de cenário");
+    }
+
     // Desempenho da wave: dano que o player sofreu desde que ela começou.
     healthSystem trackedPlayerHealth;
     float lastPlayerHealth;
@@ -343,6 +361,7 @@ public class WaveManager : MonoBehaviour
             if (runLoot) yield return LootPhaseRoutine(config.lootPhase);
             else if (!isLastWave) yield return new WaitForSeconds(Mathf.Max(0f, BetweenWavesValue));
 
+            yield return WaitForWaveGates();
             AdvanceOrFinish();
             yield break;
         }
@@ -368,6 +387,7 @@ public class WaveManager : MonoBehaviour
             elapsed += step;
         }
 
+        yield return WaitForWaveGates();
         AdvanceOrFinish();
     }
 
@@ -409,6 +429,7 @@ public class WaveManager : MonoBehaviour
         if (TotalWavesValue > 0) wave = Mathf.Min(wave, TotalWavesValue);
 
         StopAllCoroutines();
+        waveGates.Clear();
 
         if (InLootPhase)
         {
