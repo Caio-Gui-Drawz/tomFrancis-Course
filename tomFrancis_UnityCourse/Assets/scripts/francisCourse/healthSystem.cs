@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMODUnity;
 
 public class healthSystem : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class healthSystem : MonoBehaviour
 
     [Tooltip("Quais sons de dano/morte tocar (player, inimigo ou tesouro). None = sem som. Os eventos ficam no AudioEvents.")]
     public SoundProfile soundProfile = SoundProfile.None;
+
+    [Header("Sons próprios (opcional)")]
+    [Tooltip("Se preenchido, toca ESTE som quando leva dano e sobrevive, no lugar do som do Sound Profile. Vazio = usa o perfil.")]
+    public EventReference damageSoundOverride;
+    [Tooltip("Se preenchido, toca ESTE som quando morre, no lugar do som do Sound Profile. Vazio = usa o perfil. Para um inimigo ter só sons próprios, deixe o Sound Profile em None.")]
+    public EventReference deathSoundOverride;
 
     // Avisa quem estiver inscrito que esta entidade morreu.
     public event System.Action OnDeath;
@@ -65,7 +72,10 @@ public class healthSystem : MonoBehaviour
         OnDamaged?.Invoke(damageAmount);
 
         // Dano ou morte (o golpe que zera a vida toca o som de morte, não o de dano).
-        AudioEvents.PlayDamage(soundProfile, currentHealth <= 0);
+        bool lethal = currentHealth <= 0;
+        EventReference overrideSound = lethal ? deathSoundOverride : damageSoundOverride;
+        if (!overrideSound.IsNull) AudioEvents.Play(overrideSound);
+        else AudioEvents.PlayDamage(soundProfile, lethal);
 
         if (currentHealth <= 0)
         {
