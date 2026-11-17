@@ -68,6 +68,8 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b587face00a808541a59d7d55eefee6e, type: 2}
+  - {fileID: 2100000, guid: 32dcc3b20d99edc4187195666938026f, type: 2}
+  - {fileID: 2100000, guid: b587face00a808541a59d7d55eefee6e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,6 +226,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3328399361590587261, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: farViewportMargin
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328399361590587261, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: offscreenGraceSeconds
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5383370176089516564, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: damage
       value: 1
@@ -231,6 +241,14 @@ PrefabInstance:
     - target: {fileID: 5383370176089516564, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       propertyPath: dieOnPlayerContact
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916735149392862456, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: triggerDamagedOnLethalHit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916735149392862456, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
@@ -281,6 +299,8 @@ MonoBehaviour:
   forwardSpeed: 6
   amplitude: 1
   frequency: 1.5
+  randomizeDirection: 0
+  randomizePhase: 0
   timeScale: 1
 --- !u!4 &976550915805596207 stripped
 Transform:

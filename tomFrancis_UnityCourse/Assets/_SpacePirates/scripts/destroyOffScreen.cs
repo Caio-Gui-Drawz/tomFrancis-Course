@@ -8,7 +8,11 @@ public class DestroyOffScreen : MonoBehaviour
     [Tooltip("Se o objeto passar desta distância (em telas) da câmera, volta ao pool mesmo que nunca tenha aparecido. Pega itens que caem pela gravidade ou são lançados para fora da tela.")]
     public float farViewportMargin = 1.5f;
 
+    [Tooltip("0 = comportamento antigo (volta ao pool assim que sai da tela). Maior que 0 = o objeto só volta ao pool depois de ficar INTEIRO fora da tela por este tempo seguido (o relógio zera se ele reaparecer). Use em inimigos que saem e voltam: lob (arco por cima da tela), knockback. Dica: 3 a 4 s. O limite 'Far Viewport Margin' continua valendo como trava de segurança.")]
+    [Min(0f)] public float offscreenGraceSeconds = 0f;
+
     Renderer[] renderers;
+    float offscreenTime;
     bool hasBeenVisible;
     bool seenInViewport;
     bool pendingReturn;
@@ -25,7 +29,8 @@ public class DestroyOffScreen : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        if (hasBeenVisible)
+        // Com tolerância ligada, quem decide é o relógio do CheckViewport (o objeto pode voltar).
+        if (hasBeenVisible && offscreenGraceSeconds <= 0f)
         {
             pendingReturn = true; // só marca a intenção, não age agora
         }
@@ -78,11 +83,25 @@ public class DestroyOffScreen : MonoBehaviour
         if (anyInside)
         {
             seenInViewport = true;
+            offscreenTime = 0f;
             return;
         }
 
         bool fullyOutside = vmax.x < -offscreenSlack || vmin.x > 1f + offscreenSlack || vmax.y < -offscreenSlack || vmin.y > 1f + offscreenSlack;
-        if (seenInViewport && fullyOutside) pendingReturn = true;
+        if (!(seenInViewport || hasBeenVisible) || !fullyOutside)
+        {
+            offscreenTime = 0f;
+            return;
+        }
+
+        if (offscreenGraceSeconds <= 0f)
+        {
+            if (seenInViewport) pendingReturn = true;
+            return;
+        }
+
+        offscreenTime += Time.deltaTime;
+        if (offscreenTime >= offscreenGraceSeconds) pendingReturn = true;
     }
 
     void OnDisable()
@@ -91,5 +110,6 @@ public class DestroyOffScreen : MonoBehaviour
         hasBeenVisible = false;
         seenInViewport = false;
         pendingReturn = false;
+        offscreenTime = 0f;
     }
 }
