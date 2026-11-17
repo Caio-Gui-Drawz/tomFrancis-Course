@@ -55,6 +55,12 @@ public class TouchInput : MonoBehaviour
         }
     }
 
+    // Horizontal: só teclado (A/D e setas). O joystick de toque continua vertical.
+    public static float Horizontal
+    {
+        get { return Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1f, 1f); }
+    }
+
     public static bool FireHeld
     {
         get { return Input.GetButton("Fire1") || (Instance != null && Instance.aimFinger != -1); }

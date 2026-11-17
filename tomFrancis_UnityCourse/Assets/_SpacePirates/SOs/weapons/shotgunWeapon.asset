@@ -19,7 +19,7 @@ MonoBehaviour:
   numberOfProjectiles: 7
   spreadAngleDegrees: 15
   pelletPositionJitter: 0.6
-  pelletSpeedVariation: 0.5
+  pelletSpeedVariation: 0.13
   limitMode: 2
   durationSeconds: 10
   ammo: 15
