@@ -88,6 +88,20 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
   removeOnDeath: 1
   soundProfile: 0
+  damageSoundOverride:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  deathSoundOverride:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   invulnerable: 0
 --- !u!114 &5424197058285939121
 MonoBehaviour:
@@ -115,7 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
   offscreenSlack: 0.02
-  farViewportMargin: 1.5
+  farViewportMargin: 2
+  offscreenGraceSeconds: 4
 --- !u!114 &4655378237017652562
 MonoBehaviour:
   m_ObjectHideFlags: 0
