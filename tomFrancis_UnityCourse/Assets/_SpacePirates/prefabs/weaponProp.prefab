@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3797254221132185140}
   - component: {fileID: 8193797596855729288}
   - component: {fileID: 2978562237400038376}
+  - component: {fileID: 254514106400027598}
   m_Layer: 0
   m_Name: weaponProp
   m_TagString: Untagged
@@ -115,7 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
   offscreenSlack: 0.02
-  farViewportMargin: 1.5
+  farViewportMargin: 2
+  offscreenGraceSeconds: 5
 --- !u!114 &4655378237017652562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0209757, y: 0}
   m_Radius: 5.554913
+--- !u!114 &254514106400027598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839716671122140853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69907615ed6946f41a09aace3540e1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenEdgeBounce
+  edgePadding: 0.2
+  bounciness: 0.9
+  minBounceSpeed: 1.5
+  onlyAfterInside: 1
 --- !u!1 &5163424250899879846
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,6 +42,7 @@ public class LobAtPlayerMovement : MonoBehaviour, IMovementBehavior
     public float minSpeedMultiplier = 0.05f;
 
     Rigidbody2D body;
+    ScreenEdgeBounce edgeBounce;
     float originalGravityScale;
 
     // Estado do arco calculado no arremesso.
@@ -52,11 +53,13 @@ public class LobAtPlayerMovement : MonoBehaviour, IMovementBehavior
 
     // Estado do controle por curva.
     bool controlling;
+    public bool IsControlling { get { return controlling; } }
     float arcTime; // tempo "do arco" já percorrido (avança mais rápido/devagar conforme a curva)
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        edgeBounce = GetComponent<ScreenEdgeBounce>();
         originalGravityScale = body.gravityScale; // guarda o valor do prefab (o controle por curva zera a gravidade)
     }
 
@@ -118,6 +121,10 @@ public class LobAtPlayerMovement : MonoBehaviour, IMovementBehavior
 
         // Posição exata do arco naquele instante; a velocidade é escolhida pra chegar lá no próximo passo da física.
         Vector2 nextPosition = origin + launchVelocity * arcTime + 0.5f * gravityVector * arcTime * arcTime;
+
+        // Com ScreenEdgeBounce no objeto: a altura do arco é "dobrada" nas bordas de cima/baixo da tela (espelho),
+        // então o objeto quica em vez de sair, e o fim do arco continua caindo no alvo.
+        if (edgeBounce != null && edgeBounce.enabled) nextPosition.y = edgeBounce.FoldY(nextPosition.y);
         body.linearVelocity = (nextPosition - body.position) / dt;
     }
 
