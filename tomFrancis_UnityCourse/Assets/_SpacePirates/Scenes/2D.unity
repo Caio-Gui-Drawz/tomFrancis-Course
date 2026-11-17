@@ -1118,14 +1118,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.117800005
       objectReference: {fileID: 0}
-    - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: maxHealth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
-      propertyPath: healthBarOffset
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5764727950451722886, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9118993

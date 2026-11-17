@@ -242,6 +242,14 @@ PrefabInstance:
       propertyPath: dieOnPlayerContact
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8916735149392862456, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: triggerDamagedOnLethalHit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916735149392862456, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
+      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3933359287869088100, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
     m_RemovedGameObjects: []
@@ -291,6 +299,8 @@ MonoBehaviour:
   forwardSpeed: 6
   amplitude: 1
   frequency: 1.5
+  randomizeDirection: 0
+  randomizePhase: 0
   timeScale: 1
 --- !u!4 &976550915805596207 stripped
 Transform:
