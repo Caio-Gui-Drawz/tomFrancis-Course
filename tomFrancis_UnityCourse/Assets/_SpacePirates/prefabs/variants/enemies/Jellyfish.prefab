@@ -273,9 +273,6 @@ PrefabInstance:
       addedObject: {fileID: 4522371558789309227}
     - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1720919594120210852}
-    - targetCorrespondingSourceObject: {fileID: 1803786269997138570, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7115136747279645173}
   m_SourcePrefab: {fileID: 100100000, guid: e6b3c7fceb54c4d489933d3149e4bc3f, type: 3}
 --- !u!1 &698582299325842013 stripped
@@ -314,7 +311,7 @@ MonoBehaviour:
   turnSpeed: 360
   minSpeed: 0.1
   ignoreKnockback: 1
---- !u!114 &1720919594120210852
+--- !u!114 &7115136747279645173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,26 +320,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 698582299325842013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6b55d44451b51d42b84ce501385c309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AxisMovement
-  direction: 1
-  speed: 30
---- !u!114 &7115136747279645173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698582299325842013}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 202d67f798957dd47a40aa83c9306949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SineMovement
   forwardSpeed: 30
-  amplitude: 10
-  frequency: 4
+  amplitude: 13
+  frequency: 3
+  randomizeDirection: 1
+  randomizePhase: 1
   timeScale: 1
 --- !u!4 &976550915805596207 stripped
 Transform:
