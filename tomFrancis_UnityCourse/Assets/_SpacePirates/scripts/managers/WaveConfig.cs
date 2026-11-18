@@ -59,8 +59,10 @@ public class LootPhaseData
 
     [Tooltip("Espera os inimigos da wave sumirem (mortos ou fora da tela) antes de começar a fase de loot.")]
     public bool waitForEnemiesToClear = true;
-    [Tooltip("Se ainda sobrar inimigo depois deste tempo, a fase de loot começa mesmo assim.")]
+    [Tooltip("Se ainda sobrar inimigo FORA DA TELA (preso, perdido) por este tempo seguido, a fase de loot começa mesmo assim. Enquanto houver inimigo VISÍVEL na tela, este relógio não corre (vale o teto abaixo).")]
     [Min(1f)] public float clearEnemiesTimeoutSeconds = 10f;
+    [Tooltip("Teto de segurança: mesmo com inimigo visível na tela, a fase de loot começa depois deste tempo (evita travar a wave para sempre).")]
+    [Min(5f)] public float visibleEnemiesMaxSeconds = 60f;
 
     [Tooltip("Duração planejada da fase de loot (substitui 'Seconds Between Waves' quando ligada). Com 'Termina antes se tudo for pego' ligado ela só define o espaçamento dos itens; o limite real é o tempo de segurança abaixo.")]
     [Min(1f)] public float durationSeconds = 6f;
