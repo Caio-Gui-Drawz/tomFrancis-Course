@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class bullet2D : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class bullet2D : MonoBehaviour
     public float knockbackForce = 0f;
     [Tooltip("Quanto tempo o empurrão dura (a velocidade vai caindo até zero).")]
     public float knockbackDuration = 0.2f;
+
+    [Header("Feedback")]
+    [Tooltip("Disparado quando a bala acerta algo com vida, ANTES de voltar ao pool. Ligue aqui o Play() de um ParticleDetachFx filho da bala (partícula de impacto).")]
+    public UnityEvent onHit;
 
     float secondsRemaining;
     Vector3 initialScale;
@@ -65,6 +70,8 @@ public class bullet2D : MonoBehaviour
                 KnockbackReceiver knockback = other.GetComponent<KnockbackReceiver>();
                 if (knockback != null) knockback.Apply(hitDirection, knockbackForce, knockbackDuration);
             }
+
+            onHit?.Invoke();
 
             PoolManager.Instance.Return(gameObject);
         }

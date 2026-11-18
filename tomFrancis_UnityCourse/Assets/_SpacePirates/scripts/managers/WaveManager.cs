@@ -338,20 +338,30 @@ public class WaveManager : MonoBehaviour
             LogLoot("wave " + currentWave + " terminou de spawnar");
             if (config.lootPhase.waitForEnemiesToClear)
             {
+                // Enquanto houver inimigo VISÍVEL na tela, espera (até um teto bem alto). O limite curto só vale para
+                // inimigos fora da tela (presos/perdidos): o relógio deles zera sempre que aparece um inimigo à vista.
                 float waited = 0f;
-                float timeout = Mathf.Max(1f, config.lootPhase.clearEnemiesTimeoutSeconds);
+                float offscreenWaited = 0f;
+                float offscreenTimeout = Mathf.Max(1f, config.lootPhase.clearEnemiesTimeoutSeconds);
+                float hardCap = Mathf.Max(offscreenTimeout, config.lootPhase.visibleEnemiesMaxSeconds);
                 float nextReport = 2f;
-                while (waited < timeout && AnyEnemyAlive())
+                bool hitLimit = false;
+                while (AnyEnemyAlive())
                 {
+                    if (waited >= hardCap || offscreenWaited >= offscreenTimeout) { hitLimit = true; break; }
+
                     yield return new WaitForSeconds(0.25f);
                     waited += 0.25f;
+                    if (AnyEnemyOnScreen()) offscreenWaited = 0f;
+                    else offscreenWaited += 0.25f;
+
                     if (waited >= nextReport)
                     {
                         nextReport += 2f;
-                        LogLoot("esperando inimigos há " + waited.ToString("0.0") + "s: " + DescribeEnemiesAlive());
+                        LogLoot("esperando inimigos há " + waited.ToString("0.0") + "s (fora da tela há " + offscreenWaited.ToString("0.0") + "s): " + DescribeEnemiesAlive());
                     }
                 }
-                LogLoot("espera de inimigos acabou após " + waited.ToString("0.0") + "s" + (waited >= timeout ? " (ESTOUROU o limite)" : ""));
+                LogLoot("espera de inimigos acabou após " + waited.ToString("0.0") + "s" + (hitLimit ? " (ESTOUROU o limite)" : ""));
             }
 
             OnWaveCompleted?.Invoke(currentWave);
@@ -707,6 +717,22 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null && enemies[i].isActiveAndEnabled) return true;
+        }
+        return false;
+    }
+
+    // true se algum inimigo ativo está na área visível da câmera (com uma folga, para corpos grandes cujo centro já saiu).
+    static bool AnyEnemyOnScreen()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return true; // sem câmera não dá para saber: trata como visível (o teto de segurança cobre)
+
+        enemy2D[] enemies = FindObjectsByType<enemy2D>(FindObjectsSortMode.None);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] == null || !enemies[i].isActiveAndEnabled) continue;
+            Vector3 v = cam.WorldToViewportPoint(enemies[i].transform.position);
+            if (v.z > 0f && v.x > -0.1f && v.x < 1.1f && v.y > -0.1f && v.y < 1.1f) return true;
         }
         return false;
     }
