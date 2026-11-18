@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3393628040977932130}
   - component: {fileID: 8103505720782746342}
   - component: {fileID: 4170081821002818372}
+  - component: {fileID: 5090181552064905404}
   m_Layer: 0
   m_Name: Par_Enemy_Death_01_P
   m_TagString: Untagged
@@ -4870,9 +4871,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1594438595
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4905,6 +4906,21 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &5090181552064905404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300960387730195745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd1758cd0fc5bd49ba8f876fdec3c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleDetachFx
+  systems: []
+  maxSeconds: 5
+  restoreScale: 1
 --- !u!1 &2485330217563742913
 GameObject:
   m_ObjectHideFlags: 0
@@ -9782,9 +9798,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -79758047
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: 1594438595
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14694,9 +14710,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -79758047
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: 1594438595
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

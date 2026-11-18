@@ -89,7 +89,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0.009791803, b: 0, a: 1}
@@ -147,6 +147,20 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
   removeOnDeath: 1
   soundProfile: 2
+  damageSoundOverride:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  deathSoundOverride:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   invulnerable: 0
 --- !u!114 &5383370176089516564
 MonoBehaviour:
@@ -161,6 +175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy2D
   damage: 1
+  dieOnPlayerContact: 0
+  applyContactDamage: 1
 --- !u!114 &9125338459263784820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffScreen
   offscreenSlack: 0.02
   farViewportMargin: 1.5
+  offscreenGraceSeconds: 0
 --- !u!114 &3673519896331117539
 MonoBehaviour:
   m_ObjectHideFlags: 0
