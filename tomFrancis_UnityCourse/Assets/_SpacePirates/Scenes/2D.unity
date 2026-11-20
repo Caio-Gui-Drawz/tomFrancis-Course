@@ -1010,6 +1010,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.7653
       objectReference: {fileID: 0}
+    - target: {fileID: 1863597505842596508, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: softZone
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863597505842596508, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: worldMaxY
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863597505842596508, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: worldMinY
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863597505842596508, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: calibrateFromCameraOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2006430418576544187, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.9279
