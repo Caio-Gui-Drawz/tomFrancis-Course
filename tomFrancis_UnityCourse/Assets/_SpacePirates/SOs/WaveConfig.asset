@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
   startingBudget: 20
   budgetIncrementPerWave: 5
-  secondsBetweenSpawnsInWave: 0.5
+  secondsBetweenSpawnsInWave: 1.4
   secondsBetweenWaves: 2
   secondsBeforeFirstWave: 3
   minSpawnsBetweenSameType: 3
@@ -61,6 +61,7 @@ MonoBehaviour:
     enabled: 1
     waitForEnemiesToClear: 1
     clearEnemiesTimeoutSeconds: 10
+    visibleEnemiesMaxSeconds: 60
     durationSeconds: 15
     dropWindowFraction: 0.7
     minSecondsBetweenDrops: 0.7

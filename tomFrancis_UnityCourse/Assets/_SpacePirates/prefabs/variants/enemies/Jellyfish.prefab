@@ -465,7 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SineMovement
   forwardSpeed: 30
   amplitude: 13
-  frequency: 3
+  frequency: 2
   randomizeDirection: 1
   randomizePhase: 1
   timeScale: 1
