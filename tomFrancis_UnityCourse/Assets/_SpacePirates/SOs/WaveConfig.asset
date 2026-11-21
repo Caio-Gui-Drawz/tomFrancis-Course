@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
   startingBudget: 20
   budgetIncrementPerWave: 5
-  secondsBetweenSpawnsInWave: 1.4
+  secondsBetweenSpawnsInWave: 1
   secondsBetweenWaves: 2
   secondsBeforeFirstWave: 3
   minSpawnsBetweenSameType: 3
@@ -423,6 +423,12 @@ MonoBehaviour:
     wave: 6
     phase: 0
     count: 4
+    weapon: {fileID: 0}
+    group: 0
+  - prefab: {fileID: 2839716671122140853, guid: f2e59ca3369b2f344aabff99beb0b976, type: 3}
+    wave: 4
+    phase: 1
+    count: 1
     weapon: {fileID: 0}
     group: 0
   randomGroups:

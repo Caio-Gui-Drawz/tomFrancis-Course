@@ -13,6 +13,7 @@ public class BackgroundFogTint : MonoBehaviour
     static readonly int EmissiveId = Shader.PropertyToID("_Emissive_Color");
 
     static MaterialPropertyBlock block;
+    static bool warnedNoFog, warnedNoProps;
 
     Renderer[] renderers;
     Material[][] materials;
@@ -47,6 +48,19 @@ public class BackgroundFogTint : MonoBehaviour
         BackgroundFog fog = BackgroundFog.Instance;
         float a = fog != null ? Mathf.Clamp01(amount * fog.Intensity) : 0f;
 
+        if (fog == null && !warnedNoFog)
+        {
+            warnedNoFog = true;
+            Debug.LogWarning("[Fog] Nenhum BackgroundFog ativo na cena: os props ficam com a cor original. Adicione o componente BackgroundFog em um GameObject.", this);
+        }
+        else if (fog != null && amount <= 0f && !warnedNoFog)
+        {
+            warnedNoFog = true;
+            Debug.LogWarning("[Fog] Este prop ('" + name + "') nasceu com Fog Amount = 0 no ParallaxLayerSpawner da camada dele, então nenhuma cor muda. Aumente o Fog Amount (ex.: 0.5).", this);
+        }
+
+        bool applied = false;
+
         for (int r = 0; r < renderers.Length; r++)
         {
             Renderer rend = renderers[r];
@@ -71,7 +85,14 @@ public class BackgroundFogTint : MonoBehaviour
                 if (fog.fadeEmission) any |= Tint(m, EmissiveId, Color.black, a);
 
                 rend.SetPropertyBlock(any ? block : null, i);
+                applied |= any;
             }
+        }
+
+        if (a > 0f && !applied && !warnedNoProps)
+        {
+            warnedNoProps = true;
+            Debug.LogWarning("[Fog] Nenhum material de '" + name + "' tem as propriedades de cor do toon shader (_BaseColor/_1st_ShadeColor...). Confira o shader do material.", this);
         }
     }
 
