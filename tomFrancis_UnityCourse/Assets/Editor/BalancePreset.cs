@@ -192,7 +192,7 @@ public static class BalancePresets
         foreach (BalancePrefab p in BalanceModel.prefabs)
         {
             AddPaths(list, seen, p.health, p.Name, new[] { "maxHealth" });
-            if (p.enemy != null) AddPaths(list, seen, p.enemy, p.Name, new[] { "damage" });
+            if (p.enemy != null) AddPaths(list, seen, p.enemy, p.Name, new[] { "damage", "scoreValue" });
             if (p.knockback != null) AddPaths(list, seen, p.knockback, p.Name, new[] { "resistance" });
             if (p.medkit != null) AddPaths(list, seen, p.medkit, p.Name, new[] { "healAmount" });
             if (p.treasure != null) AddPaths(list, seen, p.treasure, p.Name, new[] { "scoreValue" });

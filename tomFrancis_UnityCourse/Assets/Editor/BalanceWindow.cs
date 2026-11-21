@@ -1364,9 +1364,21 @@ public class BalanceWindow : EditorWindow
     void MxEffectCell(MxColumn col)
     {
         BalancePrefab p = col.info;
-        if (p == null || col.isEnemy)
+        if (p == null)
         {
             MxLabelCell("—", null, MxCellW);
+        }
+        else if (col.isEnemy)
+        {
+            if (p.enemy != null)
+            {
+                MxLabelCell("pts", "Pontos que o player ganha quando este inimigo morre (0 = nenhum)", 28f);
+                CellField(p.enemy, "scoreValue", MxCellW - 28f);
+            }
+            else
+            {
+                MxLabelCell("—", null, MxCellW);
+            }
         }
         else if (p.medkit != null)
         {
@@ -1745,6 +1757,7 @@ public class BalanceWindow : EditorWindow
             string summary = "vida " + p.health.maxHealth.ToString("0.#");
             if (p.medkit != null) summary += "   cura " + p.medkit.healAmount.ToString("0.#");
             if (p.treasure != null) summary += "   pontos " + p.treasure.scoreValue;
+            if (p.enemy != null && p.enemy.scoreValue > 0) summary += "   pontos " + p.enemy.scoreValue;
             if (p.HasWeaponList) summary += "   " + p.weaponBox.possibleWeapons.Length + " armas";
 
             if (!Foldout("p:" + p.path, p.Name + "    " + summary)) continue;
@@ -1753,6 +1766,7 @@ public class BalanceWindow : EditorWindow
             Field(p.health, "maxHealth", "Vida máxima");
             if (p.medkit != null) Field(p.medkit, "healAmount", "Cura");
             if (p.treasure != null) Field(p.treasure, "scoreValue", "Pontos");
+            if (p.enemy != null) Field(p.enemy, "scoreValue", "Pontos ao matar");
             if (p.weaponBox != null)
             {
                 Field(p.weaponBox, "possibleWeapons", "Armas possíveis");
