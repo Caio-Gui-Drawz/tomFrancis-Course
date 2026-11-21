@@ -37,6 +37,10 @@ public class ParallaxLayerSpawner : MonoBehaviour
     [Tooltip("Distância em Z entre as fatias. Use pelo menos o tamanho do maior modelo da camada (os modelos giram em 3D).")]
     [Min(0.01f)] public float zSlotSpacing = 2f;
 
+    [Header("Fog (profundidade)")]
+    [Tooltip("Quanto os props desta camada vão em direção à cor da BackgroundFog. 0 = cor original (camada próxima), 1 = totalmente na cor da fog (camada distante).")]
+    [Range(0f, 1f)] public float fogAmount = 0f;
+
     [Header("Variedade")]
     [Tooltip("Não repete nenhuma das últimas N variantes sorteadas (limitado a 'quantidade de prefabs - 1'). 0 = sorteio livre.")]
     [Min(0)] public int avoidRepeatCount = 2;
@@ -97,6 +101,10 @@ public class ParallaxLayerSpawner : MonoBehaviour
         GameObject instance = PoolManager.Instance.Get(prefab, worldSpawnPos, Quaternion.identity);
 
         ApplySorting(instance);
+
+        BackgroundFogTint fogTint = instance.GetComponent<BackgroundFogTint>();
+        if (fogTint == null) fogTint = instance.AddComponent<BackgroundFogTint>();
+        fogTint.SetAmount(fogAmount);
 
         float scale = Random.Range(minScale, maxScale);
         // Usa a escala do prefab (asset), não a da instância, para não acumular quando o objeto volta do pool.

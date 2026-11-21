@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // Movimento do player: W/A/S/D ou setas. A mira com o mouse continua igual.
@@ -24,8 +25,31 @@ public class PlayerMovement2D : MonoBehaviour
     [Tooltip("Quão rápido para ao soltar a tecla (unidades/s²). Maior = para mais rápido.")]
     public float deceleration = 120f;
 
-    [Header("Limites (distância da borda da câmera)")]
-    [Tooltip("Folga entre o player e a borda de cima da tela, em unidades do mundo.")]
+    public enum VerticalLimitMode
+    {
+        [Tooltip("Limites de altura FIXOS no mundo (não dependem da câmera): sem tremor na borda. Recomendado.")]
+        WorldFixed,
+        [Tooltip("Comportamento antigo: limites relativos à posição atual da câmera.")]
+        CameraRelative
+    }
+
+    [Header("Limites verticais (cima e baixo)")]
+    [Tooltip("WorldFixed = altura mínima e máxima fixas no mundo (a câmera não mexe nos limites, então não treme na borda). CameraRelative = o jeito antigo, relativo à câmera.")]
+    public VerticalLimitMode verticalLimitMode = VerticalLimitMode.WorldFixed;
+
+    [Tooltip("Ligado = ao iniciar, Min/Max Y são calculados do enquadramento inicial da câmera menos as margens de cima e de baixo (abaixo). Como a câmera segue o player só em parte, o player fica sempre PELO MENOS essa margem longe da borda. Desligado = usa os valores digitados em Min/Max Y.")]
+    public bool calibrateFromCameraOnStart = true;
+
+    [Tooltip("Altura mínima do player no mundo (usada com 'Calibrate From Camera On Start' desligado; ligado, é preenchida sozinha em Play).")]
+    public float worldMinY = -10f;
+    [Tooltip("Altura máxima do player no mundo (idem).")]
+    public float worldMaxY = 10f;
+
+    [Tooltip("Perto do limite o player vai ficando mais lento até parar suavemente, em vez de bater seco. Distância (unidades) em que a frenagem começa. 0 = sem frenagem.")]
+    [Min(0f)] public float softZone = 2.5f;
+
+    [Header("Margens da tela")]
+    [Tooltip("Folga entre o player e a borda de cima da tela, em unidades do mundo. Conte o tamanho do sprite: o limite vale para o ponto central do player.")]
     public float marginTop = 3f;
     [Tooltip("Folga entre o player e a borda de baixo da tela, em unidades do mundo.")]
     public float marginBottom = 3f;
@@ -71,6 +95,7 @@ public class PlayerMovement2D : MonoBehaviour
     bool playing;
     float currentVelocityY;
     float currentVelocityX;
+    bool limitsReady;
 
     void Awake()
     {
@@ -78,6 +103,34 @@ public class PlayerMovement2D : MonoBehaviour
         originalConstraints = body.constraints;
         originalGravityScale = body.gravityScale;
         startPosition = transform.position;
+    }
+
+    void Start()
+    {
+        limitsReady = !calibrateFromCameraOnStart;
+        if (calibrateFromCameraOnStart) StartCoroutine(CalibrateLater());
+    }
+
+    // Espera a câmera (Cinemachine) se posicionar antes de medir o enquadramento.
+    IEnumerator CalibrateLater()
+    {
+        for (int i = 0; i < 3; i++) yield return null;
+        CalibrateFromCamera();
+    }
+
+    // Calcula Min/Max Y a partir do enquadramento atual da câmera e das margens de cima/baixo.
+    // Também pode ser chamado pelo menu de contexto do componente (em Play) para recalibrar.
+    [ContextMenu("Calibrar limites Y pela câmera agora (Play mode)")]
+    public void CalibrateFromCamera()
+    {
+        Camera cam = Camera.main;
+        if (cam == null || !cam.orthographic) return;
+
+        worldMinY = cam.transform.position.y - cam.orthographicSize + marginBottom;
+        worldMaxY = cam.transform.position.y + cam.orthographicSize - marginTop;
+        limitsReady = true;
+        Debug.Log("[PlayerMovement2D] limites Y calibrados: " + worldMinY.ToString("0.0") + " a " + worldMaxY.ToString("0.0") +
+                  " (copie estes valores para Min/Max Y se quiser fixá-los e desligar a calibração).", this);
     }
 
     void OnEnable()
@@ -179,7 +232,32 @@ public class PlayerMovement2D : MonoBehaviour
         float inputY = playing ? TouchInput.Vertical : 0f;                                  // W/S, setas e toque
         Vector2 input = Vector2.ClampMagnitude(new Vector2(inputX, inputY), 1f);             // diagonal não é mais rápida
 
+        Camera cam = Camera.main;
+
+        // Limites verticais: fixos no mundo (recomendado) ou relativos à câmera (antigo).
+        float minY = float.NegativeInfinity;
+        float maxY = float.PositiveInfinity;
+        if (verticalLimitMode == VerticalLimitMode.WorldFixed && limitsReady)
+        {
+            minY = worldMinY;
+            maxY = worldMaxY;
+        }
+        else if (cam != null && cam.orthographic)
+        {
+            minY = cam.transform.position.y - cam.orthographicSize + marginBottom;
+            maxY = cam.transform.position.y + cam.orthographicSize - marginTop;
+        }
+
         float targetY = input.y * maxSpeed;
+
+        // Frenagem suave perto do limite: quanto mais perto, menor a velocidade permitida naquela direção.
+        if (softZone > 0f)
+        {
+            float y = body.position.y;
+            if (targetY > 0f) targetY *= Mathf.Clamp01((maxY - y) / softZone);
+            else if (targetY < 0f) targetY *= Mathf.Clamp01((y - minY) / softZone);
+        }
+
         float rateY = Mathf.Abs(targetY) > Mathf.Abs(currentVelocityY) ? acceleration : deceleration;
         currentVelocityY = Mathf.MoveTowards(currentVelocityY, targetY, rateY * Time.fixedDeltaTime);
 
@@ -187,17 +265,11 @@ public class PlayerMovement2D : MonoBehaviour
         float rateX = Mathf.Abs(targetX) > Mathf.Abs(currentVelocityX) ? acceleration : deceleration;
         currentVelocityX = Mathf.MoveTowards(currentVelocityX, targetX, rateX * Time.fixedDeltaTime);
 
-        // Limites: bordas da câmera ortográfica menos as folgas.
-        Camera cam = Camera.main;
-        float minY = float.NegativeInfinity;
-        float maxY = float.PositiveInfinity;
+        // Limites horizontais: bordas da câmera ortográfica menos as folgas.
         float minX = float.NegativeInfinity;
         float maxX = float.PositiveInfinity;
         if (cam != null && cam.orthographic)
         {
-            minY = cam.transform.position.y - cam.orthographicSize + marginBottom;
-            maxY = cam.transform.position.y + cam.orthographicSize - marginTop;
-
             float halfWidth = cam.orthographicSize * cam.aspect;
             minX = cam.transform.position.x - halfWidth + marginLeft;
             maxX = cam.transform.position.x + halfWidth - marginRight;
@@ -223,5 +295,28 @@ public class PlayerMovement2D : MonoBehaviour
         if (clamped) body.position = pos;
 
         body.linearVelocity = new Vector2(horizontalMovementEnabled ? currentVelocityX : 0f, currentVelocityY);
+    }
+
+    // No Scene view (com o player selecionado): linhas ciano = limites Y do player; retângulo amarelo = enquadramento atual da câmera (em Play).
+    void OnDrawGizmosSelected()
+    {
+        float x = transform.position.x;
+
+        if (verticalLimitMode == VerticalLimitMode.WorldFixed)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(new Vector3(x - 25f, worldMinY, 0f), new Vector3(x + 25f, worldMinY, 0f));
+            Gizmos.DrawLine(new Vector3(x - 25f, worldMaxY, 0f), new Vector3(x + 25f, worldMaxY, 0f));
+        }
+
+        Camera cam = Camera.main;
+        if (Application.isPlaying && cam != null && cam.orthographic)
+        {
+            Gizmos.color = Color.yellow;
+            Vector3 c = cam.transform.position;
+            float h = cam.orthographicSize;
+            float w = h * cam.aspect;
+            Gizmos.DrawWireCube(new Vector3(c.x, c.y, 0f), new Vector3(w * 2f, h * 2f, 0f));
+        }
     }
 }

@@ -23,11 +23,21 @@ public class ScreenEdgeBounce : MonoBehaviour
     [Tooltip("Ligado = só começa a valer depois que o objeto já esteve dentro da faixa vertical da tela (não puxa quem nasce fora). Desligado = vale desde o nascimento.")]
     public bool onlyAfterInside = true;
 
+    [Tooltip("Suaviza o movimento da câmera usado para achar as bordas (s). Evita que o tremor da câmera (impulse/shake) e o seguir do player façam a borda — e a caixa junto — tremer. 0 = segue a câmera crua.")]
+    [Min(0f)] public float rangeSmoothTime = 0.3f;
+
     Rigidbody2D body;
     Collider2D col;
     Renderer[] renderers;
     bool wasInside;
     LobAtPlayerMovement lob;
+
+    // Faixa vertical estável: centro suavizado da câmera + altura do objeto medida UMA vez.
+    float smoothCenterY;
+    float centerVelocity;
+    float lastRangeStep = -1f;
+    bool rangeReady;
+    float cachedHalfHeight = -1f;
 
     void Awake()
     {
@@ -40,6 +50,8 @@ public class ScreenEdgeBounce : MonoBehaviour
     void OnEnable()
     {
         wasInside = false;
+        rangeReady = false;
+        cachedHalfHeight = -1f; // objeto do pool: mede de novo no próximo uso
     }
 
     void FixedUpdate()
@@ -82,9 +94,32 @@ public class ScreenEdgeBounce : MonoBehaviour
 
     bool TryGetRange(Camera cam, out float bottom, out float top)
     {
-        float half = HalfHeight() + edgePadding;
-        top = cam.transform.position.y + cam.orthographicSize - half;
-        bottom = cam.transform.position.y - cam.orthographicSize + half;
+        // A altura do objeto é medida uma vez: o collider gira junto com a caixa e o AABB dele muda a cada frame,
+        // o que faria as bordas "respirarem" e a caixa tremer perto delas.
+        if (cachedHalfHeight < 0f)
+        {
+            float measured = HalfHeight();
+            if (measured > 0.001f) cachedHalfHeight = measured;
+        }
+
+        float camY = cam.transform.position.y;
+        if (!rangeReady || rangeSmoothTime <= 0f)
+        {
+            smoothCenterY = camY;
+            centerVelocity = 0f;
+            rangeReady = true;
+            lastRangeStep = Time.fixedTime;
+        }
+        else if (!Mathf.Approximately(lastRangeStep, Time.fixedTime))
+        {
+            // Um passo por tick de física (o Lob e este componente consultam no mesmo tick).
+            smoothCenterY = Mathf.SmoothDamp(smoothCenterY, camY, ref centerVelocity, rangeSmoothTime, Mathf.Infinity, Time.fixedDeltaTime);
+            lastRangeStep = Time.fixedTime;
+        }
+
+        float half = Mathf.Max(0f, cachedHalfHeight) + edgePadding;
+        top = smoothCenterY + cam.orthographicSize - half;
+        bottom = smoothCenterY - cam.orthographicSize + half;
         return top > bottom;
     }
 

@@ -2329,7 +2329,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBarPrefab: {fileID: 8847486964610619905, guid: a43c33ae94c9ec74f9406d1a88d1a299, type: 3}
   healthBarOffset: 6
-  deathEffectPrefab: {fileID: 4645494473373717507, guid: 64b31e8e6a9252545b10223b31c2aae1, type: 3}
+  deathEffectPrefab: {fileID: 0}
   removeOnDeath: 1
   soundProfile: 1
   damageSoundOverride:
@@ -2360,6 +2360,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
   holdAfterDeathAnimation: 0.6
+  fallOffScreen: 1
+  fallStartDelay: 0
+  initialFallSpeed: 2
+  fallAcceleration: 35
+  maxFallSpeed: 40
+  spinDegreesPerSecond: 0
+  offscreenMargin: 1
+  maxFallSeconds: 4
+  pauseAfterFall: 0.4
+  freezeCameraOnDeath: 1
+  disableCollidersOnFall: 1
 --- !u!60 &2143089860614223009
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2531,6 +2542,11 @@ MonoBehaviour:
   maxSpeedX: 50
   acceleration: 200
   deceleration: 200
+  verticalLimitMode: 0
+  calibrateFromCameraOnStart: 1
+  worldMinY: -10
+  worldMaxY: 10
+  softZone: 2.5
   marginTop: 6
   marginBottom: 6
   marginLeft: 3

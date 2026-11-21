@@ -564,6 +564,7 @@ public static class BalanceModel
                 s.enemies += count;
                 s.enemyHp += count * maxHealth;
                 s.contactDamage += count * (info.enemy != null ? info.enemy.damage : 0f);
+                s.score += count * (info.enemy != null ? info.enemy.scoreValue : 0);
                 if (info.explosion != null) s.explosionDamage += count * info.explosion.damage;
                 break;
             case BalanceKind.Treasure:

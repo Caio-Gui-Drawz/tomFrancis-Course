@@ -42,8 +42,10 @@ public class WaveEventController : MonoBehaviour
 
         [Tooltip("Ligado = a próxima wave só começa quando este evento terminar. Só faz efeito em eventos de fim de wave / fim de loot.")]
         public bool holdNextWave = true;
-        [Tooltip("Segurança: se o evento passar deste tempo (s), ele é encerrado à força para não travar o jogo.")]
-        [Min(1f)] public float maxSeconds = 90f;
+        [Tooltip("Segurança: se o evento passar deste tempo (s), ele é encerrado à força para não travar o jogo. 0 = padrão (90s).")]
+        [Min(0f)] public float maxSeconds = 90f;
+
+        public float EffectiveMaxSeconds { get { return maxSeconds > 0f ? maxSeconds : 90f; } }
 
         [Tooltip("Dispara quando a animação vai começar.")]
         public UnityEvent onBegin;
@@ -126,7 +128,7 @@ public class WaveEventController : MonoBehaviour
 
     IEnumerator RunBeat(Beat b)
     {
-        float deadline = Time.unscaledTime + Mathf.Max(1f, b.maxSeconds);
+        float deadline = Time.unscaledTime + b.EffectiveMaxSeconds;
         if (log) Debug.Log("[Evento] '" + b.name + "' disparado (" + b.when + (b.wave != 0 ? " wave " + b.wave : "") + ")", this);
 
         // 1 frame: dá tempo do MusicController (que escuta o mesmo evento) pedir o estágio dele.
@@ -166,7 +168,7 @@ public class WaveEventController : MonoBehaviour
 
         if (b.extraSeconds > 0f) yield return new WaitForSeconds(b.extraSeconds);
 
-        if (Time.unscaledTime >= deadline) Debug.LogWarning("WaveEventController: '" + b.name + "' passou de " + b.maxSeconds + "s e foi encerrado à força.", this);
+        if (Time.unscaledTime >= deadline) Debug.LogWarning("WaveEventController: '" + b.name + "' passou de " + b.EffectiveMaxSeconds + "s e foi encerrado à força.", this);
 
         b.onEnd?.Invoke();
         if (waves != null) waves.ReleaseNextWave(b);
