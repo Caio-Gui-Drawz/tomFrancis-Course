@@ -56,6 +56,13 @@ public class Player2D : MonoBehaviour
     // Avisa quando a arma muda (pegou de caixa ou voltou pra padrão).
     public event System.Action<WeaponData> OnWeaponChanged;
 
+    // Munição (para a HUD de balas / crosshair). Armas sem limite de munição: HasLimitedAmmo = false.
+    public bool HasLimitedAmmo { get { return currentWeapon != null && currentWeapon.limitMode == WeaponData.LimitMode.Ammo; } }
+    public int AmmoRemaining { get { return weaponAmmoRemaining; } }
+    public int AmmoMax { get { return currentWeapon != null ? currentWeapon.ammo : 0; } }
+    // (restante, máximo) — disparado a cada tiro de uma arma com munição.
+    public event System.Action<int, int> OnAmmoChanged;
+
     bool canAct;
     bool inCombatStance; // só pode atirar depois que a wave 1 começa (antes disso: só voando)
 
@@ -230,6 +237,7 @@ public class Player2D : MonoBehaviour
         if (currentWeapon.limitMode == WeaponData.LimitMode.Ammo)
         {
             weaponAmmoRemaining--;
+            OnAmmoChanged?.Invoke(weaponAmmoRemaining, currentWeapon.ammo);
             if (weaponAmmoRemaining <= 0) RevertToDefaultWeapon();
         }
     }
