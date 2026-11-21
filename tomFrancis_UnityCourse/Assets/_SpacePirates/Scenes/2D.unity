@@ -5837,6 +5837,26 @@ PrefabInstance:
       propertyPath: EventReference.Guid.Data4
       value: -1865467887
       objectReference: {fileID: 0}
+    - target: {fileID: 837245385140576648, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: playerHeal.Path
+      value: event:/sfx/player/heal
+      objectReference: {fileID: 0}
+    - target: {fileID: 837245385140576648, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: playerHeal.Guid.Data1
+      value: 580055989
+      objectReference: {fileID: 0}
+    - target: {fileID: 837245385140576648, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: playerHeal.Guid.Data2
+      value: 1295029331
+      objectReference: {fileID: 0}
+    - target: {fileID: 837245385140576648, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: playerHeal.Guid.Data3
+      value: 1815973528
+      objectReference: {fileID: 0}
+    - target: {fileID: 837245385140576648, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: playerHeal.Guid.Data4
+      value: -1938792324
+      objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: m_Enabled
       value: 1
