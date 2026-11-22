@@ -63,6 +63,13 @@ public class Player2D : MonoBehaviour
     // (restante, máximo) — disparado a cada tiro de uma arma com munição.
     public event System.Action<int, int> OnAmmoChanged;
 
+    // Crosshair / feedbacks: dispara a cada tiro (um por disparo, não por projétil).
+    public event System.Action<WeaponData> OnFired;
+    // Dispara quando a animação de recarga (troca de arma) começa; o valor é a duração em segundos.
+    public event System.Action<float> OnReloadStarted;
+    // true depois que a wave 1 começa (o player pode atirar).
+    public bool InCombatStance { get { return inCombatStance; } }
+
     bool canAct;
     bool inCombatStance; // só pode atirar depois que a wave 1 começa (antes disso: só voando)
 
@@ -233,6 +240,8 @@ public class Player2D : MonoBehaviour
             weaponVisual.PlayShootAnimation(currentWeapon.fireRate);
         }
 
+        OnFired?.Invoke(currentWeapon);
+
         // Arma de caixa com munição: gasta 1 por disparo; ao zerar, volta pra padrão.
         if (currentWeapon.limitMode == WeaponData.LimitMode.Ammo)
         {
@@ -276,6 +285,7 @@ public class Player2D : MonoBehaviour
             // Recarga só com o braço em posição de combate; trava o tiro pelo tempo dela.
             weaponVisual.PlayReload();
             reloadUnlockTime = Time.time + weaponVisual.ReloadDuration;
+            OnReloadStarted?.Invoke(weaponVisual.ReloadDuration);
         }
         ResetWeaponLimit(); // pegar outra caixa (ou a mesma arma) reinicia o tempo/munição
         OnWeaponChanged?.Invoke(currentWeapon);

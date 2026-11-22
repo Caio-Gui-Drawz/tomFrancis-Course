@@ -56,4 +56,8 @@ public class WeaponData : ScriptableObject
 
     [Tooltip("Evento do FMOD tocado quando o player troca PARA esta arma.")]
     public EventReference swapSound;
+
+    [Header("Mira (crosshair)")]
+    [Tooltip("Visual do crosshair com esta arma (sprite, cores, pulso de tiro). Vazio = usa o perfil padrão do CrosshairController.")]
+    public CrosshairProfile crosshair;
 }

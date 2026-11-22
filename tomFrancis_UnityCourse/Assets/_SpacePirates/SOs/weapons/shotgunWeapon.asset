@@ -40,3 +40,4 @@ MonoBehaviour:
       Data3: -1188058207
       Data4: -1156460065
     Path: event:/sfx/player/weapons/weaponSwap/assaultSwap
+  crosshair: {fileID: 11400000, guid: 26603279430f3c54982bd7f799acddba, type: 2}
