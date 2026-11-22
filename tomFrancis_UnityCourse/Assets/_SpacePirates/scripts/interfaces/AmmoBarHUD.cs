@@ -29,8 +29,24 @@ public class AmmoBarHUD : MonoBehaviour
     [Tooltip("Cor dos quadrados de balas já gastas (mais escura).")]
     public Color usedColor = new Color(0.18f, 0.18f, 0.18f, 0.9f);
 
+    public enum LayoutMode { Line, Arc }
+
     [Header("Layout")]
+    [Tooltip("Line = fileira reta que ocupa a largura do Container. Arc = quadradinhos ao longo de um arco em volta do centro do Container (ex.: meia-lua embaixo do crosshair).")]
+    public LayoutMode layoutMode = LayoutMode.Line;
     [Min(0f)] public float spacing = 3f;
+
+    [Header("Arco (só no modo Arc)")]
+    [Tooltip("Raio do arco em pixels do Canvas, a partir do centro do Container.")]
+    [Min(1f)] public float arcRadius = 50f;
+    [Tooltip("Direção do meio do arco em graus: -90 = embaixo (meia-lua embaixo), 90 = em cima, 0 = direita, 180 = esquerda.")]
+    public float arcCenterAngle = -90f;
+    [Tooltip("Abertura total do arco em graus. 120 = um terço de círculo; 180 = meia-lua.")]
+    [Range(10f, 360f)] public float arcSpanDegrees = 120f;
+    [Tooltip("Espaço entre quadrados, em graus.")]
+    [Min(0f)] public float arcSpacingDegrees = 3f;
+    [Tooltip("Espessura de cada quadrado (no sentido do raio), em pixels.")]
+    [Min(1f)] public float arcThickness = 8f;
     [Tooltip("Ligado = as balas somem pela direita (os quadrados da esquerda ficam por último). Desligado = somem pela esquerda.")]
     public bool consumeFromRight = true;
 
@@ -69,7 +85,7 @@ public class AmmoBarHUD : MonoBehaviour
 
     void LateUpdate()
     {
-        if (container == null || count == 0) return;
+        if (container == null || count == 0 || layoutMode == LayoutMode.Arc) return;
         Vector2 size = container.rect.size;
         if (size != lastSize) Layout();
     }
@@ -166,7 +182,44 @@ public class AmmoBarHUD : MonoBehaviour
     }
 
     // Distribui os quadrados na largura do container: largura de cada um = (total - espaços) / quantidade.
+    void OnValidate()
+    {
+        if (Application.isPlaying && count > 0) Layout();
+    }
+
     void Layout()
+    {
+        if (layoutMode == LayoutMode.Arc) LayoutArc();
+        else LayoutLine();
+    }
+
+    // Quadrados ao longo de um arco: cada um é rotacionado na tangente. O índice 0 fica na ponta esquerda do arco.
+    void LayoutArc()
+    {
+        if (container == null || count <= 0) return;
+        lastSize = container.rect.size;
+
+        float step = arcSpanDegrees / count;
+        float gap = Mathf.Min(arcSpacingDegrees, step * 0.9f);
+        float segmentAngle = step - gap;
+        float segmentLength = Mathf.Max(0.5f, arcRadius * segmentAngle * Mathf.Deg2Rad);
+        float firstAngle = arcCenterAngle - arcSpanDegrees * 0.5f + step * 0.5f;
+
+        for (int i = 0; i < count; i++)
+        {
+            float angle = firstAngle + i * step;
+            float rad = angle * Mathf.Deg2Rad;
+
+            RectTransform rt = segments[i].rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = new Vector2(segmentLength, arcThickness);
+            rt.anchoredPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * arcRadius;
+            rt.localRotation = Quaternion.Euler(0f, 0f, angle + 90f);
+        }
+    }
+
+    void LayoutLine()
     {
         if (container == null) return;
         Rect rect = container.rect;
@@ -179,6 +232,9 @@ public class AmmoBarHUD : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             RectTransform rt = segments[i].rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.localRotation = Quaternion.identity;
             rt.sizeDelta = new Vector2(width, height);
             rt.anchoredPosition = new Vector2(i * (width + spacing) + width * 0.5f, 0f); // âncora na borda esquerda do container
         }

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a83d4215979ad444a7a15d772206344, type: 3}
+  m_Name: pistolCrossHair
+  m_EditorClassIdentifier: Assembly-CSharp::CrosshairProfile
+  sprite: {fileID: 21300000, guid: 43e79f928d86a144da3e86fd82ea5446, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 64
+  reload:
+    sprite: {fileID: 21300000, guid: 0555eb9e3efdc3245a120d292a289917, type: 3}
+    changeColor: 1
+    color: {r: 1, g: 1, b: 1, a: 0.45}
+    sizeMultiplier: 1
+  lowAmmo:
+    sprite: {fileID: 21300000, guid: 43e79f928d86a144da3e86fd82ea5446, type: 3}
+    changeColor: 1
+    color: {r: 1, g: 0.35, b: 0.25, a: 1}
+    sizeMultiplier: 1
+  lowAmmoFraction: 0.25
+  hit:
+    sprite: {fileID: 21300000, guid: 1660b3932aeecad42a920f6e08cb326e, type: 3}
+    changeColor: 1
+    color: {r: 1, g: 0.9, b: 0.3, a: 1}
+    sizeMultiplier: 1
+  hitDuration: 0.12
+  firePunchScale: 0.25
+  firePunchDuration: 0.12
+  colorFadeTime: 0.06
+  showAmmoArc: 1

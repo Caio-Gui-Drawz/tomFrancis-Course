@@ -40,3 +40,4 @@ MonoBehaviour:
       Data3: -285548610
       Data4: 1934247911
     Path: event:/sfx/player/weapons/weaponSwap/smgSwap
+  crosshair: {fileID: 11400000, guid: 91ed6c2d520b2d5419d6317713f306e5, type: 2}

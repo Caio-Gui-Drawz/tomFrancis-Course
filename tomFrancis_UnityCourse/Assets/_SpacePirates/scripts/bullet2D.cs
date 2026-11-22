@@ -73,6 +73,9 @@ public class bullet2D : MonoBehaviour
 
             onHit?.Invoke();
 
+            // Marcador de acerto no crosshair (só quando a bala acerta algo que não é o player).
+            if (theirHealthSystem.GetComponent<Player2D>() == null) CrosshairController.NotifyHit();
+
             PoolManager.Instance.Return(gameObject);
         }
     }
