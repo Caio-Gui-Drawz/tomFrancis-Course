@@ -570,19 +570,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveEventController
   beats:
-  - name: midGame
-    when: 3
+  - name: endTutorial
+    when: 1
     wave: 4
-    waitForMusicStage: MidGame
-    delaySeconds: 0
-    director: {fileID: 0}
-    extraSeconds: 0
     holdNextWave: 1
+    delaySeconds: 0
+    animator: {fileID: 0}
+    trigger: endTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 4
     maxSeconds: 0
     onBegin:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 4204617435077376734}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: midGame
+    when: 2
+    wave: 4
+    holdNextWave: 1
+    delaySeconds: 4
+    animator: {fileID: 0}
+    trigger: 
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 0
+    maxSeconds: 7
+    onBegin:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2007421135}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
           m_Mode: 6
@@ -594,37 +627,187 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 4204617435077376733}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onEnd:
       m_PersistentCalls:
-        m_Calls: []
-  - name: endGame
-    when: 3
-    wave: 8
-    waitForMusicStage: endGame
-    delaySeconds: 0
-    director: {fileID: 0}
-    extraSeconds: 0
-    holdNextWave: 1
-    maxSeconds: 0
-    onBegin:
-      m_PersistentCalls:
-        m_Calls: []
-    onEnd:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: fimTutorial
+        m_Calls:
+        - m_Target: {fileID: 4204617435077376737}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4204617435077376736}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4204617435077376735}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: midGameEnds
     when: 1
-    wave: 4
-    waitForMusicStage: MidGame
-    delaySeconds: 0
-    director: {fileID: 0}
-    extraSeconds: 0
+    wave: 8
     holdNextWave: 1
+    delaySeconds: 0
+    animator: {fileID: 0}
+    trigger: endTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 4
     maxSeconds: 0
     onBegin:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1674510891}
+        - m_Target: {fileID: 4204617435077376734}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: endGame1
+    when: 2
+    wave: 8
+    holdNextWave: 1
+    delaySeconds: 2
+    animator: {fileID: 846265153}
+    trigger: 2ndTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 0
+    maxSeconds: 0
+    onBegin:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4204617435077376733}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4204617435077376735}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4204617435077376736}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1288169168}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: endGame2
+    when: 2
+    wave: 9
+    holdNextWave: 1
+    delaySeconds: 0
+    animator: {fileID: 846265153}
+    trigger: 3rdTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 0
+    maxSeconds: 0
+    onBegin:
+      m_PersistentCalls:
+        m_Calls: []
+    onEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: outro
+    when: 1
+    wave: 10
+    holdNextWave: 1
+    delaySeconds: 0
+    animator: {fileID: 846265153}
+    trigger: endTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 0
+    maxSeconds: 0
+    onBegin:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4204617435077376734}
           m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
           m_MethodName: Play
           m_Mode: 1
@@ -1511,6 +1694,11 @@ MonoBehaviour:
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
+--- !u!95 &846265153 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4100325693427499136, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
+  m_PrefabInstance: {fileID: 861906631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &846956884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +1801,10 @@ PrefabInstance:
     - target: {fileID: 7356902983937904769, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
       propertyPath: m_Name
       value: BlackHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 7356902983937904769, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1965,6 +2157,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1130104355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1288169168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2213985062706834269, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!4 &1373156798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
@@ -2318,17 +2521,6 @@ MonoBehaviour:
   autoSpawn: 0
   autoSpawnInterval: 1.5
   autoSpawnOnlyWhenPlaying: 1
---- !u!114 &1674510891 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 30088790842736839, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
-  m_PrefabInstance: {fileID: 4204617435077376732}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!1 &1811421397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,6 +2810,11 @@ Transform:
   - {fileID: 822003399}
   m_Father: {fileID: 1558080348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2007421135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7356902983937904769, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
+  m_PrefabInstance: {fileID: 861906631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2008155445
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3272,10 @@ PrefabInstance:
       value: event:/music/combatMusic
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutSeconds
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: music.Guid.Data1
       value: 1735050024
       objectReference: {fileID: 0}
@@ -3095,6 +3296,50 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutCommand.Path
+      value: event:/music/fadeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: restoreCommand.Path
+      value: event:/music/fadeIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutCommand.Guid.Data1
+      value: 1802477397
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutCommand.Guid.Data2
+      value: 1272859085
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutCommand.Guid.Data3
+      value: -108129120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: fadeOutCommand.Guid.Data4
+      value: -595907989
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: restoreCommand.Guid.Data1
+      value: -416272685
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: restoreCommand.Guid.Data2
+      value: 1132851227
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: restoreCommand.Guid.Data3
+      value: -265656957
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: restoreCommand.Guid.Data4
+      value: -450134568
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: stages.Array.data[0].name
       value: MidGame
       objectReference: {fileID: 0}
@@ -3111,6 +3356,18 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].name
+      value: music1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].name
+      value: music2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].name
+      value: music3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: stages.Array.data[0].trigger
       value: 8
       objectReference: {fileID: 0}
@@ -3119,12 +3376,72 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].music.Path
+      value: event:/music/combatMusic1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].music.Path
+      value: event:/music/combatMusic2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].music.Path
+      value: event:/music/combatMusic3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: stages.Array.data[0].waitForMarker
       value: wave4_8
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: stages.Array.data[1].waitForMarker
       value: wave_9_10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].music.Guid.Data1
+      value: 1744472764
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].music.Guid.Data2
+      value: 1182743050
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].music.Guid.Data3
+      value: 1763639956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[0].music.Guid.Data4
+      value: 821090465
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].music.Guid.Data1
+      value: 608441606
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].music.Guid.Data2
+      value: 1325307359
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].music.Guid.Data3
+      value: -1473038972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[1].music.Guid.Data4
+      value: 2024253218
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].music.Guid.Data1
+      value: 100040863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].music.Guid.Data2
+      value: 1132343043
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].music.Guid.Data3
+      value: -872244085
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: tracks.Array.data[2].music.Guid.Data4
+      value: 1746364222
       objectReference: {fileID: 0}
     - target: {fileID: 4808067860812779315, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: stages.Array.data[0].changes.Array.size
@@ -3178,6 +3495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6050007389527369488, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventPlayTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8990253151450278725, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3223,6 +3544,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+--- !u!114 &4204617435077376733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5955361575365867773, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+--- !u!114 &4204617435077376734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7427910013670471236, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+--- !u!114 &4204617435077376735 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3618982509361151330, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+--- !u!114 &4204617435077376736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 552117826923888707, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+--- !u!114 &4204617435077376737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6050007389527369488, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!1001 &6269255643883363393
 PrefabInstance:
   m_ObjectHideFlags: 0
