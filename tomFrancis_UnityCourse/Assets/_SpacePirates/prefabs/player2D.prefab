@@ -4583,6 +4583,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6082468082334875254}
     m_Modifications:
+    - target: {fileID: 434919491244626536, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 707342720171108846, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762475648445207943, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3347556654458312333, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3393534438539902574, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4623,9 +4639,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.021
       objectReference: {fileID: 0}
+    - target: {fileID: 3497967251343303608, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152515657806717278, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091417943976604174, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7399562185870789498, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
       propertyPath: m_Name
       value: Par_Player_Hurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036321913648708266, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8385560007280233871, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840180685478887833, guid: 0171e4b249a8455459c5075e224a69ab, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

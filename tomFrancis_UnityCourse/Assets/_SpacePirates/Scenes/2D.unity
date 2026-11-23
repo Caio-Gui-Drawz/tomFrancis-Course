@@ -960,6 +960,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2043407773391898878, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2102112429448459536, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: fill
       value: 
@@ -1039,6 +1043,10 @@ PrefabInstance:
     - target: {fileID: 4953810988252584989, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.3381984
+      objectReference: {fileID: 0}
+    - target: {fileID: 5224717621111119850, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5529593669292180695, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1255,6 +1263,10 @@ PrefabInstance:
     - target: {fileID: 7878567744855332695, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009081844630233225, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8094760540718478058, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_SortingLayer
@@ -1821,7 +1833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356902983937904769, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3735,6 +3747,10 @@ PrefabInstance:
     - target: {fileID: 1042754149190004870, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: m_Name
       value: CanvasHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042754149190004870, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1779335962253629197, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: waveManager

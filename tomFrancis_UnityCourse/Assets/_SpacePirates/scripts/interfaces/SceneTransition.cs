@@ -16,8 +16,15 @@ public class SceneTransition : MonoBehaviour
 {
     [Tooltip("Dispara assim que o jogador sai da tela final, antes da espera. Ligue o evento de fade out do FMOD aqui.")]
     public UnityEvent onBeginLeave;
-    [Tooltip("Tempo (s) entre o On Begin Leave e o recarregamento da cena. Use a duração do fade out. 0 = recarrega na hora.")]
+    [Tooltip("Tempo (s) entre o On Begin Leave e o recarregamento da cena. Use a duração do fade out da música. 0 = recarrega na hora.")]
     [Min(0f)] public float waitSeconds = 2f;
+
+    [Header("Fade de tela (ScreenFader)")]
+    [Tooltip("Ligado = a tela escurece (ScreenFader) ao mesmo tempo que o On Begin Leave. A cena só recarrega depois do maior entre 'Wait Seconds' e o fade de tela.")]
+    public bool fadeScreen = true;
+    [Min(0f)] public float screenFadeSeconds = 1.5f;
+    [Tooltip("Opcional: se vazio, usa o ScreenFader da cena.")]
+    public ScreenFader fader;
 
     [Tooltip("Para TODAS as instâncias do FMOD (músicas e snapshots, como o do pause) logo antes de recarregar a cena. Evita snapshot/música presos de uma partida para a outra.")]
     public bool stopAllFmodBeforeReload = true;
@@ -53,8 +60,14 @@ public class SceneTransition : MonoBehaviour
     {
         onBeginLeave?.Invoke();
 
+        // Tela escurece junto com o On Begin Leave (o fader usa tempo real, funciona com o jogo pausado).
+        ScreenFader f = fadeScreen ? (fader != null ? fader : ScreenFader.Instance) : null;
+        if (fadeScreen && f == null) Debug.LogWarning("[SceneTransition] 'Fade Screen' ligado, mas não há ScreenFader na cena.", this);
+        if (f != null) f.FadeToBlack(screenFadeSeconds);
+
         // Tempo real: funciona mesmo se o jogo estiver com timeScale 0.
         if (waitSeconds > 0f) yield return new WaitForSecondsRealtime(waitSeconds);
+        if (f != null) yield return f.WaitForFade();
 
         if (log) Debug.Log("[SceneTransition] espera acabou, recarregando a cena.", this);
         if (stopAllFmodBeforeReload) StopAllFmodInstances();
