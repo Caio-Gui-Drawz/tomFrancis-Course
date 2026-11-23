@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Colocar em um objeto que fica sempre ativo na cena de gameplay (não dentro do painel que
 // aparece/some, senão o Update para de rodar quando o painel estiver desligado).
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel; // arraste aqui o painel de UI do menu de pausa
+    [Tooltip("Opcional: SceneTransition que faz o fade out da música e só então volta ao menu inicial. Vazio = volta na hora.")]
+    public SceneTransition transition;
 
     void OnEnable()
     {
@@ -53,6 +56,15 @@ public class PauseMenu : MonoBehaviour
     public void ResumeButton()
     {
         GameManager.Instance.SetState(GameState.Playing);
+    }
+
+    // Ligar no OnClick do botão "Menu Principal" do menu de pausa.
+    public void BackToMenuButton()
+    {
+        if (transition != null) { transition.BackToMenu(); return; }
+        GameManager.startPlayingOnLoad = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

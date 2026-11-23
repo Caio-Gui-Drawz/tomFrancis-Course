@@ -807,7 +807,7 @@ MonoBehaviour:
     onBegin:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 4204617435077376734}
+        - m_Target: {fileID: 1828354969}
           m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
           m_MethodName: Play
           m_Mode: 1
@@ -1539,6 +1539,23 @@ Transform:
   - {fileID: 292536312}
   m_Father: {fileID: 1892786144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &790642797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
+  m_PrefabInstance: {fileID: 7616464204641753285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &790642802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790642797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b4f70a5f94f4340b3d8bed5a603c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FmodEmitterDebug
 --- !u!1 &801789442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,6 +2637,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1130104355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1828354969 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3727100459067130536, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+  m_PrefabInstance: {fileID: 4204617435077376732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
 --- !u!1 &1862200604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3499,6 +3527,10 @@ PrefabInstance:
       propertyPath: EventPlayTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6050007389527369488, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
+      propertyPath: EventStopTrigger
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8990253151450278725, guid: 23ef9620684fe7b4ba0f3e25960a2e48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3708,6 +3740,58 @@ PrefabInstance:
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1558080347}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: waitSeconds
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4204617435077376734}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FMODUnity.StudioEventEmitter, FMODUnity
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: waitSeconds
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4204617435077376734}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FMODUnity.StudioEventEmitter, FMODUnity
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5450516246234961508, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3755,7 +3839,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 790642802}
   m_SourcePrefab: {fileID: 100100000, guid: 1b796d7ee73617741910484408b25104, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

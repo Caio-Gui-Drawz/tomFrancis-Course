@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu : MonoBehaviour
 {
     public GameObject gameOverPanel;
+    [Tooltip("Opcional: SceneTransition que faz o fade out da música e só então recarrega a cena. Vazio = recarrega na hora.")]
+    public SceneTransition transition;
 
     void OnEnable()
     {
@@ -29,6 +31,7 @@ public class GameOverMenu : MonoBehaviour
     // Ligar no OnClick do botão "Jogar de Novo".
     public void PlayAgainButton()
     {
+        if (transition != null) { transition.PlayAgain(); return; }
         GameManager.startPlayingOnLoad = true;
         ReloadScene();
     }
@@ -36,6 +39,7 @@ public class GameOverMenu : MonoBehaviour
     // Ligar no OnClick do botão "Menu Principal".
     public void BackToMenuButton()
     {
+        if (transition != null) { transition.BackToMenu(); return; }
         GameManager.startPlayingOnLoad = false;
         ReloadScene();
     }
