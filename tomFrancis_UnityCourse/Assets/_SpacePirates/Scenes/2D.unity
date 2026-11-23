@@ -575,6 +575,7 @@ MonoBehaviour:
     wave: 4
     holdNextWave: 1
     delaySeconds: 0
+    waitForPlayerOutro: 0
     animator: {fileID: 0}
     trigger: endTransition
     animatorLayer: 0
@@ -605,6 +606,7 @@ MonoBehaviour:
     wave: 4
     holdNextWave: 1
     delaySeconds: 4
+    waitForPlayerOutro: 0
     animator: {fileID: 0}
     trigger: 
     animatorLayer: 0
@@ -683,6 +685,7 @@ MonoBehaviour:
     wave: 8
     holdNextWave: 1
     delaySeconds: 0
+    waitForPlayerOutro: 0
     animator: {fileID: 0}
     trigger: endTransition
     animatorLayer: 0
@@ -713,6 +716,7 @@ MonoBehaviour:
     wave: 8
     holdNextWave: 1
     delaySeconds: 2
+    waitForPlayerOutro: 0
     animator: {fileID: 846265153}
     trigger: 2ndTransition
     animatorLayer: 0
@@ -779,6 +783,7 @@ MonoBehaviour:
     wave: 9
     holdNextWave: 1
     delaySeconds: 0
+    waitForPlayerOutro: 0
     animator: {fileID: 846265153}
     trigger: 3rdTransition
     animatorLayer: 0
@@ -797,6 +802,7 @@ MonoBehaviour:
     wave: 10
     holdNextWave: 1
     delaySeconds: 0
+    waitForPlayerOutro: 1
     animator: {fileID: 846265153}
     trigger: endTransition
     animatorLayer: 0
@@ -819,9 +825,33 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1373156808}
+          m_TargetAssemblyTypeName: PlayerEntrance, Assembly-CSharp
+          m_MethodName: PlayOutro
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onEnd:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1108332933}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   log: 1
 --- !u!212 &504004586 stripped
 SpriteRenderer:
@@ -1833,7 +1863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356902983937904769, guid: 2aa2ecb5a3bd8c847b4abfae1235ece0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1958,6 +1988,11 @@ Transform:
   - {fileID: 1515917823}
   m_Father: {fileID: 1892786144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1108332933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649233407755011967, guid: 3f6a95c7fc59855489f51c5213c52749, type: 3}
+  m_PrefabInstance: {fileID: 6269255643883363393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1130104353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,6 +2237,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
   m_PrefabInstance: {fileID: 560543434}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1373156808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 454513021665922130, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+  m_PrefabInstance: {fileID: 560543434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b346f111510de04429f12d9fe197c6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerEntrance
 --- !u!1 &1483278407
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,7 +3796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1042754149190004870, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1779335962253629197, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: waveManager
@@ -3864,6 +3910,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 601217035}
   - {fileID: 650705036}
   - {fileID: 1862200607}
   - {fileID: 7616464204641753285}
@@ -3872,5 +3919,4 @@ SceneRoots:
   - {fileID: 560543434}
   - {fileID: 6269255643883363393}
   - {fileID: 815036874}
-  - {fileID: 601217035}
   - {fileID: 861906631}

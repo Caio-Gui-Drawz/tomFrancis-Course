@@ -154,6 +154,8 @@ public class WaveManager : MonoBehaviour
     IEnumerator WaitAndStartFirstWave()
     {
         yield return new WaitForSeconds(BeforeFirstWaveValue);
+        // Se o player ainda está fazendo a entrada (PlayerEntrance), espera ela terminar.
+        while (PlayerEntrance.Instance != null && PlayerEntrance.Instance.IntroPending) yield return null;
         StartWave();
     }
 
@@ -466,6 +468,7 @@ public class WaveManager : MonoBehaviour
             if (player != null) player.SetCombatStance(true);
         }
 
+        if (PlayerEntrance.Instance != null) PlayerEntrance.Instance.SkipIntro();
         StartWave();
     }
 

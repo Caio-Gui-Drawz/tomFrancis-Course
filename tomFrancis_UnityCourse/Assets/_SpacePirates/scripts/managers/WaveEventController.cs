@@ -32,6 +32,10 @@ public class WaveEventController : MonoBehaviour
         [Tooltip("Espera (s) antes de começar o evento.")]
         [Min(0f)] public float delaySeconds = 0f;
 
+        [Header("Player (PlayerEntrance)")]
+        [Tooltip("Ligado = depois do On Begin, o evento espera o player terminar a saída (PlayerEntrance.PlayOutro) antes de seguir para a animação.")]
+        public bool waitForPlayerOutro = false;
+
         [Header("Animação")]
         public Animator animator;
         [Tooltip("Parâmetro Trigger do Animator que será disparado. Vazio = sem animação.")]
@@ -138,6 +142,17 @@ public class WaveEventController : MonoBehaviour
         if (b.delaySeconds > 0f) yield return new WaitForSeconds(b.delaySeconds);
 
         b.onBegin?.Invoke();
+
+        if (b.waitForPlayerOutro)
+        {
+            if (PlayerEntrance.Instance == null) Debug.LogWarning("WaveEventController: '" + b.name + "' espera a saída do player, mas não há PlayerEntrance na cena.", this);
+            else
+            {
+                // 1 frame: dá tempo do On Begin chamar PlayOutro.
+                yield return null;
+                while (!PlayerEntrance.Instance.OutroDone && Time.unscaledTime < deadline) yield return null;
+            }
+        }
 
         if (b.animationDelaySeconds > 0f) yield return new WaitForSeconds(b.animationDelaySeconds);
 

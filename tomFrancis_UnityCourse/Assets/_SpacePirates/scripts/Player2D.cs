@@ -71,6 +71,8 @@ public class Player2D : MonoBehaviour
     public bool InCombatStance { get { return inCombatStance; } }
 
     bool canAct;
+    bool inputLocked; // travado por cena de entrada/saída (PlayerEntrance): sem mira nem tiro
+    public bool InputLocked { get { return inputLocked; } set { inputLocked = value; } }
     bool inCombatStance; // só pode atirar depois que a wave 1 começa (antes disso: só voando)
 
     void Start()
@@ -139,7 +141,7 @@ public class Player2D : MonoBehaviour
 
     void Update()
     {
-        if (!canAct) return;
+        if (!canAct || inputLocked) return;
 
         // Calcula o ângulo até o mouse (mas não gira o player com isso — ver comentário
         // em currentAimAngle acima). O braço quem se vira sozinho, via IK (AimArmToMouse).
