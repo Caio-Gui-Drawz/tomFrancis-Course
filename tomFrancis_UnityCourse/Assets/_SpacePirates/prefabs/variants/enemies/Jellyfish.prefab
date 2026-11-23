@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202d67f798957dd47a40aa83c9306949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SineMovement
-  forwardSpeed: 30
+  forwardSpeed: 20
   amplitude: 13
   frequency: 2
   randomizeDirection: 1

@@ -19,6 +19,14 @@ public class ParallaxSpeedController : MonoBehaviour
     [Tooltip("Segundos para voltar à velocidade normal ao sair da fase de loot.")]
     public float lootSpeedUpSeconds = 1.2f;
 
+    [Header("Fim do jogo (todas as waves concluídas)")]
+    [Tooltip("Velocidade base quando o jogador termina a última wave (mesma escala de Max Play Speed). Vale no lugar da aceleração normal e do multiplicador de loot.")]
+    public float finalSpeed = 80f;
+    [Tooltip("Segundos para ir da velocidade atual até a Final Speed (curva suave).")]
+    [Min(0f)] public float finalSpeedSeconds = 3f;
+    [Tooltip("Ligado = muda sozinho quando todas as waves terminam. Desligado = só quando você chamar EnterFinalSpeed() (ex.: por um UnityEvent).")]
+    public bool applyOnAllWavesCompleted = true;
+
     // Velocidade "base" (menu / aceleração da corrida), SEM o multiplicador extra.
     public float CurrentGlobalSpeed { get; private set; }
 
@@ -37,6 +45,12 @@ public class ParallaxSpeedController : MonoBehaviour
     float extraTime;
     float extraDuration;
 
+    bool finalPhase;
+    float finalFrom;
+    float finalTime;
+    float finalDuration;
+    WaveManager waves;
+
     void Awake()
     {
         Instance = this;
@@ -49,6 +63,35 @@ public class ParallaxSpeedController : MonoBehaviour
         GameManager.Instance.OnStateChanged += HandleStateChanged;
     }
 
+    void Start()
+    {
+        waves = FindFirstObjectByType<WaveManager>();
+        if (waves != null) waves.OnAllWavesCompleted += HandleAllWavesCompleted;
+    }
+
+    void OnDestroy()
+    {
+        if (waves != null) waves.OnAllWavesCompleted -= HandleAllWavesCompleted;
+    }
+
+    void HandleAllWavesCompleted()
+    {
+        if (applyOnAllWavesCompleted) EnterFinalSpeed();
+    }
+
+    // Vai para a Final Speed e tira o multiplicador de loot. Para chamar por UnityEvent também.
+    public void EnterFinalSpeed()
+    {
+        if (finalPhase) return;
+        finalPhase = true;
+        accelerating = false;
+        finalFrom = CurrentGlobalSpeed;
+        finalTime = 0f;
+        finalDuration = Mathf.Max(0f, finalSpeedSeconds);
+        if (finalDuration <= 0f) CurrentGlobalSpeed = finalSpeed;
+        SetExtraMultiplier(1f, finalSpeedSeconds);
+    }
+
     void OnDisable()
     {
         GameManager.Instance.OnStateChanged -= HandleStateChanged;
@@ -57,6 +100,7 @@ public class ParallaxSpeedController : MonoBehaviour
     // Chamado pelo WaveManager ao começar/terminar a fase de loot.
     public void EnterLootSlowdown()
     {
+        if (finalPhase) return;
         SetExtraMultiplier(lootSpeedMultiplier, lootSlowDownSeconds);
     }
 
@@ -77,6 +121,7 @@ public class ParallaxSpeedController : MonoBehaviour
 
     void ResetExtra()
     {
+        finalPhase = false;
         ExtraMultiplier = 1f;
         extraFrom = 1f;
         extraTo = 1f;
@@ -104,7 +149,7 @@ public class ParallaxSpeedController : MonoBehaviour
                 }
                 // Se veio de Paused, não mexe em CurrentGlobalSpeed — só retoma a aceleração de onde parou.
                 targetSpeed = maxPlaySpeed;
-                accelerating = true;
+                accelerating = !finalPhase;
                 break;
 
             case GameState.Paused:
@@ -127,6 +172,12 @@ public class ParallaxSpeedController : MonoBehaviour
     {
         UpdateExtra();
 
+        if (finalPhase)
+        {
+            UpdateFinal();
+            return;
+        }
+
         if (!accelerating) return;
 
         CurrentGlobalSpeed = Mathf.MoveTowards(CurrentGlobalSpeed, targetSpeed, accelerationRate * Time.deltaTime);
@@ -134,6 +185,17 @@ public class ParallaxSpeedController : MonoBehaviour
         {
             accelerating = false;
         }
+    }
+
+    void UpdateFinal()
+    {
+        if (Mathf.Approximately(CurrentGlobalSpeed, finalSpeed)) return;
+
+        finalTime += Time.deltaTime;
+        float k = finalDuration > 0f ? Mathf.Clamp01(finalTime / finalDuration) : 1f;
+        k = k * k * (3f - 2f * k);
+        CurrentGlobalSpeed = Mathf.Lerp(finalFrom, finalSpeed, k);
+        if (k >= 1f) CurrentGlobalSpeed = finalSpeed;
     }
 
     void UpdateExtra()
@@ -153,4 +215,7 @@ public class ParallaxSpeedController : MonoBehaviour
 
     [ContextMenu("Testar: sair da fase de loot")]
     void TestExit() { ExitLootSlowdown(); }
+
+    [ContextMenu("Testar: velocidade final")]
+    void TestFinal() { EnterFinalSpeed(); }
 }

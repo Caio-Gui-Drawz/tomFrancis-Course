@@ -581,7 +581,7 @@ MonoBehaviour:
     animatorLayer: 0
     waitForState: 
     animationDelaySeconds: 0
-    extraSeconds: 4
+    extraSeconds: 2
     maxSeconds: 0
     onBegin:
       m_PersistentCalls:
@@ -605,7 +605,7 @@ MonoBehaviour:
     when: 2
     wave: 4
     holdNextWave: 1
-    delaySeconds: 4
+    delaySeconds: 2
     waitForPlayerOutro: 0
     animator: {fileID: 0}
     trigger: 
@@ -691,7 +691,7 @@ MonoBehaviour:
     animatorLayer: 0
     waitForState: 
     animationDelaySeconds: 0
-    extraSeconds: 4
+    extraSeconds: 2
     maxSeconds: 0
     onBegin:
       m_PersistentCalls:
@@ -715,7 +715,7 @@ MonoBehaviour:
     when: 2
     wave: 8
     holdNextWave: 1
-    delaySeconds: 2
+    delaySeconds: 0
     waitForPlayerOutro: 0
     animator: {fileID: 846265153}
     trigger: 2ndTransition
@@ -1645,7 +1645,6 @@ MonoBehaviour:
   prefab: {fileID: 7248225474357231985, guid: f6c42b8becc9f4a42ad3917c4a4fc84b, type: 3}
   allowedSpawnPoints:
   - {fileID: 1554308291}
-  - {fileID: 1938815160}
   - {fileID: 1515917823}
   offsetRange: {x: -2, y: 2}
   avoidRepeatLastPoints: 1
@@ -1922,6 +1921,9 @@ MonoBehaviour:
   lootSpeedMultiplier: 0.3
   lootSlowDownSeconds: 2
   lootSpeedUpSeconds: 2
+  finalSpeed: 5
+  finalSpeedSeconds: 4
+  applyOnAllWavesCompleted: 1
 --- !u!1 &1038259000
 GameObject:
   m_ObjectHideFlags: 0
