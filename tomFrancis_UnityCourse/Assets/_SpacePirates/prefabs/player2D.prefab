@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101368967546508708}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.8413813, w: 0.54044193}
+  m_LocalRotation: {x: 0, y: 0, z: 0.8413813, w: 0.540442}
   m_LocalPosition: {x: 0.97099996, y: -0.2801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -741,7 +741,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742191452001475562}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.29570806, w: 0.9552784}
+  m_LocalRotation: {x: 0, y: 0, z: 0.22515003, w: 0.9743241}
   m_LocalPosition: {x: 2.7644, y: 0.76339996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -885,7 +885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2436612475181752101}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7405162, w: 0.67203856}
+  m_LocalRotation: {x: 0, y: 0, z: 0.74051607, w: 0.6720387}
   m_LocalPosition: {x: 4.9404, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -939,7 +939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2494651317925912658}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.9073811, w: 0.42030883}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9073811, w: 0.42030895}
   m_LocalPosition: {x: 0.6579, y: 0.385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -993,7 +993,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2555644599990898591}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7085261, w: 0.7056846}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7085262, w: 0.7056846}
   m_LocalPosition: {x: 4.8361998, y: -0.044, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1155,7 +1155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2761291274223630672}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.49135986, w: 0.87095666}
+  m_LocalRotation: {x: 0, y: 0, z: -0.4039445, w: 0.9147835}
   m_LocalPosition: {x: 4.1040998, y: -2.0589998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1262,7 +1262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2811702022932840540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.28645566, w: 0.9580935}
+  m_LocalRotation: {x: 0, y: 0, z: 0.28645578, w: 0.95809346}
   m_LocalPosition: {x: 1.0426, y: -0.012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1369,7 +1369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2951930110234645605}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.4497867, w: 0.893136}
+  m_LocalRotation: {x: 0, y: 0, z: -0.5138153, w: 0.85790086}
   m_LocalPosition: {x: 1.4555999, y: 0.8795, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1986,7 +1986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5090973896617084914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.3381984, w: 0.94107485}
+  m_LocalRotation: {x: 0, y: 0, z: 0.33819857, w: 0.9410748}
   m_LocalPosition: {x: 0.95309997, y: -0.015899999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2178,7 +2178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6015932786107008765}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.29570806, w: 0.9552784}
+  m_LocalRotation: {x: 0, y: 0, z: 0.22515003, w: 0.9743241}
   m_LocalPosition: {x: 1.8307999, y: 1.2107999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2841,7 +2841,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.019371942, w: 0.99981236}
   m_LocalPosition: {x: 5.0201, y: -1.6041, z: 0}
-  m_LocalScale: {x: 0.334, y: 1.074, z: 1}
+  m_LocalScale: {x: 0.52831244, y: 0.9135437, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4496772193279321658}
@@ -3199,7 +3199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6715097754451623787}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.4497867, w: 0.893136}
+  m_LocalRotation: {x: 0, y: 0, z: -0.5138153, w: 0.85790086}
   m_LocalPosition: {x: 0.7175, y: 0.78089994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3576,7 +3576,7 @@ Transform:
   m_GameObject: {fileID: 7789882166028037274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0042, y: 0.117800005, z: 0}
+  m_LocalPosition: {x: -0.0027737021, y: -0.3469056, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3620,6 +3620,7 @@ GameObject:
   - component: {fileID: 3957120532492979787}
   - component: {fileID: 5257061260410028723}
   - component: {fileID: 1911363722520752126}
+  - component: {fileID: 5984228245454829867}
   m_Layer: 0
   m_Name: Spine GameObject (SpacePirate_Spine)
   m_TagString: Untagged
@@ -3826,6 +3827,30 @@ MonoBehaviour:
   flipBy180DegreeRotation: 0
   skeletonRenderer: {fileID: 7460847933537858617}
   skeletonGraphic: {fileID: 0}
+--- !u!114 &5984228245454829867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922504853049469839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f2fa991881c6d419500ccc40ad443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: spine-unity-examples::Spine.Unity.Examples.SkeletonGhost
+  ghostingEnabled: 1
+  spawnInterval: 0.05
+  maximumGhosts: 10
+  fadeSpeed: 2.5
+  ghostShader: {fileID: 4800000, guid: 3873d4699ee8a4b4da8fa6b8c229b94d, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 1075636204
+  additive: 1
+  textureFade: 0.042
+  sortWithDistanceOnly: 0
+  zOffset: 0
 --- !u!1 &8283550616074106370
 GameObject:
   m_ObjectHideFlags: 0
