@@ -88,6 +88,23 @@ public class PlayerMovement2D : MonoBehaviour
         get { return (verticalMovementEnabled && maxSpeed > 0f) ? Mathf.Clamp(currentVelocityY / maxSpeed, -1f, 1f) : 0f; }
     }
 
+    // true = outro script (ex.: PlayerEntrance) controla a posição: o movimento por input fica totalmente parado.
+    bool externalControl;
+    public bool ExternalControl
+    {
+        get { return externalControl; }
+        set
+        {
+            externalControl = value;
+            if (value)
+            {
+                currentVelocityX = 0f;
+                currentVelocityY = 0f;
+                if (body != null) body.linearVelocity = Vector2.zero;
+            }
+        }
+    }
+
     Rigidbody2D body;
     RigidbodyConstraints2D originalConstraints;
     float originalGravityScale;
@@ -169,7 +186,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     void ReturnToStart()
     {
-        if (body == null) return;
+        if (body == null || externalControl) return;
         body.position = new Vector2(startPosition.x, startPosition.y);
         transform.position = new Vector3(startPosition.x, startPosition.y, transform.position.z);
     }
@@ -227,6 +244,7 @@ public class PlayerMovement2D : MonoBehaviour
     void FixedUpdate()
     {
         if (!verticalMovementEnabled) return;
+        if (externalControl) return;
 
         float inputX = (playing && horizontalMovementEnabled) ? TouchInput.Horizontal : 0f; // A/D e setas
         float inputY = playing ? TouchInput.Vertical : 0f;                                  // W/S, setas e toque

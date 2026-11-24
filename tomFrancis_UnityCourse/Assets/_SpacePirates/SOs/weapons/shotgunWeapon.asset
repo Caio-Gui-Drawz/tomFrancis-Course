@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: shotgun
   bulletPrefab: {fileID: 60644171757082306, guid: 6979f587210345c43ab2c5b529596c7a, type: 3}
-  fireRate: 0.5
+  fireRate: 0.3
   automaticFire: 1
-  numberOfProjectiles: 7
-  spreadAngleDegrees: 15
+  numberOfProjectiles: 15
+  spreadAngleDegrees: 25
   pelletPositionJitter: 0.6
   pelletSpeedVariation: 0.13
   limitMode: 2
