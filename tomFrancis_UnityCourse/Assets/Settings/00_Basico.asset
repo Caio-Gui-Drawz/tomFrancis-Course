@@ -15,37 +15,18 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.10169929, g: 0.04472231, b: 0.14150941, a: 1}
+    m_Value: {r: 0.13584904, g: 0, b: 0.2264151, a: 1}
   center:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.528
+    m_Value: 0.431
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.139
+    m_Value: 0.132
   rounded:
     m_OverrideState: 0
-    m_Value: 0
---- !u!114 &-1950129824356230456
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb60a22f311433c4c962b888d1393f88, type: 3}
-  m_Name: PaniniProjection
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.PaniniProjection
-  active: 0
-  distance:
-    m_OverrideState: 1
-    m_Value: 0.189
-  cropToFit:
-    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -61,7 +42,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: -7011558710299706105}
-  - {fileID: -1950129824356230456}
   - {fileID: 7813656886003554709}
 --- !u!114 &7813656886003554709
 MonoBehaviour:
