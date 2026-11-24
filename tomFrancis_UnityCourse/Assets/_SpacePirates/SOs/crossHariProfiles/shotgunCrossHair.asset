@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: shotgunCrossHair
   m_EditorClassIdentifier: Assembly-CSharp::CrosshairProfile
   sprite: {fileID: 21300000, guid: 49683cd536b28d5458fca506113a8914, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  size: 64
+  color: {r: 1, g: 1, b: 1, a: 0.4}
+  size: 40
   reload:
     sprite: {fileID: 21300000, guid: 0555eb9e3efdc3245a120d292a289917, type: 3}
     changeColor: 1
-    color: {r: 1, g: 1, b: 1, a: 0.45}
+    color: {r: 1, g: 1, b: 1, a: 0.4}
     sizeMultiplier: 1
   lowAmmo:
     sprite: {fileID: 21300000, guid: 49683cd536b28d5458fca506113a8914, type: 3}
     changeColor: 1
-    color: {r: 1, g: 0.35, b: 0.25, a: 1}
+    color: {r: 1, g: 0.35, b: 0.25, a: 0.4}
     sizeMultiplier: 1
   lowAmmoFraction: 0.25
   hit:
     sprite: {fileID: 21300000, guid: 49683cd536b28d5458fca506113a8914, type: 3}
     changeColor: 1
-    color: {r: 1, g: 0.9, b: 0.3, a: 1}
+    color: {r: 1, g: 0.9, b: 0.3, a: 0.4}
     sizeMultiplier: 1
   hitDuration: 0.12
-  firePunchScale: 0.25
+  firePunchScale: 0.5
   firePunchDuration: 0.12
   colorFadeTime: 0.06
   showAmmoArc: 1

@@ -8,6 +8,7 @@ public class HUDController : MonoBehaviour
     void OnEnable()
     {
         GameManager.Instance.OnStateChanged += HandleStateChanged;
+        HandleStateChanged(GameManager.Instance.CurrentState); // já aplica o estado atual (antes do primeiro evento)
     }
 
     void OnDisable()

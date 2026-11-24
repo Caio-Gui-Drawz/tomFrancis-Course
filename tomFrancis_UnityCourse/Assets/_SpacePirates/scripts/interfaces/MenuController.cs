@@ -17,7 +17,7 @@ public class MenuController : MonoBehaviour
 
     void HandleStateChanged(GameState newState)
     {
-        menuPanel.SetActive(newState == GameState.Menu);
+        UIAnimator.SetPanelVisible(menuPanel, newState == GameState.Menu);
     }
 
     // Ligar este método no OnClick do botão "Jogar" (via Inspector).

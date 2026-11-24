@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum GameState { Menu, Playing, Paused, GameOver }
+public enum GameState { Menu, Playing, Paused, GameOver, Victory }
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     {
         SetState(startPlayingOnLoad ? GameState.Playing : GameState.Menu);
         startPlayingOnLoad = false; // reseta para a próxima vez
+    }
+
+    // Para ligar por UnityEvent (ex.: no fim do último evento de wave): mostra a tela de vitória.
+    public void Victory()
+    {
+        SetState(GameState.Victory);
     }
 
     public void SetState(GameState newState)

@@ -468,7 +468,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - label: Reiniciar cena
-    key: 114
+    key: 256
     action: 6
     prefabs: []
     waveNumber: 1
@@ -799,6 +799,61 @@ MonoBehaviour:
         m_Calls: []
   - name: outro
     when: 1
+    wave: 10
+    holdNextWave: 1
+    delaySeconds: 0
+    waitForPlayerOutro: 1
+    animator: {fileID: 846265153}
+    trigger: endTransition
+    animatorLayer: 0
+    waitForState: 
+    animationDelaySeconds: 0
+    extraSeconds: 0
+    maxSeconds: 0
+    onBegin:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1828354969}
+          m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1373156808}
+          m_TargetAssemblyTypeName: PlayerEntrance, Assembly-CSharp
+          m_MethodName: PlayOutro
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1108332933}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: outro
+    when: 4
     wave: 10
     holdNextWave: 1
     delaySeconds: 0
@@ -1368,6 +1423,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b195139b09cba4c8d848cabe5dcfb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player2D
+--- !u!114 &560543436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5599936717018119835, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+  m_PrefabInstance: {fileID: 560543434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c9c0e03e3c98346a3779fc7b8fe2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::healthSystem
 --- !u!1 &601217032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,23 +1679,6 @@ Transform:
   - {fileID: 292536312}
   m_Father: {fileID: 1892786144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &790642797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
-  m_PrefabInstance: {fileID: 7616464204641753285}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &790642802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790642797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b4f70a5f94f4340b3d8bed5a603c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FmodEmitterDebug
 --- !u!1 &801789442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3832,70 +3881,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 779317291890768942, guid: 1b796d7ee73617741910484408b25104, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 560543436}
     - target: {fileID: 1042754149190004870, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: m_Name
       value: CanvasHolder
-      objectReference: {fileID: 0}
-    - target: {fileID: 1042754149190004870, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1779335962253629197, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1558080347}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: waitSeconds
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4204617435077376734}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FMODUnity.StudioEventEmitter, FMODUnity
-      objectReference: {fileID: 0}
-    - target: {fileID: 3881315951212724219, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: waitSeconds
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4204617435077376734}
-    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
-      objectReference: {fileID: 0}
-    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FMODUnity.StudioEventEmitter, FMODUnity
-      objectReference: {fileID: 0}
-    - target: {fileID: 5425263897387316116, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      propertyPath: onBeginLeave.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5450516246234961508, guid: 1b796d7ee73617741910484408b25104, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3943,10 +3944,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4165121803584842062, guid: 1b796d7ee73617741910484408b25104, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 790642802}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b796d7ee73617741910484408b25104, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
