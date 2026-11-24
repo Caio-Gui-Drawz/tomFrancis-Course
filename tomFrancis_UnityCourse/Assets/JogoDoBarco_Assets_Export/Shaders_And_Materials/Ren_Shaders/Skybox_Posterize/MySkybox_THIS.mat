@@ -55,15 +55,15 @@ Material:
     - _EDGE2: 1.5
     - _HorizonBlend: 149.3
     - _NadirBlendPower: 2.5
-    - _NoiseSCALE: 32
-    - _Posterize_NormalTime: 0.05
+    - _NoiseSCALE: 41
+    - _Posterize_NormalTime: 0.01
     - _Posterize_Steps: 8
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SACAAC: 3.94
     - _SCALE: 35.74
     - _SINEON_POSTERIZE: 0
-    - _StarOpacity: 0.06
+    - _StarOpacity: 0.135
     - _StarSCALE: 128
     - _Star_Time: 0.005
     - _ZenithBlendPower_1: 2.5
