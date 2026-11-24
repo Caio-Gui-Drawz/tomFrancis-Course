@@ -628,11 +628,11 @@ MonoBehaviour:
   container: {fileID: 0}
   segmentPrefab: {fileID: 0}
   infiniteIndicator: {fileID: 0}
-  availableColor: {r: 1, g: 0.85, b: 0.3, a: 1}
-  usedColor: {r: 0.18, g: 0.18, b: 0.18, a: 0.9}
+  availableColor: {r: 1, g: 1, b: 1, a: 0.6509804}
+  usedColor: {r: 0.18, g: 0.18, b: 0.18, a: 0.83137256}
   layoutMode: 1
   spacing: 3
-  arcRadius: 50
+  arcRadius: 35
   arcCenterAngle: -90
   arcSpanDegrees: 180
   arcSpacingDegrees: 3
@@ -2610,7 +2610,7 @@ RectTransform:
   m_GameObject: {fileID: 4784825712028123270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3237531651842612085}
@@ -2642,7 +2642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.59607846}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
