@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
     }
     void HandleStateChanged(GameState newState)
     {
-        pausePanel.SetActive(newState == GameState.Paused);
+        UIAnimator.SetPanelVisible(pausePanel, newState == GameState.Paused);
     }
 
     // Ligar este método no OnClick do botão "Continuar" (via Inspector).

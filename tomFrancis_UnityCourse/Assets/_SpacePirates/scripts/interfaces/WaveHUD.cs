@@ -11,6 +11,8 @@ public class WaveHUD : MonoBehaviour
     [Header("Início da wave")]
     public GameObject bannerPanel; // o aviso em si (filho deste objeto), que aparece e some
     public TMP_Text waveText;
+    [Tooltip("{0} = número da wave que começou.")]
+    public string startMessage = "Wave {0}";
     public float visibleSeconds = 2f;
 
     [Header("Fim da wave")]
@@ -37,7 +39,7 @@ public class WaveHUD : MonoBehaviour
 
     void HandleWaveStarted(int waveNumber)
     {
-        Show(bannerPanel, waveText, "Wave " + waveNumber, visibleSeconds);
+        Show(bannerPanel, waveText, string.Format(startMessage, waveNumber), visibleSeconds);
     }
 
     void HandleWaveCompleted(int waveNumber)
@@ -57,17 +59,17 @@ public class WaveHUD : MonoBehaviour
         }
 
         // Só um aviso por vez: esconde o outro painel se for diferente.
-        if (bannerPanel != null && bannerPanel != panel) bannerPanel.SetActive(false);
-        if (endBannerPanel != null && endBannerPanel != panel) endBannerPanel.SetActive(false);
+        if (bannerPanel != null && bannerPanel != panel) UIAnimator.SetPanelVisible(bannerPanel, false);
+        if (endBannerPanel != null && endBannerPanel != panel) UIAnimator.SetPanelVisible(endBannerPanel, false);
 
         if (text != null) text.text = message;
-        panel.SetActive(true);
+        UIAnimator.SetPanelVisible(panel, true); // com UIAnimator no painel: entra animado
         hideRoutine = StartCoroutine(HideAfterDelay(panel, seconds));
     }
 
     IEnumerator HideAfterDelay(GameObject panel, float seconds)
     {
-        yield return new WaitForSeconds(seconds);
-        panel.SetActive(false);
+        yield return new WaitForSecondsRealtime(seconds);
+        UIAnimator.SetPanelVisible(panel, false); // com UIAnimator no painel: sai animado e só então desliga
     }
 }
