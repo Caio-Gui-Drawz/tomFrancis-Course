@@ -943,8 +943,16 @@ PrefabInstance:
       value: -0.0025113027
       objectReference: {fileID: 0}
     - target: {fileID: 1123674429965129313, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9580935
+      objectReference: {fileID: 0}
+    - target: {fileID: 1123674429965129313, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.28645566
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302508643408768918, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.42030883
       objectReference: {fileID: 0}
     - target: {fileID: 1485192531968261184, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1054,6 +1062,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3164114644380110322, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.54044193
+      objectReference: {fileID: 0}
     - target: {fileID: 4089880361267910319, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: waveManager
       value: 
@@ -1102,6 +1114,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.49135986
       objectReference: {fileID: 0}
+    - target: {fileID: 5984228245454829867, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: fadeSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5984228245454829867, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: color.rgba
+      value: 387770348
+      objectReference: {fileID: 0}
+    - target: {fileID: 5984228245454829867, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: textureFade
+      value: 0.238
+      objectReference: {fileID: 0}
     - target: {fileID: 6035196309292413793, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: ikConstraintName
       value: IK_ARM_L
@@ -1125,6 +1149,14 @@ PrefabInstance:
     - target: {fileID: 6755782662965898680, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.4497867
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775792793537286940, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.67203856
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775792793537286940, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7405162
       objectReference: {fileID: 0}
     - target: {fileID: 7141547210505645287, guid: 666213bc1ae5dfd47aaa182245371cc9, type: 3}
       propertyPath: m_LocalPosition.x
